@@ -1,0 +1,56 @@
+   Compiling neural-commons v0.1.0 (/Users/otlegend/projects/neural-commons/crates/app)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.66s
+     Running unittests src/lib.rs (target/debug/deps/nc_core-324b563bec282edc)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/patch_integrity.rs (target/debug/deps/patch_integrity-d5fa9965d5bc0695)
+
+running 2 tests
+test rejects_bad_regions_wrong_parents_tampering_and_nonfinite_values ... ok
+test unrelated_layouts_patch_deterministically_and_preserve_every_other_byte ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+     Running unittests src/lib.rs (target/debug/deps/nc_dkg_client-e3f7e5999ad14d29)
+
+running 2 tests
+test tests::remote_claim_must_match_authenticated_catalog_placement ... ok
+test tests::transfers_verify_payloads_and_refuse_redirects_and_untrusted_origins ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running unittests src/lib.rs (target/debug/deps/nc_evaluator-7ae118e38393e49b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/nc-2468016a0eb57cc3)
+
+running 2 tests
+test journal::tests::recovery_preserves_completed_computation_and_uncertain_publication ... ok
+test fixtures::tests::controlled_repair_passes_and_regression_fails_on_heldout_inputs ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.26s
+
+   Doc-tests nc_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests nc_dkg_client
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests nc_evaluator
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "source": "/Users/otlegend/projects/neural-commons/.runtime/demo-20261103-000022/a",
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "auth_denied": true,
+  "real_records": true,
+  "console_errors": []
+}

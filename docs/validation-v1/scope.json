@@ -1,0 +1,5 @@
+{
+  "physical_two_host_validation": "passed: laptop and Mac mini; controlled repair/regression, native DKG 96 MiB transfer and remote restart/fresh cache recovery; see cross-host.json",
+  "hosted_ci": "workflow added; not run on GitHub",
+  "public_chain_publication": false
+}

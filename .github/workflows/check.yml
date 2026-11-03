@@ -1,0 +1,17 @@
+name: Rust and interface checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup toolchain install 1.93.0 --profile minimal --component clippy,rustfmt
+      - run: cargo +1.93.0 fmt --all -- --check
+      - run: cargo +1.93.0 test --locked --workspace
+      - run: cargo +1.93.0 clippy --locked --workspace --all-targets -- -D warnings
+      - run: python3 -m py_compile scripts/*.py evaluators/*.py
+      - run: node --check web/app.js && node --check scripts/ui_check.cjs

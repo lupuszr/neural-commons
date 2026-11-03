@@ -1,0 +1,33 @@
+'use strict';
+const el=id=>document.getElementById(id);
+let token='';
+function node(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;}
+async function get(path){const r=await fetch(path,{headers:{Authorization:`Bearer ${token}`},signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error(`Data unavailable (HTTP ${r.status})`);return r.json();}
+const artifact=id=>get(`/api/artifact-metadata/${id}`);
+function card(title,id){const c=node('article',undefined,'card');c.append(node('strong',title),node('p',id,'id'));return c;}
+function detail(c,data){const d=node('details');d.append(node('summary','Exact evidence'),node('pre',JSON.stringify(data,null,2)));c.append(d);}
+function empty(id,items){el(id).replaceChildren();if(!items.length)el(id).append(node('div','No records in this participant journal.','empty'));}
+async function load(){token=el('token').value;el('status').textContent='Reading participant records…';el('load').disabled=true;try{
+ const state=await get('/api/state');
+ for(const section of ['checkpoints','jobs','records','publications'])empty(section,state[section]);
+ for(const row of state.checkpoints){const m=await artifact(row.id),c=card('Checkpoint',row.id),table=node('table');const head=node('tr');for(const label of ['Tensor','Shape','Type'])head.append(node('th',label));table.append(head);for(const t of m.tensors){const tr=node('tr');for(const text of [t.name,JSON.stringify(t.shape),t.dtype])tr.append(node('td',text));table.append(tr);}c.append(table);detail(c,m);el('checkpoints').append(c);}
+ for(const row of state.jobs){const c=card(row.state,row.id);if(row.report){const r=await artifact(row.report);c.append(node('span',r.status,r.status==='passed'?'good':'bad'));if(r.base_mse!==null){const max=Math.max(r.base_mse,r.candidate_mse,1e-12);for(const [label,value] of [['Base MSE',r.base_mse],['Candidate MSE',r.candidate_mse]]){c.append(node('p',`${label}: ${value.toPrecision(5)}`));const bar=node('div',undefined,'bar');bar.style.width=`${100*value/max}%`;c.append(bar);}}if(r.scores)c.append(node('p',`${r.scores.metric}: ${r.scores.base} → ${r.scores.candidate}`));if(r.error)c.append(node('p',r.error));detail(c,{report:r,history:state.job_events.filter(e=>e.job_id===row.id)});}el('jobs').append(c);}
+ for(const row of state.records){const r=JSON.parse(row.record),c=card(r.kind,row.id);if(r.fixture)c.append(node('span','SYNTHETIC FIXTURE','tag'));c.append(node('p',row.provenance),node('p',`Author: ${r.author}`));
+  const payload=await artifact(r.artifact);
+  if(r.kind==='PatchProposal'){const patch=await artifact(payload.patch);c.append(node('p',patch.hypothesis||'No behavioral claim supplied.'));for(const op of patch.operations)c.append(node('p',`${op.tensor} · elements ${op.offset}–${op.offset+op.count-1} · ${op.dtype}`));c.append(node('p',`Base ${payload.base.slice(0,12)} → candidate ${payload.candidate.slice(0,12)}`,'id'));detail(c,{spec:payload,patch});}
+  else if(r.kind==='Evaluation'){c.append(node('strong',payload.status,payload.status==='passed'?'good':'bad'),node('p',payload.scores?`${payload.scores.metric}: ${payload.scores.base} → ${payload.scores.candidate}`:`Reproduced MSE: ${payload.base_mse} → ${payload.candidate_mse}`));detail(c,payload);}
+  else if(r.kind==='DerivedVersion'){c.append(node('p',`${payload.parent.slice(0,12)} → ${payload.checkpoint.slice(0,12)}`,'id'));detail(c,payload);}
+  else if(r.kind==='Hypothesis')c.append(node('p',payload.claim));
+  else if(r.kind==='Review'){c.append(node('strong',payload.verdict,payload.verdict==='passed'?'good':'bad'));detail(c,payload);}
+  c.append(node('p',`Related evidence: ${r.relates_to||'none'}`,'id'));detail(c,r);el('records').append(c);}
+ for(const row of state.publications){const c=card(row.state,row.id);if(row.receipt)detail(c,JSON.parse(row.receipt));el('publications').append(c);}
+ el('selection').textContent=state.selected?`Selected version: ${state.selected.checkpoint}`:'No version selected.';
+ el('status').textContent='Loaded from the local participant journal. Refresh to read updates.';
+}catch(e){el('status').textContent=e.message;}finally{el('load').disabled=false;}}
+el('load').addEventListener('click',load);
+
+const actions={register:['Import checkpoint',{file:'Checkpoint or shard index path',mapping:'Inference artifact mapping path (optional)'}],put:['Import evaluation input',{file:'Local file path'}],diff:['Create patch from checkpoints',{parent:'Base checkpoint ID',candidate:'Candidate checkpoint ID'}],apply:['Apply patch',{parent:'Base checkpoint ID',patch:'Patch ID'}],evaluate:['Evaluate',{spec:'Evaluation specification ID'}],propose:['Share proposal through DKG',{spec:'Evaluation specification ID'}],reproduce:['Reproduce proposal',{record:'Proposal record ID'}],fetch:['Fetch DKG record',{record:'Record ID'}],select:['Select version',{checkpoint:'Checkpoint ID'}],export:['Export checkpoint',{checkpoint:'Checkpoint ID',directory:'New destination directory'}]};
+for(const [key,[label]] of Object.entries(actions)){const option=node('option',label);option.value=key;el('action').append(option);}
+function fields(){el('fields').replaceChildren();for(const [key,label] of Object.entries(actions[el('action').value][1])){const box=node('label',label);const input=node('input');input.name=key;input.required=key!=='mapping';input.autocomplete='off';box.append(input);el('fields').append(box);}}
+el('action').addEventListener('change',fields);fields();
+el('operation').addEventListener('submit',async event=>{event.preventDefault();token=el('token').value;el('execute').disabled=true;el('result').textContent='Operation running…';try{const body={action:el('action').value};for(const input of el('fields').querySelectorAll('input'))body[input.name]=input.value;const response=await fetch('/api/actions',{method:'POST',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify(body)});const result=await response.json();if(!response.ok)throw Error(result.error||`HTTP ${response.status}`);el('result').textContent=JSON.stringify(result,null,2);await load();}catch(error){el('result').textContent=error.message;}finally{el('execute').disabled=false;}});

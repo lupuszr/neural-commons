@@ -1,0 +1,11 @@
+{
+  "base": "7aed2db105e60e55d3731ec384861af54bb4b36431d6a28ff01b33c0f2e6eac3",
+  "candidate": "43eb05e8f3c2514920acb912e5969f0f4764fb54a4470365815a828eb08e9c35",
+  "file_bytes": 536870996,
+  "io_buffer_bytes": 1048576,
+  "patch": "b942c7ed4e4b25451c7561a00f32730bd668ac5a37ba5d35314ca2f47738b2b5",
+  "status": "passed",
+  "maximum_resident_set_bytes": 4800512,
+  "platform": "macOS aarch64",
+  "command": "/usr/bin/time -l target/debug/examples/large_checkpoint"
+}

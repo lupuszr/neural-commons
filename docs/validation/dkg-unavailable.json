@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "command": "nc --home <stopped participant A> fetch <repair proposal>",
+  "exit_code": 1,
+  "error": "error sending request for url (http://127.0.0.1:57303/api/context-graph/0x44084513024108e4435277e553d678133c76f8e9%2Fnc-demo-b496974da5ce5397/participants): client error (Connect): tcp connect error: Connection refused (os error 61)"
+}

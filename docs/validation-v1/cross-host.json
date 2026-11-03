@@ -1,0 +1,488 @@
+{
+  "schema": "nc/cross-host-validation/v1",
+  "status": "passed",
+  "host": "OTLegends-MacBook-Pro-5.local",
+  "run": "/Users/otlegend/projects/neural-commons/.runtime/cross-host-20261103-122714",
+  "checks": {
+    "repair": {
+      "a": {
+        "evaluation": {
+          "base_mse": 3.6796875,
+          "candidate_mse": 0.0,
+          "environment": "scalar-f32-cpu/macos/aarch64",
+          "error": null,
+          "evaluator": "nc/scalar-mlp-cpu/v1",
+          "observed_executable": "ec64db77d235d3f88573f2a3713e0ac66596fc02417305befa121c558cd20776",
+          "outputs": "b02305ec2552730ed526c5db9dd958e642e5481d7cbdd0055113169658f34072",
+          "process_id": 29472,
+          "schema": "nc/evaluation/v1",
+          "spec": "eab267399ac24ffe4d54666effa32fb13ed19158aeeefa507e4bb57e5b8fc75e",
+          "status": "passed"
+        },
+        "report": "5ee811f733ba2eb0b02c1d7497bf5ad031c70df6aaf304773c394e7beda887c2"
+      },
+      "proposal": {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xb86e6426138c98159daf2cb473645e7057cec427/39",
+          "assertionVersion": "1",
+          "authorAddress": "0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+          "kaUal": "did:dkg:hardhat:31337/0xb86e6426138c98159daf2cb473645e7057cec427/39",
+          "merkleRoot": "0x577b9514cb7cda3e74f26d23d573a562c4226619fbef093fd06582c2c6575216",
+          "name": "nc-9b1d019f9ad3b7bde51787b8ac337272dcb799be3cbb4c6a563374cfa3c9d0a5",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0ly7zi-8z2x02",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "9b1d019f9ad3b7bde51787b8ac337272dcb799be3cbb4c6a563374cfa3c9d0a5",
+        "related_records": [
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xb86e6426138c98159daf2cb473645e7057cec427/30",
+              "assertionVersion": "1",
+              "authorAddress": "0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+              "kaUal": "did:dkg:hardhat:31337/0xb86e6426138c98159daf2cb473645e7057cec427/30",
+              "merkleRoot": "0x50c566390aeccd6250ce2bb2639b9779d10b775afad212304d66d4ef42f70a31",
+              "name": "nc-fbe0747effeaa0ef3e58957869f66d48ee4dcfd58f01a1f0aad85b59c97c96ea",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0ly68g-w3qju8",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "fbe0747effeaa0ef3e58957869f66d48ee4dcfd58f01a1f0aad85b59c97c96ea",
+            "state": "shared"
+          },
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xb86e6426138c98159daf2cb473645e7057cec427/34",
+              "assertionVersion": "1",
+              "authorAddress": "0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+              "kaUal": "did:dkg:hardhat:31337/0xb86e6426138c98159daf2cb473645e7057cec427/34",
+              "merkleRoot": "0x9375063653ba07330198716bc0ce22ddfb0fe63f6cf2c8ce7c6ab51ea6bbcff2",
+              "name": "nc-327d9f90bbe5d4c9b729d035a69021de2e6b426c40e1ef78234ec6bc3eb40e6a",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0ly6wr-3b0lol",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "327d9f90bbe5d4c9b729d035a69021de2e6b426c40e1ef78234ec6bc3eb40e6a",
+            "state": "shared"
+          },
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xb86e6426138c98159daf2cb473645e7057cec427/38",
+              "assertionVersion": "1",
+              "authorAddress": "0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+              "kaUal": "did:dkg:hardhat:31337/0xb86e6426138c98159daf2cb473645e7057cec427/38",
+              "merkleRoot": "0x4b99dffddcc03a87dfc399b746a3809dbf33529bb854802d678e9a72e4cf57a0",
+              "name": "nc-0a961306f302dc888faff0a3fac6bebff16c446f2960e6690c7552718a42deec",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0ly7lm-n6c5pv",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "0a961306f302dc888faff0a3fac6bebff16c446f2960e6690c7552718a42deec",
+            "state": "shared"
+          }
+        ],
+        "state": "shared"
+      },
+      "b": {
+        "evaluation": {
+          "base_mse": 3.6796875,
+          "candidate_mse": 0.0,
+          "environment": "scalar-f32-cpu/macos/aarch64",
+          "error": null,
+          "evaluator": "nc/scalar-mlp-cpu/v1",
+          "observed_executable": "ec64db77d235d3f88573f2a3713e0ac66596fc02417305befa121c558cd20776",
+          "outputs": "b02305ec2552730ed526c5db9dd958e642e5481d7cbdd0055113169658f34072",
+          "process_id": 19052,
+          "schema": "nc/evaluation/v1",
+          "spec": "eab267399ac24ffe4d54666effa32fb13ed19158aeeefa507e4bb57e5b8fc75e",
+          "status": "passed"
+        },
+        "publication": {
+          "receipt": {
+            "alreadyExists": false,
+            "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xac73f080308d9ed40eea6768229e848f54c451f6/36",
+            "assertionVersion": "1",
+            "authorAddress": "0xAc73F080308D9ed40eeA6768229E848f54C451f6",
+            "kaUal": "did:dkg:hardhat:31337/0xac73f080308d9ed40eea6768229e848f54c451f6/36",
+            "merkleRoot": "0x57dfd22e03ae5ade58cd296cea09308cf24692ae205203823a1e2b2d3a03d7d6",
+            "name": "nc-eb302f39b30aacb7cc5510ee9e2aa0e4ad636de51cc0973d51baa2e5726f90a3",
+            "promotedCount": 6,
+            "publishReady": true,
+            "sealed": true,
+            "shareOperationId": "mw0lyegp-sxww7a",
+            "status": "swm-shared",
+            "swmShared": true,
+            "written": 6
+          },
+          "record": "eb302f39b30aacb7cc5510ee9e2aa0e4ad636de51cc0973d51baa2e5726f90a3",
+          "state": "shared"
+        },
+        "report": "fdd4bf585f09fcceaa23db550d4f26bbe6769bdb969f65f72cffbaeacaeadf9b",
+        "review": {
+          "receipt": {
+            "alreadyExists": false,
+            "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xac73f080308d9ed40eea6768229e848f54c451f6/40",
+            "assertionVersion": "1",
+            "authorAddress": "0xAc73F080308D9ed40eeA6768229E848f54C451f6",
+            "kaUal": "did:dkg:hardhat:31337/0xac73f080308d9ed40eea6768229e848f54c451f6/40",
+            "merkleRoot": "0xd1477788ffc46f93dbc19d447a6441a770cab73abab5818ad71a213bf940e353",
+            "name": "nc-a4a0a93d208c5e28f54d020d732e31b7a3f0b571fa4221714101e42ecb8a8664",
+            "promotedCount": 6,
+            "publishReady": true,
+            "sealed": true,
+            "shareOperationId": "mw0lyf5t-eanqes",
+            "status": "swm-shared",
+            "swmShared": true,
+            "written": 6
+          },
+          "record": "a4a0a93d208c5e28f54d020d732e31b7a3f0b571fa4221714101e42ecb8a8664",
+          "state": "shared"
+        }
+      },
+      "a_readback": {
+        "artifact": "fdd4bf585f09fcceaa23db550d4f26bbe6769bdb969f65f72cffbaeacaeadf9b",
+        "artifact_origin": "dkg",
+        "artifacts": [
+          "0cbea3dcb180b9857cbecc5bcad3892ffff68c8fb10eacd058132de72b41eeea",
+          "1a41054f9819ed2e92dfaa6a0b7d812c91d8db5f23562e5f9660d350d2b397a2",
+          "20dd9c6de0685bbfe2313f03f4a0aee811f06ef5bb73068f520ede3e08b79d94",
+          "517e332ab8905bcf0fe09af1d88fe2e3458b87f09086b6e7ce19d47dbc69d781",
+          "9892e25108ad8ca91945d4ffeb8ac1dadde6056109ded6f4fa3e01b467eecd97",
+          "a61d7a505e9568b4a8a9d2ad42b1b1c271544d93a06a57fae79d8d467a2f4517",
+          "b901731623d3a9ffeb2b0b31b297f52087735b63ca3215fbda8c2b27f6f43bb6",
+          "d78eeebcf5b230bb1aa97d8ff5481d5b2bed09e7cf5fa73bf8e2c756458b121a",
+          "dee9bee38d8ce139ee23552fc0ca83067114ae903518d7711ba7937b72c0d697",
+          "eab267399ac24ffe4d54666effa32fb13ed19158aeeefa507e4bb57e5b8fc75e",
+          "fdd4bf585f09fcceaa23db550d4f26bbe6769bdb969f65f72cffbaeacaeadf9b",
+          "b02305ec2552730ed526c5db9dd958e642e5481d7cbdd0055113169658f34072"
+        ],
+        "author": "0xAc73F080308D9ed40eeA6768229E848f54C451f6",
+        "context_graph": "0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d",
+        "fixture": true,
+        "kind": "Evaluation",
+        "relates_to": "9b1d019f9ad3b7bde51787b8ac337272dcb799be3cbb4c6a563374cfa3c9d0a5",
+        "schema": "nc/record/v1"
+      },
+      "review": {
+        "artifact": "a000058c44a9451c90d5ad4c5ef8af51407d039f7f23a6679d974184c3e7e4a2",
+        "artifact_origin": "dkg",
+        "artifacts": [
+          "0cbea3dcb180b9857cbecc5bcad3892ffff68c8fb10eacd058132de72b41eeea",
+          "1a41054f9819ed2e92dfaa6a0b7d812c91d8db5f23562e5f9660d350d2b397a2",
+          "20dd9c6de0685bbfe2313f03f4a0aee811f06ef5bb73068f520ede3e08b79d94",
+          "517e332ab8905bcf0fe09af1d88fe2e3458b87f09086b6e7ce19d47dbc69d781",
+          "9892e25108ad8ca91945d4ffeb8ac1dadde6056109ded6f4fa3e01b467eecd97",
+          "a61d7a505e9568b4a8a9d2ad42b1b1c271544d93a06a57fae79d8d467a2f4517",
+          "b901731623d3a9ffeb2b0b31b297f52087735b63ca3215fbda8c2b27f6f43bb6",
+          "d78eeebcf5b230bb1aa97d8ff5481d5b2bed09e7cf5fa73bf8e2c756458b121a",
+          "dee9bee38d8ce139ee23552fc0ca83067114ae903518d7711ba7937b72c0d697",
+          "eab267399ac24ffe4d54666effa32fb13ed19158aeeefa507e4bb57e5b8fc75e",
+          "fdd4bf585f09fcceaa23db550d4f26bbe6769bdb969f65f72cffbaeacaeadf9b",
+          "b02305ec2552730ed526c5db9dd958e642e5481d7cbdd0055113169658f34072",
+          "a000058c44a9451c90d5ad4c5ef8af51407d039f7f23a6679d974184c3e7e4a2"
+        ],
+        "author": "0xAc73F080308D9ed40eeA6768229E848f54C451f6",
+        "context_graph": "0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d",
+        "fixture": true,
+        "kind": "Review",
+        "relates_to": "eb302f39b30aacb7cc5510ee9e2aa0e4ad636de51cc0973d51baa2e5726f90a3",
+        "schema": "nc/record/v1"
+      },
+      "duplicate_reused": true
+    },
+    "regression": {
+      "a": {
+        "evaluation": {
+          "base_mse": 3.6796875,
+          "candidate_mse": 26.166666666666668,
+          "environment": "scalar-f32-cpu/macos/aarch64",
+          "error": null,
+          "evaluator": "nc/scalar-mlp-cpu/v1",
+          "observed_executable": "ec64db77d235d3f88573f2a3713e0ac66596fc02417305befa121c558cd20776",
+          "outputs": "676fc91534f519a4d9ee5e353fb986db9f465cd5263f352ba7539bb1fb8de811",
+          "process_id": 29944,
+          "schema": "nc/evaluation/v1",
+          "spec": "4c15d39daa66aa13342d44b4ce7a48d57ae3a308936ad95f1945dc9dd67d0c80",
+          "status": "failed"
+        },
+        "report": "ec12521cd2dcfb5ee893f2b7a486a9ad8527a24a4d49ae162fbd37f62119376a"
+      },
+      "proposal": {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xb86e6426138c98159daf2cb473645e7057cec427/64",
+          "assertionVersion": "1",
+          "authorAddress": "0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+          "kaUal": "did:dkg:hardhat:31337/0xb86e6426138c98159daf2cb473645e7057cec427/64",
+          "merkleRoot": "0x6c75ea7be5216c6de9faec5e28064c75e3b7faf5c53519dec60d69913e3e10b6",
+          "name": "nc-334914b8aa30225918d7c6342bdeec7de72b46d49c31204dba0643e5266ceee0",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0lykm9-pg6gpc",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "334914b8aa30225918d7c6342bdeec7de72b46d49c31204dba0643e5266ceee0",
+        "related_records": [
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xb86e6426138c98159daf2cb473645e7057cec427/55",
+              "assertionVersion": "1",
+              "authorAddress": "0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+              "kaUal": "did:dkg:hardhat:31337/0xb86e6426138c98159daf2cb473645e7057cec427/55",
+              "merkleRoot": "0xf2394b9ac3fcde7b2cd8cc55e025f535f48060284ebfc5a6df680e390dec8d05",
+              "name": "nc-1238182fbc89fc790e94668a04fc6fe0aa94fbdd48f25bca53a67fba6b5146f2",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0lyj0c-y573vt",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "1238182fbc89fc790e94668a04fc6fe0aa94fbdd48f25bca53a67fba6b5146f2",
+            "state": "shared"
+          },
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xb86e6426138c98159daf2cb473645e7057cec427/59",
+              "assertionVersion": "1",
+              "authorAddress": "0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+              "kaUal": "did:dkg:hardhat:31337/0xb86e6426138c98159daf2cb473645e7057cec427/59",
+              "merkleRoot": "0xaddab11d9233ee90a3c10fc54e2e3b25716ac870a9100dfa47dfe3133d4c9911",
+              "name": "nc-53f68574bddffd4aa40962505bfdf8143ced90404e9c19963d9503bd0ed22c77",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0lyjgb-twseaa",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "53f68574bddffd4aa40962505bfdf8143ced90404e9c19963d9503bd0ed22c77",
+            "state": "shared"
+          },
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xb86e6426138c98159daf2cb473645e7057cec427/63",
+              "assertionVersion": "1",
+              "authorAddress": "0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+              "kaUal": "did:dkg:hardhat:31337/0xb86e6426138c98159daf2cb473645e7057cec427/63",
+              "merkleRoot": "0xd151622571cf1614a4d41e4e6b9a4c737d9ab4ea8fa0f2d7e7a39543ee0c3458",
+              "name": "nc-f6dcffd8925222cb939d3e24983d9e87d5a8d748dc0867f8a5059d9806b60d06",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0lyk9f-f7ytzk",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "f6dcffd8925222cb939d3e24983d9e87d5a8d748dc0867f8a5059d9806b60d06",
+            "state": "shared"
+          }
+        ],
+        "state": "shared"
+      },
+      "b": {
+        "evaluation": {
+          "base_mse": 3.6796875,
+          "candidate_mse": 26.166666666666668,
+          "environment": "scalar-f32-cpu/macos/aarch64",
+          "error": null,
+          "evaluator": "nc/scalar-mlp-cpu/v1",
+          "observed_executable": "ec64db77d235d3f88573f2a3713e0ac66596fc02417305befa121c558cd20776",
+          "outputs": "676fc91534f519a4d9ee5e353fb986db9f465cd5263f352ba7539bb1fb8de811",
+          "process_id": 19109,
+          "schema": "nc/evaluation/v1",
+          "spec": "4c15d39daa66aa13342d44b4ce7a48d57ae3a308936ad95f1945dc9dd67d0c80",
+          "status": "failed"
+        },
+        "publication": {
+          "receipt": {
+            "alreadyExists": false,
+            "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xac73f080308d9ed40eea6768229e848f54c451f6/62",
+            "assertionVersion": "1",
+            "authorAddress": "0xAc73F080308D9ed40eeA6768229E848f54C451f6",
+            "kaUal": "did:dkg:hardhat:31337/0xac73f080308d9ed40eea6768229e848f54c451f6/62",
+            "merkleRoot": "0x12853d7a2850fd74f3872eef25c5e22bee46ec45fb4cf288d2f42e29a865be86",
+            "name": "nc-b98449a0c123705ca3010f25f874bf2fcd85ec2c6d299b188462cb75d101d109",
+            "promotedCount": 6,
+            "publishReady": true,
+            "sealed": true,
+            "shareOperationId": "mw0lyp1f-jej6fj",
+            "status": "swm-shared",
+            "swmShared": true,
+            "written": 6
+          },
+          "record": "b98449a0c123705ca3010f25f874bf2fcd85ec2c6d299b188462cb75d101d109",
+          "state": "shared"
+        },
+        "report": "1053381ec6ba18a691a5211e6eeb6f46772f07efe11258f20a10b1a4795acebc",
+        "review": {
+          "receipt": {
+            "alreadyExists": false,
+            "assertionUri": "did:dkg:context-graph:0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d/_working_memory/0xac73f080308d9ed40eea6768229e848f54c451f6/66",
+            "assertionVersion": "1",
+            "authorAddress": "0xAc73F080308D9ed40eeA6768229E848f54C451f6",
+            "kaUal": "did:dkg:hardhat:31337/0xac73f080308d9ed40eea6768229e848f54c451f6/66",
+            "merkleRoot": "0x50b96d89b0c2a5c7b5c370a21fa6e4f85af5870b986590695922d0caabe941cd",
+            "name": "nc-4d569213bee53f43ac9f2bf9e578b30f0b0e2735945c8c4c4a6989dbbdeaabe6",
+            "promotedCount": 6,
+            "publishReady": true,
+            "sealed": true,
+            "shareOperationId": "mw0lyprg-rheu2r",
+            "status": "swm-shared",
+            "swmShared": true,
+            "written": 6
+          },
+          "record": "4d569213bee53f43ac9f2bf9e578b30f0b0e2735945c8c4c4a6989dbbdeaabe6",
+          "state": "shared"
+        }
+      },
+      "a_readback": {
+        "artifact": "1053381ec6ba18a691a5211e6eeb6f46772f07efe11258f20a10b1a4795acebc",
+        "artifact_origin": "dkg",
+        "artifacts": [
+          "0cbea3dcb180b9857cbecc5bcad3892ffff68c8fb10eacd058132de72b41eeea",
+          "1a41054f9819ed2e92dfaa6a0b7d812c91d8db5f23562e5f9660d350d2b397a2",
+          "20dd9c6de0685bbfe2313f03f4a0aee811f06ef5bb73068f520ede3e08b79d94",
+          "35e466f06413139a6960d709c6a7bde50fae344dd87c9489b0bf23ba10e9e0c0",
+          "4c15d39daa66aa13342d44b4ce7a48d57ae3a308936ad95f1945dc9dd67d0c80",
+          "517e332ab8905bcf0fe09af1d88fe2e3458b87f09086b6e7ce19d47dbc69d781",
+          "a916005d3226dbf3b0fa701e2ec0cdfe0c544e83dd3d7d781046d3414c110892",
+          "b901731623d3a9ffeb2b0b31b297f52087735b63ca3215fbda8c2b27f6f43bb6",
+          "c1112024d84bac179cfda8df2d45cdb8cb941ec29f75e8cffa61c3b4c46d44a1",
+          "e3f004d0c887c2d69115a8f9637a840eb591f491127b49e47346779c29509fa0",
+          "1053381ec6ba18a691a5211e6eeb6f46772f07efe11258f20a10b1a4795acebc",
+          "676fc91534f519a4d9ee5e353fb986db9f465cd5263f352ba7539bb1fb8de811"
+        ],
+        "author": "0xAc73F080308D9ed40eeA6768229E848f54C451f6",
+        "context_graph": "0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d",
+        "fixture": true,
+        "kind": "Evaluation",
+        "relates_to": "334914b8aa30225918d7c6342bdeec7de72b46d49c31204dba0643e5266ceee0",
+        "schema": "nc/record/v1"
+      },
+      "review": {
+        "artifact": "1c3a6c70c1208b71122cc8b7495236914d9f6a1bd0cd3c868800ebbf16b049ab",
+        "artifact_origin": "dkg",
+        "artifacts": [
+          "0cbea3dcb180b9857cbecc5bcad3892ffff68c8fb10eacd058132de72b41eeea",
+          "1a41054f9819ed2e92dfaa6a0b7d812c91d8db5f23562e5f9660d350d2b397a2",
+          "20dd9c6de0685bbfe2313f03f4a0aee811f06ef5bb73068f520ede3e08b79d94",
+          "35e466f06413139a6960d709c6a7bde50fae344dd87c9489b0bf23ba10e9e0c0",
+          "4c15d39daa66aa13342d44b4ce7a48d57ae3a308936ad95f1945dc9dd67d0c80",
+          "517e332ab8905bcf0fe09af1d88fe2e3458b87f09086b6e7ce19d47dbc69d781",
+          "a916005d3226dbf3b0fa701e2ec0cdfe0c544e83dd3d7d781046d3414c110892",
+          "b901731623d3a9ffeb2b0b31b297f52087735b63ca3215fbda8c2b27f6f43bb6",
+          "c1112024d84bac179cfda8df2d45cdb8cb941ec29f75e8cffa61c3b4c46d44a1",
+          "e3f004d0c887c2d69115a8f9637a840eb591f491127b49e47346779c29509fa0",
+          "1053381ec6ba18a691a5211e6eeb6f46772f07efe11258f20a10b1a4795acebc",
+          "676fc91534f519a4d9ee5e353fb986db9f465cd5263f352ba7539bb1fb8de811",
+          "1c3a6c70c1208b71122cc8b7495236914d9f6a1bd0cd3c868800ebbf16b049ab"
+        ],
+        "author": "0xAc73F080308D9ed40eeA6768229E848f54C451f6",
+        "context_graph": "0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d",
+        "fixture": true,
+        "kind": "Review",
+        "relates_to": "b98449a0c123705ca3010f25f874bf2fcd85ec2c6d299b188462cb75d101d109",
+        "schema": "nc/record/v1"
+      },
+      "duplicate_reused": true
+    },
+    "large_dkg_artifact": {
+      "record": {
+        "artifact": "bcf93df208a58090f9b0c4abb483cead35504a66996c9bb41305dc3e893c3dae",
+        "artifact_origin": "dkg",
+        "artifacts": [
+          "827889e9e998e04d2f236ba5c822066544384759be1f9f69a9622c6e94eaa6cd",
+          "bcf93df208a58090f9b0c4abb483cead35504a66996c9bb41305dc3e893c3dae"
+        ],
+        "author": "0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+        "context_graph": "0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d",
+        "fixture": true,
+        "kind": "ModelVersion",
+        "relates_to": null,
+        "schema": "nc/record/v1"
+      },
+      "bytes": 100663385,
+      "sha256": "827889e9e998e04d2f236ba5c822066544384759be1f9f69a9622c6e94eaa6cd",
+      "path": "/Users/lupus/projects/neural-commons/.runtime/cross-host-20261103-123135/participant/artifacts/827889e9e998e04d2f236ba5c822066544384759be1f9f69a9622c6e94eaa6cd"
+    },
+    "remote_cold_restart": {
+      "record": {
+        "artifact": "bcf93df208a58090f9b0c4abb483cead35504a66996c9bb41305dc3e893c3dae",
+        "artifact_origin": "dkg",
+        "artifacts": [
+          "827889e9e998e04d2f236ba5c822066544384759be1f9f69a9622c6e94eaa6cd",
+          "bcf93df208a58090f9b0c4abb483cead35504a66996c9bb41305dc3e893c3dae"
+        ],
+        "author": "0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+        "context_graph": "0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d",
+        "fixture": true,
+        "kind": "ModelVersion",
+        "relates_to": null,
+        "schema": "nc/record/v1"
+      },
+      "bytes": 100663385,
+      "sha256": "827889e9e998e04d2f236ba5c822066544384759be1f9f69a9622c6e94eaa6cd",
+      "path": "/Users/lupus/projects/neural-commons/.runtime/cross-host-20261103-123135/fresh-reader/artifacts/827889e9e998e04d2f236ba5c822066544384759be1f9f69a9622c6e94eaa6cd",
+      "same_identity": true
+    }
+  },
+  "dkg_source": "02a799660c19fd0fa7749bd0924706b6625ad050",
+  "remote": {
+    "identity": {
+      "agentAddress": "0xAc73F080308D9ed40eeA6768229E848f54C451f6",
+      "agentDid": "did:dkg:agent:0xAc73F080308D9ed40eeA6768229E848f54C451f6",
+      "name": "neural-commons-participant",
+      "framework": "Neural Commons",
+      "peerId": "12D3KooWDEUzL1mUUud9JiuNQzz2VfFeaZfAWSJGoWrJqm5CzN3N",
+      "nodeIdentityId": "0"
+    },
+    "host": "lupuss-Mac-mini.local",
+    "run": "/Users/lupus/projects/neural-commons/.runtime/cross-host-20261103-123135",
+    "peerport": 54013,
+    "dkg_source": "02a799660c19fd0fa7749bd0924706b6625ad050",
+    "empty_artifacts": true
+  },
+  "identity": {
+    "agentAddress": "0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+    "agentDid": "did:dkg:agent:0xb86e6426138c98159DAf2Cb473645e7057cEC427",
+    "name": "neural-commons-participant",
+    "framework": "Neural Commons",
+    "peerId": "12D3KooWDjUG8sVQgHNaztpdomU3LezYJ7gwkNnHkVR85oW4jZeN",
+    "nodeIdentityId": "0"
+  },
+  "context_graph": "0xb86e6426138c98159daf2cb473645e7057cec427/nc-cross-host-e76a2b1b5b5d",
+  "evaluator_binary_sha256": "ec64db77d235d3f88573f2a3713e0ac66596fc02417305befa121c558cd20776",
+  "runner_sha256": "793eeed08df34fde4479a1cf2180ab500fcf42bd06137dc0cacc273fdbee2a78",
+  "transport": "Native DKG libp2p artifact protocol; temporary HTTP endpoint only coordinates steps, deploys evaluator binary and forwards disposable EVM RPC",
+  "scope": "Controlled repair/regression fixture and synthetic 96 MiB checkpoint; Iris external evaluator remains single-host evidence"
+}

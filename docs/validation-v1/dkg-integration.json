@@ -1,0 +1,679 @@
+{
+  "schema": "nc/demo-validation/v1",
+  "status": "passed",
+  "chain": "disposable local Hardhat EVM; no public-chain publication",
+  "transport": "real DKG daemons and libp2p",
+  "run": "/Users/otlegend/projects/neural-commons/.runtime/demo-20261103-091624",
+  "checks": {
+    "b_started_without_artifacts": true,
+    "repair": {
+      "a": {
+        "evaluation": {
+          "base_mse": 3.6796875,
+          "candidate_mse": 0.0,
+          "environment": "scalar-f32-cpu/macos/aarch64",
+          "error": null,
+          "evaluator": "nc/scalar-mlp-cpu/v1",
+          "observed_executable": "1983e1b1cc79a7abd231f5057d9fa36da579f2fd35b17c74fb265617aedd3afc",
+          "outputs": "b02305ec2552730ed526c5db9dd958e642e5481d7cbdd0055113169658f34072",
+          "process_id": 64544,
+          "schema": "nc/evaluation/v1",
+          "spec": "853be6ed32d569834f85b36934f03a3e3a147344d6ea70d3a107c799502357be",
+          "status": "passed"
+        },
+        "report": "bac249b81a694e6a73e2f229bff93aba66e727d6e07c3d48513562160af53684"
+      },
+      "proposal": {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/39",
+          "assertionVersion": "1",
+          "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+          "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/39",
+          "merkleRoot": "0x08bcbaeadf828bf0a06ea87cb99f533b70a3a878be7d7d8d04d858814d74f03b",
+          "name": "nc-fedeb626848dd4e9bc53566b60961fd8ad1d65e83de5fd9b5d6923ab2e8e3d68",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0ezmjz-v8axr1",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "fedeb626848dd4e9bc53566b60961fd8ad1d65e83de5fd9b5d6923ab2e8e3d68",
+        "related_records": [
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/30",
+              "assertionVersion": "1",
+              "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+              "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/30",
+              "merkleRoot": "0x776dd4a416e6cff05364d70e1d8716dfa1daace4bf13a069f6c67f978a15ad38",
+              "name": "nc-37e069d1d549a3b7e318ea4a6907c302439bc670149aa6965a6063e8504837ba",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0ezkgh-scalg2",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "37e069d1d549a3b7e318ea4a6907c302439bc670149aa6965a6063e8504837ba",
+            "state": "shared"
+          },
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/34",
+              "assertionVersion": "1",
+              "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+              "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/34",
+              "merkleRoot": "0x39f9847fa678efbff161134f8973100dc2bd9ae1328ece4d04cae5d7640a05d4",
+              "name": "nc-e162181b5799fbb2ed44fce70b69846dff6e00e672c530496897a8920978be6d",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0ezl0q-20orbd",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "e162181b5799fbb2ed44fce70b69846dff6e00e672c530496897a8920978be6d",
+            "state": "shared"
+          },
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/38",
+              "assertionVersion": "1",
+              "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+              "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/38",
+              "merkleRoot": "0x8be76b0fad8bafc2f1ea91f738afc3c3cf8848503df07c90b0ea8b0d20941bdb",
+              "name": "nc-d7d62d1a77053c5997ef984c23349ea9c0f04e47b49619e7a483363d33495c30",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0ezluz-qim2kb",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "d7d62d1a77053c5997ef984c23349ea9c0f04e47b49619e7a483363d33495c30",
+            "state": "shared"
+          }
+        ],
+        "state": "shared"
+      },
+      "b": {
+        "evaluation": {
+          "base_mse": 3.6796875,
+          "candidate_mse": 0.0,
+          "environment": "scalar-f32-cpu/macos/aarch64",
+          "error": null,
+          "evaluator": "nc/scalar-mlp-cpu/v1",
+          "observed_executable": "1983e1b1cc79a7abd231f5057d9fa36da579f2fd35b17c74fb265617aedd3afc",
+          "outputs": "b02305ec2552730ed526c5db9dd958e642e5481d7cbdd0055113169658f34072",
+          "process_id": 64579,
+          "schema": "nc/evaluation/v1",
+          "spec": "853be6ed32d569834f85b36934f03a3e3a147344d6ea70d3a107c799502357be",
+          "status": "passed"
+        },
+        "publication": {
+          "receipt": {
+            "alreadyExists": false,
+            "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xc871d632b88121f964e1cc288cf6c106722d1b5e/36",
+            "assertionVersion": "1",
+            "authorAddress": "0xC871D632b88121f964E1Cc288cf6c106722d1b5e",
+            "kaUal": "did:dkg:hardhat:31337/0xc871d632b88121f964e1cc288cf6c106722d1b5e/36",
+            "merkleRoot": "0x0c80d3ce879ac0be92f5af00a1b647f118c038eeea716ecb9da5424fff144ce3",
+            "name": "nc-38522221ec4bb7ef4d2580feeb3fc8268cd709c21158eeda03086a69bfc69a23",
+            "promotedCount": 6,
+            "publishReady": true,
+            "sealed": true,
+            "shareOperationId": "mw0ezqs2-7yc9nu",
+            "status": "swm-shared",
+            "swmShared": true,
+            "written": 6
+          },
+          "record": "38522221ec4bb7ef4d2580feeb3fc8268cd709c21158eeda03086a69bfc69a23",
+          "state": "shared"
+        },
+        "report": "e54c03aabdbf558d86a23a3619829987dfbed1c97c1d2135b3472c943c2facfe",
+        "review": {
+          "receipt": {
+            "alreadyExists": false,
+            "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xc871d632b88121f964e1cc288cf6c106722d1b5e/40",
+            "assertionVersion": "1",
+            "authorAddress": "0xC871D632b88121f964E1Cc288cf6c106722d1b5e",
+            "kaUal": "did:dkg:hardhat:31337/0xc871d632b88121f964e1cc288cf6c106722d1b5e/40",
+            "merkleRoot": "0x037d9d93def3a7647d56b766c0cc2e482b05967c8022d51602edbd0db9dd9d9d",
+            "name": "nc-059381330f98cafcb52bf02432cf2dd4118cc56dfbf5c0e16ad5c7bee066f880",
+            "promotedCount": 6,
+            "publishReady": true,
+            "sealed": true,
+            "shareOperationId": "mw0ezrgz-ao480t",
+            "status": "swm-shared",
+            "swmShared": true,
+            "written": 6
+          },
+          "record": "059381330f98cafcb52bf02432cf2dd4118cc56dfbf5c0e16ad5c7bee066f880",
+          "state": "shared"
+        }
+      },
+      "a_readback": {
+        "artifact": "e54c03aabdbf558d86a23a3619829987dfbed1c97c1d2135b3472c943c2facfe",
+        "artifact_origin": "dkg",
+        "artifacts": [
+          "0cbea3dcb180b9857cbecc5bcad3892ffff68c8fb10eacd058132de72b41eeea",
+          "1a41054f9819ed2e92dfaa6a0b7d812c91d8db5f23562e5f9660d350d2b397a2",
+          "20dd9c6de0685bbfe2313f03f4a0aee811f06ef5bb73068f520ede3e08b79d94",
+          "517e332ab8905bcf0fe09af1d88fe2e3458b87f09086b6e7ce19d47dbc69d781",
+          "853be6ed32d569834f85b36934f03a3e3a147344d6ea70d3a107c799502357be",
+          "9892e25108ad8ca91945d4ffeb8ac1dadde6056109ded6f4fa3e01b467eecd97",
+          "a61d7a505e9568b4a8a9d2ad42b1b1c271544d93a06a57fae79d8d467a2f4517",
+          "b901731623d3a9ffeb2b0b31b297f52087735b63ca3215fbda8c2b27f6f43bb6",
+          "dee9bee38d8ce139ee23552fc0ca83067114ae903518d7711ba7937b72c0d697",
+          "f2072fed511a43f3ef4d872f2761d67cf99864764153c01eb657af5b9e449659",
+          "e54c03aabdbf558d86a23a3619829987dfbed1c97c1d2135b3472c943c2facfe",
+          "b02305ec2552730ed526c5db9dd958e642e5481d7cbdd0055113169658f34072"
+        ],
+        "author": "0xC871D632b88121f964E1Cc288cf6c106722d1b5e",
+        "context_graph": "0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481",
+        "fixture": true,
+        "kind": "Evaluation",
+        "relates_to": "fedeb626848dd4e9bc53566b60961fd8ad1d65e83de5fd9b5d6923ab2e8e3d68",
+        "schema": "nc/record/v1"
+      },
+      "duplicate_reused": true
+    },
+    "regression": {
+      "a": {
+        "evaluation": {
+          "base_mse": 3.6796875,
+          "candidate_mse": 26.166666666666668,
+          "environment": "scalar-f32-cpu/macos/aarch64",
+          "error": null,
+          "evaluator": "nc/scalar-mlp-cpu/v1",
+          "observed_executable": "1983e1b1cc79a7abd231f5057d9fa36da579f2fd35b17c74fb265617aedd3afc",
+          "outputs": "676fc91534f519a4d9ee5e353fb986db9f465cd5263f352ba7539bb1fb8de811",
+          "process_id": 64612,
+          "schema": "nc/evaluation/v1",
+          "spec": "f49d0fa37b693cb9bc4ab286e32e21f3d8fd2f88ed94f129be98e7be259fdad0",
+          "status": "failed"
+        },
+        "report": "4fd5a2e457fd07fe056f7d99a81b3635ac0e7ffbe2cd9873193bfdfe4a80907b"
+      },
+      "proposal": {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/64",
+          "assertionVersion": "1",
+          "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+          "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/64",
+          "merkleRoot": "0xbb76dbe0a4050d4fd93e73dde956278654b0f75f6a3a91e8b459e0304fffad48",
+          "name": "nc-3780d7119f570b02593e1e7f8cf8c91777392283aba55d6f6ff75ad65060b2c3",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0ezw5v-gyddtg",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "3780d7119f570b02593e1e7f8cf8c91777392283aba55d6f6ff75ad65060b2c3",
+        "related_records": [
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/55",
+              "assertionVersion": "1",
+              "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+              "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/55",
+              "merkleRoot": "0x726090204c3e3fa82995e5e8a1f6a484baac9c386bd439d50687fb98884d29b2",
+              "name": "nc-5845c7959fd4f9bf0cf55628f8a379b4cc97933c425c8a6ee96c8d3e33b60474",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0ezu5c-2uqnvd",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "5845c7959fd4f9bf0cf55628f8a379b4cc97933c425c8a6ee96c8d3e33b60474",
+            "state": "shared"
+          },
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/59",
+              "assertionVersion": "1",
+              "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+              "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/59",
+              "merkleRoot": "0x5347b414a165f12030440af1eacff610f64d0fb0f74ec5a132318cee7c3acbf2",
+              "name": "nc-19aebbbdd4fec1c9150c0d77fb5a5692e148bed9a83e0df94a7e4b4520e7bf8b",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0ezupk-qa125e",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "19aebbbdd4fec1c9150c0d77fb5a5692e148bed9a83e0df94a7e4b4520e7bf8b",
+            "state": "shared"
+          },
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/63",
+              "assertionVersion": "1",
+              "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+              "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/63",
+              "merkleRoot": "0x9313def771dacaee881089091688e3df43740cafe6f5ce437d6616915b4dbd69",
+              "name": "nc-f51d1f11049ddd56c7f28b8990e7d47ee5813ff3b5ed0d5c68e449e2fa3e8ffa",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0ezvpo-ez1zz9",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "f51d1f11049ddd56c7f28b8990e7d47ee5813ff3b5ed0d5c68e449e2fa3e8ffa",
+            "state": "shared"
+          }
+        ],
+        "state": "shared"
+      },
+      "b": {
+        "evaluation": {
+          "base_mse": 3.6796875,
+          "candidate_mse": 26.166666666666668,
+          "environment": "scalar-f32-cpu/macos/aarch64",
+          "error": null,
+          "evaluator": "nc/scalar-mlp-cpu/v1",
+          "observed_executable": "1983e1b1cc79a7abd231f5057d9fa36da579f2fd35b17c74fb265617aedd3afc",
+          "outputs": "676fc91534f519a4d9ee5e353fb986db9f465cd5263f352ba7539bb1fb8de811",
+          "process_id": 64638,
+          "schema": "nc/evaluation/v1",
+          "spec": "f49d0fa37b693cb9bc4ab286e32e21f3d8fd2f88ed94f129be98e7be259fdad0",
+          "status": "failed"
+        },
+        "publication": {
+          "receipt": {
+            "alreadyExists": false,
+            "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xc871d632b88121f964e1cc288cf6c106722d1b5e/62",
+            "assertionVersion": "1",
+            "authorAddress": "0xC871D632b88121f964E1Cc288cf6c106722d1b5e",
+            "kaUal": "did:dkg:hardhat:31337/0xc871d632b88121f964e1cc288cf6c106722d1b5e/62",
+            "merkleRoot": "0x33418fca093a512943715806cf75ca5eb353abac931d99de71e4adf133d6d40a",
+            "name": "nc-f72ce77e9ccc81f08e73719d866fd0ce73909fac5913329bf2c27f81cabab7a6",
+            "promotedCount": 6,
+            "publishReady": true,
+            "sealed": true,
+            "shareOperationId": "mw0ezze0-0jrawh",
+            "status": "swm-shared",
+            "swmShared": true,
+            "written": 6
+          },
+          "record": "f72ce77e9ccc81f08e73719d866fd0ce73909fac5913329bf2c27f81cabab7a6",
+          "state": "shared"
+        },
+        "report": "176fd58fc443255c844b72540b088d3f9af035e44451583615ed07fc08526011",
+        "review": {
+          "receipt": {
+            "alreadyExists": false,
+            "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xc871d632b88121f964e1cc288cf6c106722d1b5e/66",
+            "assertionVersion": "1",
+            "authorAddress": "0xC871D632b88121f964E1Cc288cf6c106722d1b5e",
+            "kaUal": "did:dkg:hardhat:31337/0xc871d632b88121f964e1cc288cf6c106722d1b5e/66",
+            "merkleRoot": "0xe1226f95096ebaa56a8cee7bb3ebfa8c4cd9d36cf8b1a18f4b1defe65970b4d7",
+            "name": "nc-e8329dccb8c57a45243945794a1dc706a7be4e8d6e5dd1a0337f204cacf65b1e",
+            "promotedCount": 6,
+            "publishReady": true,
+            "sealed": true,
+            "shareOperationId": "mw0f0036-870gtl",
+            "status": "swm-shared",
+            "swmShared": true,
+            "written": 6
+          },
+          "record": "e8329dccb8c57a45243945794a1dc706a7be4e8d6e5dd1a0337f204cacf65b1e",
+          "state": "shared"
+        }
+      },
+      "a_readback": {
+        "artifact": "176fd58fc443255c844b72540b088d3f9af035e44451583615ed07fc08526011",
+        "artifact_origin": "dkg",
+        "artifacts": [
+          "0cbea3dcb180b9857cbecc5bcad3892ffff68c8fb10eacd058132de72b41eeea",
+          "1a41054f9819ed2e92dfaa6a0b7d812c91d8db5f23562e5f9660d350d2b397a2",
+          "20dd9c6de0685bbfe2313f03f4a0aee811f06ef5bb73068f520ede3e08b79d94",
+          "35e466f06413139a6960d709c6a7bde50fae344dd87c9489b0bf23ba10e9e0c0",
+          "517e332ab8905bcf0fe09af1d88fe2e3458b87f09086b6e7ce19d47dbc69d781",
+          "b901731623d3a9ffeb2b0b31b297f52087735b63ca3215fbda8c2b27f6f43bb6",
+          "c1112024d84bac179cfda8df2d45cdb8cb941ec29f75e8cffa61c3b4c46d44a1",
+          "cdda533093114ac269a6fdeb293ebbd9925a3eac363e1588e5cf874882427037",
+          "e3f004d0c887c2d69115a8f9637a840eb591f491127b49e47346779c29509fa0",
+          "f49d0fa37b693cb9bc4ab286e32e21f3d8fd2f88ed94f129be98e7be259fdad0",
+          "176fd58fc443255c844b72540b088d3f9af035e44451583615ed07fc08526011",
+          "676fc91534f519a4d9ee5e353fb986db9f465cd5263f352ba7539bb1fb8de811"
+        ],
+        "author": "0xC871D632b88121f964E1Cc288cf6c106722d1b5e",
+        "context_graph": "0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481",
+        "fixture": true,
+        "kind": "Evaluation",
+        "relates_to": "3780d7119f570b02593e1e7f8cf8c91777392283aba55d6f6ff75ad65060b2c3",
+        "schema": "nc/record/v1"
+      },
+      "duplicate_reused": true
+    },
+    "iris_external_evaluator": {
+      "a": {
+        "spec": "3568dd4676df2a66bc787b19cc3fd69fee41279c398121b3d1694401533d9d7a",
+        "evaluation": {
+          "evaluation": {
+            "base_mse": null,
+            "candidate_mse": null,
+            "environment": "python3-stdlib-f32-linear-classifier/v1",
+            "error": null,
+            "evaluator": "nc/linear-classifier-python/v1",
+            "observed_executable": "7e07c3c96b29e214fb76cf6fd2aaf25a70bf66d0597c934495e0de575788f8e5",
+            "outputs": "98127af486e8cbc073ae5d4367eb8bab67f0b8274dd4c28ca2e2ea3ab77f5a3b",
+            "process_id": 64695,
+            "schema": "nc/evaluation/v1",
+            "scores": {
+              "base": 0.8333333333333334,
+              "candidate": 0.9333333333333332,
+              "metric": "accuracy/v1"
+            },
+            "spec": "3568dd4676df2a66bc787b19cc3fd69fee41279c398121b3d1694401533d9d7a",
+            "status": "passed"
+          },
+          "report": "284f25fd72b48b45cee8074eeca9c854996179db0d15b3c5e82732e11d06b412"
+        },
+        "source": {
+          "url": "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
+          "doi": "10.24432/C56C76",
+          "credit": "Fisher, R. (1936). Iris. UCI Machine Learning Repository.",
+          "license": "CC BY 4.0",
+          "sha256": "6f608b71a7317216319b4d27b4d9bc84e6abd734eda7872b71a458569e2656c0",
+          "split_seed": 17,
+          "train_rows": 120,
+          "heldout_rows": 30,
+          "note": "Small reference classification experiment; no claim of novel capability."
+        }
+      },
+      "b": {
+        "evaluation": {
+          "base_mse": null,
+          "candidate_mse": null,
+          "environment": "python3-stdlib-f32-linear-classifier/v1",
+          "error": null,
+          "evaluator": "nc/linear-classifier-python/v1",
+          "observed_executable": "7e07c3c96b29e214fb76cf6fd2aaf25a70bf66d0597c934495e0de575788f8e5",
+          "outputs": "98127af486e8cbc073ae5d4367eb8bab67f0b8274dd4c28ca2e2ea3ab77f5a3b",
+          "process_id": 64749,
+          "schema": "nc/evaluation/v1",
+          "scores": {
+            "base": 0.8333333333333334,
+            "candidate": 0.9333333333333332,
+            "metric": "accuracy/v1"
+          },
+          "spec": "3568dd4676df2a66bc787b19cc3fd69fee41279c398121b3d1694401533d9d7a",
+          "status": "passed"
+        },
+        "publication": {
+          "receipt": {
+            "alreadyExists": false,
+            "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xc871d632b88121f964e1cc288cf6c106722d1b5e/112",
+            "assertionVersion": "1",
+            "authorAddress": "0xC871D632b88121f964E1Cc288cf6c106722d1b5e",
+            "kaUal": "did:dkg:hardhat:31337/0xc871d632b88121f964e1cc288cf6c106722d1b5e/112",
+            "merkleRoot": "0x402d0495ea5dd947b378ee0da01bd4a6d41d22a0c6336e33772d0a0852d7773d",
+            "name": "nc-e14578d1c4facc9bbd0267e7652549bc1beefcb62362c5e51aa4d0e5fd3bd27b",
+            "promotedCount": 6,
+            "publishReady": true,
+            "sealed": true,
+            "shareOperationId": "mw0f0jek-8osjh7",
+            "status": "swm-shared",
+            "swmShared": true,
+            "written": 6
+          },
+          "record": "e14578d1c4facc9bbd0267e7652549bc1beefcb62362c5e51aa4d0e5fd3bd27b",
+          "state": "shared"
+        },
+        "report": "e53c061285277a6a2e5bbe1722ac86eab3aabfc389303638f4f16dffa5800d90",
+        "review": {
+          "receipt": {
+            "alreadyExists": false,
+            "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xc871d632b88121f964e1cc288cf6c106722d1b5e/116",
+            "assertionVersion": "1",
+            "authorAddress": "0xC871D632b88121f964E1Cc288cf6c106722d1b5e",
+            "kaUal": "did:dkg:hardhat:31337/0xc871d632b88121f964e1cc288cf6c106722d1b5e/116",
+            "merkleRoot": "0x895db5b795323895f87fe5121de217effbfe6f626a8c1dea32a7b8c877f2fdd2",
+            "name": "nc-169b46a8fbecf59a15405976a96748270c7c3e3192c98086fd13d42f7cc6e1fe",
+            "promotedCount": 6,
+            "publishReady": true,
+            "sealed": true,
+            "shareOperationId": "mw0f0k3a-zu24vp",
+            "status": "swm-shared",
+            "swmShared": true,
+            "written": 6
+          },
+          "record": "169b46a8fbecf59a15405976a96748270c7c3e3192c98086fd13d42f7cc6e1fe",
+          "state": "shared"
+        }
+      },
+      "a_readback": {
+        "artifact": "e53c061285277a6a2e5bbe1722ac86eab3aabfc389303638f4f16dffa5800d90",
+        "artifact_origin": "dkg",
+        "artifacts": [
+          "0995990f4757837d42907e23bfaaed92f0c6f3d993ef3475dfd73d318a14b6a8",
+          "0f6f4209b35eed7ae8b03d0a0b8483bf6d3e61e5218525653fe3800948cb3145",
+          "225142be6d8521c39852a7482e032731c89753ef3df373fb7d85f544132c1ca1",
+          "3568dd4676df2a66bc787b19cc3fd69fee41279c398121b3d1694401533d9d7a",
+          "38289ba18759fe720e66bb8ad4725472dc16a2e40f6b264f3cb316985ad4c981",
+          "40d6caf4e480514401b313189c8e5e7ecbe67b555c6f5ec7e8e5702967b0ae6b",
+          "6f8ecb4feee3c489dedc436a9d054eaa27da60514a246433255f623b61b2b454",
+          "737714efa7e671a47d2eaa5b513773bd5a51c3dab741c04c5aa3bebc5295c5d9",
+          "a3196531d202b5872909738197079bd8e1a241f18909a875865ee0b03a5a241f",
+          "b0884ae600bdafe679a522b5d1e1a97c3956945e590a6833ea4044ac3ce3fd3c",
+          "d2de524dd0d5bca46d97072019d1a92f4065bdcb01d97f4fbd7c815f6d44c361",
+          "d8333571d81d2b1e4b85f62ee61f81de718342d395f20174a24fbd2d3c756bd2",
+          "f9064733d70c16e18f905a01cb00ae05d7107897a11e3765c786efa56450551d",
+          "e53c061285277a6a2e5bbe1722ac86eab3aabfc389303638f4f16dffa5800d90",
+          "98127af486e8cbc073ae5d4367eb8bab67f0b8274dd4c28ca2e2ea3ab77f5a3b"
+        ],
+        "author": "0xC871D632b88121f964E1Cc288cf6c106722d1b5e",
+        "context_graph": "0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481",
+        "fixture": false,
+        "kind": "Evaluation",
+        "relates_to": "825472da402135ad4b468d861b25d915b9c0092b3e2d510af9f0764d42f97efa",
+        "schema": "nc/record/v1"
+      },
+      "proposal": {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/113",
+          "assertionVersion": "1",
+          "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+          "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/113",
+          "merkleRoot": "0xbcb2df6157138905fc246eb50db157e9993c456581744b1adaca8e6aaba315ab",
+          "name": "nc-825472da402135ad4b468d861b25d915b9c0092b3e2d510af9f0764d42f97efa",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0f0c83-rp6xpj",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "825472da402135ad4b468d861b25d915b9c0092b3e2d510af9f0764d42f97efa",
+        "related_records": [
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/104",
+              "assertionVersion": "1",
+              "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+              "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/104",
+              "merkleRoot": "0xc3f526bb0ea588c882a707c6b38ad1132994acff49a4d2fa32ca0b25b9167418",
+              "name": "nc-01cca571ff6c2b323633a24b9ac8f958a6c177036748330626a14c53f0dbf5c5",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0f09jm-9mtlxq",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "01cca571ff6c2b323633a24b9ac8f958a6c177036748330626a14c53f0dbf5c5",
+            "state": "shared"
+          },
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/108",
+              "assertionVersion": "1",
+              "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+              "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/108",
+              "merkleRoot": "0x951a21101cb53aef2d2d93317ec3b7fe77ffa0df437e9afc73aa3a270d891af4",
+              "name": "nc-b64431e7ea5ab69b8f5ec5c3a8912da42ab38126e51ff25de686f2f4f92c73d4",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0f0awf-v01tnq",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "b64431e7ea5ab69b8f5ec5c3a8912da42ab38126e51ff25de686f2f4f92c73d4",
+            "state": "shared"
+          },
+          {
+            "receipt": {
+              "alreadyExists": false,
+              "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/112",
+              "assertionVersion": "1",
+              "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+              "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/112",
+              "merkleRoot": "0xd631185c95a484d3eb9038a3b32ca3471e4a8aedd33293e36ec536dec173b172",
+              "name": "nc-0365811dd172b1347730e1097bc61f0f3b6d719d8f9310f84ee1f80eb05737f2",
+              "promotedCount": 6,
+              "publishReady": true,
+              "sealed": true,
+              "shareOperationId": "mw0f0bro-a6fvmo",
+              "status": "swm-shared",
+              "swmShared": true,
+              "written": 6
+            },
+            "record": "0365811dd172b1347730e1097bc61f0f3b6d719d8f9310f84ee1f80eb05737f2",
+            "state": "shared"
+          }
+        ],
+        "state": "shared"
+      }
+    },
+    "large_dkg_artifact": {
+      "bytes": 100663385,
+      "checkpoint": "bcf93df208a58090f9b0c4abb483cead35504a66996c9bb41305dc3e893c3dae",
+      "publication": {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481/_working_memory/0xf852629a2150d396b30c385f87c0f829ebe39793/122",
+          "assertionVersion": "1",
+          "authorAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+          "kaUal": "did:dkg:hardhat:31337/0xf852629a2150d396b30c385f87c0f829ebe39793/122",
+          "merkleRoot": "0xd99a50059ba6b8f83def0a9ce4c7c921abf477d285e6fce9757535827092df8c",
+          "name": "nc-98f3479461a8bac9dfaa4efb0b53b6f482a5df33b8686d72a4713d43ab303147",
+          "promotedCount": 5,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0f0q86-mnnq6f",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 5
+        },
+        "record": "98f3479461a8bac9dfaa4efb0b53b6f482a5df33b8686d72a4713d43ab303147",
+        "state": "shared"
+      },
+      "transport": "native DKG paged artifact protocol",
+      "ui_servers_started": false
+    },
+    "corrupt_dkg_blob_and_resume": {
+      "rejected": true,
+      "cached_verified_parts_before_retry": 2,
+      "retry": "passed"
+    },
+    "dkg_cold_restart": {
+      "same_identities": true,
+      "fresh_client_artifacts": true,
+      "bytes_verified": 100663385
+    },
+    "killed_worker_restart": {
+      "spec": "52d3cfa1c4a99b4e3707cc9f872d54953b811f554fd19605cd153ae4d802149d",
+      "interrupted_pid": 65150,
+      "retry_report": "8c8c28c899aedcd62d71215580b2bf7d600fca54fcc4296bba0ddc221fc28738",
+      "retry_pid": 65154
+    },
+    "uncertain_publication_reconciled": true,
+    "missing_artifact_and_auth_rejection": true,
+    "denied_graph_access": true
+  },
+  "dkg_source": "f425a69eeb8f74bf94ed846bfa161ed3ec44b1bf",
+  "local_chain": {
+    "type": "evm",
+    "rpcUrl": "http://127.0.0.1:50903",
+    "rpcUrls": [
+      "http://127.0.0.1:50903"
+    ],
+    "walletRpcUrls": [
+      "http://127.0.0.1:50903"
+    ],
+    "hubAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "chainId": "hardhat:31337",
+    "confirmations": 1
+  },
+  "identities": [
+    {
+      "agentAddress": "0xF852629a2150D396b30C385f87c0F829EBE39793",
+      "agentDid": "did:dkg:agent:0xF852629a2150D396b30C385f87c0F829EBE39793",
+      "name": "neural-commons-participant",
+      "framework": "Neural Commons",
+      "peerId": "12D3KooWR4iegKsTSAdnfmJXJ8brW81NNxGLzgKQGGCRvt9NPEuq",
+      "nodeIdentityId": "0"
+    },
+    {
+      "agentAddress": "0xC871D632b88121f964E1Cc288cf6c106722d1b5e",
+      "agentDid": "did:dkg:agent:0xC871D632b88121f964E1Cc288cf6c106722d1b5e",
+      "name": "neural-commons-participant",
+      "framework": "Neural Commons",
+      "peerId": "12D3KooWHwPcAmKbT5Z9CTckQc97fQCp5n7X728vcmh8qS6ySDTm",
+      "nodeIdentityId": "0"
+    }
+  ],
+  "context_graph": "0xf852629a2150d396b30c385f87c0f829ebe39793/nc-demo-ad0ec4a3f7bd6481",
+  "fixture": {
+    "base": "1a41054f9819ed2e92dfaa6a0b7d812c91d8db5f23562e5f9660d350d2b397a2",
+    "candidates": {
+      "regression": {
+        "candidate": "e3f004d0c887c2d69115a8f9637a840eb591f491127b49e47346779c29509fa0",
+        "patch": "cdda533093114ac269a6fdeb293ebbd9925a3eac363e1588e5cf874882427037",
+        "spec": "f49d0fa37b693cb9bc4ab286e32e21f3d8fd2f88ed94f129be98e7be259fdad0"
+      },
+      "repair": {
+        "candidate": "9892e25108ad8ca91945d4ffeb8ac1dadde6056109ded6f4fa3e01b467eecd97",
+        "patch": "f2072fed511a43f3ef4d872f2761d67cf99864764153c01eb657af5b9e449659",
+        "spec": "853be6ed32d569834f85b36934f03a3e3a147344d6ea70d3a107c799502357be"
+      }
+    },
+    "development": "85846fe7e1773f486188a76f3fc9af3f8fa00361f1e9b7578e72be4a989c6892",
+    "fixture": true,
+    "heldout": "0cbea3dcb180b9857cbecc5bcad3892ffff68c8fb10eacd058132de72b41eeea",
+    "policy": "b901731623d3a9ffeb2b0b31b297f52087735b63ca3215fbda8c2b27f6f43bb6",
+    "unrelated_checkpoint": "4a631c20991cf2dde9e0e882c6a6b2c595a4686be5adfbf8f129a1926fcc65ed"
+  },
+  "artifact_transport": "DKG native imported artifact protocol; no peer HTTP artifact credentials",
+  "dkg_source_patch": "diff --git a/packages/agent/src/imported-artifact.ts b/packages/agent/src/imported-artifact.ts\nindex 23242d5035..bbbf61998b 100644\n--- a/packages/agent/src/imported-artifact.ts\n+++ b/packages/agent/src/imported-artifact.ts\n@@ -481,6 +481,7 @@ async function resolveLinkedArtifact(agent: DKGAgent, args: {\n       assertionUri: args.assertionUri,\n       ...(args.subGraphName ? { subGraphName: args.subGraphName } : {}),\n       allowSharedMemoryFallback: true,\n+      allowSkippedSource: args.kind === 'source',\n       query: (sparql: string) => agent.store.query(sparql) as Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>,\n     });\n   } catch (err) {\ndiff --git a/packages/cli/src/daemon/routes/knowledge-assets-import.ts b/packages/cli/src/daemon/routes/knowledge-assets-import.ts\nindex aed702815f..f21c92af31 100644\n--- a/packages/cli/src/daemon/routes/knowledge-assets-import.ts\n+++ b/packages/cli/src/daemon/routes/knowledge-assets-import.ts\n@@ -204,7 +204,7 @@ async function resolveAssertionArtifact(\n         fileHash: undefined,\n       },\n       'Import artifact bytes can only be read from imported assertions owned by the requesting agent',\n-      { allowSharedMemoryFallback: true },\n+      { allowSharedMemoryFallback: true, allowSkippedSource: kind === 'source' },\n     );\n   } catch (err) {\n     const directRemote = await resolveExplicitAuthorizedRemoteArtifact(ctx, raw, kind, requestedHash, err);\n@@ -296,7 +296,7 @@ function resolveImportedArtifactForRead(\n   ctx: RequestContext,\n   raw: Record<string, unknown>,\n   message: string,\n-  opts?: { allowSharedMemoryFallback?: boolean },\n+  opts?: { allowSharedMemoryFallback?: boolean; allowSkippedSource?: boolean },\n ): Promise<ImportedArtifactResolution> {\n   return resolveImportedArtifact(ctx, raw, importedArtifactReadOwnerGuard(ctx, message), opts);\n }\ndiff --git a/packages/cli/src/daemon/routes/shared-assertion-helpers.ts b/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\nindex 713f49cc8b..bc50b41528 100644\n--- a/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\n+++ b/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\n@@ -85,7 +85,7 @@ export type ImportedArtifactResolution = {\n   sourceFileHash: string;\n   detectedContentType: string;\n   sourceContentType: string;\n-  extractionStatus: 'completed';\n+  extractionStatus: 'completed' | 'skipped';\n   extractionMethod?: string;\n   rootEntity?: string;\n   sourceFileName?: string;\n@@ -511,6 +511,7 @@ export async function resolveImportedArtifact(\n   },\n   opts?: {\n     allowSharedMemoryFallback?: boolean;\n+    allowSkippedSource?: boolean;\n   },\n ): Promise<ImportedArtifactResolution> {\n   const rawContextGraphId = typeof raw.contextGraphId === 'string' ? raw.contextGraphId.trim() : '';\n@@ -647,7 +648,7 @@ export async function resolveImportedArtifact(\n   }\n \n   const extractionRecord = getExtractionStatusRecord(ctx.extractionStatus, assertionUri);\n-  if (extractionRecord && extractionRecord.status !== 'completed') {\n+  if (extractionRecord && extractionRecord.status !== 'completed' && !(opts?.allowSkippedSource && extractionRecord.status === 'skipped')) {\n     throw new ImportArtifactRouteError(\n       409,\n       `Import artifact is not a completed extraction (status: ${extractionRecord.status})`,\n@@ -662,6 +663,7 @@ export async function resolveImportedArtifact(\n       ...(parsedAssertion.subGraphName ? { subGraphName: parsedAssertion.subGraphName } : {}),\n       ...(requestedFileHash ? { requestedFileHash } : {}),\n       allowSharedMemoryFallback: ownerGuardRelaxed || (opts?.allowSharedMemoryFallback && !parsedAssertion.legacy),\n+      allowSkippedSource: opts?.allowSkippedSource,\n       fallbackDetectedContentType: extractionRecord?.detectedContentType,\n       query: (sparql: string) => ctx.agent.store.query(sparql) as Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>,\n     });\n@@ -705,7 +707,7 @@ export async function resolveImportedArtifact(\n     sourceFileHash: metadata.sourceFileHash,\n     detectedContentType: metadata.sourceContentType,\n     sourceContentType: metadata.sourceContentType,\n-    extractionStatus: 'completed',\n+    extractionStatus: metadata.extractionStatus,\n     extractionMethod: metadata.extractionMethod || extractionRecord?.pipelineUsed || undefined,\n     rootEntity: metadata.rootEntity || extractionRecord?.rootEntity || undefined,\n     sourceFileName: metadata.sourceFileName || extractionRecord?.fileName || undefined,\ndiff --git a/packages/core/src/imported-artifact-metadata.ts b/packages/core/src/imported-artifact-metadata.ts\nindex b54bd87a99..c28d11c834 100644\n--- a/packages/core/src/imported-artifact-metadata.ts\n+++ b/packages/core/src/imported-artifact-metadata.ts\n@@ -13,7 +13,7 @@ export interface ImportedArtifactMetadata {\n   source: ImportedArtifactMetadataSource;\n   sourceFileHash: string;\n   sourceContentType: string;\n-  extractionStatus: 'completed';\n+  extractionStatus: 'completed' | 'skipped';\n   extractionMethod?: string;\n   rootEntity?: string;\n   sourceFileName?: string;\n@@ -39,6 +39,7 @@ export interface ResolveImportedArtifactMetadataParams {\n   subGraphName?: string;\n   requestedFileHash?: string;\n   allowSharedMemoryFallback?: boolean;\n+  allowSkippedSource?: boolean;\n   fallbackDetectedContentType?: string;\n   query: (sparql: string) => Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>;\n }\n@@ -145,7 +146,7 @@ async function resolveDurableImportedArtifactMetadata(\n \n   const durableExtractionStatus = normalizeLiteral(metaBinding.extractionStatus) || undefined;\n   const structuralTripleCount = optionalPositiveInteger(metaBinding.structuralTripleCount);\n-  if (durableExtractionStatus && durableExtractionStatus !== 'completed') {\n+  if (durableExtractionStatus && durableExtractionStatus !== 'completed' && !(params.allowSkippedSource && durableExtractionStatus === 'skipped')) {\n     throw new ImportedArtifactMetadataError(\n       'incomplete',\n       `Import artifact is not a completed extraction (status: ${durableExtractionStatus})`,\n@@ -173,7 +174,7 @@ async function resolveDurableImportedArtifactMetadata(\n     source: 'durable',\n     sourceFileHash,\n     sourceContentType,\n-    extractionStatus: 'completed',\n+    extractionStatus: durableExtractionStatus === 'skipped' ? 'skipped' : 'completed',\n     extractionMethod: normalizeLiteral(metaBinding.extractionMethod) || undefined,\n     rootEntity: normalizeIri(metaBinding.rootEntity) || undefined,\n     sourceFileName: normalizeLiteral(metaBinding.sourceFileName) || undefined,\ndiff --git a/packages/core/test/imported-artifact-metadata.test.ts b/packages/core/test/imported-artifact-metadata.test.ts\nindex 31d4b6ff8d..4a016cd3c9 100644\n--- a/packages/core/test/imported-artifact-metadata.test.ts\n+++ b/packages/core/test/imported-artifact-metadata.test.ts\n@@ -97,3 +97,14 @@ describe('imported artifact metadata resolver', () => {\n     });\n   });\n });\n+\n+// Neural Commons opaque source compatibility: no extraction is needed to read original bytes.\n+it('allows skipped source reads only when explicitly requested; never admits failed extraction', async () => {\n+  for (const status of ['skipped', 'failed', 'processing']) {\n+    const query = async (sparql: string) => ({bindings: sparql.includes('/_meta') ? [{fileHash: sourceHash, contentType:'application/octet-stream', extractionStatus:status}] : []});\n+    await expect(resolveImportedArtifactMetadata({contextGraphId,assertionUri,query})).rejects.toThrow();\n+    const read = resolveImportedArtifactMetadata({contextGraphId,assertionUri,query,allowSkippedSource:true});\n+    if (status === 'skipped') await expect(read).resolves.toMatchObject({extractionStatus:'skipped',sourceFileHash:sourceHash});\n+    else await expect(read).rejects.toThrow();\n+  }\n+});\n"
+}

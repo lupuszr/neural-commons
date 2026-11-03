@@ -1,0 +1,139 @@
+diff --git a/packages/agent/src/imported-artifact.ts b/packages/agent/src/imported-artifact.ts
+index 23242d5035..bbbf61998b 100644
+--- a/packages/agent/src/imported-artifact.ts
++++ b/packages/agent/src/imported-artifact.ts
+@@ -481,6 +481,7 @@ async function resolveLinkedArtifact(agent: DKGAgent, args: {
+       assertionUri: args.assertionUri,
+       ...(args.subGraphName ? { subGraphName: args.subGraphName } : {}),
+       allowSharedMemoryFallback: true,
++      allowSkippedSource: args.kind === 'source',
+       query: (sparql: string) => agent.store.query(sparql) as Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>,
+     });
+   } catch (err) {
+diff --git a/packages/cli/src/daemon/routes/knowledge-assets-import.ts b/packages/cli/src/daemon/routes/knowledge-assets-import.ts
+index aed702815f..f21c92af31 100644
+--- a/packages/cli/src/daemon/routes/knowledge-assets-import.ts
++++ b/packages/cli/src/daemon/routes/knowledge-assets-import.ts
+@@ -204,7 +204,7 @@ async function resolveAssertionArtifact(
+         fileHash: undefined,
+       },
+       'Import artifact bytes can only be read from imported assertions owned by the requesting agent',
+-      { allowSharedMemoryFallback: true },
++      { allowSharedMemoryFallback: true, allowSkippedSource: kind === 'source' },
+     );
+   } catch (err) {
+     const directRemote = await resolveExplicitAuthorizedRemoteArtifact(ctx, raw, kind, requestedHash, err);
+@@ -296,7 +296,7 @@ function resolveImportedArtifactForRead(
+   ctx: RequestContext,
+   raw: Record<string, unknown>,
+   message: string,
+-  opts?: { allowSharedMemoryFallback?: boolean },
++  opts?: { allowSharedMemoryFallback?: boolean; allowSkippedSource?: boolean },
+ ): Promise<ImportedArtifactResolution> {
+   return resolveImportedArtifact(ctx, raw, importedArtifactReadOwnerGuard(ctx, message), opts);
+ }
+diff --git a/packages/cli/src/daemon/routes/shared-assertion-helpers.ts b/packages/cli/src/daemon/routes/shared-assertion-helpers.ts
+index 713f49cc8b..bc50b41528 100644
+--- a/packages/cli/src/daemon/routes/shared-assertion-helpers.ts
++++ b/packages/cli/src/daemon/routes/shared-assertion-helpers.ts
+@@ -85,7 +85,7 @@ export type ImportedArtifactResolution = {
+   sourceFileHash: string;
+   detectedContentType: string;
+   sourceContentType: string;
+-  extractionStatus: 'completed';
++  extractionStatus: 'completed' | 'skipped';
+   extractionMethod?: string;
+   rootEntity?: string;
+   sourceFileName?: string;
+@@ -511,6 +511,7 @@ export async function resolveImportedArtifact(
+   },
+   opts?: {
+     allowSharedMemoryFallback?: boolean;
++    allowSkippedSource?: boolean;
+   },
+ ): Promise<ImportedArtifactResolution> {
+   const rawContextGraphId = typeof raw.contextGraphId === 'string' ? raw.contextGraphId.trim() : '';
+@@ -647,7 +648,7 @@ export async function resolveImportedArtifact(
+   }
+ 
+   const extractionRecord = getExtractionStatusRecord(ctx.extractionStatus, assertionUri);
+-  if (extractionRecord && extractionRecord.status !== 'completed') {
++  if (extractionRecord && extractionRecord.status !== 'completed' && !(opts?.allowSkippedSource && extractionRecord.status === 'skipped')) {
+     throw new ImportArtifactRouteError(
+       409,
+       `Import artifact is not a completed extraction (status: ${extractionRecord.status})`,
+@@ -662,6 +663,7 @@ export async function resolveImportedArtifact(
+       ...(parsedAssertion.subGraphName ? { subGraphName: parsedAssertion.subGraphName } : {}),
+       ...(requestedFileHash ? { requestedFileHash } : {}),
+       allowSharedMemoryFallback: ownerGuardRelaxed || (opts?.allowSharedMemoryFallback && !parsedAssertion.legacy),
++      allowSkippedSource: opts?.allowSkippedSource,
+       fallbackDetectedContentType: extractionRecord?.detectedContentType,
+       query: (sparql: string) => ctx.agent.store.query(sparql) as Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>,
+     });
+@@ -705,7 +707,7 @@ export async function resolveImportedArtifact(
+     sourceFileHash: metadata.sourceFileHash,
+     detectedContentType: metadata.sourceContentType,
+     sourceContentType: metadata.sourceContentType,
+-    extractionStatus: 'completed',
++    extractionStatus: metadata.extractionStatus,
+     extractionMethod: metadata.extractionMethod || extractionRecord?.pipelineUsed || undefined,
+     rootEntity: metadata.rootEntity || extractionRecord?.rootEntity || undefined,
+     sourceFileName: metadata.sourceFileName || extractionRecord?.fileName || undefined,
+diff --git a/packages/core/src/imported-artifact-metadata.ts b/packages/core/src/imported-artifact-metadata.ts
+index b54bd87a99..c28d11c834 100644
+--- a/packages/core/src/imported-artifact-metadata.ts
++++ b/packages/core/src/imported-artifact-metadata.ts
+@@ -13,7 +13,7 @@ export interface ImportedArtifactMetadata {
+   source: ImportedArtifactMetadataSource;
+   sourceFileHash: string;
+   sourceContentType: string;
+-  extractionStatus: 'completed';
++  extractionStatus: 'completed' | 'skipped';
+   extractionMethod?: string;
+   rootEntity?: string;
+   sourceFileName?: string;
+@@ -39,6 +39,7 @@ export interface ResolveImportedArtifactMetadataParams {
+   subGraphName?: string;
+   requestedFileHash?: string;
+   allowSharedMemoryFallback?: boolean;
++  allowSkippedSource?: boolean;
+   fallbackDetectedContentType?: string;
+   query: (sparql: string) => Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>;
+ }
+@@ -145,7 +146,7 @@ async function resolveDurableImportedArtifactMetadata(
+ 
+   const durableExtractionStatus = normalizeLiteral(metaBinding.extractionStatus) || undefined;
+   const structuralTripleCount = optionalPositiveInteger(metaBinding.structuralTripleCount);
+-  if (durableExtractionStatus && durableExtractionStatus !== 'completed') {
++  if (durableExtractionStatus && durableExtractionStatus !== 'completed' && !(params.allowSkippedSource && durableExtractionStatus === 'skipped')) {
+     throw new ImportedArtifactMetadataError(
+       'incomplete',
+       `Import artifact is not a completed extraction (status: ${durableExtractionStatus})`,
+@@ -173,7 +174,7 @@ async function resolveDurableImportedArtifactMetadata(
+     source: 'durable',
+     sourceFileHash,
+     sourceContentType,
+-    extractionStatus: 'completed',
++    extractionStatus: durableExtractionStatus === 'skipped' ? 'skipped' : 'completed',
+     extractionMethod: normalizeLiteral(metaBinding.extractionMethod) || undefined,
+     rootEntity: normalizeIri(metaBinding.rootEntity) || undefined,
+     sourceFileName: normalizeLiteral(metaBinding.sourceFileName) || undefined,
+diff --git a/packages/core/test/imported-artifact-metadata.test.ts b/packages/core/test/imported-artifact-metadata.test.ts
+index 31d4b6ff8d..4a016cd3c9 100644
+--- a/packages/core/test/imported-artifact-metadata.test.ts
++++ b/packages/core/test/imported-artifact-metadata.test.ts
+@@ -97,3 +97,14 @@ describe('imported artifact metadata resolver', () => {
+     });
+   });
+ });
++
++// Neural Commons opaque source compatibility: no extraction is needed to read original bytes.
++it('allows skipped source reads only when explicitly requested; never admits failed extraction', async () => {
++  for (const status of ['skipped', 'failed', 'processing']) {
++    const query = async (sparql: string) => ({bindings: sparql.includes('/_meta') ? [{fileHash: sourceHash, contentType:'application/octet-stream', extractionStatus:status}] : []});
++    await expect(resolveImportedArtifactMetadata({contextGraphId,assertionUri,query})).rejects.toThrow();
++    const read = resolveImportedArtifactMetadata({contextGraphId,assertionUri,query,allowSkippedSource:true});
++    if (status === 'skipped') await expect(read).resolves.toMatchObject({extractionStatus:'skipped',sourceFileHash:sourceHash});
++    else await expect(read).rejects.toThrow();
++  }
++});
