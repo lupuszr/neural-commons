@@ -2,6 +2,8 @@
 
 Collaborative neural-network weight changes through OriginTrail DKG. Rust provides an architecture-independent registry and patch engine over named tensors; operator-configured evaluators measure behavior. Graph Computer is not a dependency.
 
+The project was inspired by [Rikiya Takehi's original X post and discussion](https://x.com/rikiyatakehi/status/2117313742891327994) and the research post [Sparks of Weight-Space Programming: LLMs can natively read & write neural network weights](https://rikiyat.github.io/blog/weight-space-programming/) by Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab (MIT CSAIL, November 2, 2026). Their [released experiment logs](https://github.com/RikiyaT/lm_understand-logs) document the original work. Neural Commons builds on the idea of agents directly inspecting and editing weights, adding DKG-based sharing, reproducible evaluation and continuation by another controller.
+
 V1 supports large and sharded Safetensors checkpoints, bounded-memory file processing, F32/F16/BF16 region patches and diffs, DKG-native artifact transfer, reproducible evaluator processes, durable local history, CLI operations and a local UI.
 
 The [weight-space agent](docs/WEIGHT-AGENT.md) adds the central experimental loop:
@@ -48,7 +50,5 @@ The integration command starts two isolated DKG participants and a disposable lo
 - [Original plan](PLAN.md) and [first-delivery evidence](docs/VALIDATION.md)
 
 Setup uses a separate DKG checkout and a [small local compatibility patch](patches/dkg-opaque-source-read.patch) for reading opaque source artifacts. It preserves the original dirty checkout. The patch is not claimed to be merged upstream. Rust dependencies are pinned in Cargo.lock.
-
-[Validation between the laptop and Mac mini passed](docs/CROSS-HOST.md), including independent evaluation, native DKG checkpoint transfer and remote restart recovery. This does not establish production readiness or independent institutional trust.
 
 Licensed under [Apache-2.0](LICENSE).
