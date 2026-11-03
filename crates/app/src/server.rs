@@ -17,6 +17,7 @@ struct App {
     token: String,
     permits: Arc<tokio::sync::Semaphore>,
     commands: Arc<tokio::sync::Semaphore>,
+    controller_python: PathBuf,
 }
 struct GuardedBytes {
     bytes: Vec<u8>,
@@ -165,10 +166,12 @@ async fn action(
     let home = app.home.clone();
     let result = tokio::task::spawn_blocking(move || -> anyhow::Result<serde_json::Value> {
         let _permit = permit;
+        let controller_lease = crate::continuations::lease(&home)?;
         let result = std::process::Command::new(std::env::current_exe()?)
             .arg("--home")
             .arg(home)
             .args(args)
+            .stdin(std::process::Stdio::from(controller_lease))
             .output()?;
         anyhow::ensure!(
             result.status.success(),
@@ -188,9 +191,92 @@ async fn action(
         Err(_) => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
     }
 }
-pub fn serve(home: PathBuf, store: ArtifactStore, token_file: &FsPath, port: u16) -> Result<()> {
+fn run_response(result: Result<serde_json::Value>) -> Response {
+    match result {
+        Ok(value) => Json(value).into_response(),
+        Err(error) => {
+            let message = error.to_string();
+            let code = if message.contains("active")
+                || message.contains("already bound")
+                || message.contains("being processed")
+            {
+                StatusCode::CONFLICT
+            } else {
+                StatusCode::BAD_REQUEST
+            };
+            (code, Json(serde_json::json!({"error":message}))).into_response()
+        }
+    }
+}
+async fn continuation_list(State(app): State<Arc<App>>, headers: HeaderMap) -> Response {
+    if !authorized(&headers, &app.token) {
+        return StatusCode::UNAUTHORIZED.into_response();
+    }
+    let Ok(permit) = app.permits.clone().try_acquire_owned() else {
+        return StatusCode::SERVICE_UNAVAILABLE.into_response();
+    };
+    match tokio::task::spawn_blocking(move || {
+        let _permit = permit;
+        crate::continuations::list(&app.home)
+    })
+    .await
+    {
+        Ok(result) => run_response(result),
+        Err(_) => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
+    }
+}
+async fn continuation_start(
+    State(app): State<Arc<App>>,
+    headers: HeaderMap,
+    Json(request): Json<crate::continuations::Request>,
+) -> Response {
+    if !authorized(&headers, &app.token) {
+        return StatusCode::UNAUTHORIZED.into_response();
+    }
+    let Ok(permit) = app.commands.clone().try_acquire_owned() else {
+        return StatusCode::CONFLICT.into_response();
+    };
+    match tokio::task::spawn_blocking(move || {
+        let _permit = permit;
+        crate::continuations::start(&app.home, &app.controller_python, request)
+    })
+    .await
+    {
+        Ok(result) => run_response(result),
+        Err(_) => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
+    }
+}
+async fn continuation_control(
+    State(app): State<Arc<App>>,
+    Path((id, operation)): Path<(String, String)>,
+    headers: HeaderMap,
+) -> Response {
+    if !authorized(&headers, &app.token) {
+        return StatusCode::UNAUTHORIZED.into_response();
+    }
+    let Ok(permit) = app.commands.clone().try_acquire_owned() else {
+        return StatusCode::CONFLICT.into_response();
+    };
+    match tokio::task::spawn_blocking(move || {
+        let _permit = permit;
+        crate::continuations::control(&app.home, &app.controller_python, &id, &operation)
+    })
+    .await
+    {
+        Ok(result) => run_response(result),
+        Err(_) => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
+    }
+}
+pub fn serve(
+    home: PathBuf,
+    store: ArtifactStore,
+    token_file: &FsPath,
+    port: u16,
+    controller_python: PathBuf,
+) -> Result<()> {
     let app = Arc::new(App {
-        home,
+        home: std::fs::canonicalize(home)?,
+        controller_python,
         store,
         token: nc_dkg_client::read_token(token_file)?,
         permits: Arc::new(tokio::sync::Semaphore::new(2)),
@@ -203,7 +289,9 @@ pub fn serve(home: PathBuf, store: ArtifactStore, token_file: &FsPath, port: u16
     runtime.block_on(async {
         let router=Router::new().route("/",get(||async {Html(include_str!("../../../web/index.html"))}))
             .route("/app.js",get(||async {([(header::CONTENT_TYPE,"text/javascript")],include_str!("../../../web/app.js"))}))
-            .route("/api/state",get(state)).route("/api/actions",post(action)).route("/api/artifact-metadata/{id}",get(artifact)).with_state(app)
+            .route("/api/state",get(state)).route("/api/actions",post(action)).route("/api/artifact-metadata/{id}",get(artifact))
+            .route("/api/continuations",get(continuation_list).post(continuation_start))
+            .route("/api/continuations/{id}/{operation}",post(continuation_control)).with_state(app)
             .layer(axum::middleware::from_fn(|req:axum::extract::Request,next:axum::middleware::Next|async move {
                 let mut r=next.run(req).await;
                 r.headers_mut().insert(header::CONTENT_SECURITY_POLICY,"default-src 'self'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'".parse().unwrap());

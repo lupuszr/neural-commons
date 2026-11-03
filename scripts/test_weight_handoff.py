@@ -77,4 +77,17 @@ class Handoff(unittest.TestCase):
         (self.store/self.weights[1]).write_bytes(b'corrupted')
         with self.assertRaisesRegex(ValueError,'hash mismatch'):load(self.directory,self.weights[1])
 
+    def test_local_handoff_requires_recorded_authenticated_receipt(self):
+        import sqlite3
+        with sqlite3.connect(self.home/'journal.sqlite') as db:
+            db.execute('CREATE TABLE records(id TEXT,record TEXT,provenance TEXT)')
+        with self.assertRaisesRegex(ValueError,'authenticated'):
+            prepare(self.home,self.proposal,self.report,self.root/'unknown',local=True)
+        with sqlite3.connect(self.home/'journal.sqlite') as db:
+            db.execute('INSERT INTO records VALUES(?,?,?)',(self.proposal,json.dumps(self.record),'remote-dkg-readback'))
+        with patch('weight_experiment.nc',return_value={'checkpoint':self.candidate}) as nc:
+            prepare(self.home,self.proposal,self.report,self.root/'local',local=True)
+        self.assertEqual(nc.call_args.args[1:3],('patch','apply'))
+        self.assertEqual(nc.call_count,1)  # No fetch or network publication.
+
 if __name__=='__main__':unittest.main()

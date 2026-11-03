@@ -1,3 +1,4 @@
+mod continuations;
 mod fixtures;
 mod journal;
 mod server;
@@ -89,8 +90,13 @@ enum Action {
     Serve {
         #[arg(long, default_value_t = 19500)]
         port: u16,
+        /// Python environment containing the optional weight-controller dependencies.
+        #[arg(long, default_value = "python3")]
+        controller_python: PathBuf,
     },
     State,
+    /// Read the configured DKG participant identity without publishing.
+    Identity,
     Demo,
     /// Run the weight-space controller adapter (Codex login or OpenAI API).
     Agent {
@@ -371,9 +377,19 @@ fn run() -> Result<()> {
         tmp.persist(path)?;
         return Ok(());
     }
-    if let Action::Serve { port } = cli.command {
+    if let Action::Serve {
+        port,
+        controller_python,
+    } = cli.command
+    {
         let cfg = config(&cli.home)?;
-        return server::serve(cli.home, store, &cfg.artifact_token_file, port);
+        return server::serve(
+            cli.home,
+            store,
+            &cfg.artifact_token_file,
+            port,
+            controller_python,
+        );
     }
     if matches!(cli.command, Action::State) {
         println!(
@@ -384,6 +400,7 @@ fn run() -> Result<()> {
     }
     let j = journal::Journal::open(&cli.home)?;
     let output = match cli.command {
+        Action::Identity => serde_json::to_value(client(&config(&cli.home)?)?.identity()?)?,
         Action::PublishCheckpoint {
             checkpoint,
             fixture,

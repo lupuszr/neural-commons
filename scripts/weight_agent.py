@@ -19,6 +19,7 @@ import tempfile
 import time
 import urllib.error
 import urllib.request
+from continuation_job import lease_fds
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "evaluators"))
@@ -182,7 +183,7 @@ class Controller:
                 env = os.environ.copy()
                 env.pop("OPENAI_API_KEY", None)  # use Codex's existing login, not a stale API key
                 result = subprocess.run(command, input=prompt, capture_output=True, text=True,
-                                        timeout=self.timeout, env=env)
+                                        timeout=self.timeout, env=env, pass_fds=lease_fds())
                 if result.returncode or not output.is_file():
                     # Classify without echoing provider text or credential fragments.
                     diagnostic = (result.stdout + result.stderr).lower()

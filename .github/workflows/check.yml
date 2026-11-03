@@ -14,4 +14,4 @@ jobs:
       - run: cargo +1.93.0 test --locked --workspace
       - run: cargo +1.93.0 clippy --locked --workspace --all-targets -- -D warnings
       - run: python3 -m py_compile scripts/*.py evaluators/*.py
-      - run: node --check web/app.js && node --check scripts/ui_check.cjs
+      - run: node --check web/app.js && node --check scripts/ui_check.cjs && node --check scripts/continuation_api_check.cjs

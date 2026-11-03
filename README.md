@@ -6,6 +6,14 @@ The project was inspired by [Rikiya Takehi's original X post and discussion](htt
 
 V1 supports large and sharded Safetensors checkpoints, bounded-memory file processing, F32/F16/BF16 region patches and diffs, DKG-native artifact transfer, reproducible evaluator processes, durable local history, CLI operations and a local UI.
 
+The local workspace organizes evaluations into experiments, with base/candidate
+comparisons, checkpoint details, controller history and inspectable evidence.
+**Continue from candidate** starts a bounded background controller job from a
+verified parent. Jobs retain their status and evidence across browser closure and
+server restart, with cancellation, search resume and frozen-candidate import retry.
+
+![Neural Commons workspace showing the recorded AG News evaluation](docs/assets/workspace.png)
+
 The [weight-space agent](docs/WEIGHT-AGENT.md) adds the central experimental loop:
 an LLM controller reads and directly edits another pretrained language model's
 weights, without gradients. It supports **Codex CLI with an existing login** and
@@ -44,7 +52,35 @@ cargo run --locked --bin nc -- demo
 
 The integration command starts two isolated DKG participants and a disposable local EVM, tests collaboration and recovery, and stops its services. It includes a trained classifier on real Iris data as well as labelled synthetic regression fixtures. No paid public-chain publication occurs.
 
+To open the workspace for an initialized participant:
+
+```sh
+cargo build --locked --bin nc
+target/debug/nc --home /absolute/path/to/participant serve --port 19500 \
+  --controller-python /absolute/path/to/python
+```
+
+Open `http://127.0.0.1:19500` and enter the participant's UI access token.
+**Overview** compares scores from the same evaluation specification;
+**Model versions** exposes checkpoint inspection and operations; **Evidence**
+retains policies, reports and publication history; **Controller runs** tracks
+background searches and their frozen candidates.
+
+For controller execution, use a Python environment with
+`requirements-weight-agent.txt`, an active configured DKG node, and either an
+existing Codex login or `OPENAI_API_KEY` in the server environment. Continue
+requires a recorded passing parent proposal and a prepared directory containing
+fresh task splits and policies. Choose the backend, model and execution limits in
+the UI. Final evaluation and DKG sharing remain explicit operations: a completed
+search does not imply an accepted or published model. See the
+[controller setup, API and recovery guide](docs/CONTINUATION-UI.md).
+
+The UI displays the verdict stored in each evaluation report. The recorded second
+controller's original failed gate therefore remains visible even though the
+separate policy reassessment accepts it under the revised threshold.
+
 - [V1 setup, commands, evaluator contract and limitations](docs/V1.md)
+- [UI controller jobs, requirements, API and local validation](docs/CONTINUATION-UI.md)
 - [V1 validation evidence](docs/V1-VALIDATION.md)
 - [Accepted v1 scope](docs/V1-PLAN.md)
 - [Original plan](PLAN.md) and [first-delivery evidence](docs/VALIDATION.md)

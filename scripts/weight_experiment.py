@@ -5,6 +5,8 @@ import pathlib
 import platform
 import subprocess
 import sys
+import os
+from continuation_job import lease_fds
 
 from weight_agent import ROOT, sha, write
 
@@ -13,8 +15,8 @@ EVALUATOR = "nc/causal-lm-labels/v1"
 
 def nc(home, *args, timeout=900):
     return json.loads(subprocess.check_output(
-        [str(ROOT / "target/debug/nc"), "--home", str(home), *map(str, args)],
-        text=True, timeout=timeout))
+        [os.environ.get('NC_EXECUTABLE', str(ROOT / "target/debug/nc")), "--home", str(home), *map(str, args)],
+        text=True, timeout=timeout, pass_fds=lease_fds()))
 
 
 def configure(home):
@@ -38,7 +40,7 @@ def configure(home):
     write(path, runners)
 
 
-def experiment(home, directory, session_directory):
+def experiment(home, directory, session_directory, evaluate=True):
     session = json.loads((session_directory / "session.json").read_text())
     commitment = session["commitment"]
     paths = {"target": directory / "model/model.safetensors", "config": directory / "config.json",
@@ -115,7 +117,7 @@ def experiment(home, directory, session_directory):
     spec_path = session_directory / "spec.json"
     write(spec_path, spec)
     spec_id = put(spec_path)
-    evaluation = nc(home, "evaluate", spec_id)
+    evaluation = nc(home, "evaluate", spec_id) if evaluate else None
     result = {"spec": spec_id, "evaluation": evaluation, "base": base, "candidate": candidate,
               "patch": patch, "rust_reconstruction_matches": True,
               "changed_parameters": session["changed_parameters"], "controller": commitment["controller"],

@@ -55,11 +55,19 @@ def inspect_diff(diff, tensor, start, count):
                         if start <= i < start + count]}
 
 
-def prepare(home, proposal, evaluation, directory):
+def prepare(home, proposal, evaluation, directory, local=False):
     """Consume already authenticated DKG receipt; all bytes must match their IDs."""
     from weight_experiment import nc
-    record = nc(home, 'fetch', proposal)
     root = home / 'artifacts'
+    if local:
+        import sqlite3
+        with sqlite3.connect('file:' + str(home / 'journal.sqlite') + '?mode=ro', uri=True) as db:
+            row = db.execute('SELECT record,provenance FROM records WHERE id=?', (proposal,)).fetchone()
+        if not row or row[1] not in ['remote-dkg-readback', 'local-shared']:
+            raise ValueError('parent proposal is not authenticated in the participant journal')
+        record = json.loads(row[0])
+    else:
+        record = nc(home, 'fetch', proposal)
     stored_record = json.loads(artifact(root, proposal).read_text())
     if record != stored_record or record['kind'] != 'PatchProposal':
         raise ValueError('parent must be an authenticated proposal')
