@@ -62,6 +62,9 @@ pub struct EvaluationSpec {
     pub max_samples: usize,
     pub max_artifact_bytes: usize,
     pub metric: String,
+    /// Content-addressed provenance (controller transcript, experiment commitment).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub evidence: Vec<ContentId>,
 }
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "snake_case")]

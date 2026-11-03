@@ -42,6 +42,9 @@ struct Output {
     base: f64,
     candidate: f64,
     backend: String,
+    // Optional bounded adapter detail is preserved verbatim in the output artifact.
+    #[serde(default, rename = "details")]
+    _details: Option<serde_json::Value>,
 }
 pub fn runner_identity(r: &Runner) -> Result<ContentId> {
     ensure!(
@@ -125,6 +128,10 @@ pub fn evaluate_external(
         );
         store.verify(&spec.dataset)?;
         store.verify(&spec.config)?;
+        ensure!(spec.evidence.len() <= 128, "too many evidence artifacts");
+        for evidence in &spec.evidence {
+            store.verify(evidence)?;
+        }
         let policy: MetricPolicy = store.get_json(&spec.policy)?;
         ensure!(
             policy.schema == "nc/metric-policy/v1"
@@ -149,7 +156,7 @@ pub fn evaluate_external(
         std::fs::write(
             &request,
             json_bytes(
-                &json!({"schema":"nc/evaluator-request/v1","spec_id":spec_id,"spec":spec,"base_files":paths(&base),"candidate_files":paths(&candidate),"dataset":store.path(&spec.dataset),"config":store.path(&spec.config)}),
+                &json!({"schema":"nc/evaluator-request/v1","spec_id":spec_id,"spec":spec,"base_files":paths(&base),"candidate_files":paths(&candidate),"inference_artifacts":base.inference_artifacts.iter().map(|(name, id)| (name, store.path(id))).collect::<BTreeMap<_,_>>(),"dataset":store.path(&spec.dataset),"config":store.path(&spec.config)}),
             )?,
         )?;
         let mut child = Command::new(&runner.program)
@@ -267,9 +274,19 @@ mod tests {
             max_timeout_ms: 5000,
             max_output_bytes: 4096,
         };
-        let mut spec=EvaluationSpec {schema:"nc/evaluation-spec/v1".into(),base,candidate,patch,evaluator:"contract-test".into(),executable:runner_identity(&runner).unwrap(),dataset:store.put_json(&json!({})).unwrap(),config,policy:store.put_json(&json!({"schema":"nc/metric-policy/v1","metric":"loss","direction":"minimize","threshold":0.1,"min_improvement":0.2,"tolerance":0.0})).unwrap(),seed:0,backend:"test".into(),timeout_ms:3000,max_samples:1,max_artifact_bytes:0,metric:"loss".into()};
+        let mut spec=EvaluationSpec {schema:"nc/evaluation-spec/v1".into(),base,candidate,patch,evaluator:"contract-test".into(),executable:runner_identity(&runner).unwrap(),dataset:store.put_json(&json!({})).unwrap(),config,policy:store.put_json(&json!({"schema":"nc/metric-policy/v1","metric":"loss","direction":"minimize","threshold":0.1,"min_improvement":0.2,"tolerance":0.0})).unwrap(),seed:0,backend:"test".into(),timeout_ms:3000,max_samples:1,max_artifact_bytes:0,metric:"loss".into(),evidence:Vec::new()};
         let report = evaluate_external(&store, &store.put_json(&spec).unwrap(), &runner);
         assert_eq!(report.status, Status::Passed, "{:?}", report.error);
+        // Provenance is part of the specification and must actually be available.
+        let provenance = b"controller transcript";
+        spec.evidence = vec![digest(provenance)];
+        let missing = evaluate_external(&store, &store.put_json(&spec).unwrap(), &runner);
+        assert_eq!(missing.status, Status::Unavailable);
+        store.put(provenance).unwrap();
+        assert_eq!(
+            evaluate_external(&store, &store.put_json(&spec).unwrap(), &runner).status,
+            Status::Passed
+        );
         std::fs::write(&script, "import time;time.sleep(5)\n").unwrap();
         assert_eq!(
             evaluate_external(&store, &store.put_json(&spec).unwrap(), &runner).status,

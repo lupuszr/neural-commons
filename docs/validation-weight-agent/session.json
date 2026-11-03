@@ -1,0 +1,1333 @@
+{
+  "schema": "nc/weight-agent-session/v1",
+  "commitment": {
+    "schema": "nc/agent-commitment/v1",
+    "target_sha256": "5af571cbf074e6d21a03528d2330792e532ca608f24ac70a143f6b369968ab8c",
+    "config_sha256": "bd69202ce5d084c6ca6af8ec7d39413e4cd35f48e59d8f02287a6d29116ab529",
+    "development_sha256": "2d897b70a967ef0a829c1b62a1b1762a361a9088d659b5ad9d9b65220a33bc25",
+    "heldout_sha256": "2bbee48214b794baa8df1795d43d8ed5e54a488b860ffde530a99e483f5ffea9",
+    "policy_sha256": "5e714ed53458055e9d7cfb26bab8fb5e8e6edf42878998d01b18fe69e94185ab",
+    "backend": "codex",
+    "controller": "gpt-6-astra",
+    "max_rounds": 16,
+    "max_probes": 8,
+    "max_edit_elements": 2000000,
+    "device": "cpu",
+    "model_source": {
+      "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+      "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+      "license": "Apache-2.0",
+      "task": "Synthetic English sentiment forced-choice probe authored for this experiment",
+      "development_samples": 24,
+      "heldout_samples": 32,
+      "limitations": "Small hand-written split; not an independent benchmark or evidence of general LLM improvement."
+    }
+  },
+  "baseline_development": {
+    "accuracy": 1.0,
+    "label_nll": 0.30668980597207945,
+    "samples": 24,
+    "predictions": [
+      {
+        "text": "I loved every minute of this movie.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.4681580662727356,
+        "label_logits": [
+          11.529900550842285,
+          11.014145851135254
+        ]
+      },
+      {
+        "text": "The meal was delicious and the service was excellent.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.39270058274269104,
+        "label_logits": [
+          11.899523735046387,
+          11.167583465576172
+        ]
+      },
+      {
+        "text": "This book is a wonderful read.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.30314934253692627,
+        "label_logits": [
+          12.057440757751465,
+          11.019311904907227
+        ]
+      },
+      {
+        "text": "The camera takes beautiful pictures.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.2978459894657135,
+        "label_logits": [
+          12.084736824035645,
+          11.026174545288086
+        ]
+      },
+      {
+        "text": "The room was clean and comfortable.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.46528711915016174,
+        "label_logits": [
+          11.247769355773926,
+          10.724316596984863
+        ]
+      },
+      {
+        "text": "A fantastic concert with amazing musicians.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.10982237011194229,
+        "label_logits": [
+          8.754077911376953,
+          6.600600719451904
+        ]
+      },
+      {
+        "text": "The headphones sound great.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.19188636541366577,
+        "label_logits": [
+          11.678253173828125,
+          10.1248779296875
+        ]
+      },
+      {
+        "text": "The staff were friendly and helpful.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.31958138942718506,
+        "label_logits": [
+          11.024725914001465,
+          10.048025131225586
+        ]
+      },
+      {
+        "text": "I am very happy with this purchase.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.2096123844385147,
+        "label_logits": [
+          13.53890609741211,
+          12.083046913146973
+        ]
+      },
+      {
+        "text": "The game is fun and well designed.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.3349955677986145,
+        "label_logits": [
+          11.520028114318848,
+          10.598559379577637
+        ]
+      },
+      {
+        "text": "It was not bad at all; I really enjoyed it.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.6142551898956299,
+        "label_logits": [
+          9.940176010131836,
+          9.775630950927734
+        ]
+      },
+      {
+        "text": "Despite the slow start, the ending was brilliant.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.2541193664073944,
+        "label_logits": [
+          10.840742111206055,
+          9.600540161132812
+        ]
+      },
+      {
+        "text": "This movie was boring and badly acted.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.10742266476154327,
+        "label_logits": [
+          10.069482803344727,
+          12.246274948120117
+        ]
+      },
+      {
+        "text": "The food was cold and tasted awful.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.2497619390487671,
+        "label_logits": [
+          11.079566955566406,
+          12.339335441589355
+        ]
+      },
+      {
+        "text": "A disappointing book full of errors.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.3340178430080414,
+        "label_logits": [
+          8.839599609375,
+          9.764507293701172
+        ]
+      },
+      {
+        "text": "The camera broke after one day.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.4171270430088043,
+        "label_logits": [
+          10.72060775756836,
+          11.379169464111328
+        ]
+      },
+      {
+        "text": "The hotel was dirty and noisy.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.30755990743637085,
+        "label_logits": [
+          10.31387710571289,
+          11.335244178771973
+        ]
+      },
+      {
+        "text": "The concert was a complete waste of money.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.27265188097953796,
+        "label_logits": [
+          9.654438972473145,
+          10.814577102661133
+        ]
+      },
+      {
+        "text": "The headphones are uncomfortable and sound terrible.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.30349940061569214,
+        "label_logits": [
+          11.405984878540039,
+          12.44277572631836
+        ]
+      },
+      {
+        "text": "The staff ignored us for an hour.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.23838618397712708,
+        "label_logits": [
+          10.514596939086914,
+          11.826900482177734
+        ]
+      },
+      {
+        "text": "I regret buying this product.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.22486069798469543,
+        "label_logits": [
+          11.105758666992188,
+          12.48349666595459
+        ]
+      },
+      {
+        "text": "The game crashes constantly and is frustrating.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.17133794724941254,
+        "label_logits": [
+          9.185757637023926,
+          10.862982749938965
+        ]
+      },
+      {
+        "text": "I wanted to like it, but it was not good.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.3360094130039215,
+        "label_logits": [
+          10.484904289245605,
+          11.402815818786621
+        ]
+      },
+      {
+        "text": "Nice packaging cannot hide the terrible quality.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.4365066885948181,
+        "label_logits": [
+          12.456681251525879,
+          13.059453010559082
+        ]
+      }
+    ]
+  },
+  "selected": {
+    "id": 2,
+    "hypothesis": "The scale-128 attempt was rejected without evaluation. Scaling the inspected final RMSNorm by 64 should double candidate 1's correct-label margins while preserving rankings, reducing development binary NLL further. This is confidence scaling only, with no demonstrated improvement in discrimination or generalization.",
+    "operations": [
+      {
+        "tensor": "model.norm.weight",
+        "start": 0,
+        "count": 576,
+        "scale": 64,
+        "add_tensor": null,
+        "add_start": 0,
+        "add_scale": 0
+      }
+    ],
+    "development": {
+      "candidate": 2,
+      "accuracy": 1.0,
+      "label_nll": 1.1126051807271626e-06,
+      "samples": 24,
+      "predictions": [
+        {
+          "text": "I loved every minute of this movie.",
+          "label": 0,
+          "prediction": 0,
+          "nll": -0.0,
+          "label_logits": [
+            737.9136352539062,
+            704.9053344726562
+          ]
+        },
+        {
+          "text": "The meal was delicious and the service was excellent.",
+          "label": 0,
+          "prediction": 0,
+          "nll": -0.0,
+          "label_logits": [
+            761.5695190429688,
+            714.725341796875
+          ]
+        },
+        {
+          "text": "This book is a wonderful read.",
+          "label": 0,
+          "prediction": 0,
+          "nll": -0.0,
+          "label_logits": [
+            771.6762084960938,
+            705.2359619140625
+          ]
+        },
+        {
+          "text": "The camera takes beautiful pictures.",
+          "label": 0,
+          "prediction": 0,
+          "nll": -0.0,
+          "label_logits": [
+            773.4231567382812,
+            705.6751708984375
+          ]
+        },
+        {
+          "text": "The room was clean and comfortable.",
+          "label": 0,
+          "prediction": 0,
+          "nll": -0.0,
+          "label_logits": [
+            719.8572387695312,
+            686.3562622070312
+          ]
+        },
+        {
+          "text": "A fantastic concert with amazing musicians.",
+          "label": 0,
+          "prediction": 0,
+          "nll": -0.0,
+          "label_logits": [
+            560.260986328125,
+            422.4384460449219
+          ]
+        },
+        {
+          "text": "The headphones sound great.",
+          "label": 0,
+          "prediction": 0,
+          "nll": -0.0,
+          "label_logits": [
+            747.408203125,
+            647.9921875
+          ]
+        },
+        {
+          "text": "The staff were friendly and helpful.",
+          "label": 0,
+          "prediction": 0,
+          "nll": -0.0,
+          "label_logits": [
+            705.5824584960938,
+            643.0736083984375
+          ]
+        },
+        {
+          "text": "I am very happy with this purchase.",
+          "label": 0,
+          "prediction": 0,
+          "nll": -0.0,
+          "label_logits": [
+            866.489990234375,
+            773.3150024414062
+          ]
+        },
+        {
+          "text": "The game is fun and well designed.",
+          "label": 0,
+          "prediction": 0,
+          "nll": -0.0,
+          "label_logits": [
+            737.2817993164062,
+            678.3078002929688
+          ]
+        },
+        {
+          "text": "It was not bad at all; I really enjoyed it.",
+          "label": 0,
+          "prediction": 0,
+          "nll": 2.6702524337451905e-05,
+          "label_logits": [
+            636.1712646484375,
+            625.640380859375
+          ]
+        },
+        {
+          "text": "Despite the slow start, the ending was brilliant.",
+          "label": 0,
+          "prediction": 0,
+          "nll": -0.0,
+          "label_logits": [
+            693.8074951171875,
+            614.4345703125
+          ]
+        },
+        {
+          "text": "This movie was boring and badly acted.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            644.4468994140625,
+            783.7615966796875
+          ]
+        },
+        {
+          "text": "The food was cold and tasted awful.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            709.09228515625,
+            789.7174682617188
+          ]
+        },
+        {
+          "text": "A disappointing book full of errors.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            565.734375,
+            624.928466796875
+          ]
+        },
+        {
+          "text": "The camera broke after one day.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            686.118896484375,
+            728.266845703125
+          ]
+        },
+        {
+          "text": "The hotel was dirty and noisy.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            660.088134765625,
+            725.4556274414062
+          ]
+        },
+        {
+          "text": "The concert was a complete waste of money.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            617.8840942382812,
+            692.1329345703125
+          ]
+        },
+        {
+          "text": "The headphones are uncomfortable and sound terrible.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            729.9830322265625,
+            796.337646484375
+          ]
+        },
+        {
+          "text": "The staff ignored us for an hour.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            672.9342041015625,
+            756.921630859375
+          ]
+        },
+        {
+          "text": "I regret buying this product.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            710.7685546875,
+            798.9437866210938
+          ]
+        },
+        {
+          "text": "The game crashes constantly and is frustrating.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            587.8884887695312,
+            695.2308959960938
+          ]
+        },
+        {
+          "text": "I wanted to like it, but it was not good.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            671.0338745117188,
+            729.7802124023438
+          ]
+        },
+        {
+          "text": "Nice packaging cannot hide the terrible quality.",
+          "label": 1,
+          "prediction": 1,
+          "nll": -0.0,
+          "label_logits": [
+            797.2276000976562,
+            835.8049926757812
+          ]
+        }
+      ]
+    }
+  },
+  "candidates": [
+    {
+      "id": 0,
+      "hypothesis": "All 24 development examples have correctly signed label margins but modest confidence. Scaling the inspected final RMSNorm vector by 4 should multiply label-logit margins approximately fourfold, lowering binary label NLL while preserving predictions; this leaves tied input embeddings unchanged.",
+      "operations": [
+        {
+          "tensor": "model.norm.weight",
+          "start": 0,
+          "count": 576,
+          "scale": 4,
+          "add_tensor": null,
+          "add_start": 0,
+          "add_scale": 0
+        }
+      ],
+      "development": {
+        "candidate": 0,
+        "accuracy": 1.0,
+        "label_nll": 0.043993777722183346,
+        "samples": 24,
+        "predictions": [
+          {
+            "text": "I loved every minute of this movie.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.11962119489908218,
+            "label_logits": [
+              46.11960220336914,
+              44.056583404541016
+            ]
+          },
+          {
+            "text": "The meal was delicious and the service was excellent.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.05213385075330734,
+            "label_logits": [
+              47.59809494018555,
+              44.67033386230469
+            ]
+          },
+          {
+            "text": "This book is a wonderful read.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.01560242474079132,
+            "label_logits": [
+              48.22976303100586,
+              44.077247619628906
+            ]
+          },
+          {
+            "text": "The camera takes beautiful pictures.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.014386736787855625,
+            "label_logits": [
+              48.33894729614258,
+              44.104698181152344
+            ]
+          },
+          {
+            "text": "The room was clean and comfortable.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.11619655787944794,
+            "label_logits": [
+              44.9910774230957,
+              42.89726638793945
+            ]
+          },
+          {
+            "text": "A fantastic concert with amazing musicians.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.00018153927521780133,
+            "label_logits": [
+              35.01631164550781,
+              26.402402877807617
+            ]
+          },
+          {
+            "text": "The headphones sound great.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.002000237349420786,
+            "label_logits": [
+              46.7130126953125,
+              40.49951171875
+            ]
+          },
+          {
+            "text": "The staff were friendly and helpful.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.019905216991901398,
+            "label_logits": [
+              44.09890365600586,
+              40.192100524902344
+            ]
+          },
+          {
+            "text": "I am very happy with this purchase.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.0029530986212193966,
+            "label_logits": [
+              54.15562438964844,
+              48.33218765258789
+            ]
+          },
+          {
+            "text": "The game is fun and well designed.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.024765973910689354,
+            "label_logits": [
+              46.08011245727539,
+              42.39423751831055
+            ]
+          },
+          {
+            "text": "It was not bad at all; I really enjoyed it.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.4172571003437042,
+            "label_logits": [
+              39.760704040527344,
+              39.10252380371094
+            ]
+          },
+          {
+            "text": "Despite the slow start, the ending was brilliant.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.006982804741710424,
+            "label_logits": [
+              43.36296844482422,
+              38.40216064453125
+            ]
+          },
+          {
+            "text": "This movie was boring and badly acted.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.00016532962035853416,
+            "label_logits": [
+              40.277931213378906,
+              48.98509979248047
+            ]
+          },
+          {
+            "text": "The food was cold and tasted awful.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.0064588370732963085,
+            "label_logits": [
+              44.318267822265625,
+              49.35734176635742
+            ]
+          },
+          {
+            "text": "A disappointing book full of errors.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.024431806057691574,
+            "label_logits": [
+              35.3583984375,
+              39.05802917480469
+            ]
+          },
+          {
+            "text": "The camera broke after one day.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.06931433826684952,
+            "label_logits": [
+              42.88243103027344,
+              45.51667785644531
+            ]
+          },
+          {
+            "text": "The hotel was dirty and noisy.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.016675492748618126,
+            "label_logits": [
+              41.25550842285156,
+              45.34097671508789
+            ]
+          },
+          {
+            "text": "The concert was a complete waste of money.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.009606089442968369,
+            "label_logits": [
+              38.61775588989258,
+              43.25830841064453
+            ]
+          },
+          {
+            "text": "The headphones are uncomfortable and sound terrible.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.015685515478253365,
+            "label_logits": [
+              45.623939514160156,
+              49.77110290527344
+            ]
+          },
+          {
+            "text": "The staff ignored us for an hour.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.005237904377281666,
+            "label_logits": [
+              42.058387756347656,
+              47.30760192871094
+            ]
+          },
+          {
+            "text": "I regret buying this product.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.004034119658172131,
+            "label_logits": [
+              44.42303466796875,
+              49.93398666381836
+            ]
+          },
+          {
+            "text": "The game crashes constantly and is frustrating.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.0012192443246021867,
+            "label_logits": [
+              36.7430305480957,
+              43.45193099975586
+            ]
+          },
+          {
+            "text": "I wanted to like it, but it was not good.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.025116534903645515,
+            "label_logits": [
+              41.93961715698242,
+              45.611263275146484
+            ]
+          },
+          {
+            "text": "Nice packaging cannot hide the terrible quality.",
+            "label": 1,
+            "prediction": 1,
+            "nll": 0.08591871708631516,
+            "label_logits": [
+              49.826725006103516,
+              52.23781204223633
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "hypothesis": "Candidate 0 preserved every prediction and reduced development NLL through final-logit scaling. Increasing the inspected final RMSNorm scale to 32 should further reduce NLL for all positive correct-label margins, including the smallest margin, while preserving label rankings. This tests confidence scaling on this development task only, not improved discrimination or broader capability.",
+      "operations": [
+        {
+          "tensor": "model.norm.weight",
+          "start": 0,
+          "count": 576,
+          "scale": 32,
+          "add_tensor": null,
+          "add_start": 0,
+          "add_scale": 0
+        }
+      ],
+      "development": {
+        "candidate": 1,
+        "accuracy": 1.0,
+        "label_nll": 0.00021474758007844486,
+        "samples": 24,
+        "predictions": [
+          {
+            "text": "I loved every minute of this movie.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 1.1920928244535389e-07,
+            "label_logits": [
+              368.9568176269531,
+              352.4526672363281
+            ]
+          },
+          {
+            "text": "The meal was delicious and the service was excellent.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              380.7847595214844,
+              357.3626708984375
+            ]
+          },
+          {
+            "text": "This book is a wonderful read.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              385.8381042480469,
+              352.61798095703125
+            ]
+          },
+          {
+            "text": "The camera takes beautiful pictures.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              386.7115783691406,
+              352.83758544921875
+            ]
+          },
+          {
+            "text": "The room was clean and comfortable.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              359.9286193847656,
+              343.1781311035156
+            ]
+          },
+          {
+            "text": "A fantastic concert with amazing musicians.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              280.1304931640625,
+              211.21922302246094
+            ]
+          },
+          {
+            "text": "The headphones sound great.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              373.7041015625,
+              323.99609375
+            ]
+          },
+          {
+            "text": "The staff were friendly and helpful.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              352.7912292480469,
+              321.53680419921875
+            ]
+          },
+          {
+            "text": "I am very happy with this purchase.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              433.2449951171875,
+              386.6575012207031
+            ]
+          },
+          {
+            "text": "The game is fun and well designed.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              368.6408996582031,
+              339.1539001464844
+            ]
+          },
+          {
+            "text": "It was not bad at all; I really enjoyed it.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 0.005153822712600231,
+            "label_logits": [
+              318.08563232421875,
+              312.8201904296875
+            ]
+          },
+          {
+            "text": "Despite the slow start, the ending was brilliant.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              346.90374755859375,
+              307.21728515625
+            ]
+          },
+          {
+            "text": "This movie was boring and badly acted.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              322.22344970703125,
+              391.88079833984375
+            ]
+          },
+          {
+            "text": "The food was cold and tasted awful.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              354.546142578125,
+              394.8587341308594
+            ]
+          },
+          {
+            "text": "A disappointing book full of errors.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              282.8671875,
+              312.4642333984375
+            ]
+          },
+          {
+            "text": "The camera broke after one day.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              343.0594482421875,
+              364.1334228515625
+            ]
+          },
+          {
+            "text": "The hotel was dirty and noisy.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              330.0440673828125,
+              362.7278137207031
+            ]
+          },
+          {
+            "text": "The concert was a complete waste of money.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              308.9420471191406,
+              346.06646728515625
+            ]
+          },
+          {
+            "text": "The headphones are uncomfortable and sound terrible.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              364.99151611328125,
+              398.1688232421875
+            ]
+          },
+          {
+            "text": "The staff ignored us for an hour.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              336.46710205078125,
+              378.4608154296875
+            ]
+          },
+          {
+            "text": "I regret buying this product.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              355.38427734375,
+              399.4718933105469
+            ]
+          },
+          {
+            "text": "The game crashes constantly and is frustrating.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              293.9442443847656,
+              347.6154479980469
+            ]
+          },
+          {
+            "text": "I wanted to like it, but it was not good.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              335.5169372558594,
+              364.8901062011719
+            ]
+          },
+          {
+            "text": "Nice packaging cannot hide the terrible quality.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              398.6138000488281,
+              417.9024963378906
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "hypothesis": "The scale-128 attempt was rejected without evaluation. Scaling the inspected final RMSNorm by 64 should double candidate 1's correct-label margins while preserving rankings, reducing development binary NLL further. This is confidence scaling only, with no demonstrated improvement in discrimination or generalization.",
+      "operations": [
+        {
+          "tensor": "model.norm.weight",
+          "start": 0,
+          "count": 576,
+          "scale": 64,
+          "add_tensor": null,
+          "add_start": 0,
+          "add_scale": 0
+        }
+      ],
+      "development": {
+        "candidate": 2,
+        "accuracy": 1.0,
+        "label_nll": 1.1126051807271626e-06,
+        "samples": 24,
+        "predictions": [
+          {
+            "text": "I loved every minute of this movie.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              737.9136352539062,
+              704.9053344726562
+            ]
+          },
+          {
+            "text": "The meal was delicious and the service was excellent.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              761.5695190429688,
+              714.725341796875
+            ]
+          },
+          {
+            "text": "This book is a wonderful read.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              771.6762084960938,
+              705.2359619140625
+            ]
+          },
+          {
+            "text": "The camera takes beautiful pictures.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              773.4231567382812,
+              705.6751708984375
+            ]
+          },
+          {
+            "text": "The room was clean and comfortable.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              719.8572387695312,
+              686.3562622070312
+            ]
+          },
+          {
+            "text": "A fantastic concert with amazing musicians.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              560.260986328125,
+              422.4384460449219
+            ]
+          },
+          {
+            "text": "The headphones sound great.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              747.408203125,
+              647.9921875
+            ]
+          },
+          {
+            "text": "The staff were friendly and helpful.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              705.5824584960938,
+              643.0736083984375
+            ]
+          },
+          {
+            "text": "I am very happy with this purchase.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              866.489990234375,
+              773.3150024414062
+            ]
+          },
+          {
+            "text": "The game is fun and well designed.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              737.2817993164062,
+              678.3078002929688
+            ]
+          },
+          {
+            "text": "It was not bad at all; I really enjoyed it.",
+            "label": 0,
+            "prediction": 0,
+            "nll": 2.6702524337451905e-05,
+            "label_logits": [
+              636.1712646484375,
+              625.640380859375
+            ]
+          },
+          {
+            "text": "Despite the slow start, the ending was brilliant.",
+            "label": 0,
+            "prediction": 0,
+            "nll": -0.0,
+            "label_logits": [
+              693.8074951171875,
+              614.4345703125
+            ]
+          },
+          {
+            "text": "This movie was boring and badly acted.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              644.4468994140625,
+              783.7615966796875
+            ]
+          },
+          {
+            "text": "The food was cold and tasted awful.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              709.09228515625,
+              789.7174682617188
+            ]
+          },
+          {
+            "text": "A disappointing book full of errors.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              565.734375,
+              624.928466796875
+            ]
+          },
+          {
+            "text": "The camera broke after one day.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              686.118896484375,
+              728.266845703125
+            ]
+          },
+          {
+            "text": "The hotel was dirty and noisy.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              660.088134765625,
+              725.4556274414062
+            ]
+          },
+          {
+            "text": "The concert was a complete waste of money.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              617.8840942382812,
+              692.1329345703125
+            ]
+          },
+          {
+            "text": "The headphones are uncomfortable and sound terrible.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              729.9830322265625,
+              796.337646484375
+            ]
+          },
+          {
+            "text": "The staff ignored us for an hour.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              672.9342041015625,
+              756.921630859375
+            ]
+          },
+          {
+            "text": "I regret buying this product.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              710.7685546875,
+              798.9437866210938
+            ]
+          },
+          {
+            "text": "The game crashes constantly and is frustrating.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              587.8884887695312,
+              695.2308959960938
+            ]
+          },
+          {
+            "text": "I wanted to like it, but it was not good.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              671.0338745117188,
+              729.7802124023438
+            ]
+          },
+          {
+            "text": "Nice packaging cannot hide the terrible quality.",
+            "label": 1,
+            "prediction": 1,
+            "nll": -0.0,
+            "label_logits": [
+              797.2276000976562,
+              835.8049926757812
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "probes": 4,
+  "changed_parameters": 576,
+  "total_parameters": 134515008,
+  "candidate_sha256": "ef4cfd7b25cbf76a68f7270526b55e657b2409fbfc9ceb4b83ce219b9202de41",
+  "transcript_sha256": "d340f16993fdf85562004b84a1580e6dd529184418ca2fa51a7d2360ae377b14",
+  "gradients_used": false
+}

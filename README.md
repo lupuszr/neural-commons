@@ -4,6 +4,15 @@ Collaborative neural-network weight changes through OriginTrail DKG. Rust provid
 
 V1 supports large and sharded Safetensors checkpoints, bounded-memory file processing, F32/F16/BF16 region patches and diffs, DKG-native artifact transfer, reproducible evaluator processes, durable local history, CLI operations and a local UI.
 
+The [weight-space agent](docs/WEIGHT-AGENT.md) adds the central experimental loop:
+an LLM controller reads and directly edits another pretrained language model's
+weights, without gradients. It supports **Codex CLI with an existing login** and
+the **OpenAI Responses API**. A separate evaluator tests the frozen candidate;
+DKG carries the checkpoint, patch, controller transcript and reproduction evidence.
+The first recorded Codex experiment changed 576 SmolLM2 parameters and **failed**
+the held-out improvement policy. This is a functioning experiment, not a claim
+that an LLM has become generally better.
+
 Requires Rust 1.93, Python 3.9+, Node 24, pnpm 10 and native build tools (Xcode Command Line Tools on macOS or a C/C++ toolchain on Linux).
 
 ```sh

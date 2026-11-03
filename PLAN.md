@@ -2,6 +2,13 @@
 
 Date: 2026-11-02
 
+2026-11-03 scope correction: the user confirmed that an LLM agent directly editing
+another LLM's weights is central to the project. The initial infrastructure scope
+omitted that controller. [WEIGHT-AGENT-PLAN.md](docs/WEIGHT-AGENT-PLAN.md) restores
+the experiment, with Codex and API backends, held-out validation and DKG provenance.
+The original non-goal below concerns claims of novel capabilities or reproducing
+the research results; it does not exclude implementing the weight-editing agent.
+
 Status: original first delivery completed; v1 authorized on 2026-11-03 and tracked in `docs/V1-PLAN.md`; final validation evidence is recorded in `docs/VALIDATION.md`. The scope below remains the accepted implementation plan.
 
 ## Objective

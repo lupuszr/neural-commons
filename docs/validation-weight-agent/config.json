@@ -1,0 +1,12 @@
+{
+  "schema": "nc/causal-lm-label-config/v1",
+  "metric": "binary_label_nll/v1",
+  "labels": [
+    " positive",
+    " negative"
+  ],
+  "prompt": "Classify the review as positive or negative.\nReview: {text}\nSentiment:",
+  "max_samples": 128,
+  "max_tokens": 256,
+  "batch_size": 8
+}

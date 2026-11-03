@@ -1,4 +1,4 @@
-use anyhow::Result;
+use anyhow::{Result, ensure};
 use nc_core::*;
 use nc_evaluator::*;
 use serde_json::{Value, json};
@@ -89,6 +89,7 @@ pub fn generate(s: &ArtifactStore, author: &str, executable: &ContentId) -> Resu
             max_samples: 4096,
             max_artifact_bytes: MAX_METADATA_BYTES,
             metric: "mean_squared_error/v1".into(),
+            evidence: Vec::new(),
         };
         let spec_id = s.put_json(&spec)?;
         outcomes.insert(
@@ -127,6 +128,11 @@ pub fn spec_bundle(s: &ArtifactStore, id: &ContentId) -> Result<Vec<ContentId>> 
         ids.extend(m.inference_artifacts.values().cloned());
     }
     ids.extend(patch.operations.iter().map(|op| op.payload.clone()));
+    ensure!(spec.evidence.len() <= 128, "too many evidence artifacts");
+    for evidence in spec.evidence {
+        s.verify(&evidence)?;
+        ids.insert(evidence);
+    }
     Ok(ids.into_iter().collect())
 }
 

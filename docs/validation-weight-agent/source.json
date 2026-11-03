@@ -1,0 +1,9 @@
+{
+  "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "license": "Apache-2.0",
+  "task": "Synthetic English sentiment forced-choice probe authored for this experiment",
+  "development_samples": 24,
+  "heldout_samples": 32,
+  "limitations": "Small hand-written split; not an independent benchmark or evidence of general LLM improvement."
+}

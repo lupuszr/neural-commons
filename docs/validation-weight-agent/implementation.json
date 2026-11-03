@@ -1,0 +1,21 @@
+{
+  "note": "Post-run source inventory for the recorded implementation, not a pre-run cryptographic attestation.",
+  "sha256": {
+    "scripts/weight_agent.py": "a0073f1e279aed4598d59178727f4c58c46e0cce746dc7a52e17a45a0ecde624",
+    "scripts/prepare_weight_experiment.py": "e9da97a405f78e6a3f91074bc1466b5757c286c6a3af04f4f6c0a840c292e4e3",
+    "scripts/weight_experiment.py": "8121a8216ad0cf5cb7f8ec9af69bfcddead2d95a7aa8f05dd568c1312a90982f",
+    "scripts/weight_dkg_validation.py": "6d4681391ff063dae6bbf39d333218384e97f5c81c73f6cb617d12fe7fd5a58e",
+    "evaluators/causal_lm.py": "7718101f13c086f696362932cfad65ec12a18dddefb7a7bb7e08706504a92c3f",
+    "evaluators/llm_runtime.py": "d2dff4e0271189b33e6a885686fb39d7bc0655cdfedf6094e7b8316fe9f85076"
+  },
+  "checks": {
+    "rust_unit_and_integration_tests": 8,
+    "python_tests": 5,
+    "cargo_fmt": "passed",
+    "cargo_clippy_warnings_denied": "passed",
+    "live_codex_controller": "passed",
+    "live_openai_api": "not validated: invalid API key",
+    "two_local_dkg_participants": "passed; candidate improvement policy failed",
+    "two_physical_hosts_llm_run": "not performed"
+  }
+}

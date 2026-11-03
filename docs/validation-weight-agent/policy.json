@@ -1,0 +1,8 @@
+{
+  "schema": "nc/metric-policy/v1",
+  "metric": "binary_label_nll/v1",
+  "direction": "minimize",
+  "threshold": 0.6931471805599453,
+  "min_improvement": 0.01,
+  "tolerance": 1e-06
+}

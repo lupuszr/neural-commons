@@ -1,0 +1,102 @@
+{
+  "schema": "nc/text-classification/v1",
+  "split": "development",
+  "samples": [
+    {
+      "text": "I loved every minute of this movie.",
+      "label": 0
+    },
+    {
+      "text": "The meal was delicious and the service was excellent.",
+      "label": 0
+    },
+    {
+      "text": "This book is a wonderful read.",
+      "label": 0
+    },
+    {
+      "text": "The camera takes beautiful pictures.",
+      "label": 0
+    },
+    {
+      "text": "The room was clean and comfortable.",
+      "label": 0
+    },
+    {
+      "text": "A fantastic concert with amazing musicians.",
+      "label": 0
+    },
+    {
+      "text": "The headphones sound great.",
+      "label": 0
+    },
+    {
+      "text": "The staff were friendly and helpful.",
+      "label": 0
+    },
+    {
+      "text": "I am very happy with this purchase.",
+      "label": 0
+    },
+    {
+      "text": "The game is fun and well designed.",
+      "label": 0
+    },
+    {
+      "text": "It was not bad at all; I really enjoyed it.",
+      "label": 0
+    },
+    {
+      "text": "Despite the slow start, the ending was brilliant.",
+      "label": 0
+    },
+    {
+      "text": "This movie was boring and badly acted.",
+      "label": 1
+    },
+    {
+      "text": "The food was cold and tasted awful.",
+      "label": 1
+    },
+    {
+      "text": "A disappointing book full of errors.",
+      "label": 1
+    },
+    {
+      "text": "The camera broke after one day.",
+      "label": 1
+    },
+    {
+      "text": "The hotel was dirty and noisy.",
+      "label": 1
+    },
+    {
+      "text": "The concert was a complete waste of money.",
+      "label": 1
+    },
+    {
+      "text": "The headphones are uncomfortable and sound terrible.",
+      "label": 1
+    },
+    {
+      "text": "The staff ignored us for an hour.",
+      "label": 1
+    },
+    {
+      "text": "I regret buying this product.",
+      "label": 1
+    },
+    {
+      "text": "The game crashes constantly and is frustrating.",
+      "label": 1
+    },
+    {
+      "text": "I wanted to like it, but it was not good.",
+      "label": 1
+    },
+    {
+      "text": "Nice packaging cannot hide the terrible quality.",
+      "label": 1
+    }
+  ]
+}

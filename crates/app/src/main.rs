@@ -92,6 +92,11 @@ enum Action {
     },
     State,
     Demo,
+    /// Run the weight-space controller adapter (Codex login or OpenAI API).
+    Agent {
+        #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
+        args: Vec<String>,
+    },
 }
 #[derive(Subcommand)]
 enum PatchAction {
@@ -293,6 +298,17 @@ fn receive(
 }
 fn run() -> Result<()> {
     let cli = Cli::parse();
+    if let Action::Agent { args } = &cli.command {
+        let status = Command::new("python3")
+            .arg(Path::new(env!("CARGO_MANIFEST_DIR")).join("../../scripts/weight_agent.py"))
+            .args(args)
+            .status()?;
+        ensure!(
+            status.success(),
+            "weight agent failed; inspect its transcript"
+        );
+        return Ok(());
+    }
     if matches!(cli.command, Action::Demo) {
         let status = Command::new("python3")
             .arg(Path::new(env!("CARGO_MANIFEST_DIR")).join("../../scripts/demo.py"))

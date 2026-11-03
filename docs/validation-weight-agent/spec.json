@@ -1,0 +1,24 @@
+{
+  "schema": "nc/evaluation-spec/v1",
+  "base": "d67100bd21d12af2b30aa5ab181dc9a136a32100b2b004828a244de3e2fd71df",
+  "candidate": "c72976d8ad4a3dcc7cf86bc8bafd08687f24d13012a88311222c8848a7b76883",
+  "patch": "81a8358dc61802fe92cce21bb05ab5460df35fad90b7f795027679518700edb8",
+  "evaluator": "nc/causal-lm-labels/v1",
+  "executable": "58d2f69c0b82d91906a5e35a2b21a6ec03fd6d3527fd5240f2dbbc46d4fa36c5",
+  "dataset": "2bbee48214b794baa8df1795d43d8ed5e54a488b860ffde530a99e483f5ffea9",
+  "config": "bd69202ce5d084c6ca6af8ec7d39413e4cd35f48e59d8f02287a6d29116ab529",
+  "policy": "5e714ed53458055e9d7cfb26bab8fb5e8e6edf42878998d01b18fe69e94185ab",
+  "seed": 17,
+  "backend": "python-transformers-cpu-f32/14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+  "timeout_ms": 180000,
+  "max_samples": 128,
+  "max_artifact_bytes": 0,
+  "metric": "binary_label_nll/v1",
+  "evidence": [
+    "0eca1aa5d8aad7cafafbbfe00ebcb2286a94636ad0ad7f35d81ed8e2d81edc06",
+    "d340f16993fdf85562004b84a1580e6dd529184418ca2fa51a7d2360ae377b14",
+    "f3fe7d9713e020784948e8aba00ae27d233a16c20f88674b5a04b1d5629b25c2",
+    "2d897b70a967ef0a829c1b62a1b1762a361a9088d659b5ad9d9b65220a33bc25",
+    "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea"
+  ]
+}

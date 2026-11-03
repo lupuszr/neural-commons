@@ -1,0 +1,23 @@
+{
+  "schema": "nc/agent-commitment/v1",
+  "target_sha256": "5af571cbf074e6d21a03528d2330792e532ca608f24ac70a143f6b369968ab8c",
+  "config_sha256": "bd69202ce5d084c6ca6af8ec7d39413e4cd35f48e59d8f02287a6d29116ab529",
+  "development_sha256": "2d897b70a967ef0a829c1b62a1b1762a361a9088d659b5ad9d9b65220a33bc25",
+  "heldout_sha256": "2bbee48214b794baa8df1795d43d8ed5e54a488b860ffde530a99e483f5ffea9",
+  "policy_sha256": "5e714ed53458055e9d7cfb26bab8fb5e8e6edf42878998d01b18fe69e94185ab",
+  "backend": "codex",
+  "controller": "gpt-6-astra",
+  "max_rounds": 16,
+  "max_probes": 8,
+  "max_edit_elements": 2000000,
+  "device": "cpu",
+  "model_source": {
+    "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+    "license": "Apache-2.0",
+    "task": "Synthetic English sentiment forced-choice probe authored for this experiment",
+    "development_samples": 24,
+    "heldout_samples": 32,
+    "limitations": "Small hand-written split; not an independent benchmark or evidence of general LLM improvement."
+  }
+}
