@@ -1,0 +1,25 @@
+{
+  "schema": "nc/search-selection/v1",
+  "final_test_opened": false,
+  "rule": "highest eligible selection accuracy, then lowest NLL, then search order and candidate ID",
+  "searches": [
+    {
+      "id": 1,
+      "candidates": 6,
+      "selected_id": 1,
+      "accuracy": 0.8046875,
+      "nll": 0.5066929970053025
+    },
+    {
+      "id": 2,
+      "candidates": 12,
+      "selected_id": 10,
+      "accuracy": 0.8125,
+      "nll": 0.4614641372827464
+    }
+  ],
+  "chosen_search": 2,
+  "chosen_candidate": 10,
+  "candidate_sha256": "8b5fb0c0209590c98af11268023d130ba1868db235e9665eb5f144f64aab14c6",
+  "heldout_sha256": "b35d0edefb2068b9c9e5329cb1864630a6820a171ad1c2a8c9a897abe9a1d1cc"
+}

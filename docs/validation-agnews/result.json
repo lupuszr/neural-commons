@@ -1,0 +1,40 @@
+{
+  "spec": "4755b3a3bbd82d8712c53de3ce487cafe03b11d6b724478c1418d4297aab69a6",
+  "evaluation": {
+    "evaluation": {
+      "base_mse": null,
+      "candidate_mse": null,
+      "environment": "python-transformers-cpu-f32/14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "error": null,
+      "evaluator": "nc/causal-lm-labels/v1",
+      "observed_executable": "e68c51baf5c637f71b86652d14a323ec21346923ccaaf203280ddaaada3573e2",
+      "outputs": "c420c20aedb4b43f3c048da66b801b681849045691358b643a34f0e197e28310",
+      "process_id": 7885,
+      "schema": "nc/evaluation/v1",
+      "scores": {
+        "base": 0.387,
+        "candidate": 0.8,
+        "metric": "guarded_accuracy/v1"
+      },
+      "spec": "4755b3a3bbd82d8712c53de3ce487cafe03b11d6b724478c1418d4297aab69a6",
+      "status": "passed"
+    },
+    "report": "a7e93e164a64a0b82f7d1ef967761d2b49af9231be63d052c0a5b276c8fa478c"
+  },
+  "base": "5c60725185f541d029c4e1fb5153bea055119657ec3a799125b21fbe6307a80d",
+  "candidate": "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+  "patch": "2f92e05b9f444328000c63dde29212b3f8a27dbdbbd03a5fc1b6d3c606472ebd",
+  "rust_reconstruction_matches": true,
+  "changed_parameters": 2268,
+  "controller": "gpt-6-astra",
+  "backend": "codex",
+  "evidence": [
+    "f79ce41e793b3e5423a420663b72f0716a9996e45211bd930f0ced084936375e",
+    "04644a3b7056ae02a75420fd7fe9df29c018822ae02987f0080e51e2cb57c3bd",
+    "1465d9df3ad946ac09dd87e16d98d400c1e5a112e2622201beeabe326c4cc1f2",
+    "0e0eb8e7bc04d974408df35b7f674c7040a1c551c5267f93c22bd397cd31cabf",
+    "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+    "7b29fc893a142294973e3358e1534f9c7a6b03c09e0e358c2c57ee854637c42c",
+    "ab9288b91ef73356f3f2997663f262b6f4f9d13f1de86a22a7a3a6c333c4263c"
+  ]
+}

@@ -1,0 +1,661 @@
+{
+  "schema": "nc/posthoc-regression-check/v1",
+  "note": "Previously exposed 32-example synthetic task; supplementary diagnostic only, not used for candidate selection and not an independent benchmark. Local evaluation only.",
+  "dataset_sha256": "2bbee48214b794baa8df1795d43d8ed5e54a488b860ffde530a99e483f5ffea9",
+  "config_sha256": "bd69202ce5d084c6ca6af8ec7d39413e4cd35f48e59d8f02287a6d29116ab529",
+  "candidate_sha256": "8b5fb0c0209590c98af11268023d130ba1868db235e9665eb5f144f64aab14c6",
+  "base": {
+    "accuracy": 0.96875,
+    "label_nll": 0.3316222610883415,
+    "samples": 32,
+    "predictions": [
+      {
+        "text": "The bakery sells the most delightful pastries.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.3482692241668701,
+        "label_logits": [
+          10.149796485900879,
+          9.274200439453125
+        ]
+      },
+      {
+        "text": "My new bicycle rides smoothly and feels sturdy.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.14908424019813538,
+        "label_logits": [
+          9.398676872253418,
+          7.570901393890381
+        ]
+      },
+      {
+        "text": "The museum tour was engaging and informative.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.19086527824401855,
+        "label_logits": [
+          11.732583045959473,
+          10.173345565795898
+        ]
+      },
+      {
+        "text": "This blanket is wonderfully soft and warm.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.31055253744125366,
+        "label_logits": [
+          10.358263969421387,
+          9.348153114318848
+        ]
+      },
+      {
+        "text": "Our guide made the whole trip memorable.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.19769808650016785,
+        "label_logits": [
+          11.69766902923584,
+          10.177131652832031
+        ]
+      },
+      {
+        "text": "The app is easy to use and saves me time.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.10046224296092987,
+        "label_logits": [
+          11.525575637817383,
+          9.278253555297852
+        ]
+      },
+      {
+        "text": "The shoes fit perfectly and look fantastic.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.20228679478168488,
+        "label_logits": [
+          9.805673599243164,
+          8.310452461242676
+        ]
+      },
+      {
+        "text": "I would gladly recommend this restaurant.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.4621962606906891,
+        "label_logits": [
+          13.153458595275879,
+          12.621676445007324
+        ]
+      },
+      {
+        "text": "The play was moving and beautifully performed.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.37048667669296265,
+        "label_logits": [
+          11.61982536315918,
+          10.817843437194824
+        ]
+      },
+      {
+        "text": "Delivery was quick and the item works perfectly.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.18167775869369507,
+        "label_logits": [
+          11.319149017333984,
+          9.705842018127441
+        ]
+      },
+      {
+        "text": "The coffee has a rich, pleasant flavor.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.3047202229499817,
+        "label_logits": [
+          10.47854995727539,
+          9.446414947509766
+        ]
+      },
+      {
+        "text": "This course explained everything clearly.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.44757944345474243,
+        "label_logits": [
+          12.254738807678223,
+          11.682960510253906
+        ]
+      },
+      {
+        "text": "I expected problems, but the experience was excellent.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.2970631420612335,
+        "label_logits": [
+          9.89101791381836,
+          8.829413414001465
+        ]
+      },
+      {
+        "text": "There is nothing to dislike about this charming cafe.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.48553407192230225,
+        "label_logits": [
+          11.334805488586426,
+          10.864870071411133
+        ]
+      },
+      {
+        "text": "Although expensive, the repair was worth every penny.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.25497907400131226,
+        "label_logits": [
+          9.428199768066406,
+          8.19182300567627
+        ]
+      },
+      {
+        "text": "I did not expect to enjoy the show this much.",
+        "label": 0,
+        "prediction": 1,
+        "nll": 0.9893838167190552,
+        "label_logits": [
+          11.527579307556152,
+          12.052057266235352
+        ]
+      },
+      {
+        "text": "The pastries were stale and unpleasant.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.2991858422756195,
+        "label_logits": [
+          10.017776489257812,
+          11.071146965026855
+        ]
+      },
+      {
+        "text": "The bicycle chain fell off on my first ride.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.48429474234580994,
+        "label_logits": [
+          9.777311325073242,
+          10.250472068786621
+        ]
+      },
+      {
+        "text": "The tour was disorganized and dull.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.2277681827545166,
+        "label_logits": [
+          10.029618263244629,
+          11.393000602722168
+        ]
+      },
+      {
+        "text": "This blanket scratches my skin and sheds everywhere.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.43833425641059875,
+        "label_logits": [
+          10.24882698059082,
+          10.846440315246582
+        ]
+      },
+      {
+        "text": "The guide was rude and ruined our afternoon.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.2550928592681885,
+        "label_logits": [
+          10.975898742675781,
+          12.211770057678223
+        ]
+      },
+      {
+        "text": "The app deletes my work and freezes constantly.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.1878567337989807,
+        "label_logits": [
+          10.048130989074707,
+          11.624808311462402
+        ]
+      },
+      {
+        "text": "The shoes fell apart within a week.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.3758140206336975,
+        "label_logits": [
+          10.44843578338623,
+          11.233311653137207
+        ]
+      },
+      {
+        "text": "I would never recommend this restaurant.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.13753759860992432,
+        "label_logits": [
+          11.279314041137695,
+          13.193614959716797
+        ]
+      },
+      {
+        "text": "The play was tedious and poorly performed.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.15970946848392487,
+        "label_logits": [
+          9.690160751342773,
+          11.443642616271973
+        ]
+      },
+      {
+        "text": "Delivery took weeks and the item arrived broken.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.5709562301635742,
+        "label_logits": [
+          11.960553169250488,
+          12.22197151184082
+        ]
+      },
+      {
+        "text": "The coffee tastes bitter and burnt.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.5295785665512085,
+        "label_logits": [
+          9.659461975097656,
+          10.018688201904297
+        ]
+      },
+      {
+        "text": "This course was confusing and a waste of time.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.2103273570537567,
+        "label_logits": [
+          10.311003684997559,
+          11.763087272644043
+        ]
+      },
+      {
+        "text": "I hoped for a great stay, but the hotel let us down.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.29471874237060547,
+        "label_logits": [
+          9.84875202178955,
+          10.919509887695312
+        ]
+      },
+      {
+        "text": "There is nothing enjoyable about this noisy cafe.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.3116494119167328,
+        "label_logits": [
+          11.53118896484375,
+          12.53719711303711
+        ]
+      },
+      {
+        "text": "Even at a discount, this repair was not worth it.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.5113458037376404,
+        "label_logits": [
+          10.043593406677246,
+          10.447758674621582
+        ]
+      },
+      {
+        "text": "The beautiful design does not make up for its defects.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.324903666973114,
+        "label_logits": [
+          10.533808708190918,
+          11.491189002990723
+        ]
+      }
+    ]
+  },
+  "candidate": {
+    "accuracy": 0.625,
+    "label_nll": 0.5882028145715594,
+    "samples": 32,
+    "predictions": [
+      {
+        "text": "The bakery sells the most delightful pastries.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.022552674636244774,
+        "label_logits": [
+          11.65947437286377,
+          7.878871917724609
+        ]
+      },
+      {
+        "text": "My new bicycle rides smoothly and feels sturdy.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.004415287170559168,
+        "label_logits": [
+          11.273344993591309,
+          5.852858543395996
+        ]
+      },
+      {
+        "text": "The museum tour was engaging and informative.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.008046472445130348,
+        "label_logits": [
+          13.454780578613281,
+          8.63627815246582
+        ]
+      },
+      {
+        "text": "This blanket is wonderfully soft and warm.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.017796361818909645,
+        "label_logits": [
+          11.980374336242676,
+          7.960522174835205
+        ]
+      },
+      {
+        "text": "Our guide made the whole trip memorable.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.007305928971618414,
+        "label_logits": [
+          13.4718599319458,
+          8.556440353393555
+        ]
+      },
+      {
+        "text": "The app is easy to use and saves me time.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.004081135615706444,
+        "label_logits": [
+          13.350646018981934,
+          7.851315021514893
+        ]
+      },
+      {
+        "text": "The shoes fit perfectly and look fantastic.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.00908054132014513,
+        "label_logits": [
+          11.499052047729492,
+          6.801976680755615
+        ]
+      },
+      {
+        "text": "I would gladly recommend this restaurant.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.0623321458697319,
+        "label_logits": [
+          14.371307373046875,
+          11.62735652923584
+        ]
+      },
+      {
+        "text": "The play was moving and beautifully performed.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.03260623291134834,
+        "label_logits": [
+          12.89927864074707,
+          9.492372512817383
+        ]
+      },
+      {
+        "text": "Delivery was quick and the item works perfectly.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.013880389742553234,
+        "label_logits": [
+          12.791760444641113,
+          8.521431922912598
+        ]
+      },
+      {
+        "text": "The coffee has a rich, pleasant flavor.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.018599508330225945,
+        "label_logits": [
+          12.099166870117188,
+          8.123858451843262
+        ]
+      },
+      {
+        "text": "This course explained everything clearly.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.044991035014390945,
+        "label_logits": [
+          13.665596008300781,
+          10.586884498596191
+        ]
+      },
+      {
+        "text": "I expected problems, but the experience was excellent.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.024350253865122795,
+        "label_logits": [
+          11.277859687805176,
+          7.574848651885986
+        ]
+      },
+      {
+        "text": "There is nothing to dislike about this charming cafe.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.0634438544511795,
+        "label_logits": [
+          12.61119270324707,
+          9.885481834411621
+        ]
+      },
+      {
+        "text": "Although expensive, the repair was worth every penny.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.021770428866147995,
+        "label_logits": [
+          10.815499305725098,
+          6.999203205108643
+        ]
+      },
+      {
+        "text": "I did not expect to enjoy the show this much.",
+        "label": 0,
+        "prediction": 0,
+        "nll": 0.23953433334827423,
+        "label_logits": [
+          12.562081336975098,
+          11.255179405212402
+        ]
+      },
+      {
+        "text": "The pastries were stale and unpleasant.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 0.8204494118690491,
+        "label_logits": [
+          10.754554748535156,
+          10.514341354370117
+        ]
+      },
+      {
+        "text": "The bicycle chain fell off on my first ride.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 2.2915754318237305,
+        "label_logits": [
+          11.187078475952148,
+          9.002094268798828
+        ]
+      },
+      {
+        "text": "The tour was disorganized and dull.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 1.0298517942428589,
+        "label_logits": [
+          11.090816497802734,
+          10.502668380737305
+        ]
+      },
+      {
+        "text": "This blanket scratches my skin and sheds everywhere.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 1.3636746406555176,
+        "label_logits": [
+          11.135221481323242,
+          10.06688404083252
+        ]
+      },
+      {
+        "text": "The guide was rude and ruined our afternoon.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.6640725135803223,
+        "label_logits": [
+          11.683523178100586,
+          11.74254322052002
+        ]
+      },
+      {
+        "text": "The app deletes my work and freezes constantly.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.6244568228721619,
+        "label_logits": [
+          10.87662410736084,
+          11.019073486328125
+        ]
+      },
+      {
+        "text": "The shoes fell apart within a week.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 1.5513081550598145,
+        "label_logits": [
+          11.628130912780762,
+          10.315042495727539
+        ]
+      },
+      {
+        "text": "I would never recommend this restaurant.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.3373679220676422,
+        "label_logits": [
+          11.90267276763916,
+          12.815832138061523
+        ]
+      },
+      {
+        "text": "The play was tedious and poorly performed.",
+        "label": 1,
+        "prediction": 1,
+        "nll": 0.6385318040847778,
+        "label_logits": [
+          10.569116592407227,
+          10.681503295898438
+        ]
+      },
+      {
+        "text": "Delivery took weeks and the item arrived broken.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 1.4321104288101196,
+        "label_logits": [
+          12.78465461730957,
+          11.625409126281738
+        ]
+      },
+      {
+        "text": "The coffee tastes bitter and burnt.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 1.9234731197357178,
+        "label_logits": [
+          10.832072257995605,
+          9.06653881072998
+        ]
+      },
+      {
+        "text": "This course was confusing and a waste of time.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 0.7909526824951172,
+        "label_logits": [
+          11.257219314575195,
+          11.070327758789062
+        ]
+      },
+      {
+        "text": "I hoped for a great stay, but the hotel let us down.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 1.0669529438018799,
+        "label_logits": [
+          10.765892028808594,
+          10.120617866516113
+        ]
+      },
+      {
+        "text": "There is nothing enjoyable about this noisy cafe.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 0.8938407897949219,
+        "label_logits": [
+          12.349159240722656,
+          11.981395721435547
+        ]
+      },
+      {
+        "text": "Even at a discount, this repair was not worth it.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 1.5526957511901855,
+        "label_logits": [
+          11.006758689880371,
+          9.691909790039062
+        ]
+      },
+      {
+        "text": "The beautiful design does not make up for its defects.",
+        "label": 1,
+        "prediction": 0,
+        "nll": 1.2463892698287964,
+        "label_logits": [
+          11.617053985595703,
+          10.709697723388672
+        ]
+      }
+    ]
+  }
+}

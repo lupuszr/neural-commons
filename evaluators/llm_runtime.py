@@ -2,6 +2,7 @@
 import json
 import math
 import pathlib
+import hashlib
 
 import torch
 from safetensors.torch import load_file
@@ -53,7 +54,9 @@ def score(model, tokenizer, dataset, config):
             label = row["label"]
             if not isinstance(label, int) or not 0 <= label < len(labels):
                 raise ValueError("invalid label")
-            predictions.append({"text": row["text"], "label": label,
+            identity = {"text": row["text"]} if config.get("output_text", True) else {
+                "id": row.get("id"), "text_sha256": hashlib.sha256(row["text"].encode()).hexdigest()}
+            predictions.append({**identity, "label": label,
                                 "prediction": int(probabilities.argmax()),
                                 "nll": -float(probabilities[label]),
                                 "label_logits": raw.tolist()})
@@ -87,3 +90,41 @@ def materialize(directory, files, inference):
                         raise ValueError("duplicate tensor across shards")
                     weight_map[tensor] = name
         (directory / "model.safetensors.index.json").write_text(json.dumps({"metadata": {}, "weight_map": weight_map}))
+
+
+@torch.inference_mode()
+def activation_contrast(model, tokenizer, dataset, config, positive, negative):
+    """Read-only difference of final hidden-state class means on development data.
+
+    No fitted optimizer, gradient or held-out input. The controller decides whether
+    and how to use this supervised statistic in an actual weight edit.
+    """
+    rows = dataset["samples"]
+    groups = {positive: [], negative: []}
+    if positive not in range(len(config["labels"])) or negative not in [-1, *range(len(config["labels"]))] or positive == negative:
+        raise ValueError("invalid contrast labels")
+    device = next(model.parameters()).device
+    for start in range(0, len(rows), config["batch_size"]):
+        batch = rows[start:start + config["batch_size"]]
+        encoded = tokenizer([config["prompt"].format(text=r["text"]) for r in batch], padding=True, return_tensors="pt")
+        if encoded["input_ids"].shape[1] > config["max_tokens"]:
+            raise ValueError("prompt exceeds token budget")
+        states = model(**encoded.to(device), output_hidden_states=True).hidden_states[-1][:, -1, :].float().cpu()
+        for row, state in zip(batch, states):
+            group = positive if row["label"] == positive else (-1 if negative == -1 else row["label"])
+            if group in groups:
+                groups[group].append(state.clone())
+    if any(not group for group in groups.values()):
+        raise ValueError("empty contrast class")
+    groups = {label: torch.stack(values) for label, values in groups.items()}
+    vector = groups[positive].mean(0) - groups[negative].mean(0)
+    vector /= vector.norm().clamp_min(1e-12)
+    projections = {str(label): {"mean": float((states @ vector).mean()),
+                               "std": float((states @ vector).std(unbiased=False)), "samples": len(states)}
+                   for label, states in groups.items()}
+    return vector, projections
+
+
+def guard_passes(base, candidate, policy):
+    return (candidate["accuracy"] + 1e-12 >= base["accuracy"] - policy["max_accuracy_drop"] and
+            candidate["label_nll"] <= base["label_nll"] + policy["max_nll_increase"])

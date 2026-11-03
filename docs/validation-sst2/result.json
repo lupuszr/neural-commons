@@ -1,0 +1,45 @@
+{
+  "spec": "6f050cfaffcf2e3a067e54603c35dba8f5d2d91f2e5b96dd3cd21320231ce325",
+  "evaluation": {
+    "evaluation": {
+      "base_mse": null,
+      "candidate_mse": null,
+      "environment": "python-transformers-cpu-f32/14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "error": null,
+      "evaluator": "nc/causal-lm-labels/v1",
+      "observed_executable": "0c5b97c8cd227b31a295faa3130aae1fb08c38aed748be22d2297fc2803ae270",
+      "outputs": "c0a323251187f98fb94332a53f8296053286675c1e4d6c61f2cbe95c7a74aa1a",
+      "process_id": 97784,
+      "schema": "nc/evaluation/v1",
+      "scores": {
+        "base": 0.7717889908256881,
+        "candidate": 0.7958715596330275,
+        "metric": "accuracy/v1"
+      },
+      "spec": "6f050cfaffcf2e3a067e54603c35dba8f5d2d91f2e5b96dd3cd21320231ce325",
+      "status": "passed"
+    },
+    "report": "ea2778315c40f90c01fbfbb4d2730bf070c478d4ceb3533dfa7ceb908f683865"
+  },
+  "base": "141a4e0db487d907e434cb239f579fa07595dd862f4615ced8d41c5f11026b0f",
+  "candidate": "92502b6a828f1da9b0af4370f96c352d8bcbbb86788c2391e4886eee3ba92bf6",
+  "patch": "b26fdef0132569471d8986dae3048f84d97e86da106299e807c97d86871841d5",
+  "rust_reconstruction_matches": true,
+  "changed_parameters": 1108,
+  "controller": "gpt-6-astra",
+  "backend": "codex",
+  "evidence": [
+    "4d6a018d5cf47ec5b1e9a10f39b86e56079c1ac0864cc365b8b7f8dd424b3e76",
+    "11819c017e0374e8079b7031cabeeb79e288c9d965b96a76b757f4ab98101100",
+    "df6d9c1a157929401cce03ac2d542a200febae4a6dc29101f4aa60bb9b76eae1",
+    "c8032e8088997fd47140b0543f9b7210f80682e65106b82ec0606a0ad95c061b",
+    "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+    "56866b0fc3712f7969b95dd624fedb7a3089e9bff7ebf705b3e3e84a7eb03c2c",
+    "80d75980589961afce8f1c6d03a64bea4e36cad99b8b835f8431b17206e98fb6",
+    "809ca782bbe99469cb3d66f1c64931802a7f372d642a6db9ba2f9749028a75c2",
+    "84e3e8032aa17bf26f9ac9acfcf81650fd5cf9e11e6e4a2e932ebd00b9485479",
+    "ddc1b4aa2a152be1828a8e080b2c0afa48b68c7e6b4363dcf3b9bd6d6f0a2726",
+    "1ac7a02050eac07ac7f55f2e3ae42390331726333012c41a49030c4290107cec",
+    "4d3cd6b0ca12e3602b4aa1525cee2c4c806e62ca60449cd8657da06244a04f79"
+  ]
+}

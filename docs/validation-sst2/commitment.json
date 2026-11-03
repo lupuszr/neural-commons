@@ -1,0 +1,44 @@
+{
+  "schema": "nc/agent-commitment/v1",
+  "target_sha256": "5af571cbf074e6d21a03528d2330792e532ca608f24ac70a143f6b369968ab8c",
+  "config_sha256": "7612215fcb253b29d2f64c58cf7ab91b3772819bdc1bd530ee74990f4e3a13b2",
+  "development_sha256": "c8032e8088997fd47140b0543f9b7210f80682e65106b82ec0606a0ad95c061b",
+  "heldout_sha256": "b35d0edefb2068b9c9e5329cb1864630a6820a171ad1c2a8c9a897abe9a1d1cc",
+  "policy_sha256": "bb748233fff518f7d8a3346281e846075b09190a14ed55630ef405ce48385a09",
+  "backend": "codex",
+  "controller": "gpt-6-astra",
+  "max_rounds": 28,
+  "max_probes": 16,
+  "max_edit_elements": 2000000,
+  "device": "cpu",
+  "model_source": {
+    "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+    "license": "Apache-2.0 (model)",
+    "dataset": "stanfordnlp/sst2",
+    "dataset_revision": "8d51e7e4887a4caaa95b3fbebbf53c0490b58bbb",
+    "dataset_url": "https://huggingface.co/datasets/stanfordnlp/sst2",
+    "dataset_file_sha256": {
+      "train": "c7921283b75a42e685f50edecb96798607ea0fcbfd0739ee8975f22c12d55f09",
+      "validation": "fb00fe008f6828f86ba2beda8415a4cf5da0c884f21c5f238c87131b5aa19529"
+    },
+    "split_seed": 20261104,
+    "development_samples": 128,
+    "selection_samples": 256,
+    "heldout_samples": 872,
+    "split_method": "Deduplicated train texts of 8..50 whitespace words; shuffle each class with fixed seed; 64/class development, next 128/class selection. All official validation examples reserved for final evaluation.",
+    "limitations": "Forced-choice sentiment, not free generation. Public dataset may have appeared in pretraining. Official validation serves as our final holdout, not the hidden GLUE test set. Train-derived selection can include related phrases."
+  },
+  "min_probes": 12,
+  "selection_sha256": "1ac7a02050eac07ac7f55f2e3ae42390331726333012c41a49030c4290107cec",
+  "inference_file_sha256": {
+    "tokenizer_config.json": "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df",
+    "special_tokens_map.json": "2b7379f3ae813529281a5c602bc5a11c1d4e0a99107aaa597fe936c1e813ca52",
+    "config.json": "8eb740e8bbe4cff95ea7b4588d17a2432deb16e8075bc5828ff7ba9be94d982a",
+    "tokenizer.json": "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c"
+  },
+  "implementation_sha256": {
+    "scripts/weight_agent.py": "9446f7baeb651a8849f37a484417fd0eb0bf802e58bf66987e3f7cf3468bdee9",
+    "evaluators/llm_runtime.py": "10a89690833fe7f9d5ca410ade0f895348b156d95f62fd8caa12a70d91138251"
+  }
+}

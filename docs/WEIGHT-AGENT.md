@@ -9,6 +9,12 @@ another DKG participant independently repeats that evaluation.
 This is the missing central experiment from the original concept. The earlier
 Iris run used ordinary gradient training and did not implement this controller.
 
+The latest [guarded AG News result](AGNEWS-RESULTS.md) improved held-out task
+accuracy from **38.7% to 80.0%** by editing **2,268 BF16 weights**, preserving the
+mandatory sentiment guard. See [its workflow](AGNEWS-WORKFLOW.md) for a development /
+selection / final-test experiment. The original failed experiment below remains
+part of the record, as does the [SST-2 edit with a regression](SST2-RESULTS.md).
+
 ## Two controller backends
 
 | Backend | Authentication | Execution |
@@ -16,10 +22,15 @@ Iris run used ordinary gradient training and did not implement this controller.
 | `codex` | Existing `codex login` (including ChatGPT login) | Noninteractive `codex exec`, structured JSON decisions |
 | `openai` | `OPENAI_API_KEY` | Responses API, structured JSON decisions |
 
-Both use the same host-enforced tools: inspect a tensor, tokenize text, propose
-numeric slice transformations, and finalize a tested candidate. Each edit computes
+Both use the same host-enforced tools: inspect a tensor, tokenize text, read a
+development activation contrast, propose numeric slice transformations, and finalize
+a tested candidate. Each edit computes
 `base_destination * scale + base_source * add_scale`. Sources always refer to the
-pristine base. The controller chooses tensors, regions, coefficients and hypotheses.
+pristine base, or an explicitly recorded read-only activation statistic. The
+contrast tool returns the unit-normalized difference of base-model final hidden
+state means for two development classes. This uses labeled development data; it is
+not a claim of discovering an edit without supervision. The controller chooses
+tensors, regions, coefficients and hypotheses.
 There is no prescribed winning edit, generated shell command or optimizer.
 
 The Codex adapter uses an ephemeral empty working directory, ignores user/project
@@ -71,6 +82,9 @@ elements per candidate, configurable through CLI options. Each response can requ
 up to four actions; inspections expose at most 256 raw values. Transform coefficients
 must be finite and within ±100. Invalid attempts consume experiment budget. All
 successful candidates and rejected actions remain in `transcript.jsonl`.
+`--min-probes` can require further exploration before finalization. A separate
+selection split and fixed selection policy can choose among all frozen proposals
+without exposing final-test examples to the controller.
 
 The development dataset, target file, held-out dataset and policy hashes are committed
 before the first controller response. The selected checkpoint and transcript hashes

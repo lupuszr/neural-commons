@@ -1,0 +1,297 @@
+{
+  "schema": "nc/weight-dkg-validation/v1",
+  "status": "passed",
+  "scope": "two separate local DKG daemons and evaluator processes on one physical machine",
+  "chain": "disposable local Hardhat EVM; no public-chain finality",
+  "run": "/Users/otlegend/projects/neural-commons/.runtime/agnews-dkg-1",
+  "dkg_revision": "02a799660c19fd0fa7749bd0924706b6625ad050",
+  "dkg_source_patch": "diff --git a/packages/agent/src/imported-artifact.ts b/packages/agent/src/imported-artifact.ts\nindex 23242d5035..bbbf61998b 100644\n--- a/packages/agent/src/imported-artifact.ts\n+++ b/packages/agent/src/imported-artifact.ts\n@@ -481,6 +481,7 @@ async function resolveLinkedArtifact(agent: DKGAgent, args: {\n       assertionUri: args.assertionUri,\n       ...(args.subGraphName ? { subGraphName: args.subGraphName } : {}),\n       allowSharedMemoryFallback: true,\n+      allowSkippedSource: args.kind === 'source',\n       query: (sparql: string) => agent.store.query(sparql) as Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>,\n     });\n   } catch (err) {\ndiff --git a/packages/cli/src/daemon/routes/knowledge-assets-import.ts b/packages/cli/src/daemon/routes/knowledge-assets-import.ts\nindex aed702815f..f21c92af31 100644\n--- a/packages/cli/src/daemon/routes/knowledge-assets-import.ts\n+++ b/packages/cli/src/daemon/routes/knowledge-assets-import.ts\n@@ -204,7 +204,7 @@ async function resolveAssertionArtifact(\n         fileHash: undefined,\n       },\n       'Import artifact bytes can only be read from imported assertions owned by the requesting agent',\n-      { allowSharedMemoryFallback: true },\n+      { allowSharedMemoryFallback: true, allowSkippedSource: kind === 'source' },\n     );\n   } catch (err) {\n     const directRemote = await resolveExplicitAuthorizedRemoteArtifact(ctx, raw, kind, requestedHash, err);\n@@ -296,7 +296,7 @@ function resolveImportedArtifactForRead(\n   ctx: RequestContext,\n   raw: Record<string, unknown>,\n   message: string,\n-  opts?: { allowSharedMemoryFallback?: boolean },\n+  opts?: { allowSharedMemoryFallback?: boolean; allowSkippedSource?: boolean },\n ): Promise<ImportedArtifactResolution> {\n   return resolveImportedArtifact(ctx, raw, importedArtifactReadOwnerGuard(ctx, message), opts);\n }\ndiff --git a/packages/cli/src/daemon/routes/shared-assertion-helpers.ts b/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\nindex 713f49cc8b..bc50b41528 100644\n--- a/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\n+++ b/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\n@@ -85,7 +85,7 @@ export type ImportedArtifactResolution = {\n   sourceFileHash: string;\n   detectedContentType: string;\n   sourceContentType: string;\n-  extractionStatus: 'completed';\n+  extractionStatus: 'completed' | 'skipped';\n   extractionMethod?: string;\n   rootEntity?: string;\n   sourceFileName?: string;\n@@ -511,6 +511,7 @@ export async function resolveImportedArtifact(\n   },\n   opts?: {\n     allowSharedMemoryFallback?: boolean;\n+    allowSkippedSource?: boolean;\n   },\n ): Promise<ImportedArtifactResolution> {\n   const rawContextGraphId = typeof raw.contextGraphId === 'string' ? raw.contextGraphId.trim() : '';\n@@ -647,7 +648,7 @@ export async function resolveImportedArtifact(\n   }\n \n   const extractionRecord = getExtractionStatusRecord(ctx.extractionStatus, assertionUri);\n-  if (extractionRecord && extractionRecord.status !== 'completed') {\n+  if (extractionRecord && extractionRecord.status !== 'completed' && !(opts?.allowSkippedSource && extractionRecord.status === 'skipped')) {\n     throw new ImportArtifactRouteError(\n       409,\n       `Import artifact is not a completed extraction (status: ${extractionRecord.status})`,\n@@ -662,6 +663,7 @@ export async function resolveImportedArtifact(\n       ...(parsedAssertion.subGraphName ? { subGraphName: parsedAssertion.subGraphName } : {}),\n       ...(requestedFileHash ? { requestedFileHash } : {}),\n       allowSharedMemoryFallback: ownerGuardRelaxed || (opts?.allowSharedMemoryFallback && !parsedAssertion.legacy),\n+      allowSkippedSource: opts?.allowSkippedSource,\n       fallbackDetectedContentType: extractionRecord?.detectedContentType,\n       query: (sparql: string) => ctx.agent.store.query(sparql) as Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>,\n     });\n@@ -705,7 +707,7 @@ export async function resolveImportedArtifact(\n     sourceFileHash: metadata.sourceFileHash,\n     detectedContentType: metadata.sourceContentType,\n     sourceContentType: metadata.sourceContentType,\n-    extractionStatus: 'completed',\n+    extractionStatus: metadata.extractionStatus,\n     extractionMethod: metadata.extractionMethod || extractionRecord?.pipelineUsed || undefined,\n     rootEntity: metadata.rootEntity || extractionRecord?.rootEntity || undefined,\n     sourceFileName: metadata.sourceFileName || extractionRecord?.fileName || undefined,\ndiff --git a/packages/core/src/imported-artifact-metadata.ts b/packages/core/src/imported-artifact-metadata.ts\nindex b54bd87a99..c28d11c834 100644\n--- a/packages/core/src/imported-artifact-metadata.ts\n+++ b/packages/core/src/imported-artifact-metadata.ts\n@@ -13,7 +13,7 @@ export interface ImportedArtifactMetadata {\n   source: ImportedArtifactMetadataSource;\n   sourceFileHash: string;\n   sourceContentType: string;\n-  extractionStatus: 'completed';\n+  extractionStatus: 'completed' | 'skipped';\n   extractionMethod?: string;\n   rootEntity?: string;\n   sourceFileName?: string;\n@@ -39,6 +39,7 @@ export interface ResolveImportedArtifactMetadataParams {\n   subGraphName?: string;\n   requestedFileHash?: string;\n   allowSharedMemoryFallback?: boolean;\n+  allowSkippedSource?: boolean;\n   fallbackDetectedContentType?: string;\n   query: (sparql: string) => Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>;\n }\n@@ -145,7 +146,7 @@ async function resolveDurableImportedArtifactMetadata(\n \n   const durableExtractionStatus = normalizeLiteral(metaBinding.extractionStatus) || undefined;\n   const structuralTripleCount = optionalPositiveInteger(metaBinding.structuralTripleCount);\n-  if (durableExtractionStatus && durableExtractionStatus !== 'completed') {\n+  if (durableExtractionStatus && durableExtractionStatus !== 'completed' && !(params.allowSkippedSource && durableExtractionStatus === 'skipped')) {\n     throw new ImportedArtifactMetadataError(\n       'incomplete',\n       `Import artifact is not a completed extraction (status: ${durableExtractionStatus})`,\n@@ -173,7 +174,7 @@ async function resolveDurableImportedArtifactMetadata(\n     source: 'durable',\n     sourceFileHash,\n     sourceContentType,\n-    extractionStatus: 'completed',\n+    extractionStatus: durableExtractionStatus === 'skipped' ? 'skipped' : 'completed',\n     extractionMethod: normalizeLiteral(metaBinding.extractionMethod) || undefined,\n     rootEntity: normalizeIri(metaBinding.rootEntity) || undefined,\n     sourceFileName: normalizeLiteral(metaBinding.sourceFileName) || undefined,\ndiff --git a/packages/core/test/imported-artifact-metadata.test.ts b/packages/core/test/imported-artifact-metadata.test.ts\nindex 31d4b6ff8d..4a016cd3c9 100644\n--- a/packages/core/test/imported-artifact-metadata.test.ts\n+++ b/packages/core/test/imported-artifact-metadata.test.ts\n@@ -97,3 +97,14 @@ describe('imported artifact metadata resolver', () => {\n     });\n   });\n });\n+\n+// Neural Commons opaque source compatibility: no extraction is needed to read original bytes.\n+it('allows skipped source reads only when explicitly requested; never admits failed extraction', async () => {\n+  for (const status of ['skipped', 'failed', 'processing']) {\n+    const query = async (sparql: string) => ({bindings: sparql.includes('/_meta') ? [{fileHash: sourceHash, contentType:'application/octet-stream', extractionStatus:status}] : []});\n+    await expect(resolveImportedArtifactMetadata({contextGraphId,assertionUri,query})).rejects.toThrow();\n+    const read = resolveImportedArtifactMetadata({contextGraphId,assertionUri,query,allowSkippedSource:true});\n+    if (status === 'skipped') await expect(read).resolves.toMatchObject({extractionStatus:'skipped',sourceFileHash:sourceHash});\n+    else await expect(read).rejects.toThrow();\n+  }\n+});\n",
+  "identities": [
+    {
+      "agentAddress": "0x6680E216EeDd4c7668AF37718ce089ac82eA34BF",
+      "agentDid": "did:dkg:agent:0x6680E216EeDd4c7668AF37718ce089ac82eA34BF",
+      "name": "neural-commons-participant",
+      "framework": "Neural Commons",
+      "peerId": "12D3KooWFLKMVHUUsyzyzuJEQmM4MkRPABUma9V6icUxu8kB6Tiy",
+      "nodeIdentityId": "0"
+    },
+    {
+      "agentAddress": "0xd9e750581c3Da4bF56dA25C67147ec91Cdc10918",
+      "agentDid": "did:dkg:agent:0xd9e750581c3Da4bF56dA25C67147ec91Cdc10918",
+      "name": "neural-commons-participant",
+      "framework": "Neural Commons",
+      "peerId": "12D3KooWNpg9rsMN3Wur3GUmp9w8LdQfXJEJtubP6AZgsj24wRkc",
+      "nodeIdentityId": "0"
+    }
+  ],
+  "context_graph": "0x6680e216eedd4c7668af37718ce089ac82ea34bf/nc-weight-agent-9780a7faba0a0f6e",
+  "a": {
+    "spec": "4755b3a3bbd82d8712c53de3ce487cafe03b11d6b724478c1418d4297aab69a6",
+    "evaluation": {
+      "evaluation": {
+        "base_mse": null,
+        "candidate_mse": null,
+        "environment": "python-transformers-cpu-f32/14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+        "error": null,
+        "evaluator": "nc/causal-lm-labels/v1",
+        "observed_executable": "e68c51baf5c637f71b86652d14a323ec21346923ccaaf203280ddaaada3573e2",
+        "outputs": "c420c20aedb4b43f3c048da66b801b681849045691358b643a34f0e197e28310",
+        "process_id": 7885,
+        "schema": "nc/evaluation/v1",
+        "scores": {
+          "base": 0.387,
+          "candidate": 0.8,
+          "metric": "guarded_accuracy/v1"
+        },
+        "spec": "4755b3a3bbd82d8712c53de3ce487cafe03b11d6b724478c1418d4297aab69a6",
+        "status": "passed"
+      },
+      "report": "a7e93e164a64a0b82f7d1ef967761d2b49af9231be63d052c0a5b276c8fa478c"
+    },
+    "base": "5c60725185f541d029c4e1fb5153bea055119657ec3a799125b21fbe6307a80d",
+    "candidate": "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+    "patch": "2f92e05b9f444328000c63dde29212b3f8a27dbdbbd03a5fc1b6d3c606472ebd",
+    "rust_reconstruction_matches": true,
+    "changed_parameters": 2268,
+    "controller": "gpt-6-astra",
+    "backend": "codex",
+    "evidence": [
+      "f79ce41e793b3e5423a420663b72f0716a9996e45211bd930f0ced084936375e",
+      "04644a3b7056ae02a75420fd7fe9df29c018822ae02987f0080e51e2cb57c3bd",
+      "1465d9df3ad946ac09dd87e16d98d400c1e5a112e2622201beeabe326c4cc1f2",
+      "0e0eb8e7bc04d974408df35b7f674c7040a1c551c5267f93c22bd397cd31cabf",
+      "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "7b29fc893a142294973e3358e1534f9c7a6b03c09e0e358c2c57ee854637c42c",
+      "ab9288b91ef73356f3f2997663f262b6f4f9d13f1de86a22a7a3a6c333c4263c"
+    ]
+  },
+  "b_started_without_artifacts": true,
+  "proposal": {
+    "receipt": {
+      "alreadyExists": false,
+      "assertionUri": "did:dkg:context-graph:0x6680e216eedd4c7668af37718ce089ac82ea34bf/nc-weight-agent-9780a7faba0a0f6e/_working_memory/0x6680e216eedd4c7668af37718ce089ac82ea34bf/124",
+      "assertionVersion": "1",
+      "authorAddress": "0x6680E216EeDd4c7668AF37718ce089ac82eA34BF",
+      "kaUal": "did:dkg:hardhat:31337/0x6680e216eedd4c7668af37718ce089ac82ea34bf/124",
+      "merkleRoot": "0xceef9677b6380d1cc4b4eeb387d8a4c7b78d8153337958d9ec7c31d9bb86a40b",
+      "name": "nc-994a4a21a9263c9a7e559c5ea96c80f410a46884de37298be7cd5284af2c2f3b",
+      "promotedCount": 6,
+      "publishReady": true,
+      "sealed": true,
+      "shareOperationId": "mw0rm7t8-ivli1t",
+      "status": "swm-shared",
+      "swmShared": true,
+      "written": 6
+    },
+    "record": "994a4a21a9263c9a7e559c5ea96c80f410a46884de37298be7cd5284af2c2f3b",
+    "related_records": [
+      {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0x6680e216eedd4c7668af37718ce089ac82ea34bf/nc-weight-agent-9780a7faba0a0f6e/_working_memory/0x6680e216eedd4c7668af37718ce089ac82ea34bf/115",
+          "assertionVersion": "1",
+          "authorAddress": "0x6680E216EeDd4c7668AF37718ce089ac82eA34BF",
+          "kaUal": "did:dkg:hardhat:31337/0x6680e216eedd4c7668af37718ce089ac82ea34bf/115",
+          "merkleRoot": "0xd172a68fb2986dfbdfd5db3138889132aad076890de69ec260f5318c558c0569",
+          "name": "nc-030127a725a675f2043d1e7b22323b725854d2000f6e0bed555f446342abda49",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0rm2il-wr9gxu",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "030127a725a675f2043d1e7b22323b725854d2000f6e0bed555f446342abda49",
+        "state": "shared"
+      },
+      {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0x6680e216eedd4c7668af37718ce089ac82ea34bf/nc-weight-agent-9780a7faba0a0f6e/_working_memory/0x6680e216eedd4c7668af37718ce089ac82ea34bf/119",
+          "assertionVersion": "1",
+          "authorAddress": "0x6680E216EeDd4c7668AF37718ce089ac82eA34BF",
+          "kaUal": "did:dkg:hardhat:31337/0x6680e216eedd4c7668af37718ce089ac82ea34bf/119",
+          "merkleRoot": "0x5022d77f5c80d87c8698b28f8f4972267b55713f1a31befa0d041c70d810ec13",
+          "name": "nc-7e830a432368d98c2d1e980197dad52a4c0fc47e90cd86cfe9bc7db05fc80b7c",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0rm42z-p0c57j",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "7e830a432368d98c2d1e980197dad52a4c0fc47e90cd86cfe9bc7db05fc80b7c",
+        "state": "shared"
+      },
+      {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0x6680e216eedd4c7668af37718ce089ac82ea34bf/nc-weight-agent-9780a7faba0a0f6e/_working_memory/0x6680e216eedd4c7668af37718ce089ac82ea34bf/123",
+          "assertionVersion": "1",
+          "authorAddress": "0x6680E216EeDd4c7668AF37718ce089ac82eA34BF",
+          "kaUal": "did:dkg:hardhat:31337/0x6680e216eedd4c7668af37718ce089ac82ea34bf/123",
+          "merkleRoot": "0xe902a09ef6a6999a5de2763a4037a3116859848e5602a5b0653d0afc5138703c",
+          "name": "nc-ec2e0e85473694f6101fa2b28f2791522f1dc3860681230944cd5a2547bebfef",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0rm5p0-zsapcj",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "ec2e0e85473694f6101fa2b28f2791522f1dc3860681230944cd5a2547bebfef",
+        "state": "shared"
+      }
+    ],
+    "state": "shared"
+  },
+  "b": {
+    "evaluation": {
+      "base_mse": null,
+      "candidate_mse": null,
+      "environment": "python-transformers-cpu-f32/14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "error": null,
+      "evaluator": "nc/causal-lm-labels/v1",
+      "observed_executable": "e68c51baf5c637f71b86652d14a323ec21346923ccaaf203280ddaaada3573e2",
+      "outputs": "c420c20aedb4b43f3c048da66b801b681849045691358b643a34f0e197e28310",
+      "process_id": 8849,
+      "schema": "nc/evaluation/v1",
+      "scores": {
+        "base": 0.387,
+        "candidate": 0.8,
+        "metric": "guarded_accuracy/v1"
+      },
+      "spec": "4755b3a3bbd82d8712c53de3ce487cafe03b11d6b724478c1418d4297aab69a6",
+      "status": "passed"
+    },
+    "publication": {
+      "receipt": {
+        "alreadyExists": false,
+        "assertionUri": "did:dkg:context-graph:0x6680e216eedd4c7668af37718ce089ac82ea34bf/nc-weight-agent-9780a7faba0a0f6e/_working_memory/0xd9e750581c3da4bf56da25c67147ec91cdc10918/121",
+        "assertionVersion": "1",
+        "authorAddress": "0xd9e750581c3Da4bF56dA25C67147ec91Cdc10918",
+        "kaUal": "did:dkg:hardhat:31337/0xd9e750581c3da4bf56da25c67147ec91cdc10918/121",
+        "merkleRoot": "0x8166330dcc8c4fe69a1e13990e96cdc05526b2029f86d05ebfe68c4856d67695",
+        "name": "nc-235d3510b5d4148738539cb654e76543a9b8eefb43f35b3f91486156b0a3498c",
+        "promotedCount": 6,
+        "publishReady": true,
+        "sealed": true,
+        "shareOperationId": "mw0rq07v-iem7xa",
+        "status": "swm-shared",
+        "swmShared": true,
+        "written": 6
+      },
+      "record": "235d3510b5d4148738539cb654e76543a9b8eefb43f35b3f91486156b0a3498c",
+      "state": "shared"
+    },
+    "report": "8fb5e71bac4619dce9dfa35aea43dc9d01fcd62d9ff560f15a0055ce76d7a816",
+    "review": {
+      "receipt": {
+        "alreadyExists": false,
+        "assertionUri": "did:dkg:context-graph:0x6680e216eedd4c7668af37718ce089ac82ea34bf/nc-weight-agent-9780a7faba0a0f6e/_working_memory/0xd9e750581c3da4bf56da25c67147ec91cdc10918/125",
+        "assertionVersion": "1",
+        "authorAddress": "0xd9e750581c3Da4bF56dA25C67147ec91Cdc10918",
+        "kaUal": "did:dkg:hardhat:31337/0xd9e750581c3da4bf56da25c67147ec91cdc10918/125",
+        "merkleRoot": "0x06d236640084725e2a0318b62f1a28559dca7a904b8d9bdfece93bb4f2ce02f1",
+        "name": "nc-888a3637839921c7a0c800cd4ec4992f975f3c7ff0119db063defb7201d1838a",
+        "promotedCount": 6,
+        "publishReady": true,
+        "sealed": true,
+        "shareOperationId": "mw0rq388-4qtzyh",
+        "status": "swm-shared",
+        "swmShared": true,
+        "written": 6
+      },
+      "record": "888a3637839921c7a0c800cd4ec4992f975f3c7ff0119db063defb7201d1838a",
+      "state": "shared"
+    }
+  },
+  "a_readback": {
+    "artifact": "8fb5e71bac4619dce9dfa35aea43dc9d01fcd62d9ff560f15a0055ce76d7a816",
+    "artifact_origin": "dkg",
+    "artifacts": [
+      "04644a3b7056ae02a75420fd7fe9df29c018822ae02987f0080e51e2cb57c3bd",
+      "0e0eb8e7bc04d974408df35b7f674c7040a1c551c5267f93c22bd397cd31cabf",
+      "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "1465d9df3ad946ac09dd87e16d98d400c1e5a112e2622201beeabe326c4cc1f2",
+      "2b7379f3ae813529281a5c602bc5a11c1d4e0a99107aaa597fe936c1e813ca52",
+      "2f92e05b9f444328000c63dde29212b3f8a27dbdbbd03a5fc1b6d3c606472ebd",
+      "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+      "4755b3a3bbd82d8712c53de3ce487cafe03b11d6b724478c1418d4297aab69a6",
+      "4dcbacc07a29cb3f1364d046cb942a3e25405ccfa8b5c49d5dcbbf307b1108ea",
+      "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df",
+      "57f6f2ad9aacc2180570a68084cf57ed14d2c600cf8cf104a8420e76dd3be3aa",
+      "5a4dc8a7539d0a606b1ee3468dece8088e7e7464eb40c533b3673d1dcbab4111",
+      "5af571cbf074e6d21a03528d2330792e532ca608f24ac70a143f6b369968ab8c",
+      "5c60725185f541d029c4e1fb5153bea055119657ec3a799125b21fbe6307a80d",
+      "73e29d80b881e70bb8f719bf87750486b2074a86511e85e5e71941297f906739",
+      "7b29fc893a142294973e3358e1534f9c7a6b03c09e0e358c2c57ee854637c42c",
+      "7c5f9b6a8715cfbece46011b8edc51fb3066ecb3dc58d6668af652c5d43ba573",
+      "80dd7116f5cf9dc42c33157330369f658d1aa6c95801f54628f6b0eace4c2c50",
+      "8639e2cd81c6a8af3eb7ed102ada1e1989d76429eddaccd380dc680b4725980e",
+      "8eb740e8bbe4cff95ea7b4588d17a2432deb16e8075bc5828ff7ba9be94d982a",
+      "916b3b3a309a078e8682b9892625dbb40657989995f42a51937238608ef5a295",
+      "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c",
+      "a88941e0f6a6d4299f3cbed556abd78039023973982c5f41ee28d4dc4391f24d",
+      "ab9288b91ef73356f3f2997663f262b6f4f9d13f1de86a22a7a3a6c333c4263c",
+      "dd964c1ef3e4213f6a260e360a08d5d0fdf804865874ae2834ad4d2d229a6053",
+      "f79ce41e793b3e5423a420663b72f0716a9996e45211bd930f0ced084936375e",
+      "ffafae608659c85d5182743e8f60358eb7e8c96b10e92364c691c76c20b94a4f",
+      "8fb5e71bac4619dce9dfa35aea43dc9d01fcd62d9ff560f15a0055ce76d7a816",
+      "c420c20aedb4b43f3c048da66b801b681849045691358b643a34f0e197e28310"
+    ],
+    "author": "0xd9e750581c3Da4bF56dA25C67147ec91Cdc10918",
+    "context_graph": "0x6680e216eedd4c7668af37718ce089ac82ea34bf/nc-weight-agent-9780a7faba0a0f6e",
+    "fixture": false,
+    "kind": "Evaluation",
+    "relates_to": "994a4a21a9263c9a7e559c5ea96c80f410a46884de37298be7cd5284af2c2f3b",
+    "schema": "nc/record/v1"
+  },
+  "review_readback": {
+    "artifact": "16d15137e91f26b3531108fde298dfa281d21946685be9d70f9702d720521703",
+    "artifact_origin": "dkg",
+    "artifacts": [
+      "04644a3b7056ae02a75420fd7fe9df29c018822ae02987f0080e51e2cb57c3bd",
+      "0e0eb8e7bc04d974408df35b7f674c7040a1c551c5267f93c22bd397cd31cabf",
+      "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "1465d9df3ad946ac09dd87e16d98d400c1e5a112e2622201beeabe326c4cc1f2",
+      "2b7379f3ae813529281a5c602bc5a11c1d4e0a99107aaa597fe936c1e813ca52",
+      "2f92e05b9f444328000c63dde29212b3f8a27dbdbbd03a5fc1b6d3c606472ebd",
+      "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+      "4755b3a3bbd82d8712c53de3ce487cafe03b11d6b724478c1418d4297aab69a6",
+      "4dcbacc07a29cb3f1364d046cb942a3e25405ccfa8b5c49d5dcbbf307b1108ea",
+      "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df",
+      "57f6f2ad9aacc2180570a68084cf57ed14d2c600cf8cf104a8420e76dd3be3aa",
+      "5a4dc8a7539d0a606b1ee3468dece8088e7e7464eb40c533b3673d1dcbab4111",
+      "5af571cbf074e6d21a03528d2330792e532ca608f24ac70a143f6b369968ab8c",
+      "5c60725185f541d029c4e1fb5153bea055119657ec3a799125b21fbe6307a80d",
+      "73e29d80b881e70bb8f719bf87750486b2074a86511e85e5e71941297f906739",
+      "7b29fc893a142294973e3358e1534f9c7a6b03c09e0e358c2c57ee854637c42c",
+      "7c5f9b6a8715cfbece46011b8edc51fb3066ecb3dc58d6668af652c5d43ba573",
+      "80dd7116f5cf9dc42c33157330369f658d1aa6c95801f54628f6b0eace4c2c50",
+      "8639e2cd81c6a8af3eb7ed102ada1e1989d76429eddaccd380dc680b4725980e",
+      "8eb740e8bbe4cff95ea7b4588d17a2432deb16e8075bc5828ff7ba9be94d982a",
+      "916b3b3a309a078e8682b9892625dbb40657989995f42a51937238608ef5a295",
+      "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c",
+      "a88941e0f6a6d4299f3cbed556abd78039023973982c5f41ee28d4dc4391f24d",
+      "ab9288b91ef73356f3f2997663f262b6f4f9d13f1de86a22a7a3a6c333c4263c",
+      "dd964c1ef3e4213f6a260e360a08d5d0fdf804865874ae2834ad4d2d229a6053",
+      "f79ce41e793b3e5423a420663b72f0716a9996e45211bd930f0ced084936375e",
+      "ffafae608659c85d5182743e8f60358eb7e8c96b10e92364c691c76c20b94a4f",
+      "8fb5e71bac4619dce9dfa35aea43dc9d01fcd62d9ff560f15a0055ce76d7a816",
+      "c420c20aedb4b43f3c048da66b801b681849045691358b643a34f0e197e28310",
+      "16d15137e91f26b3531108fde298dfa281d21946685be9d70f9702d720521703"
+    ],
+    "author": "0xd9e750581c3Da4bF56dA25C67147ec91Cdc10918",
+    "context_graph": "0x6680e216eedd4c7668af37718ce089ac82ea34bf/nc-weight-agent-9780a7faba0a0f6e",
+    "fixture": false,
+    "kind": "Review",
+    "relates_to": "235d3510b5d4148738539cb654e76543a9b8eefb43f35b3f91486156b0a3498c",
+    "schema": "nc/record/v1"
+  },
+  "provenance_transferred": true,
+  "services_stopped": true
+}

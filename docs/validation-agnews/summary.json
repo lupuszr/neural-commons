@@ -1,0 +1,21 @@
+{
+  "samples": 1000,
+  "base_accuracy": 0.387,
+  "candidate_accuracy": 0.8,
+  "base_label_nll": 1.7968223489355295,
+  "candidate_label_nll": 0.5479006135111558,
+  "corrected": 481,
+  "regressed": 68,
+  "accuracy_difference": 0.413,
+  "paired_normal_95pct_interval": [
+    0.3748524474524857,
+    0.45114755254751426
+  ],
+  "mcnemar_exact_two_sided_p": 1.3093968477673727e-77,
+  "scope": "Single fixed public task; interval does not account for pretraining contamination or task selection.",
+  "nll_reduction": 1.2489217354243738,
+  "paired_nll_reduction_normal_95pct_interval": [
+    1.1356058066677206,
+    1.362237664181027
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "nc/evaluation-spec/v1",
+  "base": "5c60725185f541d029c4e1fb5153bea055119657ec3a799125b21fbe6307a80d",
+  "candidate": "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+  "patch": "2f92e05b9f444328000c63dde29212b3f8a27dbdbbd03a5fc1b6d3c606472ebd",
+  "evaluator": "nc/causal-lm-labels/v1",
+  "executable": "e68c51baf5c637f71b86652d14a323ec21346923ccaaf203280ddaaada3573e2",
+  "dataset": "57f6f2ad9aacc2180570a68084cf57ed14d2c600cf8cf104a8420e76dd3be3aa",
+  "config": "8639e2cd81c6a8af3eb7ed102ada1e1989d76429eddaccd380dc680b4725980e",
+  "policy": "7c5f9b6a8715cfbece46011b8edc51fb3066ecb3dc58d6668af652c5d43ba573",
+  "seed": 17,
+  "backend": "python-transformers-cpu-f32/14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+  "timeout_ms": 600000,
+  "max_samples": 1024,
+  "max_artifact_bytes": 0,
+  "metric": "guarded_accuracy/v1",
+  "evidence": [
+    "f79ce41e793b3e5423a420663b72f0716a9996e45211bd930f0ced084936375e",
+    "04644a3b7056ae02a75420fd7fe9df29c018822ae02987f0080e51e2cb57c3bd",
+    "1465d9df3ad946ac09dd87e16d98d400c1e5a112e2622201beeabe326c4cc1f2",
+    "0e0eb8e7bc04d974408df35b7f674c7040a1c551c5267f93c22bd397cd31cabf",
+    "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+    "7b29fc893a142294973e3358e1534f9c7a6b03c09e0e358c2c57ee854637c42c",
+    "ab9288b91ef73356f3f2997663f262b6f4f9d13f1de86a22a7a3a6c333c4263c"
+  ]
+}

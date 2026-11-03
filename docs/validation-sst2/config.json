@@ -1,0 +1,23 @@
+{
+  "schema": "nc/causal-lm-label-config/v1",
+  "metric": "accuracy/v1",
+  "labels": [
+    " positive",
+    " negative"
+  ],
+  "prompt": "Classify the review as positive or negative.\nReview: {text}\nSentiment:",
+  "max_samples": 1024,
+  "max_tokens": 256,
+  "batch_size": 8,
+  "output_text": false,
+  "agent_objective": "Improve classification accuracy first; improve label NLL as a secondary goal. Pure final-norm scaling cannot change argmax accuracy. Seek selective weight edits that correct mistakes. Validation and final-test labels are unavailable to the controller.",
+  "selection_policy": {
+    "min_accuracy_improvement": 0.01,
+    "max_nll_regression": 0.0,
+    "rank": [
+      "accuracy_descending",
+      "nll_ascending",
+      "candidate_id_ascending"
+    ]
+  }
+}

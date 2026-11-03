@@ -1,0 +1,302 @@
+{
+  "schema": "nc/weight-dkg-validation/v1",
+  "status": "passed",
+  "scope": "two separate local DKG daemons and evaluator processes on one physical machine",
+  "chain": "disposable local Hardhat EVM; no public-chain finality",
+  "run": "/Users/otlegend/projects/neural-commons/.runtime/sst2-dkg-1",
+  "dkg_revision": "02a799660c19fd0fa7749bd0924706b6625ad050",
+  "dkg_source_patch": "diff --git a/packages/agent/src/imported-artifact.ts b/packages/agent/src/imported-artifact.ts\nindex 23242d5035..bbbf61998b 100644\n--- a/packages/agent/src/imported-artifact.ts\n+++ b/packages/agent/src/imported-artifact.ts\n@@ -481,6 +481,7 @@ async function resolveLinkedArtifact(agent: DKGAgent, args: {\n       assertionUri: args.assertionUri,\n       ...(args.subGraphName ? { subGraphName: args.subGraphName } : {}),\n       allowSharedMemoryFallback: true,\n+      allowSkippedSource: args.kind === 'source',\n       query: (sparql: string) => agent.store.query(sparql) as Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>,\n     });\n   } catch (err) {\ndiff --git a/packages/cli/src/daemon/routes/knowledge-assets-import.ts b/packages/cli/src/daemon/routes/knowledge-assets-import.ts\nindex aed702815f..f21c92af31 100644\n--- a/packages/cli/src/daemon/routes/knowledge-assets-import.ts\n+++ b/packages/cli/src/daemon/routes/knowledge-assets-import.ts\n@@ -204,7 +204,7 @@ async function resolveAssertionArtifact(\n         fileHash: undefined,\n       },\n       'Import artifact bytes can only be read from imported assertions owned by the requesting agent',\n-      { allowSharedMemoryFallback: true },\n+      { allowSharedMemoryFallback: true, allowSkippedSource: kind === 'source' },\n     );\n   } catch (err) {\n     const directRemote = await resolveExplicitAuthorizedRemoteArtifact(ctx, raw, kind, requestedHash, err);\n@@ -296,7 +296,7 @@ function resolveImportedArtifactForRead(\n   ctx: RequestContext,\n   raw: Record<string, unknown>,\n   message: string,\n-  opts?: { allowSharedMemoryFallback?: boolean },\n+  opts?: { allowSharedMemoryFallback?: boolean; allowSkippedSource?: boolean },\n ): Promise<ImportedArtifactResolution> {\n   return resolveImportedArtifact(ctx, raw, importedArtifactReadOwnerGuard(ctx, message), opts);\n }\ndiff --git a/packages/cli/src/daemon/routes/shared-assertion-helpers.ts b/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\nindex 713f49cc8b..bc50b41528 100644\n--- a/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\n+++ b/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\n@@ -85,7 +85,7 @@ export type ImportedArtifactResolution = {\n   sourceFileHash: string;\n   detectedContentType: string;\n   sourceContentType: string;\n-  extractionStatus: 'completed';\n+  extractionStatus: 'completed' | 'skipped';\n   extractionMethod?: string;\n   rootEntity?: string;\n   sourceFileName?: string;\n@@ -511,6 +511,7 @@ export async function resolveImportedArtifact(\n   },\n   opts?: {\n     allowSharedMemoryFallback?: boolean;\n+    allowSkippedSource?: boolean;\n   },\n ): Promise<ImportedArtifactResolution> {\n   const rawContextGraphId = typeof raw.contextGraphId === 'string' ? raw.contextGraphId.trim() : '';\n@@ -647,7 +648,7 @@ export async function resolveImportedArtifact(\n   }\n \n   const extractionRecord = getExtractionStatusRecord(ctx.extractionStatus, assertionUri);\n-  if (extractionRecord && extractionRecord.status !== 'completed') {\n+  if (extractionRecord && extractionRecord.status !== 'completed' && !(opts?.allowSkippedSource && extractionRecord.status === 'skipped')) {\n     throw new ImportArtifactRouteError(\n       409,\n       `Import artifact is not a completed extraction (status: ${extractionRecord.status})`,\n@@ -662,6 +663,7 @@ export async function resolveImportedArtifact(\n       ...(parsedAssertion.subGraphName ? { subGraphName: parsedAssertion.subGraphName } : {}),\n       ...(requestedFileHash ? { requestedFileHash } : {}),\n       allowSharedMemoryFallback: ownerGuardRelaxed || (opts?.allowSharedMemoryFallback && !parsedAssertion.legacy),\n+      allowSkippedSource: opts?.allowSkippedSource,\n       fallbackDetectedContentType: extractionRecord?.detectedContentType,\n       query: (sparql: string) => ctx.agent.store.query(sparql) as Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>,\n     });\n@@ -705,7 +707,7 @@ export async function resolveImportedArtifact(\n     sourceFileHash: metadata.sourceFileHash,\n     detectedContentType: metadata.sourceContentType,\n     sourceContentType: metadata.sourceContentType,\n-    extractionStatus: 'completed',\n+    extractionStatus: metadata.extractionStatus,\n     extractionMethod: metadata.extractionMethod || extractionRecord?.pipelineUsed || undefined,\n     rootEntity: metadata.rootEntity || extractionRecord?.rootEntity || undefined,\n     sourceFileName: metadata.sourceFileName || extractionRecord?.fileName || undefined,\ndiff --git a/packages/core/src/imported-artifact-metadata.ts b/packages/core/src/imported-artifact-metadata.ts\nindex b54bd87a99..c28d11c834 100644\n--- a/packages/core/src/imported-artifact-metadata.ts\n+++ b/packages/core/src/imported-artifact-metadata.ts\n@@ -13,7 +13,7 @@ export interface ImportedArtifactMetadata {\n   source: ImportedArtifactMetadataSource;\n   sourceFileHash: string;\n   sourceContentType: string;\n-  extractionStatus: 'completed';\n+  extractionStatus: 'completed' | 'skipped';\n   extractionMethod?: string;\n   rootEntity?: string;\n   sourceFileName?: string;\n@@ -39,6 +39,7 @@ export interface ResolveImportedArtifactMetadataParams {\n   subGraphName?: string;\n   requestedFileHash?: string;\n   allowSharedMemoryFallback?: boolean;\n+  allowSkippedSource?: boolean;\n   fallbackDetectedContentType?: string;\n   query: (sparql: string) => Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>;\n }\n@@ -145,7 +146,7 @@ async function resolveDurableImportedArtifactMetadata(\n \n   const durableExtractionStatus = normalizeLiteral(metaBinding.extractionStatus) || undefined;\n   const structuralTripleCount = optionalPositiveInteger(metaBinding.structuralTripleCount);\n-  if (durableExtractionStatus && durableExtractionStatus !== 'completed') {\n+  if (durableExtractionStatus && durableExtractionStatus !== 'completed' && !(params.allowSkippedSource && durableExtractionStatus === 'skipped')) {\n     throw new ImportedArtifactMetadataError(\n       'incomplete',\n       `Import artifact is not a completed extraction (status: ${durableExtractionStatus})`,\n@@ -173,7 +174,7 @@ async function resolveDurableImportedArtifactMetadata(\n     source: 'durable',\n     sourceFileHash,\n     sourceContentType,\n-    extractionStatus: 'completed',\n+    extractionStatus: durableExtractionStatus === 'skipped' ? 'skipped' : 'completed',\n     extractionMethod: normalizeLiteral(metaBinding.extractionMethod) || undefined,\n     rootEntity: normalizeIri(metaBinding.rootEntity) || undefined,\n     sourceFileName: normalizeLiteral(metaBinding.sourceFileName) || undefined,\ndiff --git a/packages/core/test/imported-artifact-metadata.test.ts b/packages/core/test/imported-artifact-metadata.test.ts\nindex 31d4b6ff8d..4a016cd3c9 100644\n--- a/packages/core/test/imported-artifact-metadata.test.ts\n+++ b/packages/core/test/imported-artifact-metadata.test.ts\n@@ -97,3 +97,14 @@ describe('imported artifact metadata resolver', () => {\n     });\n   });\n });\n+\n+// Neural Commons opaque source compatibility: no extraction is needed to read original bytes.\n+it('allows skipped source reads only when explicitly requested; never admits failed extraction', async () => {\n+  for (const status of ['skipped', 'failed', 'processing']) {\n+    const query = async (sparql: string) => ({bindings: sparql.includes('/_meta') ? [{fileHash: sourceHash, contentType:'application/octet-stream', extractionStatus:status}] : []});\n+    await expect(resolveImportedArtifactMetadata({contextGraphId,assertionUri,query})).rejects.toThrow();\n+    const read = resolveImportedArtifactMetadata({contextGraphId,assertionUri,query,allowSkippedSource:true});\n+    if (status === 'skipped') await expect(read).resolves.toMatchObject({extractionStatus:'skipped',sourceFileHash:sourceHash});\n+    else await expect(read).rejects.toThrow();\n+  }\n+});\n",
+  "identities": [
+    {
+      "agentAddress": "0xE64EDD60B9CB5F336bF88E856Ea88dAA08CDfd0C",
+      "agentDid": "did:dkg:agent:0xE64EDD60B9CB5F336bF88E856Ea88dAA08CDfd0C",
+      "name": "neural-commons-participant",
+      "framework": "Neural Commons",
+      "peerId": "12D3KooWL4g2kJMDh2LgmTSwRJhqrWgUBDYY79t5fUE4wkqFWbee",
+      "nodeIdentityId": "0"
+    },
+    {
+      "agentAddress": "0x87020c9a9e430dFe70681b4e552375c5Da9fEDCB",
+      "agentDid": "did:dkg:agent:0x87020c9a9e430dFe70681b4e552375c5Da9fEDCB",
+      "name": "neural-commons-participant",
+      "framework": "Neural Commons",
+      "peerId": "12D3KooWGGxyNLnoShpEqCBBvCxNUfUAkZmJ9YCcw79PCLpEbotA",
+      "nodeIdentityId": "0"
+    }
+  ],
+  "context_graph": "0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/nc-weight-agent-94af96332f44b80e",
+  "a": {
+    "spec": "6f050cfaffcf2e3a067e54603c35dba8f5d2d91f2e5b96dd3cd21320231ce325",
+    "evaluation": {
+      "evaluation": {
+        "base_mse": null,
+        "candidate_mse": null,
+        "environment": "python-transformers-cpu-f32/14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+        "error": null,
+        "evaluator": "nc/causal-lm-labels/v1",
+        "observed_executable": "0c5b97c8cd227b31a295faa3130aae1fb08c38aed748be22d2297fc2803ae270",
+        "outputs": "c0a323251187f98fb94332a53f8296053286675c1e4d6c61f2cbe95c7a74aa1a",
+        "process_id": 97784,
+        "schema": "nc/evaluation/v1",
+        "scores": {
+          "base": 0.7717889908256881,
+          "candidate": 0.7958715596330275,
+          "metric": "accuracy/v1"
+        },
+        "spec": "6f050cfaffcf2e3a067e54603c35dba8f5d2d91f2e5b96dd3cd21320231ce325",
+        "status": "passed"
+      },
+      "report": "ea2778315c40f90c01fbfbb4d2730bf070c478d4ceb3533dfa7ceb908f683865"
+    },
+    "base": "141a4e0db487d907e434cb239f579fa07595dd862f4615ced8d41c5f11026b0f",
+    "candidate": "92502b6a828f1da9b0af4370f96c352d8bcbbb86788c2391e4886eee3ba92bf6",
+    "patch": "b26fdef0132569471d8986dae3048f84d97e86da106299e807c97d86871841d5",
+    "rust_reconstruction_matches": true,
+    "changed_parameters": 1108,
+    "controller": "gpt-6-astra",
+    "backend": "codex",
+    "evidence": [
+      "4d6a018d5cf47ec5b1e9a10f39b86e56079c1ac0864cc365b8b7f8dd424b3e76",
+      "11819c017e0374e8079b7031cabeeb79e288c9d965b96a76b757f4ab98101100",
+      "df6d9c1a157929401cce03ac2d542a200febae4a6dc29101f4aa60bb9b76eae1",
+      "c8032e8088997fd47140b0543f9b7210f80682e65106b82ec0606a0ad95c061b",
+      "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "56866b0fc3712f7969b95dd624fedb7a3089e9bff7ebf705b3e3e84a7eb03c2c",
+      "80d75980589961afce8f1c6d03a64bea4e36cad99b8b835f8431b17206e98fb6",
+      "809ca782bbe99469cb3d66f1c64931802a7f372d642a6db9ba2f9749028a75c2",
+      "84e3e8032aa17bf26f9ac9acfcf81650fd5cf9e11e6e4a2e932ebd00b9485479",
+      "ddc1b4aa2a152be1828a8e080b2c0afa48b68c7e6b4363dcf3b9bd6d6f0a2726",
+      "1ac7a02050eac07ac7f55f2e3ae42390331726333012c41a49030c4290107cec",
+      "4d3cd6b0ca12e3602b4aa1525cee2c4c806e62ca60449cd8657da06244a04f79"
+    ]
+  },
+  "b_started_without_artifacts": true,
+  "proposal": {
+    "receipt": {
+      "alreadyExists": false,
+      "assertionUri": "did:dkg:context-graph:0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/nc-weight-agent-94af96332f44b80e/_working_memory/0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/122",
+      "assertionVersion": "1",
+      "authorAddress": "0xE64EDD60B9CB5F336bF88E856Ea88dAA08CDfd0C",
+      "kaUal": "did:dkg:hardhat:31337/0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/122",
+      "merkleRoot": "0x259c694a6127501b23b02ab00f3c8e94ca8b1ea2a4ae1847a4dafb3db03ad34d",
+      "name": "nc-20d9671219758c164a48bfe14d6ab90b0d8c588d6f1ac0822747403142c0d355",
+      "promotedCount": 6,
+      "publishReady": true,
+      "sealed": true,
+      "shareOperationId": "mw0qr8vs-2istbo",
+      "status": "swm-shared",
+      "swmShared": true,
+      "written": 6
+    },
+    "record": "20d9671219758c164a48bfe14d6ab90b0d8c588d6f1ac0822747403142c0d355",
+    "related_records": [
+      {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/nc-weight-agent-94af96332f44b80e/_working_memory/0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/113",
+          "assertionVersion": "1",
+          "authorAddress": "0xE64EDD60B9CB5F336bF88E856Ea88dAA08CDfd0C",
+          "kaUal": "did:dkg:hardhat:31337/0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/113",
+          "merkleRoot": "0x3c71a9e47ac6088ac780008f09bfb7f7c448f30e06db26a832d5d117fa4dfa84",
+          "name": "nc-41defc74d5c0d17a1463fee180f63247e6748d2733dfdec38811db32beac2144",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0qr2vm-s2g5si",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "41defc74d5c0d17a1463fee180f63247e6748d2733dfdec38811db32beac2144",
+        "state": "shared"
+      },
+      {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/nc-weight-agent-94af96332f44b80e/_working_memory/0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/117",
+          "assertionVersion": "1",
+          "authorAddress": "0xE64EDD60B9CB5F336bF88E856Ea88dAA08CDfd0C",
+          "kaUal": "did:dkg:hardhat:31337/0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/117",
+          "merkleRoot": "0xa15ef24c2e59e2570f3f4c1819e1eb698056994ba26b294e79a00d569a84dc8c",
+          "name": "nc-e822feb0a58d032dc800529fbeeed9d549e1e87165601deeebfed71b3c3b44e7",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0qr4qw-xq290j",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "e822feb0a58d032dc800529fbeeed9d549e1e87165601deeebfed71b3c3b44e7",
+        "state": "shared"
+      },
+      {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/nc-weight-agent-94af96332f44b80e/_working_memory/0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/121",
+          "assertionVersion": "1",
+          "authorAddress": "0xE64EDD60B9CB5F336bF88E856Ea88dAA08CDfd0C",
+          "kaUal": "did:dkg:hardhat:31337/0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/121",
+          "merkleRoot": "0x45f53307da94cb4fab887fe3518ccb0664d29fcf43793c6e65269218a5f0b71f",
+          "name": "nc-36ab781cc2985774b2167c9969ee78c3bcd743090f3e2fa7d8947899384aae3a",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0qr7g7-2rtor2",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "36ab781cc2985774b2167c9969ee78c3bcd743090f3e2fa7d8947899384aae3a",
+        "state": "shared"
+      }
+    ],
+    "state": "shared"
+  },
+  "b": {
+    "evaluation": {
+      "base_mse": null,
+      "candidate_mse": null,
+      "environment": "python-transformers-cpu-f32/14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "error": null,
+      "evaluator": "nc/causal-lm-labels/v1",
+      "observed_executable": "0c5b97c8cd227b31a295faa3130aae1fb08c38aed748be22d2297fc2803ae270",
+      "outputs": "c0a323251187f98fb94332a53f8296053286675c1e4d6c61f2cbe95c7a74aa1a",
+      "process_id": 98228,
+      "schema": "nc/evaluation/v1",
+      "scores": {
+        "base": 0.7717889908256881,
+        "candidate": 0.7958715596330275,
+        "metric": "accuracy/v1"
+      },
+      "spec": "6f050cfaffcf2e3a067e54603c35dba8f5d2d91f2e5b96dd3cd21320231ce325",
+      "status": "passed"
+    },
+    "publication": {
+      "receipt": {
+        "alreadyExists": false,
+        "assertionUri": "did:dkg:context-graph:0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/nc-weight-agent-94af96332f44b80e/_working_memory/0x87020c9a9e430dfe70681b4e552375c5da9fedcb/119",
+        "assertionVersion": "1",
+        "authorAddress": "0x87020c9a9e430dFe70681b4e552375c5Da9fEDCB",
+        "kaUal": "did:dkg:hardhat:31337/0x87020c9a9e430dfe70681b4e552375c5da9fedcb/119",
+        "merkleRoot": "0x95b81d469d77f29f60f145ba02a61b444a05df89e4745aa0a45c97366962c11d",
+        "name": "nc-dde1e19d10178ac98a0471fae54bc333578d3eadddddc4a7f60486e8cb0bfdc8",
+        "promotedCount": 6,
+        "publishReady": true,
+        "sealed": true,
+        "shareOperationId": "mw0qtm66-f8mbyz",
+        "status": "swm-shared",
+        "swmShared": true,
+        "written": 6
+      },
+      "record": "dde1e19d10178ac98a0471fae54bc333578d3eadddddc4a7f60486e8cb0bfdc8",
+      "state": "shared"
+    },
+    "report": "5d7d2d9694d189da18e42d199a006bfaaced35c50353ec59767fa56798c75d78",
+    "review": {
+      "receipt": {
+        "alreadyExists": false,
+        "assertionUri": "did:dkg:context-graph:0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/nc-weight-agent-94af96332f44b80e/_working_memory/0x87020c9a9e430dfe70681b4e552375c5da9fedcb/123",
+        "assertionVersion": "1",
+        "authorAddress": "0x87020c9a9e430dFe70681b4e552375c5Da9fEDCB",
+        "kaUal": "did:dkg:hardhat:31337/0x87020c9a9e430dfe70681b4e552375c5da9fedcb/123",
+        "merkleRoot": "0xd9ffbaeff7701144297f85381e6281e40d8ea020a8e1915c7232895d2cdcebaf",
+        "name": "nc-96689c85d36d7d7f98486ba96aa813e008b2fbbd45603f4368eac5c9b9be549a",
+        "promotedCount": 6,
+        "publishReady": true,
+        "sealed": true,
+        "shareOperationId": "mw0qto34-k3vgi5",
+        "status": "swm-shared",
+        "swmShared": true,
+        "written": 6
+      },
+      "record": "96689c85d36d7d7f98486ba96aa813e008b2fbbd45603f4368eac5c9b9be549a",
+      "state": "shared"
+    }
+  },
+  "a_readback": {
+    "artifact": "5d7d2d9694d189da18e42d199a006bfaaced35c50353ec59767fa56798c75d78",
+    "artifact_origin": "dkg",
+    "artifacts": [
+      "0558cccc5c9eb8faed2cc771ec1a90c6ae51f7d7122bb81d62fd902a1caa58d2",
+      "11819c017e0374e8079b7031cabeeb79e288c9d965b96a76b757f4ab98101100",
+      "141a4e0db487d907e434cb239f579fa07595dd862f4615ced8d41c5f11026b0f",
+      "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "1ac7a02050eac07ac7f55f2e3ae42390331726333012c41a49030c4290107cec",
+      "2b7379f3ae813529281a5c602bc5a11c1d4e0a99107aaa597fe936c1e813ca52",
+      "4d3cd6b0ca12e3602b4aa1525cee2c4c806e62ca60449cd8657da06244a04f79",
+      "4d6a018d5cf47ec5b1e9a10f39b86e56079c1ac0864cc365b8b7f8dd424b3e76",
+      "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df",
+      "56866b0fc3712f7969b95dd624fedb7a3089e9bff7ebf705b3e3e84a7eb03c2c",
+      "5af571cbf074e6d21a03528d2330792e532ca608f24ac70a143f6b369968ab8c",
+      "688c365bdd096f7b24bf97dcb17b52b9b6e29bc385bb33abd597b1e7923dc88d",
+      "6f050cfaffcf2e3a067e54603c35dba8f5d2d91f2e5b96dd3cd21320231ce325",
+      "7612215fcb253b29d2f64c58cf7ab91b3772819bdc1bd530ee74990f4e3a13b2",
+      "809ca782bbe99469cb3d66f1c64931802a7f372d642a6db9ba2f9749028a75c2",
+      "80d75980589961afce8f1c6d03a64bea4e36cad99b8b835f8431b17206e98fb6",
+      "84e3e8032aa17bf26f9ac9acfcf81650fd5cf9e11e6e4a2e932ebd00b9485479",
+      "8b5fb0c0209590c98af11268023d130ba1868db235e9665eb5f144f64aab14c6",
+      "8eb740e8bbe4cff95ea7b4588d17a2432deb16e8075bc5828ff7ba9be94d982a",
+      "92502b6a828f1da9b0af4370f96c352d8bcbbb86788c2391e4886eee3ba92bf6",
+      "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c",
+      "b26fdef0132569471d8986dae3048f84d97e86da106299e807c97d86871841d5",
+      "b35d0edefb2068b9c9e5329cb1864630a6820a171ad1c2a8c9a897abe9a1d1cc",
+      "bb748233fff518f7d8a3346281e846075b09190a14ed55630ef405ce48385a09",
+      "c8032e8088997fd47140b0543f9b7210f80682e65106b82ec0606a0ad95c061b",
+      "ddc1b4aa2a152be1828a8e080b2c0afa48b68c7e6b4363dcf3b9bd6d6f0a2726",
+      "df6d9c1a157929401cce03ac2d542a200febae4a6dc29101f4aa60bb9b76eae1",
+      "5d7d2d9694d189da18e42d199a006bfaaced35c50353ec59767fa56798c75d78",
+      "c0a323251187f98fb94332a53f8296053286675c1e4d6c61f2cbe95c7a74aa1a"
+    ],
+    "author": "0x87020c9a9e430dFe70681b4e552375c5Da9fEDCB",
+    "context_graph": "0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/nc-weight-agent-94af96332f44b80e",
+    "fixture": false,
+    "kind": "Evaluation",
+    "relates_to": "20d9671219758c164a48bfe14d6ab90b0d8c588d6f1ac0822747403142c0d355",
+    "schema": "nc/record/v1"
+  },
+  "review_readback": {
+    "artifact": "f71d98c94d25a56fd5e886797d640b1ec82b3d96158e0613d162d9b17c8241cb",
+    "artifact_origin": "dkg",
+    "artifacts": [
+      "0558cccc5c9eb8faed2cc771ec1a90c6ae51f7d7122bb81d62fd902a1caa58d2",
+      "11819c017e0374e8079b7031cabeeb79e288c9d965b96a76b757f4ab98101100",
+      "141a4e0db487d907e434cb239f579fa07595dd862f4615ced8d41c5f11026b0f",
+      "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "1ac7a02050eac07ac7f55f2e3ae42390331726333012c41a49030c4290107cec",
+      "2b7379f3ae813529281a5c602bc5a11c1d4e0a99107aaa597fe936c1e813ca52",
+      "4d3cd6b0ca12e3602b4aa1525cee2c4c806e62ca60449cd8657da06244a04f79",
+      "4d6a018d5cf47ec5b1e9a10f39b86e56079c1ac0864cc365b8b7f8dd424b3e76",
+      "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df",
+      "56866b0fc3712f7969b95dd624fedb7a3089e9bff7ebf705b3e3e84a7eb03c2c",
+      "5af571cbf074e6d21a03528d2330792e532ca608f24ac70a143f6b369968ab8c",
+      "688c365bdd096f7b24bf97dcb17b52b9b6e29bc385bb33abd597b1e7923dc88d",
+      "6f050cfaffcf2e3a067e54603c35dba8f5d2d91f2e5b96dd3cd21320231ce325",
+      "7612215fcb253b29d2f64c58cf7ab91b3772819bdc1bd530ee74990f4e3a13b2",
+      "809ca782bbe99469cb3d66f1c64931802a7f372d642a6db9ba2f9749028a75c2",
+      "80d75980589961afce8f1c6d03a64bea4e36cad99b8b835f8431b17206e98fb6",
+      "84e3e8032aa17bf26f9ac9acfcf81650fd5cf9e11e6e4a2e932ebd00b9485479",
+      "8b5fb0c0209590c98af11268023d130ba1868db235e9665eb5f144f64aab14c6",
+      "8eb740e8bbe4cff95ea7b4588d17a2432deb16e8075bc5828ff7ba9be94d982a",
+      "92502b6a828f1da9b0af4370f96c352d8bcbbb86788c2391e4886eee3ba92bf6",
+      "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c",
+      "b26fdef0132569471d8986dae3048f84d97e86da106299e807c97d86871841d5",
+      "b35d0edefb2068b9c9e5329cb1864630a6820a171ad1c2a8c9a897abe9a1d1cc",
+      "bb748233fff518f7d8a3346281e846075b09190a14ed55630ef405ce48385a09",
+      "c8032e8088997fd47140b0543f9b7210f80682e65106b82ec0606a0ad95c061b",
+      "ddc1b4aa2a152be1828a8e080b2c0afa48b68c7e6b4363dcf3b9bd6d6f0a2726",
+      "df6d9c1a157929401cce03ac2d542a200febae4a6dc29101f4aa60bb9b76eae1",
+      "5d7d2d9694d189da18e42d199a006bfaaced35c50353ec59767fa56798c75d78",
+      "c0a323251187f98fb94332a53f8296053286675c1e4d6c61f2cbe95c7a74aa1a",
+      "f71d98c94d25a56fd5e886797d640b1ec82b3d96158e0613d162d9b17c8241cb"
+    ],
+    "author": "0x87020c9a9e430dFe70681b4e552375c5Da9fEDCB",
+    "context_graph": "0xe64edd60b9cb5f336bf88e856ea88daa08cdfd0c/nc-weight-agent-94af96332f44b80e",
+    "fixture": false,
+    "kind": "Review",
+    "relates_to": "dde1e19d10178ac98a0471fae54bc333578d3eadddddc4a7f60486e8cb0bfdc8",
+    "schema": "nc/record/v1"
+  },
+  "provenance_transferred": true,
+  "services_stopped": true
+}

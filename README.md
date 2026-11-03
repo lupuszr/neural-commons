@@ -9,9 +9,14 @@ an LLM controller reads and directly edits another pretrained language model's
 weights, without gradients. It supports **Codex CLI with an existing login** and
 the **OpenAI Responses API**. A separate evaluator tests the frozen candidate;
 DKG carries the checkpoint, patch, controller transcript and reproduction evidence.
-The first recorded Codex experiment changed 576 SmolLM2 parameters and **failed**
-the held-out improvement policy. This is a functioning experiment, not a claim
-that an LLM has become generally better.
+The [guarded AG News experiment](docs/AGNEWS-RESULTS.md) changed **2,268 BF16
+weights** in an unmodified SmolLM2 checkpoint and improved fixed-prompt news
+classification from **38.7% to 80.0% on 1,000 held-out examples**, while preserving
+its sentiment guard. Two local DKG participants reproduced the identical output.
+This is a task-specific gain, not a general capability claim. The earlier failed
+edit and [SST-2 improvement with a regression](docs/SST2-RESULTS.md) remain recorded.
+See the [reproduction workflow](docs/AGNEWS-WORKFLOW.md) and
+[public evidence](docs/validation-agnews).
 
 Requires Rust 1.93, Python 3.9+, Node 24, pnpm 10 and native build tools (Xcode Command Line Tools on macOS or a C/C++ toolchain on Linux).
 

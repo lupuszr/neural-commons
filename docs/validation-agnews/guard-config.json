@@ -1,0 +1,11 @@
+{
+  "labels": [
+    " positive",
+    " negative"
+  ],
+  "prompt": "Classify the review as positive or negative.\nReview: {text}\nSentiment:",
+  "max_samples": 128,
+  "max_tokens": 256,
+  "batch_size": 8,
+  "output_text": false
+}

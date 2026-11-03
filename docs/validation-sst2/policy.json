@@ -1,0 +1,8 @@
+{
+  "schema": "nc/metric-policy/v1",
+  "metric": "accuracy/v1",
+  "direction": "maximize",
+  "threshold": 0.7,
+  "min_improvement": 0.02,
+  "tolerance": 1e-08
+}

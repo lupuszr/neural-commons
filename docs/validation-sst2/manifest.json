@@ -1,0 +1,115 @@
+{
+  "note": "Public copies replace dataset text with SHA256; numerical operations, vectors, IDs, labels and results are retained. Original full artifacts were exchanged through DKG. Source datasets can be fetched using pinned revisions.",
+  "files": {
+    "dkg-validation.json": {
+      "original_sha256": "de337239c906bcc522f049505e61575e4ec63a106d2fc24b577c4419065e88d8",
+      "public_sha256": "de337239c906bcc522f049505e61575e4ec63a106d2fc24b577c4419065e88d8",
+      "review_text_redacted": false
+    },
+    "heldout-output.json": {
+      "original_sha256": "c0a323251187f98fb94332a53f8296053286675c1e4d6c61f2cbe95c7a74aa1a",
+      "public_sha256": "c0a323251187f98fb94332a53f8296053286675c1e4d6c61f2cbe95c7a74aa1a",
+      "review_text_redacted": false
+    },
+    "session.public.json": {
+      "original_sha256": "4d6a018d5cf47ec5b1e9a10f39b86e56079c1ac0864cc365b8b7f8dd424b3e76",
+      "public_sha256": "fe918d194dd6216f666e7645cdf3740a0172fa23d867072960db0d880cd87c63",
+      "review_text_redacted": true
+    },
+    "transcript.public.jsonl": {
+      "original_sha256": "11819c017e0374e8079b7031cabeeb79e288c9d965b96a76b757f4ab98101100",
+      "public_sha256": "58a27bfc5be912335542ea3d6b44ce7f9c05cb52a064b3f413a04d1bd67d3672",
+      "review_text_redacted": true
+    },
+    "selection-report.public.json": {
+      "original_sha256": "4d3cd6b0ca12e3602b4aa1525cee2c4c806e62ca60449cd8657da06244a04f79",
+      "public_sha256": "03a5df9cf58d530f3870d335e51c20067e9cc78e7a86b325be2af0a657b9c0a8",
+      "review_text_redacted": true
+    },
+    "commitment.json": {
+      "original_sha256": "df6d9c1a157929401cce03ac2d542a200febae4a6dc29101f4aa60bb9b76eae1",
+      "public_sha256": "df6d9c1a157929401cce03ac2d542a200febae4a6dc29101f4aa60bb9b76eae1",
+      "review_text_redacted": false
+    },
+    "spec.json": {
+      "original_sha256": "6f050cfaffcf2e3a067e54603c35dba8f5d2d91f2e5b96dd3cd21320231ce325",
+      "public_sha256": "6f050cfaffcf2e3a067e54603c35dba8f5d2d91f2e5b96dd3cd21320231ce325",
+      "review_text_redacted": false
+    },
+    "result.json": {
+      "original_sha256": "56aaab06375ba2c5d05bb8cb7d11de83cca97a0871f358dc3e1752c16b5bc3b7",
+      "public_sha256": "56aaab06375ba2c5d05bb8cb7d11de83cca97a0871f358dc3e1752c16b5bc3b7",
+      "review_text_redacted": false
+    },
+    "config.json": {
+      "original_sha256": "7612215fcb253b29d2f64c58cf7ab91b3772819bdc1bd530ee74990f4e3a13b2",
+      "public_sha256": "7612215fcb253b29d2f64c58cf7ab91b3772819bdc1bd530ee74990f4e3a13b2",
+      "review_text_redacted": false
+    },
+    "policy.json": {
+      "original_sha256": "bb748233fff518f7d8a3346281e846075b09190a14ed55630ef405ce48385a09",
+      "public_sha256": "bb748233fff518f7d8a3346281e846075b09190a14ed55630ef405ce48385a09",
+      "review_text_redacted": false
+    },
+    "source.json": {
+      "original_sha256": "0558cccc5c9eb8faed2cc771ec1a90c6ae51f7d7122bb81d62fd902a1caa58d2",
+      "public_sha256": "0558cccc5c9eb8faed2cc771ec1a90c6ae51f7d7122bb81d62fd902a1caa58d2",
+      "review_text_redacted": false
+    },
+    "development.public.json": {
+      "original_sha256": "c8032e8088997fd47140b0543f9b7210f80682e65106b82ec0606a0ad95c061b",
+      "public_sha256": "563c66f5202f0600d0cdf0791cbfebc7ac1e89dc1e0d14f3b4c6c5e658cabdd8",
+      "review_text_redacted": true
+    },
+    "selection.public.json": {
+      "original_sha256": "1ac7a02050eac07ac7f55f2e3ae42390331726333012c41a49030c4290107cec",
+      "public_sha256": "39ab49881745406934fc30209c9174fc27566e4773089593650b319738157c04",
+      "review_text_redacted": true
+    },
+    "heldout.public.json": {
+      "original_sha256": "b35d0edefb2068b9c9e5329cb1864630a6820a171ad1c2a8c9a897abe9a1d1cc",
+      "public_sha256": "94c393d770f66e69f8113d6841f41d115c90d75b68b3fc311ff29da86c1c5bc0",
+      "review_text_redacted": true
+    },
+    "search-1-session.public.json": {
+      "original_sha256": "56866b0fc3712f7969b95dd624fedb7a3089e9bff7ebf705b3e3e84a7eb03c2c",
+      "public_sha256": "3bb8206f8200093d286d0401443417d003f599f21330dfb58278c98d3ebac624",
+      "review_text_redacted": true
+    },
+    "search-1-transcript.public.jsonl": {
+      "original_sha256": "80d75980589961afce8f1c6d03a64bea4e36cad99b8b835f8431b17206e98fb6",
+      "public_sha256": "82f7dbe2ca75cec4078fcaa7fed312a2274a1de1373357e5c0cf8ee736da8542",
+      "review_text_redacted": true
+    },
+    "search-1-selection.public.json": {
+      "original_sha256": "809ca782bbe99469cb3d66f1c64931802a7f372d642a6db9ba2f9749028a75c2",
+      "public_sha256": "5cd6d439e92481df8a6ae4059d140058c7207c48aeb2e11cc858aaa56dc509aa",
+      "review_text_redacted": true
+    },
+    "search-2-controller-session.public.json": {
+      "original_sha256": "84e3e8032aa17bf26f9ac9acfcf81650fd5cf9e11e6e4a2e932ebd00b9485479",
+      "public_sha256": "10f28be8e94a05cd2a2fb162c63c10a9fe8bc2d5498c32e5405dd49f0e4d3199",
+      "review_text_redacted": true
+    },
+    "search-summary.public.json": {
+      "original_sha256": "ddc1b4aa2a152be1828a8e080b2c0afa48b68c7e6b4363dcf3b9bd6d6f0a2726",
+      "public_sha256": "ddc1b4aa2a152be1828a8e080b2c0afa48b68c7e6b4363dcf3b9bd6d6f0a2726",
+      "review_text_redacted": true
+    },
+    "summary.json": {
+      "original_sha256": "1b860339e7be763bcf55221acbdb579eab44689a4deae59998708c7347cccfc0",
+      "public_sha256": "1b860339e7be763bcf55221acbdb579eab44689a4deae59998708c7347cccfc0",
+      "review_text_redacted": false
+    },
+    "posthoc-regression.json": {
+      "original_sha256": "6c7a61cb09901e4624e5f303ef8c3d2faab6b8a9098371a15b920ce55e4ff187",
+      "public_sha256": "6c7a61cb09901e4624e5f303ef8c3d2faab6b8a9098371a15b920ce55e4ff187",
+      "review_text_redacted": false
+    },
+    "runtime.json": {
+      "original_sha256": "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "public_sha256": "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "review_text_redacted": false
+    }
+  }
+}

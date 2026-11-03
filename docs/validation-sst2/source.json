@@ -1,0 +1,18 @@
+{
+  "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "license": "Apache-2.0 (model)",
+  "dataset": "stanfordnlp/sst2",
+  "dataset_revision": "8d51e7e4887a4caaa95b3fbebbf53c0490b58bbb",
+  "dataset_url": "https://huggingface.co/datasets/stanfordnlp/sst2",
+  "dataset_file_sha256": {
+    "train": "c7921283b75a42e685f50edecb96798607ea0fcbfd0739ee8975f22c12d55f09",
+    "validation": "fb00fe008f6828f86ba2beda8415a4cf5da0c884f21c5f238c87131b5aa19529"
+  },
+  "split_seed": 20261104,
+  "development_samples": 128,
+  "selection_samples": 256,
+  "heldout_samples": 872,
+  "split_method": "Deduplicated train texts of 8..50 whitespace words; shuffle each class with fixed seed; 64/class development, next 128/class selection. All official validation examples reserved for final evaluation.",
+  "limitations": "Forced-choice sentiment, not free generation. Public dataset may have appeared in pretraining. Official validation serves as our final holdout, not the hidden GLUE test set. Train-derived selection can include related phrases."
+}

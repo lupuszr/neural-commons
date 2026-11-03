@@ -1,0 +1,53 @@
+{
+  "schema": "nc/causal-lm-label-config/v1",
+  "metric": "guarded_accuracy/v1",
+  "labels": [
+    " World",
+    " Sports",
+    " Business",
+    " Technology"
+  ],
+  "prompt": "Classify the news as World, Sports, Business, or Technology.\nNews: {text}\nCategory:",
+  "max_samples": 1024,
+  "max_tokens": 256,
+  "batch_size": 8,
+  "output_text": false,
+  "agent_objective": "Improve four-class news topic accuracy, with lower label NLL as secondary goal. Only the four task-label embedding rows may be edited. Existing sentiment classification must be preserved by an independent guard. You may use development activation contrasts, including one class versus all others (negative_label=-1). Do not change prompts, data, architecture or other weights.",
+  "edit_scope": [
+    {
+      "tensor": "model.embed_tokens.weight",
+      "start": 1301760,
+      "count": 576
+    },
+    {
+      "tensor": "model.embed_tokens.weight",
+      "start": 8800128,
+      "count": 576
+    },
+    {
+      "tensor": "model.embed_tokens.weight",
+      "start": 4872960,
+      "count": 576
+    },
+    {
+      "tensor": "model.embed_tokens.weight",
+      "start": 3343104,
+      "count": 576
+    }
+  ],
+  "guard": {
+    "dataset_artifact": "guard_dataset",
+    "config_artifact": "guard_config",
+    "max_accuracy_drop": 0.0,
+    "max_nll_increase": 1e-06
+  },
+  "selection_policy": {
+    "min_accuracy_improvement": 0.01,
+    "max_nll_regression": 0.0,
+    "rank": [
+      "accuracy_descending",
+      "nll_ascending",
+      "candidate_id_ascending"
+    ]
+  }
+}

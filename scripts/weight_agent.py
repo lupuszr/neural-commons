@@ -22,7 +22,7 @@ import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "evaluators"))
-from llm_runtime import load_model, score
+from llm_runtime import activation_contrast, load_model, score
 import torch
 from safetensors.torch import load_file
 
@@ -43,7 +43,7 @@ ACTION_SCHEMA = {
     "type": "object", "additionalProperties": False,
     "properties": {"actions": {"type": "array", "minItems": 1, "maxItems": 4,
         "items": {"type": "object", "additionalProperties": False,
-            "properties": {"tool": {"type": "string", "enum": ["inspect", "tokenize", "experiment", "finish"]},
+            "properties": {"tool": {"type": "string", "enum": ["inspect", "tokenize", "contrast", "experiment", "finish"]},
                            "arguments": {"type": "string", "description": "JSON encoded tool arguments"}},
             "required": ["tool", "arguments"]}}}, "required": ["actions"],
 }
@@ -55,14 +55,23 @@ Do not use shell, filesystem, browser, plugins or any native tools. Return only
 the requested JSON actions; the host executes the tools described below.
 No gradients, optimizer, extra training examples or held-out access are available.
 Do not claim broad capability improvement. Choose a non-empty candidate if a
-plausible one exists, but report failures honestly. Optimize development label NLL
-while retaining or improving accuracy. You must inspect relevant weights before
+plausible one exists, but report failures honestly. Follow task.agent_objective
+when provided; otherwise optimize label NLL while retaining accuracy. Pure global
+logit scaling cannot improve argmax classification accuracy. You must inspect relevant weights before
 editing, and explain a causal hypothesis for each experiment.
 
 Tools (arguments is a JSON-encoded object):
 inspect: {"tensor":name,"start":integer,"count":integer}. Returns a flat slice
 of at most 256 original values, shape, dtype, mean, standard deviation and norm.
 tokenize: {"text":string}. Returns token IDs to identify embedding/output rows.
+contrast: {"positive_label":integer,"negative_label":integer}. Returns a named
+source vector: the unit-normalized difference of BASE final-hidden-state means
+for those development classes, and class projection statistics. Use negative_label=-1
+for the chosen class versus all other classes. No gradients are
+used. You may use this vector as add_tensor in a numeric edit, choosing the scale
+yourself. It is a supervised development statistic, not a learned optimizer or a
+new checkpoint tensor. Consider selective output-row edits using this direction
+if existing token semantics do not separate the classes sufficiently.
 experiment: {"hypothesis":string,"operations":[{"tensor":name,"start":integer,
 "count":integer,"scale":number,"add_tensor":name_or_null,"add_start":integer,
 "add_scale":number}]}. For each disjoint destination slice, replaces BASE values
@@ -221,16 +230,28 @@ def run(args):
                   "max_rounds": args.max_rounds, "max_probes": args.max_probes,
                   "max_edit_elements": args.max_edit_elements, "device": "cpu",
                   "model_source": json.loads(args.source.read_text())}
+    commitment["min_probes"] = args.min_probes
+    if "guard" in config:
+        commitment["guard_sha256"] = sha(args.config.parent / "guard.json")
+        commitment["guard_config_sha256"] = sha(args.config.parent / "guard-config.json")
+    if args.selection_sha256:
+        commitment["selection_sha256"] = args.selection_sha256
+    commitment["inference_file_sha256"] = {p.name: sha(p) for p in args.model.glob("*.json")}
+    commitment["implementation_sha256"] = {name: sha(ROOT / name) for name in
+        ["scripts/weight_agent.py", "evaluators/llm_runtime.py"]}
     write(args.output / "commitment.json", commitment)
     model, tokenizer = load_model(args.model, device="cpu")
     original = load_file(args.model / "model.safetensors")
-    baseline = score(model, tokenizer, development, config)
+    # Text is available to the controller only for the development split.
+    development_config = {**config, "output_text": True}
+    baseline = score(model, tokenizer, development, development_config)
     inventory = {name: {"shape": list(t.shape), "dtype": str(t.dtype)} for name, t in original.items()}
     history = [{"initial": {"task": config, "model_config": json.loads((args.model / "config.json").read_text()),
                             "inventory": inventory, "baseline": baseline,
                             "budgets": {"rounds": args.max_rounds, "probes": args.max_probes,
+                                        "minimum_attempts_before_finish": args.min_probes,
                                         "edit_elements_per_candidate": args.max_edit_elements}}}]
-    candidates, inspected, probes, selected = [], set(), 0, None
+    candidates, inspected, probes, selected, features = [], set(), 0, None, {}
     controller = Controller(args.backend, args.controller_model, args.controller_timeout)
     def log(event):
         with open(args.output / "transcript.jsonl", "a") as f:
@@ -258,6 +279,19 @@ def run(args):
                     if not isinstance(kw["text"], str) or len(kw["text"]) > 4096:
                         raise ValueError("text budget exceeded")
                     result = {"ids": tokenizer.encode(kw["text"], add_special_tokens=False)}
+                elif tool == "contrast":
+                    positive, negative = kw["positive_label"], kw["negative_label"]
+                    if type(positive) is not int or type(negative) is not int:
+                        raise ValueError("contrast labels must be integers")
+                    name = f"activation_contrast.{positive}.{negative}"
+                    if name in features:
+                        raise ValueError("this contrast was already computed")
+                    model.load_state_dict(original, strict=False)
+                    vector, projections = activation_contrast(model, tokenizer, development, config, positive, negative)
+                    features[name] = vector
+                    result = {"source_tensor": name, "shape": list(vector.shape), "norm": float(vector.norm()),
+                              "class_projections": projections, "formula": "unit(mean(base_hidden_positive)-mean(base_hidden_negative))",
+                              "values": vector.tolist()}
                 elif tool == "experiment":
                     if probes >= args.max_probes:
                         raise ValueError("probe budget exhausted; select a candidate")
@@ -266,16 +300,23 @@ def run(args):
                         raise ValueError("hypothesis required")
                     if not all(op["tensor"] in inspected for op in kw["operations"]):
                         raise ValueError("inspect each destination tensor before editing")
-                    edits = edited_slices(original, kw["operations"], args.max_edit_elements)
+                    if "edit_scope" in config and not all(any(
+                            op["tensor"] == region["tensor"] and op["start"] >= region["start"] and
+                            op["start"] + op["count"] <= region["start"] + region["count"]
+                            for region in config["edit_scope"]) for op in kw["operations"]):
+                        raise ValueError("edit exceeds the operator-approved tensor regions")
+                    edits = edited_slices({**original, **features}, kw["operations"], args.max_edit_elements)
                     model.load_state_dict(original, strict=False)
                     state = model.state_dict()
                     for op, values in edits:
                         state[op["tensor"]].flatten()[op["start"]:op["start"] + op["count"]].copy_(values)
-                    result = {"candidate": len(candidates), **score(model, tokenizer, development, config)}
+                    result = {"candidate": len(candidates), **score(model, tokenizer, development, development_config)}
                     candidates.append({"id": len(candidates), "hypothesis": kw["hypothesis"],
                                        "operations": kw["operations"], "development": result})
                     print(f"candidate {result['candidate']}: dev accuracy={result['accuracy']:.4f} label_nll={result['label_nll']:.6f}", flush=True)
                 elif tool == "finish":
+                    if probes < args.min_probes:
+                        raise ValueError(f"exploration budget requires at least {args.min_probes} attempts before finalization")
                     selected = kw["candidate"]
                     if type(selected) is not int or not 0 <= selected < len(candidates):
                         raise ValueError("select a tested candidate")
@@ -295,14 +336,15 @@ def run(args):
     if selected is None:
         raise RuntimeError("controller did not finalize a candidate within its budget")
     winner = candidates[selected]
-    edits = edited_slices(original, winner["operations"], args.max_edit_elements)
+    edits = edited_slices({**original, **features}, winner["operations"], args.max_edit_elements)
     changed = save_candidate(args.model / "model.safetensors", args.output / "candidate.safetensors", edits)
     result = {"schema": "nc/weight-agent-session/v1", "commitment": commitment,
               "baseline_development": baseline, "selected": winner, "candidates": candidates,
               "probes": probes, "changed_parameters": changed,
               "total_parameters": sum(t.numel() for t in original.values()),
               "candidate_sha256": sha(args.output / "candidate.safetensors"),
-              "transcript_sha256": sha(args.output / "transcript.jsonl"), "gradients_used": False}
+              "transcript_sha256": sha(args.output / "transcript.jsonl"), "gradients_used": False,
+              "feature_vectors": {name: vector.tolist() for name, vector in features.items()}}
     write(args.output / "session.json", result)
     return result
 
@@ -315,11 +357,15 @@ if __name__ == "__main__":
     parser.add_argument("--controller-model", required=True)
     parser.add_argument("--heldout-sha256", required=True)
     parser.add_argument("--policy-sha256", required=True)
+    parser.add_argument("--selection-sha256")
     parser.add_argument("--max-rounds", type=int, default=16)
     parser.add_argument("--max-probes", type=int, default=8)
+    parser.add_argument("--min-probes", type=int, default=0)
     parser.add_argument("--max-edit-elements", type=int, default=2000000)
     parser.add_argument("--controller-timeout", type=int, default=180)
     options = parser.parse_args()
+    if not 0 <= options.min_probes <= options.max_probes:
+        parser.error("require 0 <= min-probes <= max-probes")
     if not all(len(h) == 64 and all(c in "0123456789abcdef" for c in h)
                for h in [options.heldout_sha256, options.policy_sha256]):
         parser.error("held-out and policy commitments must be SHA256 hex digests")

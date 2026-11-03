@@ -11,7 +11,7 @@ from weight_agent import ROOT, sha, write
 EVALUATOR = "nc/causal-lm-labels/v1"
 
 
-def nc(home, *args, timeout=600):
+def nc(home, *args, timeout=900):
     return json.loads(subprocess.check_output(
         [str(ROOT / "target/debug/nc"), "--home", str(home), *map(str, args)],
         text=True, timeout=timeout))
@@ -34,7 +34,7 @@ def configure(home):
     backend = "python-transformers-cpu-f32/" + sha(lock)
     runners[EVALUATOR] = {"program": str(pathlib.Path(sys.executable).resolve()),
                           "args": [str(adapter)], "identity_files": list(map(str, identity)),
-                          "backend": backend, "max_timeout_ms": 300000, "max_output_bytes": 1048576}
+                          "backend": backend, "max_timeout_ms": 600000, "max_output_bytes": 1048576}
     write(path, runners)
 
 
@@ -47,6 +47,14 @@ def experiment(home, directory, session_directory):
     for name, path in paths.items():
         if sha(path) != commitment[name + "_sha256"]:
             raise ValueError("experiment commitment mismatch: " + name)
+    for name, digest in commitment.get("inference_file_sha256", {}).items():
+        if sha(directory / "model" / name) != digest:
+            raise ValueError("inference file commitment mismatch: " + name)
+    if "selection_sha256" in commitment:
+        if sha(directory / "selection.json") != commitment["selection_sha256"]:
+            raise ValueError("selection data commitment mismatch")
+        if sha(session_directory / "selection-report.json") != session["selection_report_sha256"]:
+            raise ValueError("selection report mismatch")
     if sha(session_directory / "transcript.jsonl") != session["transcript_sha256"]:
         raise ValueError("controller transcript mismatch")
     if sha(session_directory / "candidate.safetensors") != session["candidate_sha256"]:
@@ -57,6 +65,10 @@ def experiment(home, directory, session_directory):
                "tokenizer_config": str(directory / "model/tokenizer_config.json"),
                "special_tokens": str(directory / "model/special_tokens_map.json"),
                "source": str(directory / "source.json")}
+    if "guard_sha256" in commitment:
+        if sha(directory / "guard.json") != commitment["guard_sha256"] or sha(directory / "guard-config.json") != commitment["guard_config_sha256"]:
+            raise ValueError("guard input commitment mismatch")
+        mapping.update({"guard_dataset": str(directory / "guard.json"), "guard_config": str(directory / "guard-config.json")})
     mapping_path = session_directory / "mapping.json"
     write(mapping_path, mapping)
     base = nc(home, "register", paths["target"], "--inference-artifacts", mapping_path)["checkpoint"]
@@ -68,12 +80,22 @@ def experiment(home, directory, session_directory):
     put = lambda path: nc(home, "put", path)["artifact"]
     evidence_paths = [session_directory / name for name in ["session.json", "transcript.jsonl", "commitment.json"]]
     evidence_paths += [directory / "development.json", home / "llm-runtime.json"]
+    for name, digest in session.get("extra_evidence", {}).items():
+        if pathlib.Path(name).name != name:
+            raise ValueError("invalid evidence filename")
+        path = session_directory / name
+        if sha(path) != digest:
+            raise ValueError("extra evidence mismatch: " + name)
+        evidence_paths.append(path)
+    if "selection_sha256" in commitment:
+        evidence_paths += [directory / "selection.json", session_directory / "selection-report.json"]
+    evaluation_config = json.loads(paths["config"].read_text())
     identity = nc(home, "evaluators")[EVALUATOR]
     spec = {"schema": "nc/evaluation-spec/v1", "base": base, "candidate": candidate, "patch": patch,
             "evaluator": EVALUATOR, "executable": identity["build"], "dataset": put(paths["heldout"]),
             "config": put(paths["config"]), "policy": put(paths["policy"]), "seed": 17,
-            "backend": identity["backend"], "timeout_ms": 180000, "max_samples": 128,
-            "max_artifact_bytes": 0, "metric": "binary_label_nll/v1",
+            "backend": identity["backend"], "timeout_ms": 600000, "max_samples": evaluation_config["max_samples"],
+            "max_artifact_bytes": 0, "metric": evaluation_config["metric"],
             "evidence": [put(path) for path in evidence_paths]}
     spec_path = session_directory / "spec.json"
     write(spec_path, spec)
