@@ -31,6 +31,11 @@ def select(directory, source, output):
             raise ValueError(name + " commitment mismatch")
     if sha(directory / "model/model.safetensors") != commitment["target_sha256"]:
         raise ValueError("base model commitment mismatch")
+    if "handoff_sha256" in commitment:
+        from weight_handoff import load
+        if sha(directory / "handoff.json") != commitment["handoff_sha256"]:
+            raise ValueError("handoff commitment mismatch")
+        load(directory, commitment["target_sha256"])
     if sha(source / "transcript.jsonl") != session["transcript_sha256"]:
         raise ValueError("transcript mismatch")
     config = json.loads((directory / "config.json").read_text())

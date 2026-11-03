@@ -1,0 +1,134 @@
+{
+  "schema": "nc/weight-handoff/v1",
+  "proposal": "55a42cad792f332b7aa749774631c22e7b34c13a32f5c8638e60138d21ee5a7c",
+  "spec": "6386cbe55d4f24e357f0c1a633883b3c72982305f59b31d2ba61edc3211ed40c",
+  "evaluation": "44fd38824dcd1f2df027a0fdc6dc6ce54e6da72455f3ce56523f30aec6a237d9",
+  "evaluation_output": "c6eacf1ffaf2b7a80be98e438729e827311bfced6b9dc6e5c968bec86a0b208b",
+  "author": "0x9CdFc1Ddc59B1598e127500D501CaE8aBB020152",
+  "base_checkpoint": "5c60725185f541d029c4e1fb5153bea055119657ec3a799125b21fbe6307a80d",
+  "candidate_checkpoint": "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+  "patch": "dd2e6bbce8af1f81528960473e924037dcaf2e2962ce1d4c41f925dab5975215",
+  "original_sha256": "5af571cbf074e6d21a03528d2330792e532ca608f24ac70a143f6b369968ab8c",
+  "inherited_sha256": "ffafae608659c85d5182743e8f60358eb7e8c96b10e92364c691c76c20b94a4f",
+  "inference_artifacts": {
+    "config": "8639e2cd81c6a8af3eb7ed102ada1e1989d76429eddaccd380dc680b4725980e",
+    "guard_config": "5a4dc8a7539d0a606b1ee3468dece8088e7e7464eb40c533b3673d1dcbab4111",
+    "guard_dataset": "73e29d80b881e70bb8f719bf87750486b2074a86511e85e5e71941297f906739",
+    "model_config": "8eb740e8bbe4cff95ea7b4588d17a2432deb16e8075bc5828ff7ba9be94d982a",
+    "source": "916b3b3a309a078e8682b9892625dbb40657989995f42a51937238608ef5a295",
+    "special_tokens": "2b7379f3ae813529281a5c602bc5a11c1d4e0a99107aaa597fe936c1e813ca52",
+    "tokenizer": "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c",
+    "tokenizer_config": "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df"
+  },
+  "evidence_ids": [
+    "04644a3b7056ae02a75420fd7fe9df29c018822ae02987f0080e51e2cb57c3bd",
+    "0e0eb8e7bc04d974408df35b7f674c7040a1c551c5267f93c22bd397cd31cabf",
+    "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+    "1465d9df3ad946ac09dd87e16d98d400c1e5a112e2622201beeabe326c4cc1f2",
+    "2b7379f3ae813529281a5c602bc5a11c1d4e0a99107aaa597fe936c1e813ca52",
+    "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+    "44fd38824dcd1f2df027a0fdc6dc6ce54e6da72455f3ce56523f30aec6a237d9",
+    "4dcbacc07a29cb3f1364d046cb942a3e25405ccfa8b5c49d5dcbbf307b1108ea",
+    "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df",
+    "55a42cad792f332b7aa749774631c22e7b34c13a32f5c8638e60138d21ee5a7c",
+    "57f6f2ad9aacc2180570a68084cf57ed14d2c600cf8cf104a8420e76dd3be3aa",
+    "5a4dc8a7539d0a606b1ee3468dece8088e7e7464eb40c533b3673d1dcbab4111",
+    "5af571cbf074e6d21a03528d2330792e532ca608f24ac70a143f6b369968ab8c",
+    "5c60725185f541d029c4e1fb5153bea055119657ec3a799125b21fbe6307a80d",
+    "6386cbe55d4f24e357f0c1a633883b3c72982305f59b31d2ba61edc3211ed40c",
+    "73e29d80b881e70bb8f719bf87750486b2074a86511e85e5e71941297f906739",
+    "7b29fc893a142294973e3358e1534f9c7a6b03c09e0e358c2c57ee854637c42c",
+    "7c5f9b6a8715cfbece46011b8edc51fb3066ecb3dc58d6668af652c5d43ba573",
+    "80dd7116f5cf9dc42c33157330369f658d1aa6c95801f54628f6b0eace4c2c50",
+    "8639e2cd81c6a8af3eb7ed102ada1e1989d76429eddaccd380dc680b4725980e",
+    "8eb740e8bbe4cff95ea7b4588d17a2432deb16e8075bc5828ff7ba9be94d982a",
+    "916b3b3a309a078e8682b9892625dbb40657989995f42a51937238608ef5a295",
+    "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c",
+    "a88941e0f6a6d4299f3cbed556abd78039023973982c5f41ee28d4dc4391f24d",
+    "ab9288b91ef73356f3f2997663f262b6f4f9d13f1de86a22a7a3a6c333c4263c",
+    "c6eacf1ffaf2b7a80be98e438729e827311bfced6b9dc6e5c968bec86a0b208b",
+    "dd2e6bbce8af1f81528960473e924037dcaf2e2962ce1d4c41f925dab5975215",
+    "dd964c1ef3e4213f6a260e360a08d5d0fdf804865874ae2834ad4d2d229a6053",
+    "f79ce41e793b3e5423a420663b72f0716a9996e45211bd930f0ced084936375e",
+    "ffafae608659c85d5182743e8f60358eb7e8c96b10e92364c691c76c20b94a4f"
+  ],
+  "diff_sha256": "2f2e0208e75446df60a815f9ddbd69ead62e170b36f461500c32a83a8e9cc82b",
+  "controller": "gpt-6-astra",
+  "backend": "codex",
+  "hypothesis": "Candidate 9's Technology amplification recovers technology stories but overcomes Business on several commercial articles. Increasing Business scale from 1.10 to 1.13 should recover close commercial decisions; retaining its contrast should limit gains on unrelated topics. This tests class-specific calibration, with tied-input effects and sentiment preservation still requiring evaluation.",
+  "operations": [
+    {
+      "tensor": "model.embed_tokens.weight",
+      "start": 1301760,
+      "count": 576,
+      "scale": 0.8,
+      "add_tensor": "activation_contrast.0.-1",
+      "add_start": 0,
+      "add_scale": 0.26
+    },
+    {
+      "tensor": "model.embed_tokens.weight",
+      "start": 8800128,
+      "count": 576,
+      "scale": 1,
+      "add_tensor": "activation_contrast.1.-1",
+      "add_start": 0,
+      "add_scale": 0.14
+    },
+    {
+      "tensor": "model.embed_tokens.weight",
+      "start": 4872960,
+      "count": 576,
+      "scale": 1.13,
+      "add_tensor": "activation_contrast.2.-1",
+      "add_start": 0,
+      "add_scale": 0.15
+    },
+    {
+      "tensor": "model.embed_tokens.weight",
+      "start": 3343104,
+      "count": 576,
+      "scale": 1.2,
+      "add_tensor": "activation_contrast.3.-1",
+      "add_start": 0,
+      "add_scale": 0.2
+    }
+  ],
+  "development": {
+    "candidate": 12,
+    "accuracy": 0.859375,
+    "label_nll": 0.37087294789216685,
+    "samples": 128
+  },
+  "selection": {
+    "accuracy": 0.83203125,
+    "label_nll": 0.5654036805209444,
+    "samples": 256
+  },
+  "previous_final": {
+    "base": {
+      "accuracy": 0.387,
+      "label_nll": 1.7968223489355295,
+      "samples": 1000
+    },
+    "candidate": {
+      "accuracy": 0.8,
+      "label_nll": 0.5479006135111558,
+      "samples": 1000
+    }
+  },
+  "changed_parameters": 2268,
+  "diff_summary": [
+    {
+      "tensor": "model.embed_tokens.weight",
+      "dtype": "torch.bfloat16",
+      "shape": [
+        49152,
+        576
+      ],
+      "changed": 2268,
+      "first_index": 1301760,
+      "last_index": 8800703
+    }
+  ]
+}

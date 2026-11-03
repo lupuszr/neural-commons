@@ -69,9 +69,21 @@ def experiment(home, directory, session_directory):
         if sha(directory / "guard.json") != commitment["guard_sha256"] or sha(directory / "guard-config.json") != commitment["guard_config_sha256"]:
             raise ValueError("guard input commitment mismatch")
         mapping.update({"guard_dataset": str(directory / "guard.json"), "guard_config": str(directory / "guard-config.json")})
+    handoff = None
+    if "handoff_sha256" in commitment:
+        from weight_handoff import load, artifact
+        if sha(directory / "handoff.json") != commitment["handoff_sha256"] or sha(directory / "parent-diff.json") != commitment["parent_diff_sha256"]:
+            raise ValueError("handoff commitment mismatch")
+        handoff, _ = load(directory, commitment["target_sha256"])
+        # Preserve checkpoint identity across rounds; the new evaluation config
+        # remains separately bound by the EvaluationSpec.
+        mapping = {name:str(artifact(directory / "parent-artifacts", digest))
+                   for name,digest in handoff["inference_artifacts"].items()}
     mapping_path = session_directory / "mapping.json"
     write(mapping_path, mapping)
     base = nc(home, "register", paths["target"], "--inference-artifacts", mapping_path)["checkpoint"]
+    if handoff and base != handoff["candidate_checkpoint"]:
+        raise ValueError("continuation base ID differs from the parent candidate ID")
     candidate = nc(home, "register", session_directory / "candidate.safetensors", "--inference-artifacts", mapping_path)["checkpoint"]
     patch = nc(home, "patch", "diff", base, candidate, "--hypothesis", session["selected"]["hypothesis"])["patch"]
     rebuilt = nc(home, "patch", "apply", base, patch)["checkpoint"]
@@ -80,6 +92,9 @@ def experiment(home, directory, session_directory):
     put = lambda path: nc(home, "put", path)["artifact"]
     evidence_paths = [session_directory / name for name in ["session.json", "transcript.jsonl", "commitment.json"]]
     evidence_paths += [directory / "development.json", home / "llm-runtime.json"]
+    if handoff:
+        evidence_paths += [directory / "handoff.json", directory / "parent-diff.json"]
+        evidence_paths += [directory / "parent-artifacts" / digest for digest in handoff["evidence_ids"]]
     for name, digest in session.get("extra_evidence", {}).items():
         if pathlib.Path(name).name != name:
             raise ValueError("invalid evidence filename")
@@ -105,5 +120,8 @@ def experiment(home, directory, session_directory):
               "patch": patch, "rust_reconstruction_matches": True,
               "changed_parameters": session["changed_parameters"], "controller": commitment["controller"],
               "backend": commitment["backend"], "evidence": spec["evidence"]}
+    if handoff:
+        result["parent_proposal"] = handoff["proposal"]
+        result["parent_checkpoint"] = handoff["candidate_checkpoint"]
     write(session_directory / "result.json", result)
     return result

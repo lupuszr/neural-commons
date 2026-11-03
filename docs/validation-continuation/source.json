@@ -1,0 +1,31 @@
+{
+  "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "model_sha256": "ffafae608659c85d5182743e8f60358eb7e8c96b10e92364c691c76c20b94a4f",
+  "license": "Apache-2.0 (model)",
+  "dataset": "fancyzhx/ag_news",
+  "dataset_revision": "eb185aade064a813bc0b7f42de02595523103ca4",
+  "dataset_url": "https://huggingface.co/datasets/fancyzhx/ag_news",
+  "dataset_file_sha256": {
+    "train": "fc508d6d9868594e3da960a8cfeb63ab5a4746598b93428c224397080c1f52ee",
+    "test": "71de87ec66bc5737752a2502204dfa6d7fe9856ade3ea444dc6317789a4f13fb"
+  },
+  "split_seeds": [
+    20261108,
+    20261109,
+    20261110
+  ],
+  "development_samples": 256,
+  "selection_samples": 512,
+  "heldout_samples": 1000,
+  "guard_samples": 56,
+  "split_method": "Exclude all exact texts from the prior experiment. Fixed per-class shuffle; prompt <=220 tokens. First 64/class train development, next 128/class selection; first 250/class remaining test final. Global exact-text deduplication; no model scores used.",
+  "limitations": "Forced-choice classification on a fixed length-filtered test subset; no claim of general generation improvement. Public benchmark pretraining contamination cannot be excluded. Guard is previously exposed and is not an independent benchmark.",
+  "parent_proposal": "55a42cad792f332b7aa749774631c22e7b34c13a32f5c8638e60138d21ee5a7c",
+  "parent_checkpoint": "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+  "excluded_dataset_sha256": {
+    "development": "0e0eb8e7bc04d974408df35b7f674c7040a1c551c5267f93c22bd397cd31cabf",
+    "selection": "7b29fc893a142294973e3358e1534f9c7a6b03c09e0e358c2c57ee854637c42c",
+    "heldout": "57f6f2ad9aacc2180570a68084cf57ed14d2c600cf8cf104a8420e76dd3be3aa"
+  }
+}

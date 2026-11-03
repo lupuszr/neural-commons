@@ -17,9 +17,13 @@ if __name__ == "__main__":
     parser.add_argument("--max-probes", type=int, default=16)
     parser.add_argument("--min-probes", type=int, default=12)
     parser.add_argument("--max-rounds", type=int, default=28)
+    parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
     directory, output = args.directory.resolve(), args.output.resolve()
-    output.mkdir(parents=True, exist_ok=False)
+    if not args.resume:
+        output.mkdir(parents=True, exist_ok=False)
+    elif (output / "selected").exists():
+        raise ValueError("selection has already started; resume cannot reopen candidate search")
     command = [sys.executable, str(ROOT / "scripts/weight_agent.py"),
                "--model", str(directory / "model"), "--config", str(directory / "config.json"),
                "--development", str(directory / "development.json"), "--source", str(directory / "source.json"),
@@ -30,6 +34,10 @@ if __name__ == "__main__":
     # Only hash the reserved files here; their examples never enter controller input.
     for name in ["heldout", "policy", "selection"]:
         command += ["--" + name + "-sha256", sha(directory / (name + ".json"))]
+    if (directory / "handoff.json").exists():
+        command += ["--handoff", str(directory / "handoff.json")]
+    if args.resume:
+        command += ["--resume"]
     subprocess.run(command, check=True)
     subprocess.run([sys.executable, str(ROOT / "scripts/select_weight_candidate.py"),
                     "--directory", str(directory), "--source", str(output / "proposals"),

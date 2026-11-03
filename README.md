@@ -18,6 +18,16 @@ edit and [SST-2 improvement with a regression](docs/SST2-RESULTS.md) remain reco
 See the [reproduction workflow](docs/AGNEWS-WORKFLOW.md) and
 [public evidence](docs/validation-agnews).
 
+[Sequential continuation](docs/CONTINUATION-WORKFLOW.md) lets a different
+controller receive that improved checkpoint through DKG, inspect the previous
+agent's exact numerical diff and results, and propose a further patch. The child
+uses the parent's exact checkpoint ID as its base, with fresh evaluation splits
+and hash-bound ancestry evidence.
+The [recorded second-controller run](docs/CONTINUATION-RESULTS.md) completed that
+handoff and reproduced the exact ancestry through DKG. Its additional accuracy
+gain was below the precommitted acceptance threshold; the candidate remains a
+recorded, rejected continuation rather than an automatically promoted version.
+
 Requires Rust 1.93, Python 3.9+, Node 24, pnpm 10 and native build tools (Xcode Command Line Tools on macOS or a C/C++ toolchain on Linux).
 
 ```sh

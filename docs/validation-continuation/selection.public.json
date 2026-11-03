@@ -1,0 +1,2566 @@
+{
+  "schema": "nc/text-classification/v1",
+  "split": "selection",
+  "samples": [
+    {
+      "id": "ag_news/train/114235",
+      "text_sha256": "906f1946d942d9ed7f842cf18223d9e6925ebcd5d1cc0ef5043c8fbd0e1cda93",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/77827",
+      "text_sha256": "aca5b3ae7add53cf94ba6836277ef4c91fbe75cc0a32aea5f2735c64a243c6d8",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/98824",
+      "text_sha256": "b2e1697b9b881a3c947faf1f53d105d949a685809f4e8d27d29b7218ba8a8f12",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/23620",
+      "text_sha256": "c06154c3daf9d19cb9757e1579c73d76de23faf41ecdc2a1bc8775497fd847b1",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/95544",
+      "text_sha256": "e3426e53f6a32ee5550f3fff53c0aad0620e5b1bdc5c272701fdf46ee3c1e9bf",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/46746",
+      "text_sha256": "2ffd73ea4631d443e54ce5543ddb0af19a18112a94181c2e23dc5aa85b47c3db",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/79039",
+      "text_sha256": "4382472a17abff380f28e816d91c26138061a9ebb2d5392cd23bbd88761c5436",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/13567",
+      "text_sha256": "369c6b1b8b844342a5ea9503daaaec8593de800b8b306a7e9ed6f236ea58cdbc",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/36686",
+      "text_sha256": "408bbe700cc32c07e812c268c134e113233a48a3c3491154a1b5e7335295edfa",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/57244",
+      "text_sha256": "839b45573f9c64498d23bc36af3b789cd2965a87e2a44bf0d0126fdf01d5045d",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/27252",
+      "text_sha256": "98749d094c43ce8adf76ddd3fba6a34665fa2a2bf0fec5becdd582a8a717a606",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/50111",
+      "text_sha256": "1bde0c311c4de39daa42f73c59b9f528dcf94fc10febfe9a171932de1f2473fe",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/20717",
+      "text_sha256": "2ba049383c505e94f79242de0c27b9f35b289ecdee958f6d1c0bb5f8150fdf0d",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/32609",
+      "text_sha256": "10629538babc84dcf1f9f5dbf6c53e4506a84cd8e7564092d229c35aed1b9fb7",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/44630",
+      "text_sha256": "0b747b702515fb562d4105f9e50e8d7aa94f724e599c98a38ec971ebdae2c0f3",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/117570",
+      "text_sha256": "55ca69e0dc22279417f65d844543d466da0365d2f14e410e2ede967eab7b3172",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/17465",
+      "text_sha256": "dca00d4339f2db35c5a053eb6751e955e2cc26ab007696a9c7fea8c2eb5bdfeb",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/100124",
+      "text_sha256": "fd472c213d89c8cceffc908281cb1bd099f4734b2c55d50eec9827722c0502cb",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/83341",
+      "text_sha256": "8dd7c65543d958dbeb3ff09a88eb2f4f9957458383a015da2e2eb1d5978b2c3d",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/28482",
+      "text_sha256": "93a12ce8084a55da3c422b1dfa36ea392cd4d74b1d79d5d2d96e7ce333bcfaae",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/70631",
+      "text_sha256": "c8ac325e9698945cb1d66edb7ffdee8f8e5393e697a24b1fc12cadd77b4a762d",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/112251",
+      "text_sha256": "c6fa67f2f1b4b5b6d36917d9ecfb4648bdb7bd2f763fd68abe2353ad6d0c15fa",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/104853",
+      "text_sha256": "62ea8338be4d0228d25087fd3eeb8d5ba3d0f6cfdcc717cd2bcdeadbaa8fc283",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/107082",
+      "text_sha256": "14dbe96ca7af46c4601fd123723696eaceb1c10f09cc3f21d18d76ce79111dbd",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/79360",
+      "text_sha256": "3ecce0fa0bfcc332d2b478d5e538c5c1b512d3377e55b6437e35ec3c6f90daaa",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/31246",
+      "text_sha256": "92c85534d6ce32dfe9835114fcb41ff4e86bd70db4d222a1ab444d55da285474",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/49779",
+      "text_sha256": "d4952f55c1399b7367f2e4224bc160e7b77527dc5a8a7043ae275bb8f235cbee",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/85918",
+      "text_sha256": "1ef7451d3385e9dc83b44e43823eb52a4b8740aaf537e681ee9bdbc3976ab1c7",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/80335",
+      "text_sha256": "ca6646b7288ceddd119cd60a4636d1014d7e08c92cb11a4f694e132285b806ce",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/64064",
+      "text_sha256": "bc1bebbb0776efe360feaef53fa67b8e6e7cce1e8383db4b819c5a3844bf7a0e",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/12886",
+      "text_sha256": "2b595b153ca0118456b5b1701bb117a0fc00c422b8ff8b1f7f01cecc967acbcb",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/98731",
+      "text_sha256": "f5bf333ec7971e527a314d544c7b0f2fe7270a7394aeba82d03ace3b9af7d22c",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/54418",
+      "text_sha256": "2890d9b0fd35e2fce608d67fa5980d18474582f96351b166af8d4417d379abc9",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/111219",
+      "text_sha256": "3cba55b7a020fa383aab6ca00605db785f296a55dc795eec2712a7a2bde58153",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/106872",
+      "text_sha256": "1d4de40d890b8807ef4bf0b087914a825af6ff50d0fecc6811192510fbcb4a2d",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/106315",
+      "text_sha256": "6d57523902f3e9aefe806a3d941fb68372a6779dd7edc4e23712e3cc8c93ba35",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/25554",
+      "text_sha256": "fa63a81d3d2c175ce39aeb33410edc5e25c9c3231f3e976e7c5a0f8df4451608",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/71129",
+      "text_sha256": "69774643b36683d63945d865497de1be872b98d08cbaafb24e63555f8d4cc6c5",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/21941",
+      "text_sha256": "18c0f141bc9616c55752f10d4556e27d3e64eba79c9516652af6cf56249e61b0",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/90728",
+      "text_sha256": "43c9db508b1d54ee8a30fcceded6db6ddcc930942997e7e247ffafd94fb0228a",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/11076",
+      "text_sha256": "1cc15270d49de4083d98565fbdec536d2c02b46570e7676900df68e2e6cdbd89",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/67469",
+      "text_sha256": "08fab2f6d5d0c226ae5c91d3361c9a8bd72f0aeb966627e7a1e1085d41862c90",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/91662",
+      "text_sha256": "0d113d5386f52f24934d162d037e0b6ebb91fd69be4a31cf058493f8ee6e1b87",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/61825",
+      "text_sha256": "12f734a0e5c6c82c7ebcfacc7f8409c844552b3414e49d6251468eedbd486453",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/28605",
+      "text_sha256": "5a4647503f78d60a765e029e2748667c179ee8137745c1b1184cd6c32d9ea58e",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/12408",
+      "text_sha256": "3f89501b831cc6baa49fa19592377d878f9a1a2dac663e9e6e51074073aebb6b",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/17075",
+      "text_sha256": "69cffb35c27a1faa38fe1f1dc51c27010916930207c562855eb84dd077d766b5",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/44671",
+      "text_sha256": "32f8de99d033daebd454aa8c73623a7dfbe31b5f6f38d0c3b3e31de342fe6560",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/35801",
+      "text_sha256": "c1ed97634540a98449545fafa773a46a08c72cd6f801baa0b864d8a46d9cf5e0",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/18242",
+      "text_sha256": "44f24cb3a718a137183aa511eaefa68bf7e4cf7fd3e8ebc6f967f9c08133a844",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/101749",
+      "text_sha256": "91ccea6841dbbf49d1b420d8fc2eab5515f7fa3c8eb41b2b60659caf402545dd",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/101265",
+      "text_sha256": "1c526af48d2b216939f9266c56da714ceab44458d88a09371c1d9cc22ee453e3",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/109463",
+      "text_sha256": "f8efa19f97bb6fab7c17017a74cf207c021e94a3153e2637d6b63de7cd8acd82",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/69972",
+      "text_sha256": "ee9879373fc4f02f660fbce21e7c3a7f60416e4ee4f2c887e7eb898fbbdd1401",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/109731",
+      "text_sha256": "01dd6deb21b671a4260c91590617753117a5a8fb4efbef28dfc7bf526c6c9eba",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/8824",
+      "text_sha256": "d168d6a9139113ce97dc0dfe8b9eef3e96e9cc45bbccf742cd0c8e715f2cd06a",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/41813",
+      "text_sha256": "9186b3268094ca7a5b53f52cdf03e16fd7001684ac4fcb2b60172d1ad46d6d4e",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/26351",
+      "text_sha256": "1264ba0e4ec42775b72e4e873c38049e4f42f083f8cf4823bb7374dda422570c",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/10481",
+      "text_sha256": "ef99f70a04a80ba8c8f98d88b1e2123f0b803de9c86359576a62695a41b3f463",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/37750",
+      "text_sha256": "fc744d916ab693ef86ce2c26d79d40a8a2061af2ec2a9dfba5781c736574ba3e",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/4125",
+      "text_sha256": "84bc8008a317fbb26850b4cb6e9495b414171961b30c220ba59391b9d6bb0e2d",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/119976",
+      "text_sha256": "cbdf23969b4f121035111b8196c495e4be10cfd1bc7dfde0545126ee371195f3",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/87129",
+      "text_sha256": "cb52c607bcefb4752fe717da146c3f814f879d68269ba24bb9fcb20aecda4a27",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/82158",
+      "text_sha256": "f7dd221243e3e8051c7bea5e6271af172e0c44830ddb94a1cfca1c6c5e69f220",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/15873",
+      "text_sha256": "08927d3054a436481d885a5bf0cf87240b29bedfed09bd887ec2cd6b00b01559",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/116684",
+      "text_sha256": "521d31f2018e66c6569d4b5db3f7dd7b520bd5a0da504c5ac761f0354c900d62",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/25757",
+      "text_sha256": "469c8a958bfc01c9bf2c1d0ef7963e719f188349c35ba73f5ce5f513a555faaa",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/60311",
+      "text_sha256": "a213bb316c3d898820ba1785610657b46b8c1606d963143997ebbf4b820b40c6",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/31001",
+      "text_sha256": "4d383570ec1fa104c321b93ae10d1b5d52fd92150081674e5ce1d7ac84f71b81",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/66234",
+      "text_sha256": "201c75cca7dbada8873a8f98cc9f2d83504949eaf2074f0f34ff87406fec7c47",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/64951",
+      "text_sha256": "f5268555dbbe24220a7ffe5ddcd04034dc494954c3ffdab400c1965d5d2ab307",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/27342",
+      "text_sha256": "f69e3bfe41aa4c64c0e5bdcc55501a38d50821f5c062b88e3f7ecb849d0e93a7",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/82391",
+      "text_sha256": "794cfb06b61fe94a920bae89a7e86f25bb903ca05984ae3603114a9399b17a7e",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/98310",
+      "text_sha256": "7b8821034a4596af3127386530f3f34824cc37b61de90b0cad639c58283e660d",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/41979",
+      "text_sha256": "b45787cb3518ce70dae0ed863234d66ac531ee3e98755d01dd620fef304f0041",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/100762",
+      "text_sha256": "72df06c978fc05fce62de2a7bc2701e6c5a6a259e06f3382c8e925219ce7a86f",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/17970",
+      "text_sha256": "d9b4b2b3a955e40dac964f7436c2606c7832573b7d486f245338452eaf2c476b",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/50536",
+      "text_sha256": "f5811c3256aa722ec85a02ddb2174d5d4454ce2331493c35982cd0fa9ff58fbb",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/73603",
+      "text_sha256": "8af68dec1258c177e7c3934bcc9aadb5cbb4b1ce9276388b61fe0cfbf0defe04",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/37402",
+      "text_sha256": "d69e457e28fb9e7ad1fbac70be514a8e247f3884d26328725f193ebbbcbae021",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/17941",
+      "text_sha256": "e171f419984b7f5b0d8ce6a0cc2c0b7761e03739bbebf92ead2054f6d4a332db",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/27075",
+      "text_sha256": "f9e0b0507f51f10e721830a99593a676e7872c26350ce6a351d903fa2f6aea2e",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/76546",
+      "text_sha256": "97831aba6d2d223b68d98f21dd581e91f8a0640fde51427af701d4d4bb8751d1",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/21271",
+      "text_sha256": "5b826866e003d556d924064587318a3077995d2b154c6225b873e65bf0fd4f8a",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/47258",
+      "text_sha256": "4061a3cf2edc2bbdedae5fe1b6d40baa05589c56cbc0eab2e3be4950a9ac65b2",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/99497",
+      "text_sha256": "141435de4597fd62919e73102046b3cd1f57b54e4127602d334ee551a40d137e",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/67772",
+      "text_sha256": "e156ac77f5942a6a04f4a154d2390c07e2eb4869b438b5f108faee60079ce2e3",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/40538",
+      "text_sha256": "0f6b73caf5e9489a916574376965ba8d1ebfd395261ecd99b8749e177dd90739",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/93348",
+      "text_sha256": "98abcca876f8d3926cc0dabf1c0d0d6054f7c3f45bd279cfc14eae920e058e30",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/14847",
+      "text_sha256": "d80742556b11e536ff40454535177f4aa4b65dab7a7f6ee5e0bc7423cf0ef8ca",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/56553",
+      "text_sha256": "607f2ce3a5667031d4e33273292a3e3b7774bcf3655506872fa20edaea833ad0",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/56246",
+      "text_sha256": "27cc89d7f438ff6db8643c8e393c2da175b060b28e983ec7f74f8fa351fd0a4a",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/61963",
+      "text_sha256": "e4e0cb760af3b480bdb0904950ec2a4efd8f09bf12c99b9145ebb60a6f61cac7",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/1140",
+      "text_sha256": "d6d9639f0ae44789d2cad02980e454453cdfcc2c99818974c368270392b13363",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/65154",
+      "text_sha256": "9f01930e341043a593c9a33b2e85a63f85154388f0b6864e1b32d3107de63ce8",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/51792",
+      "text_sha256": "8d2b6b7baaf1b62fbcacba3241bc3c4dce9334fe8d347a3351fc9938c4cf1b1d",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/104584",
+      "text_sha256": "578964cb7927d2f5665625e88d2dadbcc6a5a5b10c0581ec12326913b4809c48",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/51940",
+      "text_sha256": "02f8b01f1e17315e74b375077e8c7cbc4c47f479ffa9833f7c699d388a84e7e2",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/37907",
+      "text_sha256": "3b448cbc7e9a0ec31c0ba8267252f2457e41a2c40bc439b7e71e3ec0dd1f19de",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/78447",
+      "text_sha256": "c42a1bfd853f07a48db830f7f8bf7dff9d66972a97803dd6ffd7ef20a4b43536",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/72989",
+      "text_sha256": "9a646587fd8372b8de5be63266beef33e969118eb71e49cf8f80c2e2c68cdb22",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/53385",
+      "text_sha256": "b7f634dfd246aa23c61364461143db5c541ae27a275e6d0523f31f549a457c5c",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/79916",
+      "text_sha256": "36c55dcb3e4869ab489d2479e9748e45f95f2036f44f17ad85eb3d6112888cf2",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/82921",
+      "text_sha256": "84c20a3c5871aeb7678e28ff3b3ed0744ef290c77d376e8a4f9702ece3b0b448",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/81283",
+      "text_sha256": "bd5ff0dca436893bf086de6f92001ae384e7cab300b0168d983d62e1f2e5f6be",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/111943",
+      "text_sha256": "1a51707f06323bfb7dd5abbe614bff9eeca57961a8cea2cc9c5e5d1551403bf7",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/93524",
+      "text_sha256": "408076c7a156c7641201b29af2fadcbe5dc250718559d344162aa2d9cdd81377",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/90254",
+      "text_sha256": "e6975bac455bbd56312d2b81ccbe48892ae8569c749d918a7326eceac7be972e",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/100491",
+      "text_sha256": "eeb43f704a46b42cbdd6ca9f1dceab0fa553bfa136df22ba4fbf34accba9569d",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/10415",
+      "text_sha256": "edd9698e276de28500410212cd8c18480e2e95e7682f6afdaf92b740471ec5c7",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/55756",
+      "text_sha256": "e09c9299b7edc5f22505a85b49611c3839330ff85f67ee6adb95e5679d0e2cda",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/12566",
+      "text_sha256": "53233bcd79788f3c5e2f95d848ddce6588f5eb42e1623d20324053fd616e85c5",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/109133",
+      "text_sha256": "0f03496550a93064dd22eee9b1c4f635e12c011936c1aae560ac62c32a45c2b2",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/52670",
+      "text_sha256": "eeeed5dfcee235c9fc596a8c5bf14186794bd2e5f78fec054c532926cf784d02",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/48893",
+      "text_sha256": "78948e430af6ed05c38cbb931938e8553070536d0e556a7b6a50fff947b7dd50",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/112716",
+      "text_sha256": "3348146d810e8a83af7cab70ba190b49013ecfe8d6a79cc2db34cf0ee33bc25c",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/83237",
+      "text_sha256": "6c850936199689f3a5edaf8ffa5aa612b8d2fb3167bb461ea1f2ad1d5e9633a2",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/35237",
+      "text_sha256": "e068af60c930f292eb40b09020ef34a839e406910349a4e00197bc28b05ce898",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/119150",
+      "text_sha256": "103c7492d298c5a1c13ab10ae0bd0cecad5f1ae2dea4a650cc24caba14463327",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/29218",
+      "text_sha256": "e647a758f8303523bf3a3b8556a6f1301567ed10bfe53c622e3383b8dcc5a6b0",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/5734",
+      "text_sha256": "76112759d732a75ae3332e1e0c2c358afb078567058bff1c8406813f72dd30ee",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/46760",
+      "text_sha256": "02cb81a51cc2a3f62a9962772ab7b6741b017f2dad9c481bf928bef13d5d01aa",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/36646",
+      "text_sha256": "386f313af7e924a7225ddd1bedb45c0241dd6311b03e54cca067911d517bc52e",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/32384",
+      "text_sha256": "10595e94d941dd6eb6fe6c149fb43fc3960f4d85616fd039258d53620058b422",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/64414",
+      "text_sha256": "ae0d003c5ad05494f5f36e656747c7892e96f9283e5213dc97e9a5889c341157",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/52438",
+      "text_sha256": "8aa573633d7eb615cbbc0601a0f8d796ec43b9533b760aacd2c45611f9df3daf",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/55393",
+      "text_sha256": "1ab62031f010e639f0a2d220b284e0d21ce8091dd488dea34c19d0a5bcc62241",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/30605",
+      "text_sha256": "0b3615007fb25bb4932e4445aac4b2b9f8c21c2fb925c32a9d8e1fa9d0d1e31e",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/85372",
+      "text_sha256": "1c129ede7c3a2ee0d72a604b81747645727b40192615d7accf139400d2a8d5ed",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/70070",
+      "text_sha256": "355a037527f9022373df93d3e5f2537e2dc0f49b781f5ec2734ba3a009b905bb",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/105224",
+      "text_sha256": "2c8896ebe210c26ccfaa40c543488d4fd3d250eb67f31f1e3124966eb3c9dd62",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/66372",
+      "text_sha256": "6a18410a843a0b0aa1810a6237978c786483f6b0ea7c23eb378f5c85bbb72da1",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/116760",
+      "text_sha256": "6c1260d57ec85c3428a4eae34cebe41b6355ba0c079b73ab11e4f581fe454963",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/101966",
+      "text_sha256": "cb66d66bec5c9af4fe7b21b44c4f8c978197f9c928799953d5197c017c640770",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/71884",
+      "text_sha256": "d7ac0c08b1aae97f2db8546d97e0fc25b123893781c5575489274495b8627c10",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/76774",
+      "text_sha256": "98b8915b462d330bd8805adc8f262311c4bfbdf2dd61fe3c75eb947f214297d3",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/9125",
+      "text_sha256": "43d4358f4c45645a58de16e086168329227d6e8fe5cdb26d7b37bebe466fb5d6",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/101609",
+      "text_sha256": "e7a969ee5bc81b441afb00598c223b36f64f0c52aa32ad2670f6a03fa8bc8963",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/91686",
+      "text_sha256": "395072db3d852951806ae45ea47f19a0b49a7f198f4b7db7755bd76b45105f86",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/35190",
+      "text_sha256": "73c5adcd8e624657a30314a9e56b30208be275106e2bced551a76cc576c9c598",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/98612",
+      "text_sha256": "c12b207619dd9ce329cc31553067a0f9a674f9b5fcf9e742c9166328ceaec318",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/66213",
+      "text_sha256": "8c1f608c0c4afc47d534445dc9f506fec72c74cbbca435891777382ee43ffa5b",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/31323",
+      "text_sha256": "90df0490e08e8fb1d6c9eda19cd05a00ee02a7c19ce09c3704ad628d7cb90432",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/89334",
+      "text_sha256": "f8ce63a35f3ac2e87676708238aadc0ed1fef2c0702ebf06164ddc65a64f4ee6",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/108023",
+      "text_sha256": "a94f3106d007627807e64fcebba062d36604d13c7bd5ae43df9c10e72ba543e0",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/92504",
+      "text_sha256": "602091f7acc2d2d69cad2e9c925652db84a4ff312f7c4148ecba45d33c4e59ee",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/118460",
+      "text_sha256": "c87e3aeaadef1fd56837f044d40cfaeda352264ed4105d1cc36c4828aa29aa43",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/70792",
+      "text_sha256": "20b51b244dc3db9bfd30d4ef5c48a45726c7026805bcccb6ccd85f38ad3e7b4c",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/34857",
+      "text_sha256": "a06e01d78e5cb7f7655147ee3b6f49cced582c264da6ed53ebe82d3f70288a89",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/100694",
+      "text_sha256": "10e4342f70a74ebb3f3a805781e3c440d486d90b53fd90828aa262f18ec96b33",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/39267",
+      "text_sha256": "b804e8fa4d1094560205a47a3763408879ca239dace2cb77916a54df6f86ce71",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/58117",
+      "text_sha256": "3cbcee550356d7fbea10a2548a95c70e76a1d9b9d951bf6d48410b00e9045333",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/40038",
+      "text_sha256": "ce7a7dca214f82fa699960f208a1e0c59e5e558194a0460807099bb04949fb8f",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/33122",
+      "text_sha256": "4b38d5b3a23ce279f56ed7b018e7df2e62c44e8110d9e7df747e77f225d50331",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/35846",
+      "text_sha256": "63eda9dbb957ce00f57febc827b6beb6ef94f7b980e060282fbd19276719b1c7",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/4361",
+      "text_sha256": "32f5a4f336bc8e740a059e390654a789755b96c56d9d210f21e3e699152a8126",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/103862",
+      "text_sha256": "38f13c0c5a1902b17179d6fd48816d719e3965fa74d485f6eabeaf406277a584",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/45200",
+      "text_sha256": "4cf7a00f22fe61388be51e948658cbfa9b0444dae6d973c4683701a163390090",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/60277",
+      "text_sha256": "e72d8a0e31dfc57cf9843563c0ae1ad2ca4a59cf029089d54d7ee470c34f3e65",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/61893",
+      "text_sha256": "3d28ad740da67bffa58a112f8c6b32990fcc769fbc4c732310a4d49c78d00919",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/82818",
+      "text_sha256": "6b40c9c5b36951d3624c4b6d11bcd386586f3f82e41475ac16a4930234410f33",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/103438",
+      "text_sha256": "fcab2a5ec05e03f8925c771ac635650a9cfb315275e0867be32a9cbff5313542",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/156",
+      "text_sha256": "8d5a0c01072769da32776645990312b587f0a6197a8d9dcd2d6665166036bca6",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/19625",
+      "text_sha256": "d8d914d8df8ab51042a54486d8894511de621742d6542d18cc0a96e695ef2032",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/36768",
+      "text_sha256": "37d45640c30f9a037abcbabbc770dfadf153534c0b41b1c64426637d05af1278",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/11785",
+      "text_sha256": "b0c377bf71f0e7acaafc539e71d56dfd3a5a15a7969e8d42fd6538a22c11f155",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/66856",
+      "text_sha256": "ff91296e82133db8a4bc328e2bd02b01f9f702a722d4644f56f60fd9641f5a83",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/42453",
+      "text_sha256": "7bb03e7d0f178509b64a3dd5bc46e292d478aa4954e594be187984bfa236abe4",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/55009",
+      "text_sha256": "a5f55308c94005920ac80a70507c1fd8b5ba6383991e5a7200f17428bb091034",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/74777",
+      "text_sha256": "322b57761f4832bb13fa66b42e7dad96dfc0993d18857cb8b96744ef6e5ac200",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/48123",
+      "text_sha256": "1afa7521b5fcab6dec038fdf1c65898dbf43aeb3ec9ec75c228bf2f356ce142a",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/25940",
+      "text_sha256": "56b4b025f58f14278b51ff122c4e3705d01dd94ad6d80c9b8992e0b0dcc97bfe",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/42937",
+      "text_sha256": "7df233467e8463975e7c21f77ad80b78aa7c5235e83354f19a6cef7b8ea3cb25",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/102489",
+      "text_sha256": "468e83cf2b0cc23a7fbb353adfa8c67cb75226f26819a55a1f23bbb12bc1c753",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/47962",
+      "text_sha256": "096448a47d2134c5aad0c329a08f625c1ccc1caf8dec2123412f44c0ae265fcc",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/66893",
+      "text_sha256": "99be9de1b7e492033207e14db37dadfd1a8a05c17e29c60ff45ac042e3c5245b",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/91846",
+      "text_sha256": "20b5aaeeaeb83a5c2aa5f87b1f39f4a9f2e5e8e755efd6fdc774adc7a30d0bf7",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/10422",
+      "text_sha256": "0cc72589276aca6212e465b004dc5654f4a2238c1056a261ebc686f8e83294ba",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/100768",
+      "text_sha256": "3ecab37eee13b4d7e585923e36ddac045840a0a34c4b6396e65b7474cff09ebf",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/105705",
+      "text_sha256": "32c5dce6337b7fd26798a5c302b1b0ef06c8ad6dfd0ca30f6a0c4d3c100ff878",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/77367",
+      "text_sha256": "d2fc6064d52db1c462a44ef0249b38249dfbd0acc0ec7701728ca01b9bc799e9",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/118032",
+      "text_sha256": "58508b948d0ad106d6ee7fee8b6b111393a5eabe0b77dbf6651053523b51b2ee",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/89543",
+      "text_sha256": "c2549198142326a11ef89075599c5554f91f8990010a521cbf3ebba0451affef",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/89963",
+      "text_sha256": "b95cf3441fd8ccd8db2b5aaae8def2695a0f4fcfa25a9c1ffa86bfb57c65cb97",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/35313",
+      "text_sha256": "22f9762b07f0157052f1f0870f20e5cab176d06493b0c29340c357d4367d174f",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/15148",
+      "text_sha256": "657a942ff1b3c0387803f785c61e5edc6ccb61ef5f7aef6926f1d308e95f16bd",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/87731",
+      "text_sha256": "f9d7d5d5d78f916d92c53af8c860fc683315b265da86f0e5e238c7e287addd1d",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/113366",
+      "text_sha256": "39b9c552aa818d46a95cb6957dfd63848efc5c18a0d0d5102d3c08d9a1cb7fca",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/54618",
+      "text_sha256": "fcb87a445badc6cc394a19266acde48916273450752ed254e6087b080635b12c",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/5089",
+      "text_sha256": "4fbe2907f483d48dbd2528c113eada1d94f3a4317bb597cccf7ca8a02996eef8",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/27720",
+      "text_sha256": "f2c0f19d5406588f0804e34c4b32993deec3108196dc43c5bdc1442ce2cc514a",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/14370",
+      "text_sha256": "1f1fccfdb8229020d599f2612fb031750781697c5431312ce894d802c2b48133",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/53735",
+      "text_sha256": "f714a5e50667ffac02c0fc5a6b53690f1bd629176135e3bde7fe6befdba074a0",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/39835",
+      "text_sha256": "217860b6cacee90591399d48f512838c9a645f56f0c60f8dcf5691bec8feb46a",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/117252",
+      "text_sha256": "8154e783a58401e153d1bcd4c27879e132cb5d44fd9681d3032e35ebba5eaf8e",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/11426",
+      "text_sha256": "9c43d77128dec94b293982aed846c4ecc70a3e7947512f3422f7dfab76b78854",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/32124",
+      "text_sha256": "e30c01570b3f2a5b695fd8dd638ee4d4d7cc890f2629dba9c9c46df946f739e3",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/3469",
+      "text_sha256": "9249ed24a4720d65da4e33657c3dcd1657efaec4189857a6a37a2b5b07affc2d",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/85596",
+      "text_sha256": "0297370a7e7e2a0cfd80c6f1530a54902d67c02cb60e0aee2719b61559f8e2a4",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/87718",
+      "text_sha256": "e77c6e7a60571643bcf5c0d5c85e91f4c5b6aa177e829730d8f570c0bf1aea75",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/69651",
+      "text_sha256": "0f83a499d5cd45d93eb2079b90edfe967c511d864cfb8728ee71f45122bb3924",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/38888",
+      "text_sha256": "eec4795fd48966974a2f2d1e3293d642ef677c4dedd8835a94bf96017efbeda0",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/55361",
+      "text_sha256": "4ea6ea115fac5a8ff4b63a625b05a52a6b572d0c498711a995aa7c070503b6d5",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/116143",
+      "text_sha256": "ea63a95d340000b85e4c68dbfe6ac58bb89e08e2f5222f9d9ae4e20a51fe86b4",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/97228",
+      "text_sha256": "c577448b8c6b02dac8e79f0a259bea38b853f25fef669bb383c0a3bc1d08d80c",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/37928",
+      "text_sha256": "7947e28be9c51246c20404507ac1c6e0aa0934d344e982fd0ac3ea58e2a7125d",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/49515",
+      "text_sha256": "f30a7cbeb0abf6940d46f89d7a02b8eaeb10f688f83e0edf0d3e367a12468c52",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/17244",
+      "text_sha256": "d02f7a4da6f1e307f198b3d423afa1c1e40195a481066181faa2320c0014f7ca",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/72391",
+      "text_sha256": "0c9dfbd23109bfd2dd6819f98b542dfd31fc9b085c31cf33a933e559a9247904",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/22877",
+      "text_sha256": "0136e10427620888968fa1f374d17b20467ae83461556f12b6da493740c94ee3",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/25152",
+      "text_sha256": "29eb8c5dbaaab3b6e6caac0e2eb62fe7b129b6fbf3aa88e6ead794bb180434e3",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/26912",
+      "text_sha256": "23767264494df99ecb9a8f3310471e36f8445632fede13f9441f06ca3d26e97d",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/58052",
+      "text_sha256": "c1168833f07ec359d28e13d3660eda9b53f560a1f9040f22d2dcdb5822f7171d",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/106993",
+      "text_sha256": "ddd218246e5de2c258d172195d45eea63d307940a382abf92b7d588ca52ef45e",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/67496",
+      "text_sha256": "9544bf4e99727e2e47d661ba1cb72eca84e8d5ef37a42977a0716a3e1ddaa981",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/81449",
+      "text_sha256": "f134a42fde615b33e5aa249bace414557f14f539bb846cc69c40c273ea2b4db7",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/73174",
+      "text_sha256": "0b80fb6a6c27ad9841563773f4f31635759ebe06fc2afe906ecf5079d82f4582",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/78173",
+      "text_sha256": "d39a44508b3c56e5df36e7b717b5c5ab685391434fd442b8041b8d6bb45b402c",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/8326",
+      "text_sha256": "256a0e69dec69315fa97416c5694c32b9cd80577c4f4f80c4ae59736774cf9d9",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/104312",
+      "text_sha256": "c48d8c661e9d468f54437fe9b2db2d61bc1e9a70df65b6228115cbfa440761fc",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/35512",
+      "text_sha256": "0e73fd76242730d89e4bf9bd50de7020f7d912b99451be8979fe1513d592212c",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/76264",
+      "text_sha256": "644f50a4911d49c5c5116f22c0f5b6927c45c6b4883ee861c88b25a5bcaad445",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/84591",
+      "text_sha256": "584097c158d3540efa3506d9935293ff4ca29d3133e342028e20d2dcf7fe50c1",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/28524",
+      "text_sha256": "4e98141d4cc71d737f6673133fd76785d9b5e1b803dab0ecd2527f0bca91ec8a",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/99464",
+      "text_sha256": "4b6d97ccdde8fa34377fbc53b5d9a71cfa2cee2443704bee625f36e1d8e615b0",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/116449",
+      "text_sha256": "bedb3d079431a94e56a15b4a625c0ff009f8fa1e34bb2c5ff0a3a9a1e1ca1b5e",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/117225",
+      "text_sha256": "c8ed519b14ed720ad9b773b973238e73d2efb9964f0d64180ce7f282f2758cc0",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/54285",
+      "text_sha256": "8a4cef86f76ac67d346cd4ff52c93a4e7c6e924cbd0a14800067df7f42137f3b",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/21799",
+      "text_sha256": "b147cee2d3622096ce6bfb61eea541b7c228a12ca02bf0a3d7dc4876cf38f3ee",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/31081",
+      "text_sha256": "98658e16717c181fb2e841e989bb0336951ccf49a3168743938c6baf7591aaf0",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/12050",
+      "text_sha256": "d9b1561e9fb48d33d51f285faa1165e542db3c99084af1a626e91654f053d26f",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/22723",
+      "text_sha256": "9a1c720ed1c4ba99aa0da5edfa22abdc590bf0ba7857bf8262fa8357fa293048",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/79637",
+      "text_sha256": "d5692730916c8bda77ac76ba3672eb7b7b10ae7f655ebbb9f7246da70b9081ad",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/30115",
+      "text_sha256": "0f7e1872bd52912d7f207f63d4e9974b6c342b933444bcf6611629b4e721387d",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/32320",
+      "text_sha256": "2842c71c990ef8fe2c3ab6451b9aada2655a4e8df48efad1b31871d13d7c1eef",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/77976",
+      "text_sha256": "8fb58b4925b826a7e9f0d4e6d480b33ab33f5081aba5a345925a731dd0bfc5f0",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/49581",
+      "text_sha256": "38d6f27e49f01ead540751cc58449b7986ebfc8b8c6f932db6cd663136695332",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/66509",
+      "text_sha256": "d381347ec3b14300c2fbf4b44aa0a14604d66b5e3cf736e2cee11670ce106e17",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/77635",
+      "text_sha256": "6a7def3d2d9a9fc996c42225afdd076d544d3723474613288a1397311c0a3678",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/83688",
+      "text_sha256": "95328ecf39475453fc6ac63663254141b495c79dddf5d52e4a6c67a8926d6ad4",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/5485",
+      "text_sha256": "eecdd6eb61b8fb503e2888118cd6492a1050ee4e9af95cf7ae999392e432a8a2",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/119349",
+      "text_sha256": "c34b89a9ce4f4a0184200b257db436b21ba69bbd5d489123ba666c5ece193d45",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/108678",
+      "text_sha256": "2bc56b4c17a4d9710ad0996a0a87ba7f5a32a5109bc118cdd14e9e535462532b",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/54528",
+      "text_sha256": "1a654e1bac3e5f2b3efafa6c27fdfd9fa23165f11be426edd5a12f739796a3f5",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/72060",
+      "text_sha256": "1de07eaf7625aa3ba3997d49c34c4265045bebe585d5b2334851e548be0b2846",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/33481",
+      "text_sha256": "cbf2d72456df163e169f9da6650a270fb30b934f0758c060dd324dcaf5f0019a",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/77413",
+      "text_sha256": "41052b2c4ebd9867608f68245fd1264dd8bc7d60f4dca474ffb843db58458049",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/108453",
+      "text_sha256": "453e7bf91d0b74a34075c459387b0706143775d6ded533200f7bc1523c51ca6a",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/81040",
+      "text_sha256": "c6d16e32431bbdc3bf5975822207cbd9625573266039600d42a034702e501cd3",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/10002",
+      "text_sha256": "a0e4fd5897e3f5ad2ac2e84b2adc947e16e54001fce7f79554f18a22d9d9adfd",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/3024",
+      "text_sha256": "bfd0dc17b8e5e67eb00f7edf2d839a946c042c92086d2ebbb4de3b8a967f81ec",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/11818",
+      "text_sha256": "bf8a70f4450032739adeb632543073a31bb685375401c6ee19e0b3120aeec087",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/50235",
+      "text_sha256": "c803c2abda7825e53d4809e74502fcf353260e1adbe6b5d30ea1304b25c7d25e",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/25691",
+      "text_sha256": "378a103566918d7f85b336d61a1250489928f7defbf6cd98cdbed253a255feac",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/12794",
+      "text_sha256": "437e218e800fecd2cc1dff574c547a18ab67a1287ff56831d62cae7e8ff1d2ad",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/61053",
+      "text_sha256": "d4fc718775c724fdc7c3ce2223ea5409362e3eaa31695e6d7c8ef5dba508b123",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/62773",
+      "text_sha256": "ae10d8cfc81aba8e48dc66700e545c7e15220f21592a8318719bc612689a84db",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/85876",
+      "text_sha256": "4feb3239963c87be0b77c0d4fea89d67700cf787f5fce5beb1a795edcd71c9b7",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/103125",
+      "text_sha256": "c667eda6f455e6ef82af929d185f0baed713c04e871e264d4877ca798d3afc92",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/21207",
+      "text_sha256": "669b1420f28f0a4af42e3f16369c3b0597f394fe5df15bd20bfbe374b6de9e9f",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/15174",
+      "text_sha256": "de3f5d98bb1d5b4ff5977226b6233c8b69aff6a55ae4b5b27cfd4a41c89e58df",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/103338",
+      "text_sha256": "ceef6583fa1fac829ec1cdd5e82787d35275220eec42963d6c4efee1024844f4",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/101301",
+      "text_sha256": "15f2a1f1bfdcd807ab01a97b7c054979d55e56658076c0611a5a20c8f70611b5",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/26720",
+      "text_sha256": "21ef1933ed1cf0236b400f89d8cbdb7fc61f469da44d77fb2789e3cbe4962d35",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/83802",
+      "text_sha256": "5dbb0c369cb3c5dfea3e6ad91ab12e4d13fb01217e3b8ac7d9eb1956c6c3f971",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/60187",
+      "text_sha256": "02ca0a33ec3f3b5b0cde26011a19160197e6ca9a43a01d31feeff14764e27377",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/63659",
+      "text_sha256": "6a0b4d1ddb82dab7dc0894bbad0b7220e1dc39c1c1995de681a3b24a38b642c8",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/63572",
+      "text_sha256": "368dd619fe48baf147b7e36a2280b62953b71fc4e8933a6b4897be8b518eb965",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/104300",
+      "text_sha256": "0222d4024bda644ffcadf339b43bd0cf218d2374ce6cd29b661bc607d811e46f",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/65388",
+      "text_sha256": "8be58d6091d37fc11af4b6898ae66f7ba996229da567b9dba8daecb06f15c152",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/33881",
+      "text_sha256": "f2b6731e2431a3c5d0b0aac1818fbd51257fc3eb780edc865bb6a6cc41959a6b",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/94806",
+      "text_sha256": "f9e35ac7ac7209793ba1a10e8da86350067b64896b534e20ada8352de380dca3",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/88147",
+      "text_sha256": "daf7b19b8d199078733b367aeec27152d356ec0bcc5cb4ee6699a7604627c88d",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/108684",
+      "text_sha256": "76aee99ced85de1a92eeb946a1c6e0c3aef71b13e1e151aa28dd78e72b518cf3",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/40519",
+      "text_sha256": "55b44fb08e27fc847fc23236068c72b7708560f6abafa0aa571fde8aab77ed3d",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/18064",
+      "text_sha256": "06590a328eb4142ec75877f51feafc3addcc34bc2df3ee83c107744f94ac8be1",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/39052",
+      "text_sha256": "a99a68bdc1d703d84810159882efba80c64d0cc1f7c27ceaad5d4cd84e47726e",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/24866",
+      "text_sha256": "7690d76873d756896565460bc2a91a8d6c61eb3798319df3cf714280a9e9a666",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/81742",
+      "text_sha256": "a60cb8c222572e553814d4a835ce68ed37a656a75f27cdad1f609f4be693af19",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/117307",
+      "text_sha256": "991b18233a608596251dfc1ab4330d59c339ab5e28bff86c2efb3f67b7c194ac",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/23572",
+      "text_sha256": "8de4ae1782af60b4a074342fb72decc1f32ba711dfd47eebd6fa8d139cdc5efe",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/71774",
+      "text_sha256": "db5b3d94285b180664c25fb12e79e762fe0b0bc76fb75f4193c598129df28376",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/36790",
+      "text_sha256": "33a562ae7755a680d85b9a883e16c1077aaac812154f131bc5c7364f2627698e",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/34357",
+      "text_sha256": "3c431b6c78a4dc59a72fbc48e7724ef231b4e6c44dc1a32bf7b775aa306c793a",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/55747",
+      "text_sha256": "cb17aada4c290f8faf727e49a484fde6175f021e2be0ef6a1565d37bad484a33",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/77760",
+      "text_sha256": "64eb0d32a67c4ffc1a241463acd4aa2866e218541ca127880d95ab6c1fcd797a",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/15392",
+      "text_sha256": "42fcf648a375f488907d4a69c74dc83c4f1d942520fd56f38b5537c3d4faa9da",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/86729",
+      "text_sha256": "ec5ae886083cae95f64150d34308d110e97704242770a8c5c69489dae891eaba",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/73812",
+      "text_sha256": "aac5a5642da09ae95d6736384985672e3572151aa3e665032b00871498ddf981",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/37674",
+      "text_sha256": "6b98f8bb3562293211c8010e8cc2381a551739c99150a05b3f4c1f51aae5d5e9",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/53507",
+      "text_sha256": "c01f3fccbe237c31509c0d41da42a483d245ca82e95f1f66e1daa8c622d3a324",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/62774",
+      "text_sha256": "b5a396db2a79488db5d733789feec36faab407330234faf43b253a3b32cd0125",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/6954",
+      "text_sha256": "c44ddb53dcdb6a28f29c75e6782c541893637f8d7a9546520689ca867c024b19",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/111178",
+      "text_sha256": "ac70287c2c59cf47bf671fb783cfa0a5fe36599312af89d9a51af603afd6e60a",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/27757",
+      "text_sha256": "b9de01aa0f050cc63ad9df9076982c0839063519662fcbcb77ffc612e27a4481",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/44445",
+      "text_sha256": "e33c72fcf05a56e4b798a6e4c807dd1a46c0598e908737949bd0ac536c4bfe60",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/22685",
+      "text_sha256": "014b38a543dc56a125b12e1de761a70a9731204ca668fd5edd1df94fe21e3c2a",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/91332",
+      "text_sha256": "9a2fb8147f5a6c0eb80ccdb11b8714ca558f7446b70df1e19d2c6979d271e010",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/24634",
+      "text_sha256": "9e3f9ea7d4a5d046ceaa1043c8e2cc6456b8bff236a7f15a7af2c233eeb4fbf7",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/14882",
+      "text_sha256": "15cefcf0147d7cf9a77a8e0b5fda86d2ac7184ff2c7791a1b2a5dda1669fe731",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/49616",
+      "text_sha256": "9bc9d8fd1886bf01c4945bb22adcd1347266a3a22402f3eca7f1be8ec0e1d70a",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/89176",
+      "text_sha256": "cfc79d45be645b749371cda0d453ba2bd18193e3c91110faf8e30427f32036ce",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/72772",
+      "text_sha256": "13c5262dc783f24af8f6da6cb52c619afb0a8200ee0c8492183b33aac05a7c6b",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/63782",
+      "text_sha256": "0fd5a97200a4ce59f38c81181fd6292b651b4a6afe8668f4fcc030942ca71db7",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/89600",
+      "text_sha256": "122fbb9d1c3d02f2c0a78ff71d27a8aaf14ec4c4695bfc0cd5d5212f1384e8ad",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/50863",
+      "text_sha256": "7a3e2d7bb4ea462f2e3273195293f232b7e008c9d0d2b62e3a2180f1a3985896",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/107628",
+      "text_sha256": "83c81d00197b043a4a17081e54196d1aa1d6b270965f983c2aa378152a6fe7a4",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/74141",
+      "text_sha256": "74c5f1b85c1d6a8e68b75f6dd4bcae352188370a692221c5881b0ab64dc66046",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/71142",
+      "text_sha256": "8abf6d49440b1c1dd8867ee1269835c86c9e5a4d757043529a34cffcd36dd5e1",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/42265",
+      "text_sha256": "5331e21c4bb73866767760245c771bdfcb1d9c74c7f348df7c897ae73366b461",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/7616",
+      "text_sha256": "c593680a10b74b11f8f8b4f7bbc4c3265bae64316f70b094a2aeddd313485033",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/68139",
+      "text_sha256": "3b1c08767c8cc1ce45dbef9dfa2c358553b9fa7ed61e82c7e54ae9280b5b695e",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/58643",
+      "text_sha256": "987578e29989ab81d36833bacf81514aef5475ba5b8d18cded83282925269239",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/60430",
+      "text_sha256": "a4b28d7ee49b559d430e31f88b85ea4886c3dcddca29cf42e2a9eb7d52922238",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/58025",
+      "text_sha256": "a8d8cab30b537409a2647345dbf34dcb14e4393a0b8fede27b0386c097acb2fe",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/20329",
+      "text_sha256": "85c3cc4089d68b7502bc149db57e40af4710ddc3430f838bae2638753954eec7",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/75795",
+      "text_sha256": "b46f14a60138de03aa6b7c857275127609c9923c91e9fda1b7e75d761154a630",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/74920",
+      "text_sha256": "db90423b2613df27b4dbe27ffb7f3d4c422e1f7f017c55eeb42ca58c071671cf",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/38558",
+      "text_sha256": "a65e951a3f6299fa5d72aab508e06904bc1c18344e2bbd0c59859e0efd8c7d20",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/113642",
+      "text_sha256": "6b634eef4784fa47c17678e7a5a3368c19b287e11a0b98f41ab8be58c1d3b997",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/49847",
+      "text_sha256": "a93cc421d247a0a46649618a66917301f5581cfedb33765906dad2e56b47b0c4",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/78606",
+      "text_sha256": "6fdc6f70afd5ea8653721760b87340f50e693f69d619a8475a3b4df314dfb3e7",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/119360",
+      "text_sha256": "78c032dcb34841afa20e7a239970c49dd21bc678856c37d55b2d4b837cdbbfa0",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/49238",
+      "text_sha256": "5d41b7d585a13f29905b1bdd4160448c1c9bdd6ae86ed13eb19dd3474c1e7de3",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/119935",
+      "text_sha256": "677123074d9bbed2f7b42c29c0be3d7958a191a5931018a09f753754c1b8d502",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/31190",
+      "text_sha256": "8beec00c4e2aa5b80986e65bca4ba2adb840f13173a2d54b33a44b3843bf7b54",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/86151",
+      "text_sha256": "a795d2d99cec75759efc1e3d6cc2e790689c76143d1eed78e54d800d81b3ad02",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/76610",
+      "text_sha256": "bd2f72084113a27c78198264026dbdb0d530895e792b197379cd1fbd2615b174",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/75675",
+      "text_sha256": "aae1ee8f4938526085c18ffe7a568a2ede1168a96d0fcd4fabab86c1d2b06b34",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/32648",
+      "text_sha256": "484e0ac94d0746953c0329f5f07d04c2b1b7459a275833cdc904f9233c101b97",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/48575",
+      "text_sha256": "31f7bdb6c3eef006219691696f628af49cbe71a188dd03351029b0dfa0ba8f6e",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/93405",
+      "text_sha256": "f0b9266f3c5a4021c6803f72250a797f052e7137d34c645a90b3081da0991c77",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/81632",
+      "text_sha256": "6583e9044416743201bbdc38a53743e806d51781d60603771045e1ed3fe59e5f",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/90618",
+      "text_sha256": "696d1ad7ef4ff6cdc12cc3f4636bfb76a876d2e38cb6c14f1bd7116459ddbf62",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/39378",
+      "text_sha256": "1dfad02d618b2d593cf722cbea569a6dfb77851dbf9acb39ff2d85e95d3fe575",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/41515",
+      "text_sha256": "af3be87c4236f0ffbba0367956dbd6b1ff3374624ae37c62bfcaac6b752bfab4",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/44162",
+      "text_sha256": "0359b26317caefb340ebc2d8b4bdeb4e89d6cc3cb9a4bd0f4795fa207fac6910",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/52828",
+      "text_sha256": "0af2f1b86bada977f290b1a482164f1847237fb042a753e510526b71e54f7e28",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/49348",
+      "text_sha256": "66fe98e6acb233ac92a313bb00861322fd320da18a49c41d0aafde5abb23d2d1",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/74121",
+      "text_sha256": "570093332268dcf5dad28b4e8c1c0028d5e5a8c20f7b82e7512bf3d4cd1fcc34",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/36143",
+      "text_sha256": "508ee4817bfebfb07c69f9e4172c7ea77e3cce6b790a3e5808753802fbc60137",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/16110",
+      "text_sha256": "b235d7e271373b5a7a1bd8cda8e2f75a923d932f7d68385ade9ba0d4d840a2c7",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/34549",
+      "text_sha256": "e184b6a4b3e4b20b007166fbf9568f059712cf8882274a01cd03bb8420bc2ab9",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/105280",
+      "text_sha256": "1cf390420949719923d5ba2495ea4ad8449fc3a8a2d607faa49a566bcd52b404",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/56320",
+      "text_sha256": "1ec62459227d7f82106ba875ff7292e4f118efd8a0487644f3c76cb931db2c08",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/59097",
+      "text_sha256": "321626aa96d2a7762ebd872c4a19dd05fd09247b929fbe02fd6b245183471811",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/41351",
+      "text_sha256": "f19882b57c5aee2f78340d5d7a78c4d8f6b3abf82bb180b8e9f225aacb980efb",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/17502",
+      "text_sha256": "9d54982a0687a80a519ddd652b80a2ebd35c34e72ca7fd5cf8a4281d05afd191",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/67490",
+      "text_sha256": "d447cce397fe43529687bf4ad17ea89d3fd8f340e94ca3dd0c50e2d8faca921b",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/80986",
+      "text_sha256": "51a05c12660d3cd210a6590c45464ebcd8a2cc382bb826a8526b94c520b7d64f",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/84545",
+      "text_sha256": "233d7ab267cecc5ba08ab05201aec944a9e7e5dd793719dbd75f7dd507309256",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/44512",
+      "text_sha256": "e52e0559bd81f4d44a22c120d929ccf6ecfca25ccd82a86f4ae09e9856522aa0",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/45956",
+      "text_sha256": "8d6d2241c0d4ff7e8231fc6abd73e1cbe700a2ded5ae857f1d49c063996812ef",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/21536",
+      "text_sha256": "3954d0b90af1cfe9f42a366a71af635d3480e14bdc75ab6f288ac150fcda97cd",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/75068",
+      "text_sha256": "6ab96556bf906d67a2b895f207bb471b1f7722182a115b0b0828069d8465d95a",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/23163",
+      "text_sha256": "dc0114bd04b596fb330cd946d7fb39b455ec0255a0edb4cd5a38d413580843be",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/100681",
+      "text_sha256": "66e471aa05ec52cfec0044fd71cc2b8b705ae2048bb931f9ec1dcd36f6631439",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/44442",
+      "text_sha256": "a5a60e3dd3797dcbf8f5aaf207d9dbfa391c3bb16193c625bbf3058b39b2c4c5",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/35106",
+      "text_sha256": "e54c340ec368d1b2cd0bbdc268f04881e85a1c59b7b21830e9340a85654d0c84",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/59600",
+      "text_sha256": "bec8193b5a7b1add594fb2ce65261d965c4cc4303a5388a965e71170fab1b714",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/95059",
+      "text_sha256": "c6c973ad54fe609a5d2bba99929a2e3fd177b980011f68ccae59862c2ce59c07",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/53205",
+      "text_sha256": "4f85ef92af41ab1867b6fa8fad72f42eb985d028e8943175771032050d35919c",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/41426",
+      "text_sha256": "c9162c12c4897f2c5335b79ce8734e61f2f3c89f9fe7a1823789cc8e90a1f823",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/24925",
+      "text_sha256": "45851e234a0c685847fe4ba1ba19a6aafab3a908e742c14fa7dcc8f6c0991aed",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/82468",
+      "text_sha256": "2f2b0d314860859a89cf4733a859484645d6a3fc73115eaa550c12bd71d46689",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/19671",
+      "text_sha256": "46e1e320ae0917e75ab000b61885c56c0061aeb6753b706e546362212c007eaf",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/15758",
+      "text_sha256": "f6970097a27f9035ef55ec4dc7ac5a99d74e4850c720b457cb11fe968f68b7ef",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/94365",
+      "text_sha256": "78a72d053470e3e849a38850b3db9fd8e73132cdef674706021114c762721ab2",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/110119",
+      "text_sha256": "0ccc4d0239f0150906aee01c0dc51a2d8ef3a4c6a49980f34a4791d5a7517860",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/5199",
+      "text_sha256": "72b8d5f65df149e5b945bf0a7594cb54b57baf55ae305476cf58194ac1c85c21",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/90066",
+      "text_sha256": "ece04dbe623a71ae9b9d129afd9ad27bf4989fc3f63f1ca7152b6cb298066f7b",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/34705",
+      "text_sha256": "bf85838d7337335820fc8ea9b79465f7d5d0119bf7f78ea3d9b0b22e0994ff9f",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/46538",
+      "text_sha256": "fff75b6a95310e675f4467decf2c8a9353a41e2a0a841d34e65def2ca83e9ca8",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/28328",
+      "text_sha256": "a5a47cc757f30a22fecc6ebdd08edd072dbb1b327b76f99c76d5aa191857f8e1",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/45690",
+      "text_sha256": "e95aaca56690efd0da2515deb43c3d4f069fb44c67a5cd051e6fae24cc5020bd",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/16067",
+      "text_sha256": "ffcb784a559ee89c25af916a4447d658df8b95e02e1cc14871206242e8df3c60",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/116026",
+      "text_sha256": "6c1313ba593c43dfdfc2c115d4e801716bb283144fb0289c321d1cedf54ca25e",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/83988",
+      "text_sha256": "bae49a06fb92edc1f06175df584d83393bb619aebd7e4871aba33b73c8200548",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/64139",
+      "text_sha256": "b6d0a7c3bb00b371e524b105b481bfd2a040f4c1e85ae7355b1573de1f92c662",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/81886",
+      "text_sha256": "3aba78fcbc919c7b000b0f86bced1996fca0dd39f48eef79bc9a14f51724167a",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/9724",
+      "text_sha256": "f609a23960723d30fb841bb59b2961d0496119048e88dd210c94614915c78a5a",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/82581",
+      "text_sha256": "f0839494459ec8bcb0f2510fee1377c14be795bb5967febe17ff76211ea3e399",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/85807",
+      "text_sha256": "d220bb018f2b58c87943d6f0b3a16fd57efa85b6d150ea62cf176102f3eaf89f",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/100243",
+      "text_sha256": "9cf9486611fbc417772b80ba0f40c6a29e0b0480b068d08e66a2c3831f0e45f1",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/606",
+      "text_sha256": "3e94621580ff7e63c781e949129b5bda998f5c294d4e760d129c0c5469e77dcf",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/119981",
+      "text_sha256": "266134e3944b27616e0b5722b78f237cd4cadfcfb0c946b35d9e6099f5970267",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/83354",
+      "text_sha256": "be9da457b43f536a806e6607614b0c81595e72a911a1ab36a2302af9dffc10f9",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/117970",
+      "text_sha256": "20ca0038f95ec08f9d0a9afdd7fbd43f82bdbdad401c067a0552489167c408ec",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/113287",
+      "text_sha256": "9d9a17c1a37321dd0244a88e46f1539da6e4f1e25f660cb7f27493c534bf86db",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/40737",
+      "text_sha256": "cac17ea3ce2f2c1a120bf24ec4316286e44339a56a1ce785e5771ea08df98ec9",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/42716",
+      "text_sha256": "e6f9ad5921cd2dce15944aaa3e98148dba48f7c38cd1bf5f53954a51022be05c",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/107898",
+      "text_sha256": "8c526f5bc0b6a41ce7c0022feea5cd24238d72a801954cd957e8ae45da1d65c3",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/36967",
+      "text_sha256": "e771ccfc47352749d40659db5c9dd05dcbc35e32b219ece781114dea4d1435dd",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/104942",
+      "text_sha256": "e65c58c8b9d4f86f6b41f9d8fbb6551a01f40923385c76f80e2757b225a406a9",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/64999",
+      "text_sha256": "665be6a56280d723fcf8dae549fded699269ec2068372fd4bd1e69477c3e61fa",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/65984",
+      "text_sha256": "b5904df622b6ccd7cdb29823c9db2573dc919441b599369bd45b499099a4b27b",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/62611",
+      "text_sha256": "2230cb58d1fba87ce0c6fd52a61c1bca356948e7f781587eb29a75a663887f62",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/16432",
+      "text_sha256": "975881aff272465d167fc63e4faf77af2b52d6a187b1e7c41dc1c985111ef5f7",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/72116",
+      "text_sha256": "9dc2a05ee2b0656e5f87458e7bdf66f955f9305b232281903a292e8ec2ae51e8",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/62883",
+      "text_sha256": "6e6fcd47ae4f620844fcb0088f6b5b565fc4d9bbdbbfab1ec8abaa068b7c5887",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/42654",
+      "text_sha256": "c102927cfb008bf7c7bbd033ac7387c4937f6d390ea1276f2773765755597595",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/118034",
+      "text_sha256": "179f993e8db1e57a89748587ce1b563e56575b134c832825bb18207b8bcaf761",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/68981",
+      "text_sha256": "8779b69a3654b0609602f96c8a5a2681bd552b14e81a98bb0863093fcd8590cb",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/92808",
+      "text_sha256": "025ec8975f5f342796505f6f04f4b6ce1a18102353caf0ce72627f5a5fabfaac",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/118187",
+      "text_sha256": "2af8337d2fc1d8b401254f96bde9c86f04fe9ff11656a2e7439e2581d9d07c87",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/86427",
+      "text_sha256": "f434edeaad389bf23b5f746da029e681449dbd2f1891b97070baca4cbbe6ad14",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/119039",
+      "text_sha256": "732f84e5efd714780aa797339c024482363fe16f7437db672d7dd9ab58df7c1b",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/119226",
+      "text_sha256": "5938d9c72235b4c3bff24d535093087ea39a5c4e52ce08605ccb9aeed53cc090",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/84505",
+      "text_sha256": "f63d19ab700554dd9ca6f0a3ab3479dc9b780ae5e37bc0c5e3ba2cf4e73bcb04",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/26846",
+      "text_sha256": "ad9fdccf16e10dd75856528ef65f334865a5f2f261998e110e332c8f22aa00ee",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/81851",
+      "text_sha256": "b0cee79523b2041c245878fc25fdafd2274ec602caa6105667b4f0fdbe9b6ddf",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/57177",
+      "text_sha256": "ff1a942d960b9ea4843ea8a78243e3e2d14fc95e9ba746fb085b232155d3eaf3",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/72786",
+      "text_sha256": "a8a2dc6ed0cdcaed30c6c34a39ae3d00ab07f62cc43715d7ab9b0741cb12ff19",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/98098",
+      "text_sha256": "344fafd422bdca050765dbad76050890b88dede65335d9483047420ff0b46b55",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/39726",
+      "text_sha256": "8348555ac37b99ac458d0155842c7928bb32ab61d1ace09e411604afffc99467",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/82831",
+      "text_sha256": "c6e78f2116b8192221a5bd04de923d61a507a91f942c75b8ea40fccea650331b",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/61818",
+      "text_sha256": "115dca2587bc533034405df26e39086bfe251d555ed4c09516d7fd4817d9f037",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/69727",
+      "text_sha256": "3ab13513afeb61670710f287356d26363d988f2880d47a46c763c2fc108b3e3e",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/109121",
+      "text_sha256": "bd1fd96ff3ad3406baeb13c6fa2efc777d759a293d9686ae094d45a60bd904a4",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/69973",
+      "text_sha256": "e07c2d418b5955fc04b95ac0759baf56e3f99a4ac624266e0f264388dd1f104e",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/114357",
+      "text_sha256": "a04d65dcbfb9bf2f1e251a861fd165f0345faf361ece27528d1041c4c666ad7b",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/107955",
+      "text_sha256": "8a576ed728910c2414cb940ebc42b3def88cd5b7db047478b602a14be724c242",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/66001",
+      "text_sha256": "79665f03b8303c39dc960dfa64c2341fab2768fe504d1ff18eddaba3b2e10d1c",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/37225",
+      "text_sha256": "d8004125abd60fd22d14c5bb2b6b62bca694b8886aca5862378aeb70928ef076",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/46260",
+      "text_sha256": "739176a350479a0886415720cfa37f59254b2ae6df0ea0128496b6bed441b613",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/90300",
+      "text_sha256": "59390b89f20b90a3926adb075be1f163d3a49a4c8a6714dd0c5a8eec77c44e71",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/56037",
+      "text_sha256": "a7f8c4c494029cc64796829a6024cef09e714b977ab80ba8fbc8c8bfd5588e2d",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/49483",
+      "text_sha256": "aa8e66f77b3547ce2e76594b4bf20862beee1591860be6208d223edf46092b48",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/105288",
+      "text_sha256": "aab69f8e590689b6fabdda87965ff4f911ebdff261718b0a872443cf069fd32f",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/23117",
+      "text_sha256": "a89c0694c058dc3bd5503dfbda1c8a0a1de43b57870b36f0d8eacc7e493282fb",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/4099",
+      "text_sha256": "2f500f4c6d39f38ca78925abb193585827e9f2a83f425cf8323b41ce2c34abed",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/33383",
+      "text_sha256": "f09458929cd3616236cc2dbecf7a699c1388d71d0687ca28dbb9653cc83a141a",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/91529",
+      "text_sha256": "e59848f7d2271cc079c4f46a54d887b634d8ab26db12bfa397905b965ef2ae66",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/101773",
+      "text_sha256": "ff5331c1deb091f99842459e90fb797244245aaaa0c1c5324b67fa320ae81dd0",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/8907",
+      "text_sha256": "5f271349b16be49c4fbe955d4a307fb6ff80ee3c30c1fdc16c83f84bc5692da4",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/44849",
+      "text_sha256": "459f8a305a8f979148b662fccdf4bfabcf2462ea76dbe5a83f8f8b82d1a5ff7b",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/85313",
+      "text_sha256": "8aa4df32d6d0797d45ab25d3dc92c857073c15903ab694402a5cd70e956eecca",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/32647",
+      "text_sha256": "964d19c39c341723b506f221a9337d050852e832abd248c0709b7b5fa9905c6a",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/83564",
+      "text_sha256": "bccc58cb33a52ffebec8b5c0b3182f71faa40ec2c656f0b513c94bee77eb8ae5",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/84551",
+      "text_sha256": "70d79209c048e2788cd58b5e9064b197ec984703064608a56faba83747290c05",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/23758",
+      "text_sha256": "e1e8261510303df46c46d77f65fc18f8489295b20e71207fe9e81b42c8919941",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/15601",
+      "text_sha256": "2772ea44e91c6fa0c1ff16864b4b3912f78df759b506b8a7bf719107bfa4884b",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/16671",
+      "text_sha256": "c8841c28530f11752e91e540c42e5e1328571ed67ec4e7a702e6696bd47a7449",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/54909",
+      "text_sha256": "d95f837ab3db8961f7c577688f04d553466e82bc518f18b2a8213598dd56e135",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/114239",
+      "text_sha256": "2428fccdcdd6afa1406790d4274b319ce6dd3ba7a0d1c50f3edcec6058f65738",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/104991",
+      "text_sha256": "6ba7159306ba3bc75246d270b70b7dfd741c3e95f6c0164278d8d3bbf688501e",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/41635",
+      "text_sha256": "874489f5d3b3ca3d9c6c6c25837791b19cbae65e473092cc9245722377a22d6f",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/86633",
+      "text_sha256": "65ebcfc931cb4269c39c9995109d381da4b05a690cdbf88c8023f36fd068fa47",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/26512",
+      "text_sha256": "cc31652efd831711869a5f6750b40974585a8aac2a87d6e20cc425e534718da4",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/61073",
+      "text_sha256": "8378e011e125d1e0f7ccad64bfd5f2b4329ae84f062248c7521a6d7ad2a2cdf9",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/25257",
+      "text_sha256": "8eb40e113cb3918f6fbf31813d08c51f44511472cc9ad9b77bcf0d5ea13f9cb3",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/42485",
+      "text_sha256": "ef55ae7d163c70580ac0158e9604b16dd5f109a0d2fe342da1a3b24732d56553",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/93856",
+      "text_sha256": "9d2b8b4f7a725b9f7d94ed7a9cf88f9b30553458c97c6f98b26728f13487a81f",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/9417",
+      "text_sha256": "3a8e072fe8687f455e9dd9b1e6da180ecc68ec0aba879c7d0f40e59b32cc24df",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/47821",
+      "text_sha256": "0f37e7f9d9441f51cc0888393424afc89f93dbd81edeaf50063622e28b0074d1",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/71738",
+      "text_sha256": "bb2bedbc4f6a4dbb256745eb1bb2147883fd2ea964eb7fa889926653550110e4",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/7230",
+      "text_sha256": "d69c9a9297db66928d50ea676b95088f4fdf0ba8501f9e1ac4c5985800067f2b",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/82884",
+      "text_sha256": "6248470c72145c531c059c39eef470f705758408e728e745c9427d92fdbb8a03",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/108257",
+      "text_sha256": "28f077b45142c3008944d2516828a2b03568c96a5a1c9cbbfefe0262cef85b8c",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/85932",
+      "text_sha256": "c0a984b3a5f12ca07c553e1cda3cf250a3a3a1a8c46b518618562cb0109c38cf",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/1380",
+      "text_sha256": "56f106e776f651af5482a2c102b5d9e311f274a1b34f3bacda59d384bce8a22b",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/45900",
+      "text_sha256": "97c24cc44c92ba1853893fc1adc2828167f4b96ac7c7d1cd5dd27dba3f79a94a",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/14383",
+      "text_sha256": "42e06bf88a91e093b028e8ea9b7f8e0874a8707785e4e18ec1aa8da1a3397921",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/40542",
+      "text_sha256": "7f63d5776935678e3cd732f8210fe4c82c4dac2b40c01442b21d421c19465a6c",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/3858",
+      "text_sha256": "b641cb676a30c6b14778395b00abe9c91cef2fe3c6078d99ae66cd51e23404fe",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/2461",
+      "text_sha256": "bb5887812e2de0c79ba12b0c1ec6debb3c6328b99fc8c649f2b427e6652f1641",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/118677",
+      "text_sha256": "19306cc868bdf725a3a32f2b372f6965cd0f4d4741e60aef5c319fd96f0b01b6",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/3025",
+      "text_sha256": "de632bf2f92e79fafb1be449fc5f6c565c654861b1f87d618dd934d44c97dee4",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/18041",
+      "text_sha256": "67379f6487755d478e18bb039cc8ddcb19ecc44c20ac52fde3ec55b6eaa27050",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/45460",
+      "text_sha256": "86ca20cbb508aafccb440ccde817dc70fa25102b334ad30296d5a4586e9d7621",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/27655",
+      "text_sha256": "82f93d05f191a743305ecadf0ff8635b7787cc6ccc8df5241f916ebc9d28fc49",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/87348",
+      "text_sha256": "cd0cd128255cfffb6c8ab90d6dfb98207c30b128c21ef002d58bc947e2eeea5b",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/46115",
+      "text_sha256": "2becddd76198682111691c5d205ecb54b852d5cdfee26d800119c53ecda06862",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/28224",
+      "text_sha256": "df88849b496393fbd05fc35a20c01fa809cb59c31639fa391d6f36e60ff6adc9",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/28717",
+      "text_sha256": "fe6cf408c5fb855604c12f138075913103535eb21ba1bd8dc5438ee8bf55a2cf",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/58087",
+      "text_sha256": "06034f014a860af43426952b98d68b466ba73a48b270fee430945212256a9f5f",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/51165",
+      "text_sha256": "61d0963d10b8108fa84dbc2b08c2b6022e31f8339fbc24a39764885964bf999d",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/35768",
+      "text_sha256": "a18a414e43a37867a2ee8321cb168c2d172e833435df3c35c6172aef47acdc67",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/7353",
+      "text_sha256": "1c6bd5476cdfae978a5114db1e4a72abfbc832da9cd23b704e59d2507eeab5df",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/100942",
+      "text_sha256": "2fe181b1638760007fcdc5644c8d0e254fc124ce86ebb02b120ee66c721c7edf",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/32868",
+      "text_sha256": "d7f8c35e38d78d3a54774d2e55d2e11a6a7523f7bd5661f2efa80edefd8e2e3a",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/100746",
+      "text_sha256": "f89934500a824940ec967c9c014aeeada12b81a3b7c47b8c923c3f94589b1640",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/109316",
+      "text_sha256": "b17a4db991d360eb28fc965755be253d8996f3018843ea62235aa54e9e2db325",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/82733",
+      "text_sha256": "36bae6ac663044cea0213c48a92af2308acab8170b8a7b33f11a36aaf3ac5cec",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/28523",
+      "text_sha256": "a847da74c37f2797b60b74ffbf21fd188edcae19d8498bc21e82be56a585db56",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/10032",
+      "text_sha256": "1b02c66bb45b8e7fb59dda5fd3a6bc3b54606a4dfceb3d6e221831db6beffbe2",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/64655",
+      "text_sha256": "e5863055609704fab73932d53397cd7b446c8b3176203f5bd09a25fdb0ff1661",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/73798",
+      "text_sha256": "173daf3b09d90a6d145f8d9de8dc35dab0ceaf40afbc200fbef44221f42e08f1",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/53603",
+      "text_sha256": "e48bad9bdd5998ec832e64286f2134d25bb952509522e5f9fea8a1ce9c86942b",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/27794",
+      "text_sha256": "3767b415ef76caba11a28bc422979683cb56acb5f2df9891367965ac6e0bc12d",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/76975",
+      "text_sha256": "93bcfc14927276cc0bcde8fa81527351da84fe22983f80eae0687c7be11d0188",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/61944",
+      "text_sha256": "1e5e7ab9a4caddfd2c3af861fc6d7db70c772998de92ee659837cab3fb4914ba",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/94445",
+      "text_sha256": "580323435b912f9af99c7f099a65314c76c177cd8da96a8dc5d31a124da5a9d3",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/42726",
+      "text_sha256": "0c7e199d1a28511e98b609967d4f42e08c10922d1ba08f48711fccd7306ec964",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/88321",
+      "text_sha256": "98fdbb32c18fd8a047b500d0de06be4fb21ff735867195421c9cfa701ef6aab5",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/18153",
+      "text_sha256": "04ef574699a73e92f31d77a632aa50cc5ceb1d8946c965d3e3ef403da2c5d30f",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/62655",
+      "text_sha256": "9f3bf0fdeb21b033b98e864ef3c6ec10a5dac5fba48d783b8ffbda09b5cfd7d1",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/26352",
+      "text_sha256": "0cb500eab25aa3a761ee5d31a83167326ae46152792730015c1c9afb9bc33fef",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/35702",
+      "text_sha256": "f42ef27a38652fb86136b5bbc9d0f7ad4d60ef25bd00700957ece5c6a015f88d",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/86498",
+      "text_sha256": "172098a37db08d87a8980f6825d3e85ec498ad342bf431e66f145bf079ce3749",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/81752",
+      "text_sha256": "02bfdabf93759b292381ff857a7c091cd8d9a9b852ecfd2d1fb0c010a16cbaba",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/103136",
+      "text_sha256": "62f4beca68a0f4c42dd750288975bade01817723e50d27324470267a8c7b3cf4",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/115432",
+      "text_sha256": "ab1f72c756fa387ca1a1567a6158454bc16b2704cc32a2612eb0b4bb6300b1ec",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/112360",
+      "text_sha256": "2786e6303a02a6c34cd4d106b6e61347edfe65fdaca329ba5474fb333a02838a",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/102394",
+      "text_sha256": "744d10599dcf5f47ccb88f3e7841c184d08ad3063017946d3ac14294f00cbc09",
+      "label": 1
+    },
+    {
+      "id": "ag_news/train/16475",
+      "text_sha256": "7da1bf31cd0d7ee7d64754c8fb15cc9987f86745d597ffde56640fae3cc9d779",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/62328",
+      "text_sha256": "6307797bc0b13623b39a9603fa7155fb47a5ff6f7126ec3ee65f83e0d239849d",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/88340",
+      "text_sha256": "d1ba279fe6280438852680b15790c792914b6c7f1ef35cb07f0cc4b874d0984c",
+      "label": 3
+    },
+    {
+      "id": "ag_news/train/71786",
+      "text_sha256": "e38e16a0454c34d9531cb06174b67e1229cf9c5e832a236733f20cc924e5ac2a",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/21693",
+      "text_sha256": "ef103b5b4adb1b241f44d17ef6a0b01f500cc4c2f9e813b30014f7d26d33e57d",
+      "label": 0
+    },
+    {
+      "id": "ag_news/train/55858",
+      "text_sha256": "433e5a5c06b0edba15d1ad8b5659530cfdf6666b664bbf2b7b7502bef7502341",
+      "label": 2
+    },
+    {
+      "id": "ag_news/train/111770",
+      "text_sha256": "26bcc20c334629dcb0304b8fcac0db34e53867b9b3c29f3eeaedab4c6d6f8702",
+      "label": 2
+    }
+  ]
+}

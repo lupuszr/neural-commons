@@ -117,9 +117,12 @@ pub fn evaluate_external(
         );
         let base = verify_checkpoint(store, &spec.base)?;
         let candidate = verify_checkpoint(store, &spec.candidate)?;
+        // Checkpoint inference files describe how to load/run the model. Task
+        // configuration belongs to this EvaluationSpec and is verified below.
+        // Requiring a model's legacy `config` alias to equal every new task config
+        // would change checkpoint identity when continuing an existing version.
         ensure!(
-            base.inference_artifacts == candidate.inference_artifacts
-                && base.inference_artifacts.get("config") == Some(&spec.config),
+            base.inference_artifacts == candidate.inference_artifacts,
             "inference artifact identity mismatch"
         );
         ensure!(
@@ -265,7 +268,7 @@ mod tests {
         let program =
             std::fs::canonicalize(String::from_utf8(python.stdout).unwrap().trim()).unwrap();
         let script = dir.path().join("runner.py");
-        std::fs::write(&script,"import json,sys\nr=json.load(open(sys.argv[1]))\nprint(json.dumps(dict(schema='nc/evaluator-result/v1',spec=r['spec_id'],metric='loss',base=1,candidate=0,backend='test')))\n").unwrap();
+        std::fs::write(&script,"import json,sys\nr=json.load(open(sys.argv[1]))\nprint(json.dumps(dict(schema='nc/evaluator-result/v1',spec=r['spec_id'],metric='loss',base=1,candidate=0,backend='test',details=dict(evaluation_config=json.load(open(r['config'])),inference_config=json.load(open(r['inference_artifacts']['config']))))))\n").unwrap();
         let runner = Runner {
             program,
             args: vec![script.to_string_lossy().into()],
@@ -277,6 +280,38 @@ mod tests {
         let mut spec=EvaluationSpec {schema:"nc/evaluation-spec/v1".into(),base,candidate,patch,evaluator:"contract-test".into(),executable:runner_identity(&runner).unwrap(),dataset:store.put_json(&json!({})).unwrap(),config,policy:store.put_json(&json!({"schema":"nc/metric-policy/v1","metric":"loss","direction":"minimize","threshold":0.1,"min_improvement":0.2,"tolerance":0.0})).unwrap(),seed:0,backend:"test".into(),timeout_ms:3000,max_samples:1,max_artifact_bytes:0,metric:"loss".into(),evidence:Vec::new()};
         let report = evaluate_external(&store, &store.put_json(&spec).unwrap(), &runner);
         assert_eq!(report.status, Status::Passed, "{:?}", report.error);
+        // A new task must not force a new base checkpoint identity. Its config
+        // is separately hash-bound and forwarded to the configured evaluator.
+        let inherited_base = spec.base.clone();
+        spec.config = store
+            .put_json(&json!({"adapter":"contract-test","task":"second-round"}))
+            .unwrap();
+        let continued = evaluate_external(&store, &store.put_json(&spec).unwrap(), &runner);
+        assert_eq!(continued.status, Status::Passed, "{:?}", continued.error);
+        assert_eq!(spec.base, inherited_base);
+        let output: serde_json::Value = store.get_json(&continued.outputs.unwrap()).unwrap();
+        assert_eq!(
+            output["details"]["evaluation_config"]["task"],
+            "second-round"
+        );
+        assert!(output["details"]["inference_config"]["task"].is_null());
+        // This separation does not permit a changed tokenizer/inference setup.
+        let saved_candidate = spec.candidate.clone();
+        let mut altered: Checkpoint = store.get_json(&spec.candidate).unwrap();
+        altered.inference_artifacts.insert(
+            "tokenizer".into(),
+            store.put(b"different tokenizer").unwrap(),
+        );
+        spec.candidate = store.put_json(&altered).unwrap();
+        let rejected = evaluate_external(&store, &store.put_json(&spec).unwrap(), &runner);
+        assert_eq!(rejected.status, Status::Unavailable);
+        assert!(
+            rejected
+                .error
+                .unwrap()
+                .contains("inference artifact identity mismatch")
+        );
+        spec.candidate = saved_candidate;
         // Provenance is part of the specification and must actually be available.
         let provenance = b"controller transcript";
         spec.evidence = vec![digest(provenance)];

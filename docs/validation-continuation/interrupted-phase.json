@@ -1,0 +1,216 @@
+{
+  "schema": "nc/weight-chain-validation/v1",
+  "status": "failed",
+  "scope": "two separate local DKG daemons and evaluator processes on one physical machine",
+  "chain": "disposable local Hardhat EVM; no public-chain finality",
+  "run": "/Users/otlegend/projects/neural-commons/.runtime/agnews-chain-1",
+  "dkg_revision": "02a799660c19fd0fa7749bd0924706b6625ad050",
+  "dkg_source_patch": "diff --git a/packages/agent/src/imported-artifact.ts b/packages/agent/src/imported-artifact.ts\nindex 23242d5035..bbbf61998b 100644\n--- a/packages/agent/src/imported-artifact.ts\n+++ b/packages/agent/src/imported-artifact.ts\n@@ -481,6 +481,7 @@ async function resolveLinkedArtifact(agent: DKGAgent, args: {\n       assertionUri: args.assertionUri,\n       ...(args.subGraphName ? { subGraphName: args.subGraphName } : {}),\n       allowSharedMemoryFallback: true,\n+      allowSkippedSource: args.kind === 'source',\n       query: (sparql: string) => agent.store.query(sparql) as Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>,\n     });\n   } catch (err) {\ndiff --git a/packages/cli/src/daemon/routes/knowledge-assets-import.ts b/packages/cli/src/daemon/routes/knowledge-assets-import.ts\nindex aed702815f..f21c92af31 100644\n--- a/packages/cli/src/daemon/routes/knowledge-assets-import.ts\n+++ b/packages/cli/src/daemon/routes/knowledge-assets-import.ts\n@@ -204,7 +204,7 @@ async function resolveAssertionArtifact(\n         fileHash: undefined,\n       },\n       'Import artifact bytes can only be read from imported assertions owned by the requesting agent',\n-      { allowSharedMemoryFallback: true },\n+      { allowSharedMemoryFallback: true, allowSkippedSource: kind === 'source' },\n     );\n   } catch (err) {\n     const directRemote = await resolveExplicitAuthorizedRemoteArtifact(ctx, raw, kind, requestedHash, err);\n@@ -296,7 +296,7 @@ function resolveImportedArtifactForRead(\n   ctx: RequestContext,\n   raw: Record<string, unknown>,\n   message: string,\n-  opts?: { allowSharedMemoryFallback?: boolean },\n+  opts?: { allowSharedMemoryFallback?: boolean; allowSkippedSource?: boolean },\n ): Promise<ImportedArtifactResolution> {\n   return resolveImportedArtifact(ctx, raw, importedArtifactReadOwnerGuard(ctx, message), opts);\n }\ndiff --git a/packages/cli/src/daemon/routes/shared-assertion-helpers.ts b/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\nindex 713f49cc8b..bc50b41528 100644\n--- a/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\n+++ b/packages/cli/src/daemon/routes/shared-assertion-helpers.ts\n@@ -85,7 +85,7 @@ export type ImportedArtifactResolution = {\n   sourceFileHash: string;\n   detectedContentType: string;\n   sourceContentType: string;\n-  extractionStatus: 'completed';\n+  extractionStatus: 'completed' | 'skipped';\n   extractionMethod?: string;\n   rootEntity?: string;\n   sourceFileName?: string;\n@@ -511,6 +511,7 @@ export async function resolveImportedArtifact(\n   },\n   opts?: {\n     allowSharedMemoryFallback?: boolean;\n+    allowSkippedSource?: boolean;\n   },\n ): Promise<ImportedArtifactResolution> {\n   const rawContextGraphId = typeof raw.contextGraphId === 'string' ? raw.contextGraphId.trim() : '';\n@@ -647,7 +648,7 @@ export async function resolveImportedArtifact(\n   }\n \n   const extractionRecord = getExtractionStatusRecord(ctx.extractionStatus, assertionUri);\n-  if (extractionRecord && extractionRecord.status !== 'completed') {\n+  if (extractionRecord && extractionRecord.status !== 'completed' && !(opts?.allowSkippedSource && extractionRecord.status === 'skipped')) {\n     throw new ImportArtifactRouteError(\n       409,\n       `Import artifact is not a completed extraction (status: ${extractionRecord.status})`,\n@@ -662,6 +663,7 @@ export async function resolveImportedArtifact(\n       ...(parsedAssertion.subGraphName ? { subGraphName: parsedAssertion.subGraphName } : {}),\n       ...(requestedFileHash ? { requestedFileHash } : {}),\n       allowSharedMemoryFallback: ownerGuardRelaxed || (opts?.allowSharedMemoryFallback && !parsedAssertion.legacy),\n+      allowSkippedSource: opts?.allowSkippedSource,\n       fallbackDetectedContentType: extractionRecord?.detectedContentType,\n       query: (sparql: string) => ctx.agent.store.query(sparql) as Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>,\n     });\n@@ -705,7 +707,7 @@ export async function resolveImportedArtifact(\n     sourceFileHash: metadata.sourceFileHash,\n     detectedContentType: metadata.sourceContentType,\n     sourceContentType: metadata.sourceContentType,\n-    extractionStatus: 'completed',\n+    extractionStatus: metadata.extractionStatus,\n     extractionMethod: metadata.extractionMethod || extractionRecord?.pipelineUsed || undefined,\n     rootEntity: metadata.rootEntity || extractionRecord?.rootEntity || undefined,\n     sourceFileName: metadata.sourceFileName || extractionRecord?.fileName || undefined,\ndiff --git a/packages/core/src/imported-artifact-metadata.ts b/packages/core/src/imported-artifact-metadata.ts\nindex b54bd87a99..c28d11c834 100644\n--- a/packages/core/src/imported-artifact-metadata.ts\n+++ b/packages/core/src/imported-artifact-metadata.ts\n@@ -13,7 +13,7 @@ export interface ImportedArtifactMetadata {\n   source: ImportedArtifactMetadataSource;\n   sourceFileHash: string;\n   sourceContentType: string;\n-  extractionStatus: 'completed';\n+  extractionStatus: 'completed' | 'skipped';\n   extractionMethod?: string;\n   rootEntity?: string;\n   sourceFileName?: string;\n@@ -39,6 +39,7 @@ export interface ResolveImportedArtifactMetadataParams {\n   subGraphName?: string;\n   requestedFileHash?: string;\n   allowSharedMemoryFallback?: boolean;\n+  allowSkippedSource?: boolean;\n   fallbackDetectedContentType?: string;\n   query: (sparql: string) => Promise<{ type?: string; bindings?: Array<Record<string, unknown>> }>;\n }\n@@ -145,7 +146,7 @@ async function resolveDurableImportedArtifactMetadata(\n \n   const durableExtractionStatus = normalizeLiteral(metaBinding.extractionStatus) || undefined;\n   const structuralTripleCount = optionalPositiveInteger(metaBinding.structuralTripleCount);\n-  if (durableExtractionStatus && durableExtractionStatus !== 'completed') {\n+  if (durableExtractionStatus && durableExtractionStatus !== 'completed' && !(params.allowSkippedSource && durableExtractionStatus === 'skipped')) {\n     throw new ImportedArtifactMetadataError(\n       'incomplete',\n       `Import artifact is not a completed extraction (status: ${durableExtractionStatus})`,\n@@ -173,7 +174,7 @@ async function resolveDurableImportedArtifactMetadata(\n     source: 'durable',\n     sourceFileHash,\n     sourceContentType,\n-    extractionStatus: 'completed',\n+    extractionStatus: durableExtractionStatus === 'skipped' ? 'skipped' : 'completed',\n     extractionMethod: normalizeLiteral(metaBinding.extractionMethod) || undefined,\n     rootEntity: normalizeIri(metaBinding.rootEntity) || undefined,\n     sourceFileName: normalizeLiteral(metaBinding.sourceFileName) || undefined,\ndiff --git a/packages/core/test/imported-artifact-metadata.test.ts b/packages/core/test/imported-artifact-metadata.test.ts\nindex 31d4b6ff8d..4a016cd3c9 100644\n--- a/packages/core/test/imported-artifact-metadata.test.ts\n+++ b/packages/core/test/imported-artifact-metadata.test.ts\n@@ -97,3 +97,14 @@ describe('imported artifact metadata resolver', () => {\n     });\n   });\n });\n+\n+// Neural Commons opaque source compatibility: no extraction is needed to read original bytes.\n+it('allows skipped source reads only when explicitly requested; never admits failed extraction', async () => {\n+  for (const status of ['skipped', 'failed', 'processing']) {\n+    const query = async (sparql: string) => ({bindings: sparql.includes('/_meta') ? [{fileHash: sourceHash, contentType:'application/octet-stream', extractionStatus:status}] : []});\n+    await expect(resolveImportedArtifactMetadata({contextGraphId,assertionUri,query})).rejects.toThrow();\n+    const read = resolveImportedArtifactMetadata({contextGraphId,assertionUri,query,allowSkippedSource:true});\n+    if (status === 'skipped') await expect(read).resolves.toMatchObject({extractionStatus:'skipped',sourceFileHash:sourceHash});\n+    else await expect(read).rejects.toThrow();\n+  }\n+});\n",
+  "identities": [
+    {
+      "agentAddress": "0x9CdFc1Ddc59B1598e127500D501CaE8aBB020152",
+      "agentDid": "did:dkg:agent:0x9CdFc1Ddc59B1598e127500D501CaE8aBB020152",
+      "name": "neural-commons-participant",
+      "framework": "Neural Commons",
+      "peerId": "12D3KooWDPhkeuzi4eCpQMLywTM8KKFpFJZuwHvDmxGNgFDEGVwX",
+      "nodeIdentityId": "0"
+    },
+    {
+      "agentAddress": "0xd8b4d7F5575dCBc83E05559f9ae1912aB5330a69",
+      "agentDid": "did:dkg:agent:0xd8b4d7F5575dCBc83E05559f9ae1912aB5330a69",
+      "name": "neural-commons-participant",
+      "framework": "Neural Commons",
+      "peerId": "12D3KooWBmZpMMpyCpjScu36UcM7L2bcRJZ5uAZxgsMDEGCYcy1G",
+      "nodeIdentityId": "0"
+    }
+  ],
+  "context_graph": "0x9cdfc1ddc59b1598e127500d501cae8abb020152/nc-weight-agent-7cfb7991ae522de7",
+  "parent_local": {
+    "spec": "6386cbe55d4f24e357f0c1a633883b3c72982305f59b31d2ba61edc3211ed40c",
+    "evaluation": {
+      "evaluation": {
+        "base_mse": null,
+        "candidate_mse": null,
+        "environment": "python-transformers-cpu-f32/14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+        "error": null,
+        "evaluator": "nc/causal-lm-labels/v1",
+        "observed_executable": "e68c51baf5c637f71b86652d14a323ec21346923ccaaf203280ddaaada3573e2",
+        "outputs": "c6eacf1ffaf2b7a80be98e438729e827311bfced6b9dc6e5c968bec86a0b208b",
+        "process_id": 18435,
+        "schema": "nc/evaluation/v1",
+        "scores": {
+          "base": 0.387,
+          "candidate": 0.8,
+          "metric": "guarded_accuracy/v1"
+        },
+        "spec": "6386cbe55d4f24e357f0c1a633883b3c72982305f59b31d2ba61edc3211ed40c",
+        "status": "passed"
+      },
+      "report": "c242644ba2e6243ce40bd16f135975cff0b67f5406659cea1d0c1e1031734032"
+    },
+    "base": "5c60725185f541d029c4e1fb5153bea055119657ec3a799125b21fbe6307a80d",
+    "candidate": "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+    "patch": "dd2e6bbce8af1f81528960473e924037dcaf2e2962ce1d4c41f925dab5975215",
+    "rust_reconstruction_matches": true,
+    "changed_parameters": 2268,
+    "controller": "gpt-6-astra",
+    "backend": "codex",
+    "evidence": [
+      "f79ce41e793b3e5423a420663b72f0716a9996e45211bd930f0ced084936375e",
+      "04644a3b7056ae02a75420fd7fe9df29c018822ae02987f0080e51e2cb57c3bd",
+      "1465d9df3ad946ac09dd87e16d98d400c1e5a112e2622201beeabe326c4cc1f2",
+      "0e0eb8e7bc04d974408df35b7f674c7040a1c551c5267f93c22bd397cd31cabf",
+      "14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "7b29fc893a142294973e3358e1534f9c7a6b03c09e0e358c2c57ee854637c42c",
+      "ab9288b91ef73356f3f2997663f262b6f4f9d13f1de86a22a7a3a6c333c4263c"
+    ]
+  },
+  "b_started_without_artifacts": true,
+  "parent_proposal": {
+    "receipt": {
+      "alreadyExists": false,
+      "assertionUri": "did:dkg:context-graph:0x9cdfc1ddc59b1598e127500d501cae8abb020152/nc-weight-agent-7cfb7991ae522de7/_working_memory/0x9cdfc1ddc59b1598e127500d501cae8abb020152/124",
+      "assertionVersion": "1",
+      "authorAddress": "0x9CdFc1Ddc59B1598e127500D501CaE8aBB020152",
+      "kaUal": "did:dkg:hardhat:31337/0x9cdfc1ddc59b1598e127500d501cae8abb020152/124",
+      "merkleRoot": "0x3f4d0a8aaa09169d1ddb61eff710e39a56c58a6a7be40953f7aa18f5a095e581",
+      "name": "nc-55a42cad792f332b7aa749774631c22e7b34c13a32f5c8638e60138d21ee5a7c",
+      "promotedCount": 6,
+      "publishReady": true,
+      "sealed": true,
+      "shareOperationId": "mw0ssqgy-eqmem0",
+      "status": "swm-shared",
+      "swmShared": true,
+      "written": 6
+    },
+    "record": "55a42cad792f332b7aa749774631c22e7b34c13a32f5c8638e60138d21ee5a7c",
+    "related_records": [
+      {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0x9cdfc1ddc59b1598e127500d501cae8abb020152/nc-weight-agent-7cfb7991ae522de7/_working_memory/0x9cdfc1ddc59b1598e127500d501cae8abb020152/115",
+          "assertionVersion": "1",
+          "authorAddress": "0x9CdFc1Ddc59B1598e127500D501CaE8aBB020152",
+          "kaUal": "did:dkg:hardhat:31337/0x9cdfc1ddc59b1598e127500d501cae8abb020152/115",
+          "merkleRoot": "0x6ef7490c8198a1e73ce248e363acce21a499da229f388a382e282782e17c2953",
+          "name": "nc-e63ee0dc472a4aedfcf84bd9026da8be0207e3ac967ad6de3bf729c238263d1d",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0sskyj-492byd",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "e63ee0dc472a4aedfcf84bd9026da8be0207e3ac967ad6de3bf729c238263d1d",
+        "state": "shared"
+      },
+      {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0x9cdfc1ddc59b1598e127500d501cae8abb020152/nc-weight-agent-7cfb7991ae522de7/_working_memory/0x9cdfc1ddc59b1598e127500d501cae8abb020152/119",
+          "assertionVersion": "1",
+          "authorAddress": "0x9CdFc1Ddc59B1598e127500D501CaE8aBB020152",
+          "kaUal": "did:dkg:hardhat:31337/0x9cdfc1ddc59b1598e127500d501cae8abb020152/119",
+          "merkleRoot": "0xb1d644423903114d4ee5482d63ccd8c38cd3e2ffa51266685fe8e79f68a30089",
+          "name": "nc-dfe3e025810e157f80bea93d9213b1c6d2a04e67d2dd142f796eb95a6a93c4d1",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0ssmoe-l0gcdj",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "dfe3e025810e157f80bea93d9213b1c6d2a04e67d2dd142f796eb95a6a93c4d1",
+        "state": "shared"
+      },
+      {
+        "receipt": {
+          "alreadyExists": false,
+          "assertionUri": "did:dkg:context-graph:0x9cdfc1ddc59b1598e127500d501cae8abb020152/nc-weight-agent-7cfb7991ae522de7/_working_memory/0x9cdfc1ddc59b1598e127500d501cae8abb020152/123",
+          "assertionVersion": "1",
+          "authorAddress": "0x9CdFc1Ddc59B1598e127500D501CaE8aBB020152",
+          "kaUal": "did:dkg:hardhat:31337/0x9cdfc1ddc59b1598e127500d501cae8abb020152/123",
+          "merkleRoot": "0xa5241b902fe06d6ee3fdaeb33a99855ec1052381f61ec9300a2d39b6d49c1056",
+          "name": "nc-270a93311d64a046c837832acaa14ae334f218b54a5c37531862db4a0dd7377b",
+          "promotedCount": 6,
+          "publishReady": true,
+          "sealed": true,
+          "shareOperationId": "mw0ssoio-axe6ye",
+          "status": "swm-shared",
+          "swmShared": true,
+          "written": 6
+        },
+        "record": "270a93311d64a046c837832acaa14ae334f218b54a5c37531862db4a0dd7377b",
+        "state": "shared"
+      }
+    ],
+    "state": "shared"
+  },
+  "parent_remote": {
+    "evaluation": {
+      "base_mse": null,
+      "candidate_mse": null,
+      "environment": "python-transformers-cpu-f32/14639ecad6df03e8ba7c9da2b8cebf7d353534a572e2e8443467237cc9ec58ea",
+      "error": null,
+      "evaluator": "nc/causal-lm-labels/v1",
+      "observed_executable": "e68c51baf5c637f71b86652d14a323ec21346923ccaaf203280ddaaada3573e2",
+      "outputs": "c6eacf1ffaf2b7a80be98e438729e827311bfced6b9dc6e5c968bec86a0b208b",
+      "process_id": 19086,
+      "schema": "nc/evaluation/v1",
+      "scores": {
+        "base": 0.387,
+        "candidate": 0.8,
+        "metric": "guarded_accuracy/v1"
+      },
+      "spec": "6386cbe55d4f24e357f0c1a633883b3c72982305f59b31d2ba61edc3211ed40c",
+      "status": "passed"
+    },
+    "publication": {
+      "receipt": {
+        "alreadyExists": false,
+        "assertionUri": "did:dkg:context-graph:0x9cdfc1ddc59b1598e127500d501cae8abb020152/nc-weight-agent-7cfb7991ae522de7/_working_memory/0xd8b4d7f5575dcbc83e05559f9ae1912ab5330a69/121",
+        "assertionVersion": "1",
+        "authorAddress": "0xd8b4d7F5575dCBc83E05559f9ae1912aB5330a69",
+        "kaUal": "did:dkg:hardhat:31337/0xd8b4d7f5575dcbc83e05559f9ae1912ab5330a69/121",
+        "merkleRoot": "0xef2e84de47317b4e62da169cd6b1185c1c8725279680f5482622e37c3beaa137",
+        "name": "nc-c95d1a728a243f7c558083265db6df88be42cc3a17e2d96e6de714915773fbdb",
+        "promotedCount": 6,
+        "publishReady": true,
+        "sealed": true,
+        "shareOperationId": "mw0svxi6-6jh4b8",
+        "status": "swm-shared",
+        "swmShared": true,
+        "written": 6
+      },
+      "record": "c95d1a728a243f7c558083265db6df88be42cc3a17e2d96e6de714915773fbdb",
+      "state": "shared"
+    },
+    "report": "44fd38824dcd1f2df027a0fdc6dc6ce54e6da72455f3ce56523f30aec6a237d9",
+    "review": {
+      "receipt": {
+        "alreadyExists": false,
+        "assertionUri": "did:dkg:context-graph:0x9cdfc1ddc59b1598e127500d501cae8abb020152/nc-weight-agent-7cfb7991ae522de7/_working_memory/0xd8b4d7f5575dcbc83e05559f9ae1912ab5330a69/125",
+        "assertionVersion": "1",
+        "authorAddress": "0xd8b4d7F5575dCBc83E05559f9ae1912aB5330a69",
+        "kaUal": "did:dkg:hardhat:31337/0xd8b4d7f5575dcbc83e05559f9ae1912ab5330a69/125",
+        "merkleRoot": "0x864ed5f0ec545a57c009b4403c23d74a22f8d500c3565f4fa76eb842c70f257e",
+        "name": "nc-79350806a01bfecc6c8aae106908e4656ed7e42e15111aac810aaa14e49b54fa",
+        "promotedCount": 6,
+        "publishReady": true,
+        "sealed": true,
+        "shareOperationId": "mw0svz3s-wdu4ow",
+        "status": "swm-shared",
+        "swmShared": true,
+        "written": 6
+      },
+      "record": "79350806a01bfecc6c8aae106908e4656ed7e42e15111aac810aaa14e49b54fa",
+      "state": "shared"
+    }
+  },
+  "handoff_sha256": "753bc7bbdf1ebea2346500a22080d48cc1ae1670f59db0b8d03598d3dc13e255",
+  "inherited_checkpoint": "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+  "error": "Command '['/Library/Developer/CommandLineTools/usr/bin/python3', '/Users/otlegend/projects/neural-commons/scripts/run_weight_search.py', '--directory', '/Users/otlegend/projects/neural-commons/.runtime/agnews-chain-1/continuation', '--output', '/Users/otlegend/projects/neural-commons/.runtime/agnews-chain-1/search', '--backend', 'codex', '--controller-model', 'gpt-6.1-sol', '--max-probes', '20', '--min-probes', '12', '--max-rounds', '32']' returned non-zero exit status 1.",
+  "services_stopped": true
+}

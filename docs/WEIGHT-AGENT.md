@@ -9,6 +9,11 @@ another DKG participant independently repeats that evaluation.
 This is the missing central experiment from the original concept. The earlier
 Iris run used ordinary gradient training and did not implement this controller.
 
+For agents building on each other's work, see [sequential continuation](CONTINUATION-WORKFLOW.md).
+An inherited run exposes the prior diff through `inspect_diff`, starts every
+candidate from the previous accepted checkpoint, and binds the parent proposal,
+checkpoint and exact diff into its commitment and DKG evidence.
+
 The latest [guarded AG News result](AGNEWS-RESULTS.md) improved held-out task
 accuracy from **38.7% to 80.0%** by editing **2,268 BF16 weights**, preserving the
 mandatory sentiment guard. See [its workflow](AGNEWS-WORKFLOW.md) for a development /

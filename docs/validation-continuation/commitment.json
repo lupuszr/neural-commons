@@ -1,0 +1,64 @@
+{
+  "schema": "nc/agent-commitment/v1",
+  "target_sha256": "ffafae608659c85d5182743e8f60358eb7e8c96b10e92364c691c76c20b94a4f",
+  "config_sha256": "0e79a399c5823c65f0608e898015566e2f51d0bf36df6295e7a016695d9c31cf",
+  "development_sha256": "6b51203df7236abfc71af4499dc087dd4a1c449ef8e49fcc9d1495815b19ec80",
+  "heldout_sha256": "1e364bfffd88d05a0d8afb4f400f03136c9aa0872e217b821aec65d13cc29f42",
+  "policy_sha256": "7fe4f7393faad874b2ef65ce1ea3481fc48ccafae189afa274a01960f08fe14a",
+  "backend": "codex",
+  "controller": "gpt-6.1-sol",
+  "max_rounds": 32,
+  "max_probes": 20,
+  "max_edit_elements": 2000000,
+  "device": "cpu",
+  "model_source": {
+    "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+    "model_sha256": "ffafae608659c85d5182743e8f60358eb7e8c96b10e92364c691c76c20b94a4f",
+    "license": "Apache-2.0 (model)",
+    "dataset": "fancyzhx/ag_news",
+    "dataset_revision": "eb185aade064a813bc0b7f42de02595523103ca4",
+    "dataset_url": "https://huggingface.co/datasets/fancyzhx/ag_news",
+    "dataset_file_sha256": {
+      "train": "fc508d6d9868594e3da960a8cfeb63ab5a4746598b93428c224397080c1f52ee",
+      "test": "71de87ec66bc5737752a2502204dfa6d7fe9856ade3ea444dc6317789a4f13fb"
+    },
+    "split_seeds": [
+      20261108,
+      20261109,
+      20261110
+    ],
+    "development_samples": 256,
+    "selection_samples": 512,
+    "heldout_samples": 1000,
+    "guard_samples": 56,
+    "split_method": "Exclude all exact texts from the prior experiment. Fixed per-class shuffle; prompt <=220 tokens. First 64/class train development, next 128/class selection; first 250/class remaining test final. Global exact-text deduplication; no model scores used.",
+    "limitations": "Forced-choice classification on a fixed length-filtered test subset; no claim of general generation improvement. Public benchmark pretraining contamination cannot be excluded. Guard is previously exposed and is not an independent benchmark.",
+    "parent_proposal": "55a42cad792f332b7aa749774631c22e7b34c13a32f5c8638e60138d21ee5a7c",
+    "parent_checkpoint": "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+    "excluded_dataset_sha256": {
+      "development": "0e0eb8e7bc04d974408df35b7f674c7040a1c551c5267f93c22bd397cd31cabf",
+      "selection": "7b29fc893a142294973e3358e1534f9c7a6b03c09e0e358c2c57ee854637c42c",
+      "heldout": "57f6f2ad9aacc2180570a68084cf57ed14d2c600cf8cf104a8420e76dd3be3aa"
+    }
+  },
+  "min_probes": 12,
+  "guard_sha256": "73e29d80b881e70bb8f719bf87750486b2074a86511e85e5e71941297f906739",
+  "guard_config_sha256": "5a4dc8a7539d0a606b1ee3468dece8088e7e7464eb40c533b3673d1dcbab4111",
+  "selection_sha256": "ea59fe74d5355d3e069c65d9aefdce1bb47bc752bfe44e5cc493682a5cb31c5c",
+  "inference_file_sha256": {
+    "tokenizer_config.json": "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df",
+    "special_tokens_map.json": "2b7379f3ae813529281a5c602bc5a11c1d4e0a99107aaa597fe936c1e813ca52",
+    "config.json": "8eb740e8bbe4cff95ea7b4588d17a2432deb16e8075bc5828ff7ba9be94d982a",
+    "tokenizer.json": "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c"
+  },
+  "implementation_sha256": {
+    "scripts/weight_agent.py": "ac891708cbe424a2a285b46e5698ac1eed03c3e984e69bd82d03b4ecd47afe7e",
+    "evaluators/llm_runtime.py": "336dd9baf2780ec8193d05dedb5168e5d7524b2e047942154715c99a7a69030b",
+    "scripts/weight_handoff.py": "cf9a3373b6cff429909034ddd19920a4dccfa3626f93dc55a985c6c680ba2f25"
+  },
+  "handoff_sha256": "753bc7bbdf1ebea2346500a22080d48cc1ae1670f59db0b8d03598d3dc13e255",
+  "parent_diff_sha256": "2f2e0208e75446df60a815f9ddbd69ead62e170b36f461500c32a83a8e9cc82b",
+  "parent_checkpoint": "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+  "parent_proposal": "55a42cad792f332b7aa749774631c22e7b34c13a32f5c8638e60138d21ee5a7c"
+}

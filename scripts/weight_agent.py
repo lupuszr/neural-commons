@@ -43,7 +43,7 @@ ACTION_SCHEMA = {
     "type": "object", "additionalProperties": False,
     "properties": {"actions": {"type": "array", "minItems": 1, "maxItems": 4,
         "items": {"type": "object", "additionalProperties": False,
-            "properties": {"tool": {"type": "string", "enum": ["inspect", "tokenize", "contrast", "experiment", "finish"]},
+            "properties": {"tool": {"type": "string", "enum": ["inspect", "inspect_diff", "tokenize", "contrast", "experiment", "finish"]},
                            "arguments": {"type": "string", "description": "JSON encoded tool arguments"}},
             "required": ["tool", "arguments"]}}}, "required": ["actions"],
 }
@@ -63,6 +63,12 @@ editing, and explain a causal hypothesis for each experiment.
 Tools (arguments is a JSON-encoded object):
 inspect: {"tensor":name,"start":integer,"count":integer}. Returns a flat slice
 of at most 256 original values, shape, dtype, mean, standard deviation and norm.
+inspect_diff: {"tensor":name,"start":integer,"count":integer}. When an inherited
+experiment is supplied, reads exact changed indices and before/after/delta values
+from the previous controller's patch (at most 256 element positions). The current
+BASE is already that controller's improved checkpoint. Inspect its diff before
+proposing a further edit. Previous operations describe how BASE was created; do not
+blindly apply them again. Your new edits are relative to BASE, not its ancestor.
 tokenize: {"text":string}. Returns token IDs to identify embedding/output rows.
 contrast: {"positive_label":integer,"negative_label":integer}. Returns a named
 source vector: the unit-normalized difference of BASE final-hidden-state means
@@ -89,12 +95,75 @@ candidate is frozen before a separate evaluator sees any held-out examples.
 """
 
 
+class ControllerUnavailable(RuntimeError):
+    pass
+
+
+def controller_history(history):
+    """Keep full observations in the audit log, bound repeated old observations.
+
+    Baseline and the two newest probes retain every development prediction.
+    Older probes retain metrics, hypotheses/operations, a confusion matrix and
+    eight high-loss errors. No selection or final-test input is introduced.
+    """
+    import copy
+    result = copy.deepcopy(history)
+    probes = [e for e in result if e.get('action', {}).get('tool') == 'experiment'
+              and 'predictions' in e.get('result', {})]
+    for entry in probes[:-2]:
+        rows = entry['result'].pop('predictions')
+        confusion = {}
+        for row in rows:
+            key = str(row['label']) + '->' + str(row['prediction'])
+            confusion[key] = confusion.get(key, 0) + 1
+        entry['result']['confusion'] = confusion
+        entry['result']['highest_loss_errors'] = sorted(
+            (r for r in rows if r['label'] != r['prediction']), key=lambda r: -r['nll'])[:8]
+        entry['result']['older_prediction_detail'] = 'summarized; complete result retained in transcript'
+    return result
+
+
+def restore_transcript(rows, commitment):
+    """Restore a completed action boundary without resetting attempts or context."""
+    original = rows[0]['commitment']
+    if {k:v for k,v in original.items() if k != 'implementation_sha256'} != {
+            k:v for k,v in commitment.items() if k != 'implementation_sha256'}:
+        raise ValueError('resume commitment mismatch: inputs, model and budgets must remain fixed')
+    history = [{'initial':rows[0]['initial']}]
+    candidates, inspected, features = [], set(), {}
+    probes, selected, diff_inspected, last_round = 0, None, False, -1
+    pending = []
+    for row in rows[1:]:
+        if 'round' in row:
+            if pending:
+                raise ValueError('unfinished action batch before next controller round')
+            last_round = row['round'];pending = list(row['decision']['actions'])
+        elif 'action' in row:
+            if not pending or row['action'] != pending.pop(0):
+                raise ValueError('transcript action does not match recorded decision')
+            history.append(row)
+            tool, kw, value = row['action']['tool'], json.loads(row['action']['arguments']), row['result']
+            if tool == 'experiment' and probes < commitment['max_probes']:
+                probes += 1
+            if 'error' in value:
+                continue
+            if tool == 'inspect':inspected.add(kw['tensor'])
+            elif tool == 'inspect_diff':diff_inspected |= bool(value['changes'])
+            elif tool == 'contrast':features[value['source_tensor']] = torch.tensor(value['values'],dtype=torch.float32)
+            elif tool == 'experiment':
+                if value['candidate'] != len(candidates):raise ValueError('candidate ID sequence changed')
+                candidates.append({'id':value['candidate'],'hypothesis':kw['hypothesis'],
+                                   'operations':kw['operations'],'development':value})
+            elif tool == 'finish':selected=value['frozen_candidate'];pending=[]
+    return original, history, candidates, inspected, features, probes, selected, diff_inspected, last_round, pending
+
+
 class Controller:
     def __init__(self, backend, model, timeout=180):
         self.backend, self.model, self.timeout = backend, model, timeout
 
     def next(self, history):
-        prompt = INSTRUCTIONS + "\n\nExperiment history:\n" + json.dumps(history, allow_nan=False)
+        prompt = INSTRUCTIONS + "\n\nExperiment history:\n" + json.dumps(controller_history(history), allow_nan=False)
         if self.backend == "codex":
             with tempfile.TemporaryDirectory(prefix="nc-controller-") as d:
                 directory = pathlib.Path(d)
@@ -115,8 +184,11 @@ class Controller:
                 result = subprocess.run(command, input=prompt, capture_output=True, text=True,
                                         timeout=self.timeout, env=env)
                 if result.returncode or not output.is_file():
-                    raise RuntimeError(f"Codex controller failed ({result.returncode}); "
-                                       "check codex login status and configured model access")
+                    # Classify without echoing provider text or credential fragments.
+                    diagnostic = (result.stdout + result.stderr).lower()
+                    markers = [s for s in ['context', 'rate limit', 'usage limit', 'quota',
+                                           'unauthorized', 'timeout', 'reconnecting', 'network'] if s in diagnostic]
+                    raise ControllerUnavailable(f"Codex controller failed ({result.returncode}); diagnostic categories: {markers}")
                 events = [json.loads(line) for line in result.stdout.splitlines() if line.startswith("{")]
                 for event in events:
                     item = event.get("item", {})
@@ -219,7 +291,11 @@ def save_candidate(base_file, output, edits):
 
 
 def run(args):
-    args.output.mkdir(parents=True, exist_ok=False)
+    if args.resume:
+        if (args.output / 'session.json').exists():
+            raise ValueError('a finalized session cannot be resumed')
+    else:
+        args.output.mkdir(parents=True, exist_ok=False)
     config = json.loads(args.config.read_text())
     development = json.loads(args.development.read_text())
     # Only a precomputed hash of the held-out data enters this process.
@@ -239,12 +315,28 @@ def run(args):
     commitment["inference_file_sha256"] = {p.name: sha(p) for p in args.model.glob("*.json")}
     commitment["implementation_sha256"] = {name: sha(ROOT / name) for name in
         ["scripts/weight_agent.py", "evaluators/llm_runtime.py"]}
-    write(args.output / "commitment.json", commitment)
+    handoff, parent_diff = None, None
+    if args.handoff:
+        from weight_handoff import load
+        handoff, parent_diff = load(args.handoff.parent, commitment["target_sha256"])
+        commitment["handoff_sha256"] = sha(args.handoff)
+        commitment["parent_diff_sha256"] = sha(args.handoff.parent / "parent-diff.json")
+        commitment["parent_checkpoint"] = handoff["candidate_checkpoint"]
+        commitment["parent_proposal"] = handoff["proposal"]
+        commitment["implementation_sha256"]["scripts/weight_handoff.py"] = sha(ROOT / "scripts/weight_handoff.py")
+    restored = None
+    if args.resume:
+        rows = [json.loads(line) for line in (args.output / 'transcript.jsonl').read_text().splitlines()]
+        restored = restore_transcript(rows, commitment)
+        if json.loads((args.output / 'commitment.json').read_text()) != restored[0]:
+            raise ValueError('stored commitment differs from the original transcript')
+    else:
+        write(args.output / "commitment.json", commitment)
     model, tokenizer = load_model(args.model, device="cpu")
     original = load_file(args.model / "model.safetensors")
     # Text is available to the controller only for the development split.
     development_config = {**config, "output_text": True}
-    baseline = score(model, tokenizer, development, development_config)
+    baseline = restored[1][0]['initial']['baseline'] if restored else score(model, tokenizer, development, development_config)
     inventory = {name: {"shape": list(t.shape), "dtype": str(t.dtype)} for name, t in original.items()}
     history = [{"initial": {"task": config, "model_config": json.loads((args.model / "config.json").read_text()),
                             "inventory": inventory, "baseline": baseline,
@@ -252,15 +344,41 @@ def run(args):
                                         "minimum_attempts_before_finish": args.min_probes,
                                         "edit_elements_per_candidate": args.max_edit_elements}}}]
     candidates, inspected, probes, selected, features = [], set(), 0, None, {}
+    if handoff:
+        history[0]["initial"]["inherited_experiment"] = {k:v for k,v in handoff.items()
+            if k not in ["evidence_ids", "inference_artifacts"]}
+    diff_inspected = False
     controller = Controller(args.backend, args.controller_model, args.controller_timeout)
     def log(event):
         with open(args.output / "transcript.jsonl", "a") as f:
             f.write(json.dumps(event, allow_nan=False) + "\n")
-    log({"commitment": commitment, **history[0]})
-    for round_number in range(args.max_rounds):
-        decision, metadata = controller.next(history)
-        log({"round": round_number, "controller": metadata, "decision": decision})
-        actions = decision.get("actions")
+    start_round, pending = 0, []
+    if restored:
+        resume_evidence = {'transcript_prefix_sha256':sha(args.output / 'transcript.jsonl'),
+                           'implementation_sha256':commitment['implementation_sha256'],
+                           'context_policy':'baseline-and-two-latest-full/v1'}
+        commitment, history, candidates, inspected, features, probes, selected, diff_inspected, last_round, pending = restored
+        log({'resume':resume_evidence})
+        start_round = last_round if pending else last_round + 1
+        print(f'Resuming after {probes} attempts with unchanged inputs and budgets', flush=True)
+    else:
+        log({"commitment": commitment, **history[0], 'context_policy':'baseline-and-two-latest-full/v1'})
+    for round_number in range(start_round, args.max_rounds):
+        if selected is not None:break
+        if pending:
+            actions, pending = pending, []
+        else:
+            for attempt in range(3):
+                try:
+                    decision, metadata = controller.next(history)
+                    break
+                except (ControllerUnavailable, subprocess.TimeoutExpired) as error:
+                    log({'controller_interruption':{'round_number':round_number,'attempt':attempt + 1,
+                                                   'kind':type(error).__name__}})
+                    if attempt == 2:raise
+                    time.sleep(2 * (attempt + 1))
+            log({"round": round_number, "controller": metadata, "decision": decision})
+            actions = decision.get("actions")
         if not isinstance(actions, list) or not 1 <= len(actions) <= 4:
             raise ValueError("controller action budget exceeded")
         for action in actions:
@@ -279,6 +397,12 @@ def run(args):
                     if not isinstance(kw["text"], str) or len(kw["text"]) > 4096:
                         raise ValueError("text budget exceeded")
                     result = {"ids": tokenizer.encode(kw["text"], add_special_tokens=False)}
+                elif tool == "inspect_diff":
+                    from weight_handoff import inspect_diff
+                    if parent_diff is None:
+                        raise ValueError("no inherited experiment")
+                    result = inspect_diff(parent_diff, kw["tensor"], kw["start"], kw["count"])
+                    diff_inspected = diff_inspected or bool(result["changes"])
                 elif tool == "contrast":
                     positive, negative = kw["positive_label"], kw["negative_label"]
                     if type(positive) is not int or type(negative) is not int:
@@ -296,6 +420,8 @@ def run(args):
                     if probes >= args.max_probes:
                         raise ValueError("probe budget exhausted; select a candidate")
                     probes += 1
+                    if handoff and not diff_inspected:
+                        raise ValueError("inspect actual parent diff values before editing its checkpoint")
                     if not kw["hypothesis"] or len(kw["hypothesis"]) > 8000:
                         raise ValueError("hypothesis required")
                     if not all(op["tensor"] in inspected for op in kw["operations"]):
@@ -358,6 +484,8 @@ if __name__ == "__main__":
     parser.add_argument("--heldout-sha256", required=True)
     parser.add_argument("--policy-sha256", required=True)
     parser.add_argument("--selection-sha256")
+    parser.add_argument("--handoff", type=pathlib.Path)
+    parser.add_argument("--resume", action="store_true")
     parser.add_argument("--max-rounds", type=int, default=16)
     parser.add_argument("--max-probes", type=int, default=8)
     parser.add_argument("--min-probes", type=int, default=0)
