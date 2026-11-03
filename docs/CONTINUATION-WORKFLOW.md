@@ -1,5 +1,17 @@
 # Let a second controller improve the first controller's checkpoint
 
+New preparations use a **0.2 percentage-point** minimum accuracy gain for both
+selection and final acceptance. The recorded run originally used 1 point; its
+[separate policy reassessment](continuation-policy-reassessment.json) preserves
+that history and accepts the existing candidate under the revised threshold.
+Reproduce this local reassessment without rerunning inference:
+
+```sh
+python3 scripts/reassess_continuation_policy.py \
+  --evidence docs/validation-continuation \
+  --output .runtime/continuation-policy-reassessment.json
+```
+
 A continuation inherits the previous candidate as its exact base. The next
 controller receives the earlier hypothesis, operations and aggregate results, plus
 an `inspect_diff` tool exposing actual tensor indices and before/after/delta values.

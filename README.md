@@ -25,8 +25,9 @@ uses the parent's exact checkpoint ID as its base, with fresh evaluation splits
 and hash-bound ancestry evidence.
 The [recorded second-controller run](docs/CONTINUATION-RESULTS.md) completed that
 handoff and reproduced the exact ancestry through DKG. Its additional accuracy
-gain was below the precommitted acceptance threshold; the candidate remains a
-recorded, rejected continuation rather than an automatically promoted version.
+gain passes the current **0.2 percentage-point** acceptance threshold. This
+threshold was revised at the user's request after measurement; the original
+1-point rejection and a separate policy reassessment are both preserved.
 
 Requires Rust 1.93, Python 3.9+, Node 24, pnpm 10 and native build tools (Xcode Command Line Tools on macOS or a C/C++ toolchain on Linux).
 

@@ -1,0 +1,37 @@
+{
+  "schema": "nc/policy-reassessment/v1",
+  "reason": "User requested 0.2 percentage points after seeing the recorded result.",
+  "scope": "Local policy reassessment of existing DKG-reproduced measurements; no new inference, DKG publication or statistical significance claim.",
+  "original_spec": "4be9cf0302e26fe8fd9f8d8041bfbd7c8aece01f53141e1b756995af665282c3",
+  "original_report": "6c98b7a36aac233025068fc2e256208dee3f7b84b7e5d0d1e012449d1c309e76",
+  "original_status": "failed",
+  "original_policy": {
+    "schema": "nc/metric-policy/v1",
+    "metric": "guarded_accuracy/v1",
+    "direction": "maximize",
+    "threshold": 0.7,
+    "min_improvement": 0.01,
+    "tolerance": 1e-08
+  },
+  "source_sha256": {
+    "policy.json": "7fe4f7393faad874b2ef65ce1ea3481fc48ccafae189afa274a01960f08fe14a",
+    "spec.json": "4be9cf0302e26fe8fd9f8d8041bfbd7c8aece01f53141e1b756995af665282c3",
+    "result.json": "c9f4fe9ef5b1eb27060911e9aaaf4f07f18244a2263ba04d3a64aea325acc815",
+    "heldout-output.json": "410d8f8d55d13226feb312f715a3b87fee3ca09976be9c1de52737b293d11c44"
+  },
+  "base_checkpoint": "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+  "candidate_checkpoint": "9ad722b009f00aef8cc26f517b49dbfef64fbc3cb87868117726fa3c54a91fbb",
+  "revised_policy": {
+    "schema": "nc/metric-policy/v1",
+    "metric": "guarded_accuracy/v1",
+    "direction": "maximize",
+    "threshold": 0.7,
+    "min_improvement": 0.002,
+    "tolerance": 1e-08
+  },
+  "base": 0.842,
+  "candidate": 0.845,
+  "improvement": 0.0030000000000000027,
+  "guard_passed": true,
+  "status": "passed"
+}

@@ -1,5 +1,11 @@
 # Sequential improvement across controllers
 
+Policy revision after the recorded run: at the user's request, the current
+selection and final minimum accuracy improvement is **0.2 percentage points**
+(`0.002` on the 0–1 accuracy scale). Other constraints remain unchanged.
+The text below preserves the original pre-search plan; the recorded candidate
+passes the revised policy as documented in CONTINUATION-RESULTS.md.
+
 Preserve the recorded AG News checkpoint (M1) and its original base (M0). A second
 controller must start from M1, inspect the exact M0-to-M1 numerical diff and prior
 hypothesis/results, then propose M1-to-M2 edits. It must not restart from M0 or

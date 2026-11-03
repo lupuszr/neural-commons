@@ -5,7 +5,11 @@ first controller's improved SmolLM2 checkpoint and inspected its exact numerical
 diff. The earlier controller was GPT-6 Astra. The new search started from the
 inherited checkpoint, not the original pretrained model.
 
-The additional-improvement policy **failed**. The second selected patch changed
+The candidate **passes the current 0.2 percentage-point policy**. The user
+requested this threshold after seeing the result; a separate
+[policy reassessment](continuation-policy-reassessment.json) applies it to the
+existing DKG-reproduced measurements. The original 1-point policy failed and
+its evidence remains unchanged. The second selected patch changed
 **1,152 BF16 values** relative to the inherited checkpoint.
 No gradients or optimizer were used. The second patch overlaps rows changed by
 the first patch, so per-patch changed-value counts must not be added as unique weights.
@@ -25,9 +29,12 @@ exact two-sided McNemar p=0.755229. This measures this
 fixed task subset, not broad capabilities or robustness to pretraining exposure.
 
 The precommitted final gate required at least **+1 percentage point** over M1.
-M2 did not pass and was not promoted. Label NLL decreased by 0.023440
+M2 did not pass that original gate. It is now accepted under the revised
+0.2-point policy. This is a local policy decision on existing measurements,
+not a new inference run or DKG publication. Label NLL decreased by 0.023440
 (approximate paired 95% interval: 0.008585 to 0.038294); this does not override
-the accuracy gate.
+the original accuracy gate. Acceptance under the revised policy does not imply
+statistical significance; the paired uncertainty above is unchanged.
 
 The known 56-example sentiment guard passed:
 accuracy 55/56 (98.2%) before and 55/56 (98.2%) after;

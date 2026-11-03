@@ -50,9 +50,10 @@ def prepare(home, proposal, evaluation, previous, directory):
         random.Random(20261110).shuffle(rows)
         write(directory / (name + '.json'), {'schema':'nc/text-classification/v1','split':name,'samples':rows})
     config['agent_objective'] += ' This is a continuation: beat the inherited model, not its original ancestor. Read the previous agent numerical diff and hypothesis, diagnose the inherited model on your new development examples, and choose additional edits. All operations start from the inherited checkpoint. Do not blindly reapply the previous patch.'
+    config['selection_policy']['min_accuracy_improvement'] = 0.002
     write(directory / 'config.json', config)
     policy = json.loads((previous / 'policy.json').read_text())
-    policy['min_improvement'] = 0.01
+    policy['min_improvement'] = 0.002
     write(directory / 'policy.json', policy)
     for name in ['guard.json','guard-config.json']:
         shutil.copyfile(previous / name, directory / name)
