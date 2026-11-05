@@ -28,6 +28,17 @@ pub struct Identity {
     #[serde(rename = "peerId")]
     pub peer_id: String,
 }
+#[derive(Debug, Serialize)]
+pub struct SharedProposal {
+    pub id: ContentId,
+    pub record: Record,
+}
+#[derive(Debug, Serialize)]
+pub struct SharedProposals {
+    pub records: Vec<SharedProposal>,
+    pub offset: usize,
+    pub next_offset: Option<usize>,
+}
 pub struct DkgClient {
     client: Client,
     base: Url,
@@ -122,6 +133,32 @@ impl DkgClient {
                 .send()?,
         )?)?)
     }
+    /// Native DKG invite: graph ID followed by the curator's libp2p peer ID.
+    /// Checking the curator-only route prevents emitting a member's peer ID as curator.
+    pub fn context_graph_invite(&self) -> Result<String> {
+        self.check_graph_access()?;
+        let mut url = self.base.clone();
+        url.path_segments_mut()
+            .map_err(|_| anyhow::anyhow!("invalid DKG origin"))?
+            .extend(["api", "context-graph", &self.graph, "join-requests"]);
+        let requests = response(self.client.get(url).bearer_auth(&self.token).send()?)?;
+        ensure!(
+            requests["contextGraphId"] == self.graph && requests["requests"].is_array(),
+            "DKG curator response does not match the configured context graph"
+        );
+        let identity = self.identity()?;
+        let peer = &identity.peer_id;
+        let base58 = peer
+            .bytes()
+            .all(|b| b"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".contains(&b));
+        ensure!(
+            base58
+                && ((peer.starts_with("12D3Koo") && (52..=60).contains(&peer.len()))
+                    || (peer.starts_with("Qm") && peer.len() == 46)),
+            "DKG returned an invalid curator peer ID"
+        );
+        Ok(format!("{}\n{}", self.graph, peer))
+    }
     pub fn share(&self, record: &Record) -> Result<Value> {
         validate_record(record)?;
         ensure!(
@@ -195,6 +232,21 @@ impl DkgClient {
         verify_placement(&self.graph, &record.author, graph)?;
         Ok(Some(record))
     }
+    pub fn shared_proposals(&self, offset: usize) -> Result<SharedProposals> {
+        ensure!(offset <= 100_000, "discovery offset exceeds limit");
+        self.check_graph_access()?;
+        let query = format!(
+            "SELECT ?g ?subject ?record WHERE {{ GRAPH ?g {{ ?subject <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <{NS}PatchProposal> ; <{NS}record> ?record }} }} ORDER BY ?subject ?g LIMIT 21 OFFSET {offset}"
+        );
+        let result = self.post(
+            "api/query",
+            &json!({"contextGraphId":self.graph,"graphSuffix":"_shared_memory","sparql":query}),
+        )?;
+        // Query APIs can represent denied access as an empty result. Do not
+        // turn a revoked or unavailable graph into an empty catalogue.
+        self.check_graph_access()?;
+        proposal_page(&self.graph, offset, &result)
+    }
     pub fn check_graph_access(&self) -> Result<()> {
         let mut url = self.base.clone();
         url.path_segments_mut()
@@ -203,6 +255,57 @@ impl DkgClient {
         response(self.client.get(url).bearer_auth(&self.token).send()?)?;
         Ok(())
     }
+}
+fn proposal_page(graph: &str, offset: usize, result: &Value) -> Result<SharedProposals> {
+    let rows = result
+        .pointer("/result/bindings")
+        .and_then(Value::as_array)
+        .context("unexpected DKG bindings envelope")?;
+    ensure!(rows.len() <= 21, "DKG discovery page exceeds limit");
+    let mut records = Vec::new();
+    let mut seen = std::collections::BTreeSet::new();
+    for row in rows.iter().take(20) {
+        let subject = row["subject"]
+            .as_str()
+            .context("missing proposal subject")?;
+        let id = ContentId::try_from(
+            subject
+                .strip_prefix(NS)
+                .context("invalid proposal subject")?
+                .to_owned(),
+        )?;
+        let literal = row["record"].as_str().context("missing proposal record")?;
+        let raw = if literal.starts_with('"') {
+            serde_json::from_str::<String>(literal)?
+        } else {
+            literal.to_owned()
+        };
+        let record: Record = serde_json::from_str(&raw)?;
+        validate_record(&record)?;
+        ensure!(
+            record.kind == "PatchProposal"
+                && record.context_graph == graph
+                && digest(&json_bytes(&record)?) == id,
+            "DKG proposal identity mismatch"
+        );
+        verify_placement(
+            graph,
+            &record.author,
+            row["g"]
+                .as_str()
+                .context("missing authenticated KA graph")?,
+        )?;
+        ensure!(
+            seen.insert(id.clone()),
+            "ambiguous proposal in DKG discovery"
+        );
+        records.push(SharedProposal { id, record });
+    }
+    Ok(SharedProposals {
+        records,
+        offset,
+        next_offset: (rows.len() > 20).then_some(offset + 20),
+    })
 }
 pub fn validate_record(r: &Record) -> Result<()> {
     ensure!(
@@ -257,6 +360,72 @@ fn verify_placement(context_graph: &str, author: &str, graph: &str) -> Result<()
 #[cfg(test)]
 mod tests {
     use super::*;
+    fn proposal_row(n: usize) -> Value {
+        let record = Record {
+            schema: "nc/record/v1".into(),
+            kind: "PatchProposal".into(),
+            author: "0x1111111111111111111111111111111111111111".into(),
+            context_graph: "demo".into(),
+            artifact: digest(n.to_string().as_bytes()),
+            artifacts: vec![digest(n.to_string().as_bytes())],
+            artifact_origin: "dkg".into(),
+            relates_to: None,
+            fixture: true,
+        };
+        let id = digest(&json_bytes(&record).unwrap());
+        json!({"subject":format!("{NS}{id}"),"record":serde_json::to_string(&record).unwrap(),"g":format!("did:dkg:context-graph:demo/_shared_memory/{}/{}",record.author,n)})
+    }
+    #[test]
+    fn discovery_pages_are_bounded_and_verify_each_proposal() {
+        let rows: Vec<_> = (0..21).map(proposal_row).collect();
+        let page = proposal_page("demo", 20, &json!({"result":{"bindings":rows}})).unwrap();
+        assert_eq!(page.records.len(), 20);
+        assert_eq!(page.next_offset, Some(40));
+        assert!(
+            proposal_page("demo", 0, &json!({"result":{"bindings":[]}}))
+                .unwrap()
+                .records
+                .is_empty()
+        );
+        for key in ["subject", "g", "record"] {
+            let mut row = proposal_row(0);
+            row[key] = json!("tampered");
+            assert!(proposal_page("demo", 0, &json!({"result":{"bindings":[row]}})).is_err());
+        }
+        let mut row = proposal_row(0);
+        row["record"] = json!(serde_json::to_string(row["record"].as_str().unwrap()).unwrap());
+        assert_eq!(
+            proposal_page("demo", 0, &json!({"result":{"bindings":[row]}}))
+                .unwrap()
+                .records
+                .len(),
+            1
+        );
+        assert!(
+            proposal_page(
+                "other",
+                0,
+                &json!({"result":{"bindings":[proposal_row(0)]}})
+            )
+            .is_err()
+        );
+        assert!(
+            proposal_page(
+                "demo",
+                0,
+                &json!({"result":{"bindings":[proposal_row(0),proposal_row(0)]}})
+            )
+            .is_err()
+        );
+        assert!(
+            proposal_page(
+                "demo",
+                0,
+                &json!({"result":{"bindings":(0..22).map(proposal_row).collect::<Vec<_>>()}})
+            )
+            .is_err()
+        );
+    }
     #[test]
     fn remote_claim_must_match_authenticated_catalog_placement() {
         let author = "0x1111111111111111111111111111111111111111";

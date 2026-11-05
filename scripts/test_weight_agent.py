@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 import torch
 from safetensors.torch import load_file, save_file
-from weight_agent import Controller, edited_slices, save_candidate
+from weight_agent import Controller, edited_slices, save_candidate, validate_edit_scope
 from select_weight_candidate import choose
 from summarize_weight_result import summarize
 from llm_runtime import activation_contrast, guard_passes
@@ -20,6 +20,18 @@ def operation(**extra):
 
 
 class Edits(unittest.TestCase):
+    def test_user_selected_scope_is_enforced_but_whole_model_allows_other_weights(self):
+        from continuation_job import apply_user_controls
+        manifest={'tensors':[{'name':'w','shape':[4]},{'name':'other','shape':[2]}]}
+        config=apply_user_controls({}, {'weight_scope':{'mode':'selected','tensors':['w']}}, manifest)
+        validate_edit_scope(config,[operation()])
+        with self.assertRaisesRegex(ValueError,'operator-approved'):
+            validate_edit_scope(config,[operation(tensor='other',start=0,count=1)])
+        with self.assertRaisesRegex(ValueError,'operator-approved'):
+            validate_edit_scope(config,[operation(start=3,count=2)])
+        unrestricted=apply_user_controls(config,{'weight_scope':{'mode':'all'}},manifest)
+        validate_edit_scope(unrestricted,[operation(tensor='other',start=0,count=1)])
+
     def setUp(self):
         self.original = {"w": torch.tensor([1., 2., 3., 4.], dtype=torch.bfloat16),
                          "other": torch.tensor([9., 8.], dtype=torch.bfloat16)}

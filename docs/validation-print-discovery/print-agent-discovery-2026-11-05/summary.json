@@ -1,0 +1,71 @@
+{
+  "driver": "current Codex assistant",
+  "adaptive_attempts": [
+    {
+      "attempt": 1,
+      "development": 90,
+      "selection": 29,
+      "hypothesis": "Inherited model misclassifies development cracks as warping. Amplifying 64 channels with the strongest positive crack-versus-warp activation contrast may preserve crack evidence through the last blocks. This is a small diagnostic perturbation, chosen after reading the inherited confusion matrices.",
+      "tensor": "vision_model.encoder.layers.10.mlp.fc2.weight",
+      "patch_norm": 0.36313945055007935
+    },
+    {
+      "attempt": 2,
+      "development": 90,
+      "selection": 29,
+      "hypothesis": "Probe 01 moved a crack error from warping to layer shift without fixing it. Rather than amplify existing channels, add a development-derived crack correction at block 9, before inherited block 10. Fit zero desired change for other development cases; use stronger regularization than the prior grid to reduce memorization.",
+      "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+      "patch_norm": 0.010351781733334064
+    },
+    {
+      "attempt": 3,
+      "development": 95,
+      "selection": 28,
+      "hypothesis": "Probe 02 changed no decisions and had weight-delta norm 0.01035. Test the same direction at norm about 0.414, still below the inherited edit norm 1.132, to distinguish insufficient amplitude from a useless direction. Chosen after probe 02 feedback, not a predeclared sweep.",
+      "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+      "patch_norm": 0.4140625298023224
+    },
+    {
+      "attempt": 4,
+      "development": 90,
+      "selection": 25,
+      "hypothesis": "Probe 03 fixed 3 selection cracks but made 4 layer-shift samples false cracks. Keep the crack correction direction while fitting a counter-direction on development layer-shift samples to reduce their crack logit. Use only development labels to fit; same block and strength isolate this protection change.",
+      "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+      "patch_norm": 1.476027488708496
+    },
+    {
+      "attempt": 5,
+      "development": 95,
+      "selection": 25,
+      "hypothesis": "Probe 04 protection dominated: patch norm increased from 0.414 to 1.476 and crack selection fell to 2/10. Reduce only protection by 10x while preserving the useful crack direction. This tests whether mild class-specific protection can recover the layer-shift regressions without erasing crack evidence.",
+      "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+      "patch_norm": 0.46466386318206787
+    },
+    {
+      "attempt": 6,
+      "development": 100,
+      "selection": 28,
+      "hypothesis": "Both strong and weak crack-only protection failed to improve held-out selection. Abandon the one-class hypothesis: fit a simultaneous residual correction for all remaining development mistakes so layer-shift errors receive their own positive correction. Use block 9 before inherited block 10, moderate gain, and the previously useful ridge fraction.",
+      "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+      "patch_norm": 1.2800636291503906
+    },
+    {
+      "attempt": 7,
+      "development": 100,
+      "selection": 30,
+      "hypothesis": "Probe 06 achieved perfect development classification but selection dropped to 28/40: over-adaptation. Reduce only intervention amplitude to 30%, producing expected norm about 0.384, to test a conservative version. If it cannot improve selection, reject this branch and retain the inherited checkpoint.",
+      "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+      "patch_norm": 0.38401973247528076
+    }
+  ],
+  "inherited_development": 90,
+  "inherited_selection": 29,
+  "test": {
+    "inherited": 29,
+    "candidate": 27,
+    "n": 60,
+    "corrected": 0,
+    "regressed": 2
+  },
+  "accepted": false
+}

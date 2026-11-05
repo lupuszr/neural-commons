@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "scope": "two local DKG nodes; controlled model fixture; no paid controller or public-chain publication",
+  "access_policy": "public",
+  "checks": {
+    "native_invite_and_subscription": true,
+    "signed_join_approval": false,
+    "discovered_from_empty_participant": {
+      "downloaded": false,
+      "id": "5c06c355f8ad5010955611f0195fbd6fe1415d5e4b8bcc55fcb101817257fdd3",
+      "record": {
+        "artifact": "c0d37a0e27ad89b5b4cd1cbaff37ac569d6b0b4ec2b5b82265f6adf4fe14f09b",
+        "artifact_origin": "dkg",
+        "artifacts": [
+          "0cbea3dcb180b9857cbecc5bcad3892ffff68c8fb10eacd058132de72b41eeea",
+          "1a41054f9819ed2e92dfaa6a0b7d812c91d8db5f23562e5f9660d350d2b397a2",
+          "20dd9c6de0685bbfe2313f03f4a0aee811f06ef5bb73068f520ede3e08b79d94",
+          "517e332ab8905bcf0fe09af1d88fe2e3458b87f09086b6e7ce19d47dbc69d781",
+          "9892e25108ad8ca91945d4ffeb8ac1dadde6056109ded6f4fa3e01b467eecd97",
+          "a61d7a505e9568b4a8a9d2ad42b1b1c271544d93a06a57fae79d8d467a2f4517",
+          "b901731623d3a9ffeb2b0b31b297f52087735b63ca3215fbda8c2b27f6f43bb6",
+          "c02d5e2cf8f84ac77b2df67567af8a50f4d340962b4f7724d7a4c09a9a6a0516",
+          "c0d37a0e27ad89b5b4cd1cbaff37ac569d6b0b4ec2b5b82265f6adf4fe14f09b",
+          "dee9bee38d8ce139ee23552fc0ca83067114ae903518d7711ba7937b72c0d697"
+        ],
+        "author": "0x41539762C2F22A3fD87BD8718209a5301b10eD7F",
+        "context_graph": "0x41539762c2f22a3fd87bd8718209a5301b10ed7f/nc-shared-96eaa55d2ca1",
+        "fixture": true,
+        "kind": "PatchProposal",
+        "relates_to": "1a41054f9819ed2e92dfaa6a0b7d812c91d8db5f23562e5f9660d350d2b397a2",
+        "schema": "nc/record/v1"
+      }
+    },
+    "browser": {
+      "status": "passed",
+      "discovery": true,
+      "download_without_evaluation": true,
+      "models_registered": true,
+      "reproduce_and_share": true,
+      "console_errors": []
+    },
+    "independent_evaluation_and_author_readback": {
+      "report": "38f2ccf7758dfbf871122e801213bece663b139a9580e1c7c1968d683ef24e85",
+      "publication": "37e7cf323fe1841ad2b37b8b1686c52bdfd21bb615a08c0dd24c849d93738248",
+      "status": "passed"
+    }
+  },
+  "dkg_source": "feb7f4f77bea104e9941d3fc8eaabe9759f5070f",
+  "identities": [
+    {
+      "agentAddress": "0x41539762C2F22A3fD87BD8718209a5301b10eD7F",
+      "agentDid": "did:dkg:agent:0x41539762C2F22A3fD87BD8718209a5301b10eD7F",
+      "name": "neural-commons-participant",
+      "framework": "Neural Commons",
+      "peerId": "12D3KooWQzLbWwZoMUJ2kzEJyTn6knNy1uAxJTJzCaLg5QKXpWFX",
+      "nodeIdentityId": "0"
+    },
+    {
+      "agentAddress": "0xA35Da9CB76520d363000826e3DBdAa45A4f7DBba",
+      "agentDid": "did:dkg:agent:0xA35Da9CB76520d363000826e3DBdAa45A4f7DBba",
+      "name": "neural-commons-participant",
+      "framework": "Neural Commons",
+      "peerId": "12D3KooWNowYVojSXp5yd6pwaW8APiySTuCr7zDwAeon75uoquE3",
+      "nodeIdentityId": "0"
+    }
+  ],
+  "context_graph": "0x41539762c2f22a3fd87bd8718209a5301b10ed7f/nc-shared-96eaa55d2ca1",
+  "transport_setup": "Public subscription"
+}

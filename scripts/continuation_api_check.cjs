@@ -21,21 +21,24 @@ temp=run/'state.tmp';temp.write_text(json.dumps(state));temp.replace(run/'state.
 `,{mode:0o700});
  const listener=net.createServer();await new Promise(r=>listener.listen(0,'127.0.0.1',r));const port=listener.address().port;await new Promise(r=>listener.close(r));const url=`http://127.0.0.1:${port}`;
  let server;
- async function start(){server=cp.spawn(path.join(root,'target/debug/nc'),['--home',home,'serve','--port',String(port),'--controller-python',runtime],{stdio:'ignore'});for(let i=0;i<80;i++){try{if((await fetch(url)).ok)return;}catch{}await new Promise(r=>setTimeout(r,50));}throw Error('server did not start');}
+ async function start(){server=cp.spawn(path.join(root,'target/debug/nc'),['--home',home,'serve','--require-token','--port',String(port),'--controller-python',runtime],{stdio:'ignore'});for(let i=0;i<80;i++){try{if((await fetch(url)).ok)return;}catch{}await new Promise(r=>setTimeout(r,50));}throw Error('server did not start');}
  async function stop(){const exit=new Promise(r=>server.once('exit',r));server.kill('SIGINT');await exit;server=null;}
  const api=async(p,body,auth=true)=>fetch(url+p,{method:body===undefined?'GET':'POST',headers:{'Content-Type':'application/json',...(auth?{Authorization:`Bearer ${token}`}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
  let runId;
  try{
   await start();assert.equal((await api('/api/continuations',undefined,false)).status,401);
+  for(const path of ['/api/folders?kind=task','/api/controller-models?backend=codex'])assert.equal((await api(path,undefined,false)).status,401);
   const state=await(await api('/api/state')).json();
   const artifact=async id=>(await api('/api/artifact-metadata/'+id)).json();
   let parent;
   for(const row of state.records){const rec=JSON.parse(row.record);if(rec.kind!=='PatchProposal')continue;const spec=await artifact(rec.artifact);const job=state.jobs.find(j=>j.spec===rec.artifact&&j.report);if(!job)continue;const report=await artifact(job.report);if(report.status==='passed'){parent={checkpoint:spec.candidate,proposal:row.id,report:job.report};break;}}
   assert.ok(parent,'Participant needs a locally evaluated passing proposal');
-  runId=crypto.randomUUID();const request={id:runId,...parent,task_directory:task,backend:'codex',controller_model:'inert-test',max_rounds:4,max_probes:2,min_probes:1,max_edit_elements:8,timeout_seconds:60};
+  runId=crypto.randomUUID();const request={id:runId,...parent,weight_scope:{mode:'all'},task_directory:task,backend:'codex',controller_model:'inert-test',max_rounds:4,max_probes:2,min_probes:1,max_edit_elements:8,timeout_seconds:60};
   assert.equal((await api('/api/continuations',request,false)).status,401);
   assert.equal((await api('/api/continuations',{...request,checkpoint:'0'.repeat(64)})).status,400);
   assert.equal((await api('/api/continuations',{...request,max_probes:999})).status,400);
+  assert.equal((await api('/api/continuations',{...request,weight_scope:undefined})).status,400);
+  assert.equal((await api('/api/continuations',{...request,weight_scope:{mode:'selected',tensors:[]}})).status,400);
   const admitted=await api('/api/continuations',request);assert.equal(admitted.status,200);assert.equal((await admitted.json()).id,runId);
   assert.equal((await api('/api/continuations',request)).status,200,'idempotent retry');
   assert.equal((await api('/api/continuations',{...request,controller_model:'changed'})).status,409);
@@ -50,7 +53,29 @@ temp=run/'state.tmp';temp.write_text(json.dumps(state));temp.replace(run/'state.
   for(let i=0;i<80;i++){const r=(await(await api('/api/continuations')).json()).runs.find(r=>r.id===runId);if(r.status==='cancelled'){terminal=true;break;}await new Promise(r=>setTimeout(r,50));}
   assert.ok(terminal,'cancellation was not observed');
   assert.equal((await api(`/api/continuations/${runId}/resume`,{})).status,400,'no transcript must not resume');
-  console.log('Continuation API passed: auth, exact parent, budgets, idempotency, single-flight admission, restart, cancel, resume boundary. No model call.');
+  const fresh={...request,id:crypto.randomUUID(),name:'Fresh API experiment',objective:'Improve accuracy'};
+  delete fresh.proposal; delete fresh.report;
+  // An old proposal can be continued even when its checkpoint lacks the complete
+  // inference bundle required by the newer fresh-experiment admission contract.
+  const eligible=[];
+  for(const row of state.checkpoints){const m=await artifact(row.id);if(m.format==='safetensors'&&!Object.keys(m.shards||{}).length&&['model_config','tokenizer','tokenizer_config','special_tokens'].every(k=>m.inference_artifacts?.[k]))eligible.push(row.id);}
+  assert.ok(eligible.length,'Participant needs an imported model with inference artifacts');
+  fresh.checkpoint=eligible[0];
+  assert.equal((await api('/api/experiments',fresh,false)).status,401);
+  assert.equal((await api('/api/experiments',{...fresh,proposal:parent.proposal,report:parent.report})).status,400);
+  assert.equal((await api('/api/experiments',{...fresh,checkpoint:'0'.repeat(64)})).status,400);
+  const newRun=await api('/api/experiments',fresh);assert.equal(newRun.status,200,await newRun.clone().text());
+  const created=await newRun.json();assert.equal(created.kind,'experiment');assert.equal(created.name,fresh.name);
+  runId=fresh.id;
+  assert.equal((await api('/api/experiments',fresh)).status,200);
+  assert.equal((await api('/api/experiments',{...fresh,objective:'changed'})).status,409);
+  await stop();await start();
+  assert.equal((await api('/api/experiments',{...fresh,id:crypto.randomUUID()})).status,409);
+  assert.equal((await api(`/api/continuations/${runId}/cancel`,{})).status,200);
+  let stopped=false;
+  for(let i=0;i<80;i++){const r=(await(await api('/api/continuations')).json()).runs.find(r=>r.id===runId);if(r.status==='cancelled'){stopped=true;break;}await new Promise(r=>setTimeout(r,50));}
+  assert.ok(stopped,'new experiment cancellation was not observed');
+  console.log('Continuation and new experiment API passed: auth, exact parent, budgets, idempotency, single-flight admission, restart, cancel, resume boundary. No model call.');
  }finally{
   if(runId&&server)await api(`/api/continuations/${runId}/cancel`,{}).catch(()=>{});
   if(server)await stop();

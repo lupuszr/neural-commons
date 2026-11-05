@@ -1,0 +1,1761 @@
+{
+  "metrics": {
+    "development": {
+      "n": 100,
+      "correct": 90,
+      "loss": 1.2101125717163086,
+      "confusion": [
+        [
+          20,
+          2,
+          0,
+          3
+        ],
+        [
+          0,
+          21,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          24,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          25
+        ]
+      ]
+    },
+    "selection": {
+      "n": 40,
+      "correct": 29,
+      "loss": 1.2878073453903198,
+      "confusion": [
+        [
+          4,
+          3,
+          0,
+          3
+        ],
+        [
+          0,
+          9,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          9,
+          0
+        ],
+        [
+          0,
+          3,
+          0,
+          7
+        ]
+      ]
+    }
+  },
+  "predictions": [
+    {
+      "id": "001",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.530873715877533,
+        0.5253349542617798,
+        0.5155168175697327,
+        0.5147489309310913
+      ]
+    },
+    {
+      "id": "002",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.532314658164978,
+        0.5230589509010315,
+        0.5114892721176147,
+        0.5139195919036865
+      ]
+    },
+    {
+      "id": "003",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5330107808113098,
+        0.5125962495803833,
+        0.518345057964325,
+        0.5020865201950073
+      ]
+    },
+    {
+      "id": "004",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5271101593971252,
+        0.5278190970420837,
+        0.5183714628219604,
+        0.5225077271461487
+      ]
+    },
+    {
+      "id": "005",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.523628294467926,
+        0.5223923325538635,
+        0.5192892551422119,
+        0.518884003162384
+      ]
+    },
+    {
+      "id": "006",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5210304856300354,
+        0.5214627385139465,
+        0.5194652080535889,
+        0.5173764228820801
+      ]
+    },
+    {
+      "id": "007",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5258874893188477,
+        0.521454930305481,
+        0.5160975456237793,
+        0.5193853378295898
+      ]
+    },
+    {
+      "id": "008",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5414283871650696,
+        0.5251389145851135,
+        0.5212992429733276,
+        0.519860565662384
+      ]
+    },
+    {
+      "id": "009",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5363727807998657,
+        0.5141268968582153,
+        0.5264190435409546,
+        0.5107296705245972
+      ]
+    },
+    {
+      "id": "010",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5250791311264038,
+        0.5090193152427673,
+        0.5099676251411438,
+        0.5027584433555603
+      ]
+    },
+    {
+      "id": "011",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5301470160484314,
+        0.5282708406448364,
+        0.5136944651603699,
+        0.5213687419891357
+      ]
+    },
+    {
+      "id": "012",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.531437337398529,
+        0.5187093019485474,
+        0.5263179540634155,
+        0.5260564684867859
+      ]
+    },
+    {
+      "id": "013",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5275651812553406,
+        0.5162082314491272,
+        0.5162599682807922,
+        0.5134011507034302
+      ]
+    },
+    {
+      "id": "014",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5433263778686523,
+        0.5356928706169128,
+        0.5339095592498779,
+        0.5330304503440857
+      ]
+    },
+    {
+      "id": "015",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Warping",
+      "scores": [
+        0.5318824648857117,
+        0.526934802532196,
+        0.5251498818397522,
+        0.5341857671737671
+      ]
+    },
+    {
+      "id": "016",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.521904468536377,
+        0.5056350231170654,
+        0.5143850445747375,
+        0.5003995299339294
+      ]
+    },
+    {
+      "id": "017",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5265452265739441,
+        0.5260113477706909,
+        0.5172919034957886,
+        0.5209650993347168
+      ]
+    },
+    {
+      "id": "018",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5356271266937256,
+        0.5182237029075623,
+        0.5208473205566406,
+        0.5104731321334839
+      ]
+    },
+    {
+      "id": "019",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5295398831367493,
+        0.5248225331306458,
+        0.5136652588844299,
+        0.5161158442497253
+      ]
+    },
+    {
+      "id": "020",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5209348797798157,
+        0.5066965222358704,
+        0.5165228843688965,
+        0.4987821578979492
+      ]
+    },
+    {
+      "id": "021",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5168188214302063,
+        0.5133050680160522,
+        0.49916476011276245,
+        0.5053936243057251
+      ]
+    },
+    {
+      "id": "022",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Warping",
+      "scores": [
+        0.5281924605369568,
+        0.5273557901382446,
+        0.5171641707420349,
+        0.5292963981628418
+      ]
+    },
+    {
+      "id": "023",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Warping",
+      "scores": [
+        0.5219759345054626,
+        0.5212432146072388,
+        0.5096381902694702,
+        0.5233879685401917
+      ]
+    },
+    {
+      "id": "024",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5389649271965027,
+        0.5206165313720703,
+        0.5140341520309448,
+        0.512168824672699
+      ]
+    },
+    {
+      "id": "025",
+      "split": "development",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5304980278015137,
+        0.5110341906547546,
+        0.5153073072433472,
+        0.5104345083236694
+      ]
+    },
+    {
+      "id": "026",
+      "split": "selection",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5343173742294312,
+        0.5322590470314026,
+        0.5083213448524475,
+        0.5278634428977966
+      ]
+    },
+    {
+      "id": "027",
+      "split": "selection",
+      "label": "Cracking",
+      "prediction": "Warping",
+      "scores": [
+        0.5240326523780823,
+        0.5316252112388611,
+        0.5226532220840454,
+        0.5332363843917847
+      ]
+    },
+    {
+      "id": "028",
+      "split": "selection",
+      "label": "Cracking",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5284379720687866,
+        0.5301244854927063,
+        0.5133633613586426,
+        0.5298334360122681
+      ]
+    },
+    {
+      "id": "029",
+      "split": "selection",
+      "label": "Cracking",
+      "prediction": "Warping",
+      "scores": [
+        0.5238321423530579,
+        0.5363460779190063,
+        0.5289821028709412,
+        0.5389537811279297
+      ]
+    },
+    {
+      "id": "030",
+      "split": "selection",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5207912921905518,
+        0.5180712938308716,
+        0.5000312924385071,
+        0.5112111568450928
+      ]
+    },
+    {
+      "id": "031",
+      "split": "selection",
+      "label": "Cracking",
+      "prediction": "Warping",
+      "scores": [
+        0.5218887329101562,
+        0.5227264761924744,
+        0.5078720450401306,
+        0.5231537222862244
+      ]
+    },
+    {
+      "id": "032",
+      "split": "selection",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5275774598121643,
+        0.5205748677253723,
+        0.515565812587738,
+        0.5233935117721558
+      ]
+    },
+    {
+      "id": "033",
+      "split": "selection",
+      "label": "Cracking",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5288709402084351,
+        0.5368102192878723,
+        0.5237473845481873,
+        0.5330931544303894
+      ]
+    },
+    {
+      "id": "034",
+      "split": "selection",
+      "label": "Cracking",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5225377678871155,
+        0.5256067514419556,
+        0.49673786759376526,
+        0.5205449461936951
+      ]
+    },
+    {
+      "id": "035",
+      "split": "selection",
+      "label": "Cracking",
+      "prediction": "Cracking",
+      "scores": [
+        0.5362445116043091,
+        0.5269863605499268,
+        0.5067853927612305,
+        0.5232997536659241
+      ]
+    },
+    {
+      "id": "051",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5068661570549011,
+        0.5386874675750732,
+        0.5159032344818115,
+        0.5345599055290222
+      ]
+    },
+    {
+      "id": "052",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5024415254592896,
+        0.5335070490837097,
+        0.5110403895378113,
+        0.5266084671020508
+      ]
+    },
+    {
+      "id": "053",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.45863616466522217,
+        0.5230618119239807,
+        0.47820544242858887,
+        0.5160248279571533
+      ]
+    },
+    {
+      "id": "054",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.4930654466152191,
+        0.5286827683448792,
+        0.5039886236190796,
+        0.5244491100311279
+      ]
+    },
+    {
+      "id": "055",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.46232879161834717,
+        0.4990629553794861,
+        0.49437451362609863,
+        0.4960046410560608
+      ]
+    },
+    {
+      "id": "056",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.4865216910839081,
+        0.5325708389282227,
+        0.505976140499115,
+        0.5225915908813477
+      ]
+    },
+    {
+      "id": "057",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.4873238801956177,
+        0.5303588509559631,
+        0.5047785043716431,
+        0.5232959389686584
+      ]
+    },
+    {
+      "id": "058",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.4927450120449066,
+        0.5346720814704895,
+        0.5187554955482483,
+        0.5339074730873108
+      ]
+    },
+    {
+      "id": "059",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.47619393467903137,
+        0.5315321683883667,
+        0.4989793300628662,
+        0.5235287547111511
+      ]
+    },
+    {
+      "id": "060",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Warping",
+      "scores": [
+        0.49396029114723206,
+        0.5331398248672485,
+        0.5207720994949341,
+        0.5333070158958435
+      ]
+    },
+    {
+      "id": "061",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.4677869379520416,
+        0.5253593325614929,
+        0.4841233193874359,
+        0.514576256275177
+      ]
+    },
+    {
+      "id": "062",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.4466610848903656,
+        0.5108541250228882,
+        0.48659029603004456,
+        0.5023041367530823
+      ]
+    },
+    {
+      "id": "063",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Warping",
+      "scores": [
+        0.5063313841819763,
+        0.5346888899803162,
+        0.5215659737586975,
+        0.5352501273155212
+      ]
+    },
+    {
+      "id": "064",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.47765257954597473,
+        0.5304394960403442,
+        0.49755364656448364,
+        0.5217480659484863
+      ]
+    },
+    {
+      "id": "065",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.4890441596508026,
+        0.5100831389427185,
+        0.4925556778907776,
+        0.5031352043151855
+      ]
+    },
+    {
+      "id": "066",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5086119771003723,
+        0.5337752103805542,
+        0.5224395394325256,
+        0.531644344329834
+      ]
+    },
+    {
+      "id": "067",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.4987170994281769,
+        0.5204668045043945,
+        0.5038976669311523,
+        0.5157114863395691
+      ]
+    },
+    {
+      "id": "068",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.469449907541275,
+        0.5214926600456238,
+        0.4956560432910919,
+        0.5141347050666809
+      ]
+    },
+    {
+      "id": "069",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5004564523696899,
+        0.5239629745483398,
+        0.5147297382354736,
+        0.5189117789268494
+      ]
+    },
+    {
+      "id": "070",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Warping",
+      "scores": [
+        0.4507397711277008,
+        0.5110782384872437,
+        0.48068755865097046,
+        0.5116292834281921
+      ]
+    },
+    {
+      "id": "071",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.45439067482948303,
+        0.5242652893066406,
+        0.48313072323799133,
+        0.5151112079620361
+      ]
+    },
+    {
+      "id": "072",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5065573453903198,
+        0.5210216045379639,
+        0.506998598575592,
+        0.5140600800514221
+      ]
+    },
+    {
+      "id": "073",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.49430954456329346,
+        0.5295320153236389,
+        0.5124037265777588,
+        0.5294181108474731
+      ]
+    },
+    {
+      "id": "074",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.49623245000839233,
+        0.5331183671951294,
+        0.5096774697303772,
+        0.5320572853088379
+      ]
+    },
+    {
+      "id": "075",
+      "split": "development",
+      "label": "Layer_shifting",
+      "prediction": "Warping",
+      "scores": [
+        0.4985886216163635,
+        0.5348746180534363,
+        0.5209594964981079,
+        0.5355188846588135
+      ]
+    },
+    {
+      "id": "076",
+      "split": "selection",
+      "label": "Layer_shifting",
+      "prediction": "Warping",
+      "scores": [
+        0.5093793272972107,
+        0.5251942276954651,
+        0.5148887634277344,
+        0.5281417369842529
+      ]
+    },
+    {
+      "id": "077",
+      "split": "selection",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.52263343334198,
+        0.5384079813957214,
+        0.5188489556312561,
+        0.5336864590644836
+      ]
+    },
+    {
+      "id": "078",
+      "split": "selection",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5222029685974121,
+        0.5245053768157959,
+        0.49931126832962036,
+        0.5203441977500916
+      ]
+    },
+    {
+      "id": "079",
+      "split": "selection",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5184749960899353,
+        0.5264891386032104,
+        0.5040302276611328,
+        0.5229586362838745
+      ]
+    },
+    {
+      "id": "080",
+      "split": "selection",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5208249092102051,
+        0.5227065086364746,
+        0.5038608908653259,
+        0.5178161263465881
+      ]
+    },
+    {
+      "id": "081",
+      "split": "selection",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5180726051330566,
+        0.5214852690696716,
+        0.49738866090774536,
+        0.5171142816543579
+      ]
+    },
+    {
+      "id": "082",
+      "split": "selection",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5270239114761353,
+        0.5331073999404907,
+        0.5166189074516296,
+        0.5261805653572083
+      ]
+    },
+    {
+      "id": "083",
+      "split": "selection",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.4993930459022522,
+        0.5191598534584045,
+        0.513103723526001,
+        0.5191298127174377
+      ]
+    },
+    {
+      "id": "084",
+      "split": "selection",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5193393230438232,
+        0.532277524471283,
+        0.5169367790222168,
+        0.5300838351249695
+      ]
+    },
+    {
+      "id": "085",
+      "split": "selection",
+      "label": "Layer_shifting",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5149523615837097,
+        0.5312408208847046,
+        0.510393500328064,
+        0.530841052532196
+      ]
+    },
+    {
+      "id": "101",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5161325931549072,
+        0.5074194073677063,
+        0.5373327732086182,
+        0.5027183294296265
+      ]
+    },
+    {
+      "id": "102",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.48707717657089233,
+        0.4981611967086792,
+        0.5274859070777893,
+        0.4942176043987274
+      ]
+    },
+    {
+      "id": "103",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5004400014877319,
+        0.5163041353225708,
+        0.529045045375824,
+        0.5178110599517822
+      ]
+    },
+    {
+      "id": "104",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5074387788772583,
+        0.49407365918159485,
+        0.5547302961349487,
+        0.48504260182380676
+      ]
+    },
+    {
+      "id": "105",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.47948384284973145,
+        0.477935254573822,
+        0.5249017477035522,
+        0.4828067421913147
+      ]
+    },
+    {
+      "id": "106",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.49466830492019653,
+        0.5170844793319702,
+        0.5422903895378113,
+        0.5223004221916199
+      ]
+    },
+    {
+      "id": "107",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5143635272979736,
+        0.5123124122619629,
+        0.5261087417602539,
+        0.5102298259735107
+      ]
+    },
+    {
+      "id": "108",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.48966431617736816,
+        0.4766949713230133,
+        0.5466771721839905,
+        0.47163134813308716
+      ]
+    },
+    {
+      "id": "109",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5174237489700317,
+        0.5162699818611145,
+        0.5338472723960876,
+        0.5099158883094788
+      ]
+    },
+    {
+      "id": "110",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.4727437198162079,
+        0.4940940737724304,
+        0.5390108823776245,
+        0.5023731589317322
+      ]
+    },
+    {
+      "id": "111",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.45310208201408386,
+        0.44977667927742004,
+        0.5126365423202515,
+        0.4601554274559021
+      ]
+    },
+    {
+      "id": "112",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.42924267053604126,
+        0.4265914261341095,
+        0.4808533489704132,
+        0.4248340427875519
+      ]
+    },
+    {
+      "id": "113",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.4906606674194336,
+        0.505898118019104,
+        0.5397801399230957,
+        0.5095961689949036
+      ]
+    },
+    {
+      "id": "114",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5166914463043213,
+        0.5293694138526917,
+        0.5415973663330078,
+        0.5264289379119873
+      ]
+    },
+    {
+      "id": "115",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.48133429884910583,
+        0.4858887791633606,
+        0.5379316806793213,
+        0.48497045040130615
+      ]
+    },
+    {
+      "id": "116",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.50899338722229,
+        0.512951672077179,
+        0.5387131571769714,
+        0.5115966796875
+      ]
+    },
+    {
+      "id": "117",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5024243593215942,
+        0.5175132155418396,
+        0.524200975894928,
+        0.5218042731285095
+      ]
+    },
+    {
+      "id": "118",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.45909541845321655,
+        0.48119252920150757,
+        0.4976235330104828,
+        0.4888675808906555
+      ]
+    },
+    {
+      "id": "119",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5010233521461487,
+        0.49386030435562134,
+        0.5555543899536133,
+        0.48739227652549744
+      ]
+    },
+    {
+      "id": "120",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5107956528663635,
+        0.4993843734264374,
+        0.5577065348625183,
+        0.49652934074401855
+      ]
+    },
+    {
+      "id": "121",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.453024685382843,
+        0.47309181094169617,
+        0.5134156346321106,
+        0.47483953833580017
+      ]
+    },
+    {
+      "id": "122",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5053703784942627,
+        0.5148965120315552,
+        0.5329325199127197,
+        0.5105718970298767
+      ]
+    },
+    {
+      "id": "123",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5107564926147461,
+        0.5119336843490601,
+        0.5470635890960693,
+        0.5088285207748413
+      ]
+    },
+    {
+      "id": "124",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Warping",
+      "scores": [
+        0.4775586724281311,
+        0.5086030960083008,
+        0.5162268877029419,
+        0.5173291563987732
+      ]
+    },
+    {
+      "id": "125",
+      "split": "development",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5041179656982422,
+        0.49768146872520447,
+        0.5522250533103943,
+        0.4890674352645874
+      ]
+    },
+    {
+      "id": "126",
+      "split": "selection",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.4849609434604645,
+        0.4909348785877228,
+        0.5231667160987854,
+        0.48667922616004944
+      ]
+    },
+    {
+      "id": "127",
+      "split": "selection",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5100648403167725,
+        0.5061513781547546,
+        0.5225623250007629,
+        0.5003055334091187
+      ]
+    },
+    {
+      "id": "128",
+      "split": "selection",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.45849722623825073,
+        0.4977903366088867,
+        0.512323260307312,
+        0.500096321105957
+      ]
+    },
+    {
+      "id": "129",
+      "split": "selection",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.48195934295654297,
+        0.46045318245887756,
+        0.5031304955482483,
+        0.4561062455177307
+      ]
+    },
+    {
+      "id": "130",
+      "split": "selection",
+      "label": "Stringing",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.49470198154449463,
+        0.5273264050483704,
+        0.5217772722244263,
+        0.5224799513816833
+      ]
+    },
+    {
+      "id": "131",
+      "split": "selection",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.45596060156822205,
+        0.4234659671783447,
+        0.46185481548309326,
+        0.417833536863327
+      ]
+    },
+    {
+      "id": "132",
+      "split": "selection",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.47828251123428345,
+        0.489677757024765,
+        0.5205861330032349,
+        0.49064862728118896
+      ]
+    },
+    {
+      "id": "133",
+      "split": "selection",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5041500329971313,
+        0.5074372291564941,
+        0.5279014706611633,
+        0.5049302577972412
+      ]
+    },
+    {
+      "id": "134",
+      "split": "selection",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.49486538767814636,
+        0.4723008871078491,
+        0.5209396481513977,
+        0.4675005078315735
+      ]
+    },
+    {
+      "id": "135",
+      "split": "selection",
+      "label": "Stringing",
+      "prediction": "Stringing",
+      "scores": [
+        0.5202456712722778,
+        0.5229127407073975,
+        0.535394012928009,
+        0.5250494480133057
+      ]
+    },
+    {
+      "id": "151",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.5133516192436218,
+        0.5424992442131042,
+        0.5178627371788025,
+        0.5516218543052673
+      ]
+    },
+    {
+      "id": "152",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.511522650718689,
+        0.5378053784370422,
+        0.5157373547554016,
+        0.5478273630142212
+      ]
+    },
+    {
+      "id": "153",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4984048902988434,
+        0.5381030440330505,
+        0.5248845815658569,
+        0.5487915873527527
+      ]
+    },
+    {
+      "id": "154",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.49862587451934814,
+        0.535070538520813,
+        0.5098465085029602,
+        0.5377758145332336
+      ]
+    },
+    {
+      "id": "155",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4739893674850464,
+        0.5022987723350525,
+        0.499873548746109,
+        0.528399646282196
+      ]
+    },
+    {
+      "id": "156",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.49685052037239075,
+        0.533972978591919,
+        0.5129414200782776,
+        0.5404998660087585
+      ]
+    },
+    {
+      "id": "157",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4805451035499573,
+        0.523066520690918,
+        0.5167515277862549,
+        0.5339754223823547
+      ]
+    },
+    {
+      "id": "158",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.5143558979034424,
+        0.5377369523048401,
+        0.520849883556366,
+        0.5456551313400269
+      ]
+    },
+    {
+      "id": "159",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.495969295501709,
+        0.5282394289970398,
+        0.5087154507637024,
+        0.5421199202537537
+      ]
+    },
+    {
+      "id": "160",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4853745400905609,
+        0.5293118953704834,
+        0.5074624419212341,
+        0.5402438044548035
+      ]
+    },
+    {
+      "id": "161",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4942573308944702,
+        0.5312254428863525,
+        0.5128629207611084,
+        0.5473724603652954
+      ]
+    },
+    {
+      "id": "162",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.46914517879486084,
+        0.5008353590965271,
+        0.4931442439556122,
+        0.5071716904640198
+      ]
+    },
+    {
+      "id": "163",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4569045305252075,
+        0.5079643726348877,
+        0.4937777817249298,
+        0.5316649675369263
+      ]
+    },
+    {
+      "id": "164",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.5003255605697632,
+        0.5201513767242432,
+        0.5026087164878845,
+        0.5274558067321777
+      ]
+    },
+    {
+      "id": "165",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.49419206380844116,
+        0.5282039642333984,
+        0.5212587118148804,
+        0.5446013808250427
+      ]
+    },
+    {
+      "id": "166",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4470004141330719,
+        0.4903280436992645,
+        0.4742416739463806,
+        0.5071097016334534
+      ]
+    },
+    {
+      "id": "167",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.48477238416671753,
+        0.5297929644584656,
+        0.5210080146789551,
+        0.5375038385391235
+      ]
+    },
+    {
+      "id": "168",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4827234447002411,
+        0.5297922492027283,
+        0.5144345760345459,
+        0.5448217391967773
+      ]
+    },
+    {
+      "id": "169",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.5002270340919495,
+        0.545960545539856,
+        0.5216101408004761,
+        0.5561470985412598
+      ]
+    },
+    {
+      "id": "170",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4444279670715332,
+        0.4845070242881775,
+        0.4878070056438446,
+        0.5098270773887634
+      ]
+    },
+    {
+      "id": "171",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4864026606082916,
+        0.5157049894332886,
+        0.5019271373748779,
+        0.5375385880470276
+      ]
+    },
+    {
+      "id": "172",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4796818196773529,
+        0.5248327255249023,
+        0.5070918798446655,
+        0.5328129529953003
+      ]
+    },
+    {
+      "id": "173",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.5062763094902039,
+        0.5343413949012756,
+        0.5160991549491882,
+        0.541225254535675
+      ]
+    },
+    {
+      "id": "174",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.511156439781189,
+        0.5421300530433655,
+        0.5227083563804626,
+        0.5471996068954468
+      ]
+    },
+    {
+      "id": "175",
+      "split": "development",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.4984210431575775,
+        0.5283201932907104,
+        0.5226704478263855,
+        0.539322018623352
+      ]
+    },
+    {
+      "id": "176",
+      "split": "selection",
+      "label": "Warping",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.5142467617988586,
+        0.5320267677307129,
+        0.5129057168960571,
+        0.5293340086936951
+      ]
+    },
+    {
+      "id": "177",
+      "split": "selection",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.48154693841934204,
+        0.5185864567756653,
+        0.5198684334754944,
+        0.5281439423561096
+      ]
+    },
+    {
+      "id": "178",
+      "split": "selection",
+      "label": "Warping",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.37624964118003845,
+        0.403350293636322,
+        0.40057864785194397,
+        0.4002515971660614
+      ]
+    },
+    {
+      "id": "179",
+      "split": "selection",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.5038573145866394,
+        0.5230951905250549,
+        0.5106310844421387,
+        0.5249554514884949
+      ]
+    },
+    {
+      "id": "180",
+      "split": "selection",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.5021973252296448,
+        0.5273297429084778,
+        0.5128198266029358,
+        0.532299816608429
+      ]
+    },
+    {
+      "id": "181",
+      "split": "selection",
+      "label": "Warping",
+      "prediction": "Layer_shifting",
+      "scores": [
+        0.514232873916626,
+        0.5224156379699707,
+        0.5146670341491699,
+        0.5218640565872192
+      ]
+    },
+    {
+      "id": "182",
+      "split": "selection",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.48948967456817627,
+        0.5239872336387634,
+        0.5170166492462158,
+        0.5257717370986938
+      ]
+    },
+    {
+      "id": "183",
+      "split": "selection",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.49321454763412476,
+        0.5297927856445312,
+        0.5270159840583801,
+        0.5421999096870422
+      ]
+    },
+    {
+      "id": "184",
+      "split": "selection",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.5130821466445923,
+        0.5269444584846497,
+        0.5037891268730164,
+        0.5293986797332764
+      ]
+    },
+    {
+      "id": "185",
+      "split": "selection",
+      "label": "Warping",
+      "prediction": "Warping",
+      "scores": [
+        0.5088605284690857,
+        0.5282838940620422,
+        0.5064367055892944,
+        0.5314077734947205
+      ]
+    }
+  ],
+  "action": {
+    "id": "probe-02",
+    "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+    "operation": "class_residual",
+    "layer": 9,
+    "target_class": "Cracking",
+    "ridge_fraction": 1.0,
+    "gain": 1.0,
+    "margin": 0.5,
+    "hypothesis": "Probe 01 moved a crack error from warping to layer shift without fixing it. Rather than amplify existing channels, add a development-derived crack correction at block 9, before inherited block 10. Fit zero desired change for other development cases; use stronger regularization than the prior grid to reduce memorization."
+  },
+  "changed_values_this_action": 2357193,
+  "patch_norm_this_action": 0.010351781733334064
+}

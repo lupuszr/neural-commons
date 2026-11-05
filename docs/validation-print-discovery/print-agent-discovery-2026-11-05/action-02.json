@@ -1,0 +1,11 @@
+{
+  "id": "probe-02",
+  "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+  "operation": "class_residual",
+  "layer": 9,
+  "target_class": "Cracking",
+  "ridge_fraction": 1.0,
+  "gain": 1.0,
+  "margin": 0.5,
+  "hypothesis": "Probe 01 moved a crack error from warping to layer shift without fixing it. Rather than amplify existing channels, add a development-derived crack correction at block 9, before inherited block 10. Fit zero desired change for other development cases; use stronger regularization than the prior grid to reduce memorization."
+}

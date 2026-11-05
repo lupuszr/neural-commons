@@ -7,6 +7,7 @@ its work child owns a separate process group and inherits the same execution lea
 import argparse
 import hashlib
 import json
+import math
 import os
 import pathlib
 import shutil
@@ -79,8 +80,30 @@ def validate_splits(directory, parent_store, parent_commitment):
             seen.add(key)
 
 
+def prepare_starting_model(home, checkpoint, directory):
+    """Use verified artifact bytes, never a mutable external model directory."""
+    def artifact(digest):
+        if not isinstance(digest, str) or len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest):
+            raise ValueError('invalid artifact identity')
+        path = home / 'artifacts' / digest
+        if sha(path) != digest: raise ValueError('starting model artifact integrity mismatch')
+        return path
+    manifest = read(artifact(checkpoint))
+    if manifest.get('shards') or manifest.get('format') != 'safetensors':
+        raise ValueError('starting model requires single-file Safetensors')
+    model = directory / 'model'
+    model.mkdir(parents=True, exist_ok=False)
+    files = {'model.safetensors': manifest['artifact']}
+    for key, filename in {'model_config':'config.json', 'tokenizer':'tokenizer.json',
+                          'tokenizer_config':'tokenizer_config.json', 'special_tokens':'special_tokens_map.json'}.items():
+        files[filename] = manifest['inference_artifacts'][key]
+    for filename, digest in files.items():
+        # Private copies isolate the run from later store corruption or mutation.
+        shutil.copyfile(artifact(digest), model / filename)
+        if sha(model / filename) != digest: raise ValueError('starting model changed while snapshotting')
+
+
 def prepare(run, home, envelope):
-    from weight_handoff import prepare as handoff_prepare
     from weight_experiment import nc
     request = envelope['request']
     # Patch authorship is resolved by the existing importer through this node.
@@ -94,24 +117,57 @@ def prepare(run, home, envelope):
     for name, digest in envelope['input_hashes'].items():
         if sha(task / name) != digest: raise ValueError('task input changed after submission')
     directory = run / 'input'
-    handoff = handoff_prepare(home, request['proposal'], request['report'], directory, local=True)
-    if handoff['candidate_checkpoint'] != request['checkpoint']:
-        raise ValueError('inherited checkpoint differs from requested checkpoint')
+    continuing = bool(request.get('proposal'))
+    if continuing:
+        from weight_handoff import prepare as handoff_prepare
+        handoff = handoff_prepare(home, request['proposal'], request['report'], directory, local=True)
+        if handoff['candidate_checkpoint'] != request['checkpoint']:
+            raise ValueError('inherited checkpoint differs from requested checkpoint')
+    else:
+        prepare_starting_model(home, request['checkpoint'], directory)
     for name, digest in envelope['input_hashes'].items():
         shutil.copyfile(task / name, directory / name)
         if sha(directory / name) != digest: raise ValueError('task input changed while snapshotting')
-    spec = envelope['parent_spec']
-    session = read(home / 'artifacts' / spec['evidence'][0])
-    validate_splits(directory, home / 'artifacts', session['commitment'])
+    commitment = {}
+    if continuing:
+        spec = envelope['parent_spec']
+        session = read(home / 'artifacts' / spec['evidence'][0])
+        commitment = session['commitment']
+    validate_splits(directory, home / 'artifacts', commitment)
     config = read(directory / 'config.json')
     if 'selection_policy' not in config: raise ValueError('selection policy is required')
     if 'guard' in config and not all((directory / name).is_file() for name in ['guard.json', 'guard-config.json']):
         raise ValueError('guard data and config are required')
+    config = apply_user_controls(config, request, read(home / 'artifacts' / request['checkpoint']))
+    write(directory / 'config.json', config)
     source = read(directory / 'source.json')
-    source.update(model_sha256=handoff['inherited_sha256'], parent_proposal=request['proposal'], parent_checkpoint=request['checkpoint'])
+    if continuing:
+        source.update(model_sha256=handoff['inherited_sha256'], parent_proposal=request['proposal'], parent_checkpoint=request['checkpoint'])
+    else:
+        source.update(model_sha256=sha(directory / 'model/model.safetensors'),
+                      starting_checkpoint=request['checkpoint'], experiment_name=request.get('name'))
     write(directory / 'source.json', source)
-    write(run / 'inputs.json', {p.name: sha(p) for p in directory.glob('*.json')})
+    write(run / 'inputs.json', {str(p.relative_to(directory)): sha(p) for p in list(directory.glob('*.json')) + list((directory / 'model').iterdir()) if p.is_file()})
     return directory
+
+
+def apply_user_controls(config, request, manifest):
+    """Replace task-authored agent instructions with the submitting user's choices."""
+    scope = request.get('weight_scope')
+    if not isinstance(scope, dict) or scope.get('mode') not in {'all', 'selected'}:
+        raise ValueError('Choose the editable weights: all or selected tensors')
+    config = dict(config)
+    config.pop('edit_scope', None)
+    config['agent_objective'] = request.get('objective') or 'Improve task accuracy, with lower label NLL as a secondary goal.'
+    config['user_instructions'] = request.get('instructions') or ''
+    if scope['mode'] == 'selected':
+        names = scope.get('tensors', [])
+        inventory = {t['name']: t for t in manifest.get('tensors', [])}
+        if not names or len(set(names)) != len(names) or any(n not in inventory for n in names):
+            raise ValueError('Selected tensors must exist in the starting model and be unique')
+        config['edit_scope'] = [{'tensor': n, 'start': 0, 'count': math.prod(inventory[n]['shape'])} for n in names]
+    config['user_controls'] = {'weight_scope': scope, 'max_edit_elements': request.get('max_edit_elements')}
+    return config
 
 
 def work(run, home, resume):
@@ -131,7 +187,7 @@ def work(run, home, resume):
         if (search / 'selected').exists() or (proposals / 'session.json').exists():
             raise ValueError('candidate search is already finalized')
     else:
-        status(run, 'preparing', 'Verifying parent evidence and freezing new task inputs', stage='preparing')
+        status(run, 'preparing', 'Verifying starting model and freezing task inputs', stage='preparing')
         directory = prepare(run, home, envelope)
         search.mkdir()
     status(run, 'searching', 'Controller is inspecting and testing weight edits', stage='searching')
@@ -139,7 +195,7 @@ def work(run, home, resume):
         development=directory / 'development.json', source=directory / 'source.json',
         output=proposals, backend=request['backend'], controller_model=request['controller_model'],
         heldout_sha256=sha(directory / 'heldout.json'), policy_sha256=sha(directory / 'policy.json'),
-        selection_sha256=sha(directory / 'selection.json'), handoff=directory / 'handoff.json', resume=resume,
+        selection_sha256=sha(directory / 'selection.json'), handoff=(directory / 'handoff.json') if (directory / 'handoff.json').is_file() else None, resume=resume,
         max_rounds=request['max_rounds'], max_probes=request['max_probes'], min_probes=request['min_probes'],
         max_edit_elements=request['max_edit_elements'], controller_timeout=min(240, request['timeout_seconds']))
     agent_run(args)

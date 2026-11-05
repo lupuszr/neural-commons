@@ -1,0 +1,13 @@
+{
+  "id": "probe-04",
+  "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+  "operation": "class_residual",
+  "layer": 9,
+  "target_class": "Cracking",
+  "ridge_fraction": 1.0,
+  "gain": 40.0,
+  "margin": 0.5,
+  "hypothesis": "Probe 03 fixed 3 selection cracks but made 4 layer-shift samples false cracks. Keep the crack correction direction while fitting a counter-direction on development layer-shift samples to reduce their crack logit. Use only development labels to fit; same block and strength isolate this protection change.",
+  "protect_class": "Layer_shifting",
+  "protect_strength": 0.25
+}

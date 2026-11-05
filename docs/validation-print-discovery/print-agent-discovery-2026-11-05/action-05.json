@@ -1,0 +1,13 @@
+{
+  "id": "probe-05",
+  "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+  "operation": "class_residual",
+  "layer": 9,
+  "target_class": "Cracking",
+  "ridge_fraction": 1.0,
+  "gain": 40.0,
+  "margin": 0.5,
+  "hypothesis": "Probe 04 protection dominated: patch norm increased from 0.414 to 1.476 and crack selection fell to 2/10. Reduce only protection by 10x while preserving the useful crack direction. This tests whether mild class-specific protection can recover the layer-shift regressions without erasing crack evidence.",
+  "protect_class": "Layer_shifting",
+  "protect_strength": 0.025
+}

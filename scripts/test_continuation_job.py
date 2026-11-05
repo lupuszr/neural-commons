@@ -64,6 +64,89 @@ class Lifecycle(unittest.TestCase):
 
 
 class Inputs(unittest.TestCase):
+    def fresh_fixture(self, root):
+        home = root/'home'; (home/'artifacts').mkdir(parents=True)
+        def put(data):
+            path = root/'bytes'; path.write_bytes(data); digest = job.sha(path)
+            path.rename(home/'artifacts'/digest); return digest
+        weights = put(b'weight bytes')
+        metadata = put(b'{}')
+        checkpoint = put(json.dumps({'format':'safetensors','artifact':weights,'inference_artifacts':{
+            k:metadata for k in ['model_config','tokenizer','tokenizer_config','special_tokens']}}).encode())
+        task = root/'task'; task.mkdir()
+        for name in ['development','selection','heldout']:
+            job.write(task/(name+'.json'), {'samples':[{'text':name,'label':0}]})
+        job.write(task/'config.json', {'selection_policy':{},'agent_objective':'original'})
+        job.write(task/'source.json', {'model':'test'})
+        job.write(task/'policy.json', {})
+        run=root/'run'; run.mkdir(); job.write(run/'state.json', {'status':'queued'})
+        envelope={'request':{'task_directory':str(task),'checkpoint':checkpoint,'name':'My experiment','objective':'New objective','weight_scope':{'mode':'all'}},
+                  'input_hashes':{p.name:job.sha(p) for p in task.iterdir()},'parent_spec':None}
+        return home, task, run, envelope
+
+    def test_fresh_model_snapshot_and_goal_without_parent_evidence(self):
+        with tempfile.TemporaryDirectory() as temp:
+            home, task, run, envelope = self.fresh_fixture(pathlib.Path(temp))
+            with patch('weight_experiment.nc', return_value={}):
+                directory = job.prepare(run,home,envelope)
+            self.assertFalse((directory/'handoff.json').exists())
+            self.assertEqual(job.read(directory/'config.json')['agent_objective'],'New objective')
+            self.assertEqual(job.read(task/'config.json')['agent_objective'],'original')
+            self.assertEqual(job.read(directory/'source.json')['experiment_name'],'My experiment')
+            self.assertEqual((directory/'model/model.safetensors').read_bytes(),b'weight bytes')
+            self.assertIn('model/model.safetensors',job.read(run/'inputs.json'))
+            self.assertFalse((directory/'model/model.safetensors').is_symlink())
+
+    def test_fresh_inputs_changed_after_admission_are_rejected(self):
+        with tempfile.TemporaryDirectory() as temp:
+            home, task, run, envelope = self.fresh_fixture(pathlib.Path(temp))
+            job.write(task/'heldout.json',{'samples':[]})
+            with patch('weight_experiment.nc', return_value={}):
+                with self.assertRaisesRegex(ValueError,'changed after submission'):
+                    job.prepare(run,home,envelope)
+            self.assertFalse((run/'input').exists())
+
+    def test_user_scope_replaces_task_restrictions_in_frozen_snapshot(self):
+        with tempfile.TemporaryDirectory() as temp:
+            home, task, run, envelope = self.fresh_fixture(pathlib.Path(temp))
+            original = {'selection_policy':{}, 'agent_objective':'Only edit embeddings',
+                        'edit_scope':[{'tensor':'embeddings','start':0,'count':4}], 'user_instructions':'Old restriction'}
+            job.write(task/'config.json', original)
+            envelope['input_hashes']['config.json'] = job.sha(task/'config.json')
+            envelope['request'].pop('objective')
+            envelope['request']['instructions'] = 'Prefer small changes'
+            with patch('weight_experiment.nc', return_value={}):
+                directory = job.prepare(run,home,envelope)
+            config = job.read(directory/'config.json')
+            self.assertNotIn('edit_scope',config)
+            self.assertNotIn('embeddings',config['agent_objective'])
+            self.assertEqual(config['user_instructions'],'Prefer small changes')
+            self.assertEqual(config['user_controls']['weight_scope'],{'mode':'all'})
+            self.assertEqual(job.read(task/'config.json'),original)
+            self.assertEqual(job.read(run/'inputs.json')['config.json'],job.sha(directory/'config.json'))
+
+    def test_selected_tensors_are_derived_from_model_not_task_regions(self):
+        manifest={'tensors':[{'name':'block.weight','shape':[3,4]},{'name':'embeddings','shape':[6,4]}]}
+        task={'edit_scope':[{'tensor':'embeddings','start':0,'count':4}]}
+        request={'weight_scope':{'mode':'selected','tensors':['block.weight']},'max_edit_elements':5}
+        config=job.apply_user_controls(task,request,manifest)
+        self.assertEqual(config['edit_scope'],[{'tensor':'block.weight','start':0,'count':12}])
+        self.assertEqual(config['user_controls']['max_edit_elements'],5)
+        for names in [[],['missing'],['block.weight','block.weight']]:
+            request['weight_scope']['tensors']=names
+            with self.assertRaisesRegex(ValueError,'Selected tensors'):
+                job.apply_user_controls(task,request,manifest)
+        with self.assertRaisesRegex(ValueError,'Choose the editable weights'):
+            job.apply_user_controls(task,{},manifest)
+
+    def test_corrupt_starting_weights_are_rejected(self):
+        with tempfile.TemporaryDirectory() as temp:
+            home, task, run, envelope = self.fresh_fixture(pathlib.Path(temp))
+            manifest=job.read(home/'artifacts'/envelope['request']['checkpoint'])
+            (home/'artifacts'/manifest['artifact']).write_bytes(b'corrupted')
+            with self.assertRaisesRegex(ValueError,'integrity'):
+                job.prepare_starting_model(home,envelope['request']['checkpoint'],run/'input')
+
     def test_import_prepares_real_spec_without_evaluation(self):
         from weight_experiment import experiment, EVALUATOR
         with tempfile.TemporaryDirectory() as temp:

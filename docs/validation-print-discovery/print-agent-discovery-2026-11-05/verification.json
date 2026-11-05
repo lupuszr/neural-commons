@@ -1,0 +1,14 @@
+{
+  "agent_driver": "current Codex conversation assistant",
+  "parent_sha256": "71cf5703125f4022c6d7563c0c7260955810dda97d5c318ac01da8869bc24134",
+  "candidate_sha256": "cea8bb132695f8bbcf72efe07cd34a725f83a0c81aeb430b8174e775d4e4fe8f",
+  "changed_tensors": [
+    "vision_model.encoder.layers.9.mlp.fc2.weight"
+  ],
+  "changed_values": 2359275,
+  "unchanged_tensors": 397,
+  "exact_replay_all_tensors": true,
+  "all_weights_finite": true,
+  "fixed_head_unchanged": true,
+  "independent_verification_process": true
+}

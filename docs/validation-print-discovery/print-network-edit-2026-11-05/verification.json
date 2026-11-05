@@ -1,0 +1,10 @@
+{
+  "exact_replay_all_tensors": true,
+  "changed_tensors": [
+    "vision_model.encoder.layers.10.mlp.fc2.weight"
+  ],
+  "changed_values": 2359291,
+  "unchanged_tensors": 397,
+  "candidate_sha256": "71cf5703125f4022c6d7563c0c7260955810dda97d5c318ac01da8869bc24134",
+  "fresh_process": true
+}

@@ -1,0 +1,290 @@
+[
+  {
+    "name": "unchanged",
+    "layer": null,
+    "gain": 0,
+    "patch_norm": 0.0,
+    "development": {
+      "n": 100,
+      "correct": 64,
+      "accuracy": 0.6399999856948853,
+      "loss": 1.2529433965682983
+    },
+    "selection": {
+      "n": 40,
+      "correct": 25,
+      "accuracy": 0.625,
+      "loss": 1.2995703220367432
+    }
+  },
+  {
+    "name": "layer_8_gain_0.25",
+    "layer": 8,
+    "gain": 0.25,
+    "patch_norm": 0.20255012810230255,
+    "development": {
+      "n": 100,
+      "correct": 67,
+      "accuracy": 0.6700000166893005,
+      "loss": 1.2497626543045044
+    },
+    "selection": {
+      "n": 40,
+      "correct": 25,
+      "accuracy": 0.625,
+      "loss": 1.2995949983596802
+    }
+  },
+  {
+    "name": "layer_8_gain_0.5",
+    "layer": 8,
+    "gain": 0.5,
+    "patch_norm": 0.4051002562046051,
+    "development": {
+      "n": 100,
+      "correct": 68,
+      "accuracy": 0.6800000071525574,
+      "loss": 1.2467190027236938
+    },
+    "selection": {
+      "n": 40,
+      "correct": 25,
+      "accuracy": 0.625,
+      "loss": 1.2996724843978882
+    }
+  },
+  {
+    "name": "layer_8_gain_1.0",
+    "layer": 8,
+    "gain": 1.0,
+    "patch_norm": 0.8102005124092102,
+    "development": {
+      "n": 100,
+      "correct": 76,
+      "accuracy": 0.7599999904632568,
+      "loss": 1.2410205602645874
+    },
+    "selection": {
+      "n": 40,
+      "correct": 25,
+      "accuracy": 0.625,
+      "loss": 1.2999732494354248
+    }
+  },
+  {
+    "name": "layer_8_gain_2.0",
+    "layer": 8,
+    "gain": 2.0,
+    "patch_norm": 1.6204010248184204,
+    "development": {
+      "n": 100,
+      "correct": 82,
+      "accuracy": 0.8199999928474426,
+      "loss": 1.2309789657592773
+    },
+    "selection": {
+      "n": 40,
+      "correct": 24,
+      "accuracy": 0.6000000238418579,
+      "loss": 1.3010677099227905
+    }
+  },
+  {
+    "name": "layer_8_gain_4.0",
+    "layer": 8,
+    "gain": 4.0,
+    "patch_norm": 3.240802049636841,
+    "development": {
+      "n": 100,
+      "correct": 87,
+      "accuracy": 0.8700000047683716,
+      "loss": 1.2148505449295044
+    },
+    "selection": {
+      "n": 40,
+      "correct": 26,
+      "accuracy": 0.6499999761581421,
+      "loss": 1.3046855926513672
+    }
+  },
+  {
+    "name": "layer_10_gain_0.25",
+    "layer": 10,
+    "gain": 0.25,
+    "patch_norm": 0.1414860188961029,
+    "development": {
+      "n": 100,
+      "correct": 69,
+      "accuracy": 0.6899999976158142,
+      "loss": 1.2474896907806396
+    },
+    "selection": {
+      "n": 40,
+      "correct": 25,
+      "accuracy": 0.625,
+      "loss": 1.2979607582092285
+    }
+  },
+  {
+    "name": "layer_10_gain_0.5",
+    "layer": 10,
+    "gain": 0.5,
+    "patch_norm": 0.2829720377922058,
+    "development": {
+      "n": 100,
+      "correct": 70,
+      "accuracy": 0.699999988079071,
+      "loss": 1.2420748472213745
+    },
+    "selection": {
+      "n": 40,
+      "correct": 25,
+      "accuracy": 0.625,
+      "loss": 1.2963881492614746
+    }
+  },
+  {
+    "name": "layer_10_gain_1.0",
+    "layer": 10,
+    "gain": 1.0,
+    "patch_norm": 0.5659440755844116,
+    "development": {
+      "n": 100,
+      "correct": 80,
+      "accuracy": 0.800000011920929,
+      "loss": 1.231361985206604
+    },
+    "selection": {
+      "n": 40,
+      "correct": 25,
+      "accuracy": 0.625,
+      "loss": 1.293357014656067
+    }
+  },
+  {
+    "name": "layer_10_gain_2.0",
+    "layer": 10,
+    "gain": 2.0,
+    "patch_norm": 1.1318881511688232,
+    "development": {
+      "n": 100,
+      "correct": 90,
+      "accuracy": 0.8999999761581421,
+      "loss": 1.210404872894287
+    },
+    "selection": {
+      "n": 40,
+      "correct": 29,
+      "accuracy": 0.7250000238418579,
+      "loss": 1.2877404689788818
+    }
+  },
+  {
+    "name": "layer_10_gain_4.0",
+    "layer": 10,
+    "gain": 4.0,
+    "patch_norm": 2.2637763023376465,
+    "development": {
+      "n": 100,
+      "correct": 94,
+      "accuracy": 0.9399999976158142,
+      "loss": 1.1705025434494019
+    },
+    "selection": {
+      "n": 40,
+      "correct": 28,
+      "accuracy": 0.699999988079071,
+      "loss": 1.2782373428344727
+    }
+  },
+  {
+    "name": "layer_11_gain_0.25",
+    "layer": 11,
+    "gain": 0.25,
+    "patch_norm": 0.14041383564472198,
+    "development": {
+      "n": 100,
+      "correct": 71,
+      "accuracy": 0.7099999785423279,
+      "loss": 1.2437676191329956
+    },
+    "selection": {
+      "n": 40,
+      "correct": 25,
+      "accuracy": 0.625,
+      "loss": 1.2991204261779785
+    }
+  },
+  {
+    "name": "layer_11_gain_0.5",
+    "layer": 11,
+    "gain": 0.5,
+    "patch_norm": 0.28082767128944397,
+    "development": {
+      "n": 100,
+      "correct": 79,
+      "accuracy": 0.7900000214576721,
+      "loss": 1.234687328338623
+    },
+    "selection": {
+      "n": 40,
+      "correct": 25,
+      "accuracy": 0.625,
+      "loss": 1.2987253665924072
+    }
+  },
+  {
+    "name": "layer_11_gain_1.0",
+    "layer": 11,
+    "gain": 1.0,
+    "patch_norm": 0.5616553425788879,
+    "development": {
+      "n": 100,
+      "correct": 87,
+      "accuracy": 0.8700000047683716,
+      "loss": 1.216844916343689
+    },
+    "selection": {
+      "n": 40,
+      "correct": 22,
+      "accuracy": 0.550000011920929,
+      "loss": 1.2981022596359253
+    }
+  },
+  {
+    "name": "layer_11_gain_2.0",
+    "layer": 11,
+    "gain": 2.0,
+    "patch_norm": 1.1233106851577759,
+    "development": {
+      "n": 100,
+      "correct": 99,
+      "accuracy": 0.9900000095367432,
+      "loss": 1.1826097965240479
+    },
+    "selection": {
+      "n": 40,
+      "correct": 23,
+      "accuracy": 0.574999988079071,
+      "loss": 1.297520399093628
+    }
+  },
+  {
+    "name": "layer_11_gain_4.0",
+    "layer": 11,
+    "gain": 4.0,
+    "patch_norm": 2.2466213703155518,
+    "development": {
+      "n": 100,
+      "correct": 91,
+      "accuracy": 0.9100000262260437,
+      "loss": 1.1210720539093018
+    },
+    "selection": {
+      "n": 40,
+      "correct": 21,
+      "accuracy": 0.5249999761581421,
+      "loss": 1.2989826202392578
+    }
+  }
+]

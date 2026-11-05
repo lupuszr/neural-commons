@@ -57,7 +57,11 @@ the requested JSON actions; the host executes the tools described below.
 No gradients, optimizer, extra training examples or held-out access are available.
 Do not claim broad capability improvement. Choose a non-empty candidate if a
 plausible one exists, but report failures honestly. Follow task.agent_objective
-when provided; otherwise optimize label NLL while retaining accuracy. Pure global
+when provided; otherwise optimize label NLL while retaining accuracy. Follow
+task.user_instructions when supplied. task.edit_scope, if present, contains the
+only editable regions selected by the user. Without it, you may choose any model
+tensor; do not infer a restriction to embeddings or inherit a previous agent's
+scope. Respect the current task's explicit execution budgets. Pure global
 logit scaling cannot improve argmax classification accuracy. You must inspect relevant weights before
 editing, and explain a causal hypothesis for each experiment.
 
@@ -291,6 +295,14 @@ def save_candidate(base_file, output, edits):
     return changed
 
 
+def validate_edit_scope(config, operations):
+    if 'edit_scope' in config and not all(any(
+            op['tensor'] == region['tensor'] and op['start'] >= region['start'] and
+            op['start'] + op['count'] <= region['start'] + region['count']
+            for region in config['edit_scope']) for op in operations):
+        raise ValueError('edit exceeds the operator-approved tensor regions')
+
+
 def run(args):
     if args.resume:
         if (args.output / 'session.json').exists():
@@ -335,6 +347,7 @@ def run(args):
         write(args.output / "commitment.json", commitment)
     model, tokenizer = load_model(args.model, device="cpu")
     original = load_file(args.model / "model.safetensors")
+    edit_limit = args.max_edit_elements if args.max_edit_elements is not None else sum(t.numel() for t in original.values())
     # Text is available to the controller only for the development split.
     development_config = {**config, "output_text": True}
     baseline = restored[1][0]['initial']['baseline'] if restored else score(model, tokenizer, development, development_config)
@@ -343,7 +356,7 @@ def run(args):
                             "inventory": inventory, "baseline": baseline,
                             "budgets": {"rounds": args.max_rounds, "probes": args.max_probes,
                                         "minimum_attempts_before_finish": args.min_probes,
-                                        "edit_elements_per_candidate": args.max_edit_elements}}}]
+                                        "edit_elements_per_candidate": edit_limit}}}]
     candidates, inspected, probes, selected, features = [], set(), 0, None, {}
     if handoff:
         history[0]["initial"]["inherited_experiment"] = {k:v for k,v in handoff.items()
@@ -427,12 +440,8 @@ def run(args):
                         raise ValueError("hypothesis required")
                     if not all(op["tensor"] in inspected for op in kw["operations"]):
                         raise ValueError("inspect each destination tensor before editing")
-                    if "edit_scope" in config and not all(any(
-                            op["tensor"] == region["tensor"] and op["start"] >= region["start"] and
-                            op["start"] + op["count"] <= region["start"] + region["count"]
-                            for region in config["edit_scope"]) for op in kw["operations"]):
-                        raise ValueError("edit exceeds the operator-approved tensor regions")
-                    edits = edited_slices({**original, **features}, kw["operations"], args.max_edit_elements)
+                    validate_edit_scope(config, kw['operations'])
+                    edits = edited_slices({**original, **features}, kw["operations"], edit_limit)
                     model.load_state_dict(original, strict=False)
                     state = model.state_dict()
                     for op, values in edits:
@@ -463,7 +472,7 @@ def run(args):
     if selected is None:
         raise RuntimeError("controller did not finalize a candidate within its budget")
     winner = candidates[selected]
-    edits = edited_slices({**original, **features}, winner["operations"], args.max_edit_elements)
+    edits = edited_slices({**original, **features}, winner["operations"], edit_limit)
     changed = save_candidate(args.model / "model.safetensors", args.output / "candidate.safetensors", edits)
     result = {"schema": "nc/weight-agent-session/v1", "commitment": commitment,
               "baseline_development": baseline, "selected": winner, "candidates": candidates,

@@ -1,0 +1,11 @@
+{
+  "id": "probe-03",
+  "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+  "operation": "class_residual",
+  "layer": 9,
+  "target_class": "Cracking",
+  "ridge_fraction": 1.0,
+  "gain": 40.0,
+  "margin": 0.5,
+  "hypothesis": "Probe 02 changed no decisions and had weight-delta norm 0.01035. Test the same direction at norm about 0.414, still below the inherited edit norm 1.132, to distinguish insufficient amplitude from a useless direction. Chosen after probe 02 feedback, not a predeclared sweep."
+}

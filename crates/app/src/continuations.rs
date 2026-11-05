@@ -13,19 +13,37 @@ use std::{
 };
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+#[serde(tag = "mode", rename_all = "snake_case", deny_unknown_fields)]
+pub enum WeightScope {
+    All,
+    Selected { tensors: Vec<String> },
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 #[serde(deny_unknown_fields)]
 pub struct Request {
     pub id: String,
     pub checkpoint: ContentId,
-    pub proposal: ContentId,
-    pub report: ContentId,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub proposal: Option<ContentId>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub report: Option<ContentId>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub objective: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub instructions: Option<String>,
+    // Missing only for older saved requests. New submissions must choose a scope.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub weight_scope: Option<WeightScope>,
     pub task_directory: PathBuf,
     pub backend: String,
     pub controller_model: String,
     pub max_rounds: u32,
     pub max_probes: u32,
     pub min_probes: u32,
-    pub max_edit_elements: u32,
+    pub max_edit_elements: Option<u64>,
     pub timeout_seconds: u32,
 }
 pub const INPUTS: [&str; 7] = [
@@ -90,6 +108,48 @@ fn run_dir(home: &Path, id: &str) -> Result<PathBuf> {
 fn validate_request(r: &Request) -> Result<()> {
     valid_id(&r.id)?;
     ensure!(
+        r.proposal.is_some() == r.report.is_some(),
+        "Both parent proposal and report are required for continuation"
+    );
+    ensure!(
+        r.name
+            .as_ref()
+            .is_none_or(|v| !v.trim().is_empty() && v.len() <= 120),
+        "Experiment name must contain 1–120 bytes"
+    );
+    ensure!(
+        r.objective
+            .as_ref()
+            .is_none_or(|v| !v.trim().is_empty() && v.len() <= 4000),
+        "Objective must contain 1–4000 bytes"
+    );
+    ensure!(
+        r.proposal.is_none() || r.name.is_none(),
+        "Continuation does not accept an experiment name"
+    );
+    ensure!(
+        r.instructions
+            .as_ref()
+            .is_none_or(|v| !v.trim().is_empty() && v.len() <= 4000),
+        "Instructions must contain 1–4000 bytes"
+    );
+    match &r.weight_scope {
+        Some(WeightScope::All) => (),
+        Some(WeightScope::Selected { tensors }) => {
+            ensure!(
+                !tensors.is_empty() && tensors.len() <= 10000,
+                "Choose at least one tensor"
+            );
+            let unique: std::collections::BTreeSet<_> = tensors.iter().collect();
+            ensure!(
+                unique.len() == tensors.len()
+                    && tensors.iter().all(|s| !s.is_empty() && s.len() <= 1024),
+                "Invalid or duplicate selected tensors"
+            );
+        }
+        None => anyhow::bail!("Choose the editable weights: all or selected tensors"),
+    }
+    ensure!(
         ["codex", "openai"].contains(&r.backend.as_str()),
         "Unsupported controller backend"
     );
@@ -106,7 +166,8 @@ fn validate_request(r: &Request) -> Result<()> {
         (1..=64).contains(&r.max_rounds)
             && (1..=32).contains(&r.max_probes)
             && r.min_probes <= r.max_probes
-            && (1..=2_000_000).contains(&r.max_edit_elements)
+            && r.max_edit_elements
+                .is_none_or(|n| (1..=9_007_199_254_740_991).contains(&n))
             && (60..=21600).contains(&r.timeout_seconds),
         "Controller budget outside supported limits"
     );
@@ -119,7 +180,36 @@ fn validate_request(r: &Request) -> Result<()> {
 fn parent(home: &Path, r: &Request) -> Result<Value> {
     let store = ArtifactStore::open(home.join("artifacts"))?;
     let state = crate::journal::snapshot(home)?;
-    let record: Value = store.get_json(&r.proposal)?;
+    if r.proposal.is_none() {
+        ensure!(
+            state["checkpoints"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|row| row["id"] == r.checkpoint.to_string()),
+            "Import the starting checkpoint into this participant first"
+        );
+        let checkpoint = nc_core::verify_checkpoint(&store, &r.checkpoint)?;
+        ensure!(
+            checkpoint.shards.is_empty(),
+            "New experiments currently require a single-file Safetensors model"
+        );
+        for name in [
+            "model_config",
+            "tokenizer",
+            "tokenizer_config",
+            "special_tokens",
+        ] {
+            ensure!(
+                checkpoint.inference_artifacts.contains_key(name),
+                "Starting model is missing inference artifact: {name}"
+            );
+        }
+        return Ok(Value::Null);
+    }
+    let proposal = r.proposal.as_ref().unwrap();
+    let report_id = r.report.as_ref().context("missing parent report")?;
+    let record: Value = store.get_json(proposal)?;
     ensure!(
         record["kind"] == "PatchProposal",
         "Parent must be a patch proposal"
@@ -129,7 +219,7 @@ fn parent(home: &Path, r: &Request) -> Result<Value> {
             .as_array()
             .unwrap()
             .iter()
-            .any(|row| row["id"] == r.proposal.to_string()
+            .any(|row| row["id"] == proposal.to_string()
                 && ["remote-dkg-readback", "local-shared"]
                     .contains(&row["provenance"].as_str().unwrap_or(""))
                 && row["record"]
@@ -146,7 +236,7 @@ fn parent(home: &Path, r: &Request) -> Result<Value> {
             .to_string(),
     )?;
     let spec: Value = store.get_json(&spec_id)?;
-    let report: Value = store.get_json(&r.report)?;
+    let report: Value = store.get_json(report_id)?;
     ensure!(
         spec["candidate"] == r.checkpoint.to_string(),
         "Selected checkpoint differs from parent candidate"
@@ -159,14 +249,14 @@ fn parent(home: &Path, r: &Request) -> Result<Value> {
         .as_array()
         .unwrap()
         .iter()
-        .any(|j| j["report"] == r.report.to_string())
+        .any(|j| j["report"] == report_id.to_string())
         || state["records"].as_array().unwrap().iter().any(|row| {
             let rec = row["record"]
                 .as_str()
                 .and_then(|s| serde_json::from_str::<Value>(s).ok())
                 .unwrap_or(Value::Null);
             rec["kind"] == "Evaluation"
-                && rec["artifact"] == r.report.to_string()
+                && rec["artifact"] == report_id.to_string()
                 && ["remote-dkg-readback", "local-shared"]
                     .contains(&row["provenance"].as_str().unwrap_or(""))
         });
@@ -316,7 +406,7 @@ pub fn start(home: &Path, python: &Path, request: Request) -> Result<Value> {
         &json!({"request":request, "input_hashes":hashes, "parent_spec":spec}),
     )?;
     let mut state = json!({"id":request.id,"status":"queued","checkpoint":request.checkpoint,"controller_model":request.controller_model,
-        "backend":request.backend,"created_at":std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_secs(),"attempt":1,"stage":"preparing","message":"Preparing inherited checkpoint and task inputs"});
+        "backend":request.backend,"kind":if request.proposal.is_some() {"continuation"} else {"experiment"},"name":request.name,"created_at":std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_secs(),"attempt":1,"stage":"preparing","message":"Preparing model and freezing task inputs"});
     write_json(&dir.join("state.json"), &state)?;
     if let Err(e) = spawn(home, python, &dir, lock, false) {
         state["status"] = json!("failed");
@@ -410,19 +500,84 @@ mod tests {
         let request = Request {
             id: uuid::Uuid::new_v4().to_string(),
             checkpoint,
-            proposal,
-            report,
+            proposal: Some(proposal),
+            report: Some(report),
+            name: None,
+            objective: None,
+            instructions: None,
+            weight_scope: Some(WeightScope::All),
             task_directory: task,
             backend: "codex".into(),
             controller_model: "controller-test".into(),
             max_rounds: 4,
             max_probes: 2,
             min_probes: 1,
-            max_edit_elements: 8,
+            max_edit_elements: Some(8),
             timeout_seconds: 60,
         };
         (temp, home, request)
     }
+    #[test]
+    fn fresh_experiment_needs_model_artifacts_but_no_parent_evaluation() {
+        let (_temp, home, mut request) = fixture();
+        request.proposal = None;
+        request.report = None;
+        request.name = Some("Fresh experiment".into());
+        request.objective = Some("Improve accuracy".into());
+        let store = ArtifactStore::open(home.join("artifacts")).unwrap();
+        let bytes = nc_core::encode_f32(std::collections::BTreeMap::from([(
+            "weight".into(),
+            (vec![1], vec![1.0]),
+        )]))
+        .unwrap();
+        store.put(&bytes).unwrap();
+        let mut manifest = nc_core::inspect(&bytes).unwrap();
+        let metadata = store.put_json(&json!({})).unwrap();
+        let python = Path::new("/nonexistent/python");
+        request.checkpoint = store.put_json(&manifest).unwrap();
+        let journal = crate::journal::Journal::open(&home).unwrap();
+        journal.checkpoint(&request.checkpoint).unwrap();
+        assert!(
+            start(&home, python, request.clone())
+                .unwrap_err()
+                .to_string()
+                .contains("missing inference")
+        );
+        for key in [
+            "model_config",
+            "tokenizer",
+            "tokenizer_config",
+            "special_tokens",
+        ] {
+            manifest
+                .inference_artifacts
+                .insert(key.into(), metadata.clone());
+        }
+        request.checkpoint = store.put_json(&manifest).unwrap();
+        assert!(
+            start(&home, python, request.clone())
+                .unwrap_err()
+                .to_string()
+                .contains("Import")
+        );
+        journal.checkpoint(&request.checkpoint).unwrap();
+        let mut incomplete_parent = request.clone();
+        incomplete_parent.report = Some(metadata);
+        assert!(start(&home, python, incomplete_parent).is_err());
+        let state = start(&home, python, request.clone()).unwrap();
+        assert_eq!(state["kind"], "experiment");
+        assert_eq!(state["name"], "Fresh experiment");
+        assert_eq!(state["status"], "failed"); // Runtime is deliberately absent.
+        assert_eq!(start(&home, python, request.clone()).unwrap(), state);
+        request.objective = Some("Changed objective".into());
+        assert!(
+            start(&home, python, request)
+                .unwrap_err()
+                .to_string()
+                .contains("already bound")
+        );
+    }
+
     #[test]
     fn idempotency_and_changed_request_conflict() {
         let (_temp, home, request) = fixture();
@@ -445,6 +600,14 @@ mod tests {
     fn parent_identity_report_and_budget_are_checked_before_admission() {
         let (_temp, home, request) = fixture();
         let python = Path::new("/nonexistent/python");
+        let mut unrestricted = request.clone();
+        unrestricted.max_edit_elements = None;
+        unrestricted.objective = Some("User goal for this continuation".into());
+        assert!(validate_request(&unrestricted).is_ok());
+        unrestricted.max_edit_elements = Some(134_515_008);
+        assert!(validate_request(&unrestricted).is_ok());
+        unrestricted.max_edit_elements = Some(0);
+        assert!(validate_request(&unrestricted).is_err());
         let mut wrong = request.clone();
         wrong.checkpoint = nc_core::digest(b"wrong");
         assert!(
@@ -458,9 +621,11 @@ mod tests {
         assert!(start(&home, python, wrong).is_err());
         let store = ArtifactStore::open(home.join("artifacts")).unwrap();
         let mut wrong = request.clone();
-        wrong.report = store
-            .put_json(&json!({"spec":parent(&home,&request).unwrap(),"status":"passed"}))
-            .unwrap();
+        wrong.report = Some(
+            store
+                .put_json(&json!({"spec":parent(&home,&request).unwrap(),"status":"passed"}))
+                .unwrap(),
+        );
         assert!(start(&home, python, wrong).is_err());
         let mut wrong = request;
         wrong.id = "../escape".into();

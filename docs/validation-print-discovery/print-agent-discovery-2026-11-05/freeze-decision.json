@@ -1,0 +1,6 @@
+{
+  "selected": "probe-07",
+  "parent_patch": "artifacts/print-agent-discovery-2026-11-05/probe-07/replacement.safetensors",
+  "reason": "Agent selects probe 07 after feedback: only tested candidate with selection accuracy above inherited 29/40 (30/40). One-example gain is weak; freeze now, do not continue tuning on selection or test.",
+  "time": 1793860520.9804869
+}

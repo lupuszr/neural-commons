@@ -1,0 +1,11 @@
+{
+  "id": "probe-07",
+  "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+  "operation": "class_residual",
+  "layer": 9,
+  "target_class": "all",
+  "ridge_fraction": 0.1,
+  "gain": 3.0,
+  "margin": 0.5,
+  "hypothesis": "Probe 06 achieved perfect development classification but selection dropped to 28/40: over-adaptation. Reduce only intervention amplitude to 30%, producing expected norm about 0.384, to test a conservative version. If it cannot improve selection, reject this branch and retain the inherited checkpoint."
+}

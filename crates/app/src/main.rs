@@ -1,7 +1,10 @@
+mod checkpoint_diff;
 mod continuations;
 mod fixtures;
 mod journal;
+mod model_import;
 mod server;
+mod workspace_choices;
 use anyhow::{Context, Result, ensure};
 use clap::{Parser, Subcommand};
 use nc_core::*;
@@ -39,6 +42,9 @@ enum Action {
     },
     Inspect {
         file: PathBuf,
+    },
+    ImportModel {
+        directory: PathBuf,
     },
     Register {
         file: PathBuf,
@@ -88,6 +94,9 @@ enum Action {
         record: String,
     },
     Serve {
+        /// Require the participant token for UI/API access (default: local access without a token).
+        #[arg(long)]
+        require_token: bool,
         #[arg(long, default_value_t = 19500)]
         port: u16,
         /// Python environment containing the optional weight-controller dependencies.
@@ -130,6 +139,8 @@ struct Config {
     dkg_token_file: PathBuf,
     context_graph: String,
     artifact_origin: String,
+    #[serde(default)]
+    require_token: bool,
     artifact_token_file: PathBuf,
     trusted_artifact_origin: Option<String>,
     trusted_artifact_token_file: Option<PathBuf>,
@@ -295,6 +306,18 @@ fn receive(
         .discover(record_id)?
         .context("record unavailable in DKG shared memory")?;
     dkg.download_bundle(s, &record)?;
+    if record.kind == "PatchProposal" {
+        let spec: EvaluationSpec = s.get_json(&record.artifact)?;
+        nc_core::verify_checkpoint(s, &spec.base)?;
+        nc_core::verify_checkpoint(s, &spec.candidate)?;
+        let patch: Patch = s.get_json(&spec.patch)?;
+        ensure!(
+            patch.author == record.author,
+            "patch and DKG authors disagree"
+        );
+        j.checkpoint(&spec.base)?;
+        j.checkpoint(&spec.candidate)?;
+    }
     ensure!(
         s.put_json(&record)? == *record_id,
         "record integrity mismatch"
@@ -378,6 +401,7 @@ fn run() -> Result<()> {
         return Ok(());
     }
     if let Action::Serve {
+        require_token,
         port,
         controller_python,
     } = cli.command
@@ -389,6 +413,7 @@ fn run() -> Result<()> {
             &cfg.artifact_token_file,
             port,
             controller_python,
+            require_token || cfg.require_token,
         );
     }
     if matches!(cli.command, Action::State) {
@@ -464,6 +489,7 @@ fn run() -> Result<()> {
                 "participant already initialized"
             );
             let cfg = Config {
+                require_token: false,
                 dkg_url,
                 dkg_token_file: std::fs::canonicalize(dkg_token_file)?,
                 context_graph,
@@ -504,6 +530,11 @@ fn run() -> Result<()> {
         } => {
             export_checkpoint(&store, &id(checkpoint)?, &directory)?;
             json!({"directory":directory})
+        }
+        Action::ImportModel { directory } => {
+            let (checkpoint, name) = model_import::import(&store, &directory)?;
+            j.checkpoint(&checkpoint)?;
+            json!({"checkpoint":checkpoint,"name":name})
         }
         Action::Register {
             file,

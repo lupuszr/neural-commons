@@ -1,0 +1,17 @@
+{
+  "count": 200,
+  "unique_sha256": 200,
+  "synthetic": false,
+  "inferred_capture_sessions": 34,
+  "sessions_disjoint_across_splits": true,
+  "splits": {
+    "development": 100,
+    "selection": 40,
+    "evaluation": 60
+  },
+  "evaluation_n": 60,
+  "baseline_correct": 18,
+  "candidate_correct": 19,
+  "improvement_is_preliminary": true,
+  "dkg_roundtrip_run_for_this_dataset": false
+}

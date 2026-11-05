@@ -1,0 +1,7 @@
+{
+  "source": "https://github.com/wengmhu/FDM-3D-Printing-Defect-Dataset",
+  "download": "https://www.kaggle.com/api/v1/datasets/download/wengmhu/fdm-3d-printing-defect-dataset",
+  "paper": "https://doi.org/10.1007/s00170-024-14452-4",
+  "license_as_declared": "MIT, see SOURCE-README.md",
+  "selection": "Original timestamp-named JPG only; excluded _aug and _original derivatives; seed17; inferred capture sessions do not cross splits"
+}

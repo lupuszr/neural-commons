@@ -1,0 +1,27 @@
+{
+  "created_at": 1793858574.018691,
+  "manifest_sha256": "814f97ab6b45435b80a90664398c2b347432b1a0b5702beb286ead09660478a6",
+  "fixed_head_sha256": "e4ee1205c7486ecaf671cc6852dbc91f928d4960fb617bfc49186d66a7fdc0b9",
+  "model": "openai/clip-vit-base-patch32",
+  "revision": "c237dc49a33fc61debc9276459120b7eac67e7ef",
+  "seed": 41,
+  "layers": [
+    8,
+    10,
+    11
+  ],
+  "gains": [
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    4.0
+  ],
+  "method": "Activation-guided low-rank direct additions to internal transformer mlp.fc2.weight. Closed-form ridge solve on development activations only; no gradients or optimizer.",
+  "rationale": "Development errors may be corrected by changing residual-stream directions inside visual blocks while preserving the existing classifier. Fit a small logit-margin correction through development activations, then measure exact nonlinear suffix behavior.",
+  "selection": "Max selection accuracy, then lower development cross entropy, then smaller patch norm; unchanged baseline included. Final photo labels are not read by search.",
+  "ridge_fraction": 0.1,
+  "scope": "Internal vision MLP weights; text network, visual projection and previous classifier remain fixed. This is an experiment choice, not an application-wide restriction.",
+  "autonomous_controller": false,
+  "fresh_test_limit": "60 previously unused photos from the same inferred evaluation capture sessions; earlier frames/results from these sessions were seen. Not a fully independent new-job test."
+}

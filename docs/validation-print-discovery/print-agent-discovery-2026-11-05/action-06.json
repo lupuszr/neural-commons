@@ -1,0 +1,11 @@
+{
+  "id": "probe-06",
+  "tensor": "vision_model.encoder.layers.9.mlp.fc2.weight",
+  "operation": "class_residual",
+  "layer": 9,
+  "target_class": "all",
+  "ridge_fraction": 0.1,
+  "gain": 10.0,
+  "margin": 0.5,
+  "hypothesis": "Both strong and weak crack-only protection failed to improve held-out selection. Abandon the one-class hypothesis: fit a simultaneous residual correction for all remaining development mistakes so layer-shift errors receive their own positive correction. Use block 9 before inherited block 10, moderate gain, and the previously useful ridge fraction."
+}

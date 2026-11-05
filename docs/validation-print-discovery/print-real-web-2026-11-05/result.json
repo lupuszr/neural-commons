@@ -1,0 +1,1232 @@
+{
+  "scope": "Real-photo four-defect pilot; source labels; inferred capture-session splits; no healthy class",
+  "selected": "prototype_blend_0.25",
+  "changed_values": 2048,
+  "changed_tensors": 1,
+  "backbone_changed": false,
+  "autonomous_controller": false,
+  "labels": "source dataset author folders; not independently audited",
+  "splits": {
+    "development": {
+      "n": 100,
+      "base_accuracy": 0.42,
+      "candidate_accuracy": 0.64,
+      "predictions": [
+        {
+          "id": "001",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "002",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "003",
+          "label": "Cracking",
+          "base": "Stringing",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "004",
+          "label": "Cracking",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "005",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "006",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "007",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "008",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "009",
+          "label": "Cracking",
+          "base": "Stringing",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "010",
+          "label": "Cracking",
+          "base": "Stringing",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "011",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "012",
+          "label": "Cracking",
+          "base": "Stringing",
+          "candidate": "Warping"
+        },
+        {
+          "id": "013",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "014",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "015",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "016",
+          "label": "Cracking",
+          "base": "Stringing",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "017",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "018",
+          "label": "Cracking",
+          "base": "Stringing",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "019",
+          "label": "Cracking",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "020",
+          "label": "Cracking",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "021",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "022",
+          "label": "Cracking",
+          "base": "Layer_shifting",
+          "candidate": "Warping"
+        },
+        {
+          "id": "023",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "024",
+          "label": "Cracking",
+          "base": "Layer_shifting",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "025",
+          "label": "Cracking",
+          "base": "Stringing",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "051",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "052",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "053",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "054",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "055",
+          "label": "Layer_shifting",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "056",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "057",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "058",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "059",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "060",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "061",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "062",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "063",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "064",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "065",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "066",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "067",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "068",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "069",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "070",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "071",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "072",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "073",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "074",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "075",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "101",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "102",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "103",
+          "label": "Stringing",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "104",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "105",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "106",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "107",
+          "label": "Stringing",
+          "base": "Cracking",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "108",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "109",
+          "label": "Stringing",
+          "base": "Layer_shifting",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "110",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "111",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "112",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "113",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "114",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "115",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "116",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "117",
+          "label": "Stringing",
+          "base": "Layer_shifting",
+          "candidate": "Warping"
+        },
+        {
+          "id": "118",
+          "label": "Stringing",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "119",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "120",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "121",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "122",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "123",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "124",
+          "label": "Stringing",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "125",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "151",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "152",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "153",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "154",
+          "label": "Warping",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "155",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "156",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "157",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "158",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "159",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "160",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "161",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "162",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "163",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "164",
+          "label": "Warping",
+          "base": "Layer_shifting",
+          "candidate": "Warping"
+        },
+        {
+          "id": "165",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "166",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "167",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "168",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "169",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "170",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "171",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "172",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "173",
+          "label": "Warping",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "174",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "175",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        }
+      ]
+    },
+    "selection": {
+      "n": 40,
+      "base_accuracy": 0.35,
+      "candidate_accuracy": 0.625,
+      "predictions": [
+        {
+          "id": "026",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "027",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "028",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "029",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "030",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "031",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "032",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "033",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "034",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "035",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "076",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "077",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "078",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "079",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "080",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "081",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "082",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "083",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "084",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "085",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "126",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "127",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "128",
+          "label": "Stringing",
+          "base": "Warping",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "129",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "130",
+          "label": "Stringing",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "131",
+          "label": "Stringing",
+          "base": "Cracking",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "132",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "133",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "134",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "135",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "176",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "177",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "178",
+          "label": "Warping",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "179",
+          "label": "Warping",
+          "base": "Layer_shifting",
+          "candidate": "Warping"
+        },
+        {
+          "id": "180",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "181",
+          "label": "Warping",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "182",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "183",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "184",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "185",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        }
+      ]
+    },
+    "evaluation": {
+      "n": 60,
+      "base_accuracy": 0.3,
+      "candidate_accuracy": 0.31666666666666665,
+      "predictions": [
+        {
+          "id": "036",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "037",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "038",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "039",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "040",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "041",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "042",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "043",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "044",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "045",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "046",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "047",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "048",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "049",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "050",
+          "label": "Cracking",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "086",
+          "label": "Layer_shifting",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "087",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "088",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "089",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "090",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "091",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "092",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "093",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "094",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "095",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "096",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "097",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "098",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "099",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "100",
+          "label": "Layer_shifting",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "136",
+          "label": "Stringing",
+          "base": "Cracking",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "137",
+          "label": "Stringing",
+          "base": "Cracking",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "138",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "139",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "140",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "141",
+          "label": "Stringing",
+          "base": "Cracking",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "142",
+          "label": "Stringing",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "143",
+          "label": "Stringing",
+          "base": "Warping",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "144",
+          "label": "Stringing",
+          "base": "Cracking",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "145",
+          "label": "Stringing",
+          "base": "Cracking",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "146",
+          "label": "Stringing",
+          "base": "Warping",
+          "candidate": "Cracking"
+        },
+        {
+          "id": "147",
+          "label": "Stringing",
+          "base": "Cracking",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "148",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "149",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "150",
+          "label": "Stringing",
+          "base": "Stringing",
+          "candidate": "Stringing"
+        },
+        {
+          "id": "186",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "187",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "188",
+          "label": "Warping",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "189",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "190",
+          "label": "Warping",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "191",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "192",
+          "label": "Warping",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "193",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "194",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "195",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "196",
+          "label": "Warping",
+          "base": "Layer_shifting",
+          "candidate": "Layer_shifting"
+        },
+        {
+          "id": "197",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "198",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "199",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Warping"
+        },
+        {
+          "id": "200",
+          "label": "Warping",
+          "base": "Warping",
+          "candidate": "Layer_shifting"
+        }
+      ]
+    }
+  }
+}

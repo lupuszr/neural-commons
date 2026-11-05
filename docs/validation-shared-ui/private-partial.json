@@ -1,0 +1,22 @@
+{
+  "status": "partial",
+  "run": ".runtime/shared-flow-20261104-220821",
+  "dkg_source": "feb7f4f77bea104e9941d3fc8eaabe9759f5070f",
+  "verified": [
+    "access denied before signed join",
+    "native private invite, signed join and approval",
+    "proposal discovery on the second participant",
+    "model/evidence download through the real UI",
+    "passing local evaluation on the second participant"
+  ],
+  "not_verified": [
+    "successful encrypted result publication and first-participant readback"
+  ],
+  "evaluation_report": "956c5d0d4165e85b7529a381dcd928e1c207fe605cf46a6611d7c3bd060176fa",
+  "failure_stage": "DKG encodeWorkspaceGossipPayload / recipient resolution; browser correctly never reported successful sharing",
+  "follow_up_runs": [
+    ".runtime/shared-flow-20261104-221215",
+    ".runtime/shared-flow-20261104-221431"
+  ],
+  "notes": "Repeated private runs with explicit peer allowlists also did not complete (post-approval read authority or encrypted publication). No private access bypass or change to production graph policy was used. Public validation used a separate disposable graph."
+}

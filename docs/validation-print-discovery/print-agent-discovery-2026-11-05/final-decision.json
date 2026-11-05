@@ -1,0 +1,9 @@
+{
+  "time": 1793860637.817398,
+  "decision": "reject probe-07 after final evaluation; retain inherited checkpoint",
+  "reason": "Final new-frame test decreased from 29/60 to 27/60 despite selection gain. No post-test tuning.",
+  "retained_checkpoint": "artifacts/print-network-edit-2026-11-05/candidate-network.safetensors",
+  "retained_checkpoint_sha256": "71cf5703125f4022c6d7563c0c7260955810dda97d5c318ac01da8869bc24134",
+  "corrected": 0,
+  "regressed": 2
+}

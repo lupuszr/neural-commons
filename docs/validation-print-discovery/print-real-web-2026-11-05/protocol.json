@@ -1,0 +1,43 @@
+{
+  "scope": "Real-photo four-defect pilot; source labels; inferred capture-session splits; no healthy class",
+  "manifest_sha256": "48b760fa8f520e589487711be6680a725a03f3ce1ead9eb15d56c76b21224293",
+  "classes": [
+    "Cracking",
+    "Layer_shifting",
+    "Stringing",
+    "Warping"
+  ],
+  "prompts": [
+    "A real photo of a cracked 3D print with split walls and layer separation.",
+    "A real photo of a 3D print with a layer shift, upper layers displaced sideways.",
+    "A real photo of a 3D print with stringing, unwanted thin filament hairs between parts.",
+    "A real photo of a warped 3D print, curled corners lifting off the build plate."
+  ],
+  "model": "openai/clip-vit-base-patch32",
+  "model_revision": "c237dc49a33fc61debc9276459120b7eac67e7ef",
+  "processor_revision": "3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268",
+  "baseline": "Normalized CLIP text prototypes, 4 x 512 classifier weights; zero biases.",
+  "candidates": {
+    "prototype_blend": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "ridge_residual_lambda": [
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ]
+  },
+  "selection_rule": "Maximize selection accuracy, break ties with smaller L2 weight change; include unchanged baseline.",
+  "fit_split": "development only",
+  "selection_split": "selection only",
+  "evaluation_rule": "Freeze selected checkpoint first, then evaluate once on 60 evaluation images.",
+  "operator": "Codex assistant designed deterministic edit script; no autonomous weight_agent invocation",
+  "edit": "Classifier weight tensor only; frozen CLIP backbone; closed-form edits, no gradients or optimizer",
+  "created_at_unix": 1793858206.584599,
+  "seed": 17
+}

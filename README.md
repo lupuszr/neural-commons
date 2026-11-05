@@ -8,6 +8,8 @@ V1 supports large and sharded Safetensors checkpoints, bounded-memory file proce
 
 The local workspace organizes evaluations into experiments, with base/candidate
 comparisons, checkpoint details, controller history and inspectable evidence.
+**+ New experiment** starts from an imported model and a prepared task folder,
+with a name, optional goal, controller selection and execution limits.
 **Continue from candidate** starts a bounded background controller job from a
 verified parent. Jobs retain their status and evidence across browser closure and
 server restart, with cancellation, search resume and frozen-candidate import retry.
@@ -60,7 +62,17 @@ target/debug/nc --home /absolute/path/to/participant serve --port 19500 \
   --controller-python /absolute/path/to/python
 ```
 
-Open `http://127.0.0.1:19500` and enter the participant's UI access token.
+Open `http://127.0.0.1:19500`; the local workspace connects automatically.
+`require_token` defaults to `false` (including existing configs where it is omitted).
+To require the participant's UI access token, set `"require_token": true` in its
+`config.json` and restart, or add `--require-token` to `nc serve`. The command-line
+flag enables token enforcement even when the config is false. Remove the flag and
+set the config to false to return to automatic local access.
+
+Both modes listen only on `127.0.0.1`. Token-free API access accepts loopback Host
+values and same-origin browser requests; foreign origins and cross-site requests
+are rejected. Token-required mode keeps the existing bearer-token checks. DKG
+credentials are separate and unchanged.
 **Overview** compares scores from the same evaluation specification;
 **Model versions** exposes checkpoint inspection and operations; **Evidence**
 retains policies, reports and publication history; **Controller runs** tracks
@@ -75,6 +87,12 @@ the UI. Final evaluation and DKG sharing remain explicit operations: a completed
 search does not imply an accepted or published model. See the
 [controller setup, API and recovery guide](docs/CONTINUATION-UI.md).
 
+**Shared experiments** discovers proposals from the configured DKG context graph. Download a model and its evidence, inspect it locally, then choose **Reproduce & share result** to evaluate and publish your report. Eligible proposals can be continued from the same view.
+
+Use **Invite collaborator** to copy the workspace context graph’s native DKG invite code. Collaborators join through their own DKG node; approval and contribution permissions follow the graph’s existing policies.
+
+In both experiment forms, users choose the editable weights: the whole model by default, or selected tensors. Task-file weight restrictions are replaced by these explicit choices. Goals, additional instructions and an optional edited-value budget are saved with the run; see the UI guide for enforcement and evaluation rules.
+
 The UI displays the verdict stored in each evaluation report. The recorded second
 controller's original failed gate therefore remains visible even though the
 separate policy reassessment accepts it under the revised threshold.
@@ -88,3 +106,9 @@ separate policy reassessment accepts it under the revised threshold.
 Setup uses a separate DKG checkout and a [small local compatibility patch](patches/dkg-opaque-source-read.patch) for reading opaque source artifacts. It preserves the original dirty checkout. The patch is not claimed to be merged upstream. Rust dependencies are pinned in Cargo.lock.
 
 Licensed under [Apache-2.0](LICENSE).
+
+## Real-photo weight discovery
+
+The latest [experiment evidence](docs/validation-print-discovery/README.md) covers real 3D-print photographs, internal CLIP weight edits, and seven feedback-driven attempts led by the current Codex assistant. The adaptive candidate was rejected after final evaluation; the earlier checkpoint was retained. These are exploratory four-defect experiments, not a validated printer failure detector.
+
+Use the [weight-discovery skill](.agents/skills/neural-commons-weight-discovery/SKILL.md) for agent-led experiments. The assistant makes the experimental decisions; scripts execute edits and measurements.

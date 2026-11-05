@@ -1,0 +1,10 @@
+{
+  "controller": "current Codex conversation assistant",
+  "selection_process": "Each next action written after reading previous measured feedback; no scheduled grid or automatic candidate chooser",
+  "parent": "../print-network-edit-2026-11-05/candidate-network.safetensors",
+  "objective": "Find an additional internal vision-network weight edit that improves four-defect recognition",
+  "test_manifest_sha256": "8d812c782d6021c71c0a552fca19f788ced353cc5457212c0351145c8e493343",
+  "test_policy": "Freeze a conversation-selected candidate before one final test. Previous final tests are excluded from search data. New frames come from familiar capture sessions, so no independent-job generalization claim.",
+  "method": "Agent-chosen numeric edits executed by lab.py; no gradients or optimizer",
+  "time": 1793860121.4683871
+}
