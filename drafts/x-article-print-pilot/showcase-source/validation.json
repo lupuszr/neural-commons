@@ -1,0 +1,29 @@
+{
+  "duration_seconds": 74,
+  "dimensions": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "video": "H264 yuv420p",
+  "audio": "AAC stereo 48000 Hz",
+  "full_decode": "passed, no errors",
+  "integrated_loudness_lufs": -22,
+  "true_peak_dbfs": -13.9,
+  "encoded_frames_reviewed_seconds": [
+    4,
+    8.5,
+    11.5,
+    14.5,
+    17.5,
+    24,
+    33,
+    42,
+    49,
+    58,
+    65,
+    73.5
+  ],
+  "full_normal_speed_audiovisual_review": "not performed; technical decode and sampled visual inspection only",
+  "sha256": "4a04f9f4e118f66c41e76ce9d734046ccc3e42bf3f979bfcb5e06a5fc5476d42"
+}

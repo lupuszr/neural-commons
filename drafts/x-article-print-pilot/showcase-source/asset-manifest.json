@@ -1,0 +1,30 @@
+[
+  {
+    "path": "assets/cracking.jpg",
+    "sha256": "b677c3d5c8ae0eaa96b4d21f551db5b59f568a360d0b6d2c8c3c701aac036ffe",
+    "source": "https://github.com/wengmhu/FDM-3D-Printing-Defect-Dataset",
+    "license": "Source README declares MIT; retained in assets/SOURCE-README.md",
+    "transform": "uniform scaling, complete image, no generated detail"
+  },
+  {
+    "path": "assets/layer-shifting.jpg",
+    "sha256": "91431011dbf63fb0180b8d6765c81f6888e32aa7a8cc5922c388db3f997a786a",
+    "source": "https://github.com/wengmhu/FDM-3D-Printing-Defect-Dataset",
+    "license": "Source README declares MIT; retained in assets/SOURCE-README.md",
+    "transform": "uniform scaling, complete image, no generated detail"
+  },
+  {
+    "path": "assets/stringing.jpg",
+    "sha256": "1ab3452bb57f8805ffc20467c2080fce4cf4e0936a9263e20ca9f95d2d22f6d1",
+    "source": "https://github.com/wengmhu/FDM-3D-Printing-Defect-Dataset",
+    "license": "Source README declares MIT; retained in assets/SOURCE-README.md",
+    "transform": "uniform scaling, complete image, no generated detail"
+  },
+  {
+    "path": "assets/warping.jpg",
+    "sha256": "b2e733fb5876850b546638e189b57e154ab9f1ae094b7171892c085a8cd27274",
+    "source": "https://github.com/wengmhu/FDM-3D-Printing-Defect-Dataset",
+    "license": "Source README declares MIT; retained in assets/SOURCE-README.md",
+    "transform": "uniform scaling, complete image, no generated detail"
+  }
+]

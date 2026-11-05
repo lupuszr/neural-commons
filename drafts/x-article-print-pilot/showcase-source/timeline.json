@@ -1,0 +1,55 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "duration": 74,
+  "beats": [
+    [
+      "intro",
+      0,
+      7
+    ],
+    [
+      "photos",
+      7,
+      19
+    ],
+    [
+      "split",
+      19,
+      26
+    ],
+    [
+      "loop",
+      26,
+      35
+    ],
+    [
+      "attempts",
+      35,
+      44
+    ],
+    [
+      "edit",
+      44,
+      51
+    ],
+    [
+      "test",
+      51,
+      60
+    ],
+    [
+      "dkg",
+      60,
+      67
+    ],
+    [
+      "close",
+      67,
+      74
+    ]
+  ],
+  "audio": "Original instrumental from previous project, 1x speed, no narration",
+  "scope": "Evidence explainer, not a screen recording"
+}
