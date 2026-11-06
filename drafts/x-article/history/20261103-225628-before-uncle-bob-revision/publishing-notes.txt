@@ -1,0 +1,12 @@
+UNPUBLISHED X ARTICLE DRAFT
+Editor: https://x.com/compose/articles/edit/2117595581161832448
+
+One AI agent improves a model. The next starts there.
+
+Local rewrite is ready; X update is pending authenticated browser access.
+Cover: 11-keynote-cover.png
+Inline, in order: 12-keynote-results.png, 13-keynote-continuation.png, 14-workspace.png
+Full text, captions and insertion positions: article.txt
+
+Retains the distinction between the two test subsets, post-measurement threshold change, original rejected verdict, local reproduction and UI/backend tests without a new live model call.
+No publication performed.

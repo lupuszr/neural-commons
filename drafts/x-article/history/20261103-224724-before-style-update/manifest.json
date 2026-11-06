@@ -1,0 +1,30 @@
+{
+  "title": "One AI agent edited an LLM. A second built on its diff. DKG connected the work.",
+  "editor": "https://x.com/compose/articles/edit/2117595581161832448",
+  "status": "unpublished draft",
+  "repository": "https://github.com/lupuszr/neural-commons",
+  "mention": "@origin_trail",
+  "evidence": [
+    "docs/validation-agnews",
+    "docs/validation-continuation",
+    "docs/continuation-policy-reassessment.json"
+  ],
+  "images": [
+    "01-cover-x.png",
+    "07-weight-agent-proposal.png",
+    "09-weight-results.png",
+    "06-weight-evaluation.png",
+    "08-weight-dkg-review.png",
+    "10-continuation-results.png"
+  ],
+  "verified_in_x_preview": true,
+  "published": false,
+  "commit": "8ffab1c",
+  "inline_image_urls": [
+    "https://pbs.twimg.com/media/HWNOR3iWMAAcdkV.png",
+    "https://pbs.twimg.com/media/HWNOXrtXoAA1euh.jpg",
+    "https://pbs.twimg.com/media/HWNOh2FWAAAoK6V.jpg",
+    "https://pbs.twimg.com/media/HWNOmnTWIAAellb.png"
+  ],
+  "update_status": "Updated and verified after reloading X preview; unpublished"
+}

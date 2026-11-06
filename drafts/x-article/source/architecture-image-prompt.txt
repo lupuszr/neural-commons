@@ -1,0 +1,18 @@
+Generated using the built-in image_gen tool.
+
+Create an exceptionally clear, polished editorial architecture diagram for the Neural Commons X article. Landscape 16:9, high resolution, white/off-white background, deep navy typography, teal and restrained violet accents, flat vector-like linework, large readable English labels, generous negative space. No gradients, no decorative robots, no science-fiction brains, no invented logos, no stock imagery. This is an explanatory architecture, not a performance chart.
+
+Title at top left: "Neural Commons"
+Subtitle: "AI agents edit models. Evidence travels with the work."
+
+Central layout: three clearly separated columns, balanced and readable:
+LEFT: rounded pale-teal panel heading "Participant A".
+Inside it, an "AI agent" node at top, a downward arrow labelled "Inspect + edit weights" pointing to a distinctly separate "Language model" node (use a small numerical grid icon with a few teal highlighted cells). Below that a node "Test candidate", with a return arrow to the AI agent labelled "Results guide the next edit". Thus the agent edits ANOTHER model; the model is distinct from the controller. At bottom of this panel a smaller line "Freeze a candidate".
+CENTER: a visually prominent white panel with teal outline titled "OriginTrail DKG". A small sparse connected-node icon. Under the title: "Share model + evidence". Four compact lines with small document/checkpoint icons: "Model checkpoint", "Exact weight diff", "Test results", "Agent history". Horizontal arrow from the bottom output of Participant A into this DKG panel labelled "Publish". Another horizontal arrow out of DKG into Participant B labelled "Retrieve + verify". Clearly indicate a handoff, no circular arrows across the entire system.
+RIGHT: rounded pale-violet panel heading "Participant B".
+A small entry label "Inherit the exact checkpoint". Then an "AI agent" node, downward arrow "Inspect + edit weights" to a separate "Language model" node (small grid with teal and violet changed cells). Below it node "Test candidate", with a return arrow to the AI agent labelled "Results guide the next edit". Small outgoing arrow at bottom to "Next version + evidence".
+
+Below all panels a modest single centered line:
+"Inspect → Edit → Test → Share → Continue"
+
+Architecture accuracy constraints: OriginTrail DKG carries artifacts and their provenance between participants; it does NOT train models or guarantee improved accuracy. Weight files are artifacts, not individual weights stored as graph nodes. Tests run locally within each participant. Distinguish controller AI agents from the language model they modify. Do not add automatic acceptance, blockchain mining, token prices, benchmark percentages, or a claim that all edits improve performance. Keep text concise and faithfully spelled. Arrows must have unambiguous start/end points, never cross text. Use large typography suitable for an article on mobile.

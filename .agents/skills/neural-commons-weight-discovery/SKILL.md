@@ -45,6 +45,10 @@ Measure parent and candidate on the same inputs with the same evaluator. Verify 
 
 ## Record and report
 
+The Neural Commons app is the experiment record, including conversation-led work. Identify the participant home used by the running UI, register the experiment there, and register every numerical round **before** executing it. Use `nc --home HOME research run ROUND_EVENT.json --result FEEDBACK.json -- COMMAND ...` or `scripts/research_tracker.py` so a failed registration prevents execution and failures/interruption remain visible. Read `docs/RESEARCH-TRACKING.md` in the repository for the event contract. Do not run an untracked script and defer app integration until a successful final evaluation.
+
+Append measurements, artifact identities and a concise decision after each round; keep development, selection, regression and final metrics separate. Record rejected attempts, freezes, evaluations and DKG handoffs, not only winners. When recovering older work, import its actual evidence as historical and distinguish original evidence time from import time. Verify the active experiment and round through the running UI's `/api/research` before continuing. A research experiment can be in progress while no numerical worker is executing; do not mark idle research as a running command.
+
 Keep a chronological ledger of brief experimental rationales, observed feedback, chosen actions, failures, and acceptance/rejection decisions. Include exact operations, checkpoint and artifact identities, data provenance, tool/code versions, split roles, and measured outcomes sufficient for replay. These are decision summaries, not private chain-of-thought transcripts.
 
 Report who made the decisions, which actual weights changed, what was measured, and what the result supports. Distinguish development, selection, and final evaluation; do not compare scores from different test sets as though they were the same benchmark. Do not equate a narrow task gain with broad model improvement.

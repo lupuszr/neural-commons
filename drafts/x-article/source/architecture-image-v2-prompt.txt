@@ -1,0 +1,28 @@
+Generated using the built-in image_gen tool, editing neural-commons-architecture.png.
+
+Redesign the attached Neural Commons architecture image into an exceptionally professional technical-conference slide / editorial systems diagram. This is a substantial design upgrade, not a recoloring. Preserve its architectural meaning but completely replace the visual treatment and reorganize its labels for clarity.
+
+Style: disciplined software engineering lecture, rational Swiss typography, precise thin diagram lines, generous white space, near-black text on pure white, ONE restrained deep blue accent (#2854C5). Absolutely flat, no gradients, shadows, glossy effects, cartoon icons, gears, document pictograms, large rounded colored panels, decorative network blobs, or busy backgrounds. No author portrait, signature, attribution, or invented logos. Landscape 16:9, approximately 2400x1350 resolution, optically balanced. Text is impeccably crisp and readable; ample exterior margins. Use a neutral modern sans-serif similar to Helvetica; restrained monospace for small numbered step labels only. It should look designed by a senior information designer for an engineering keynote.
+
+Top: small uppercase eyebrow "NEURAL COMMONS / ARCHITECTURE". Below it, large but not overwhelming left-aligned headline on a single line: "Change the weights. Show the evidence."
+Below that a small gray subtitle: "Each agent starts from the previous agent’s exact checkpoint."
+
+Main content takes up middle two-thirds, a clean three-column architecture on a consistent grid. Open white columns separated only by generous space, no colored backgrounds.
+Column headings: "01  EDIT & TEST", "02  SHARE", "03  CONTINUE". The numbers in blue, text charcoal.
+
+LEFT column: small label "Participant A". Three vertically aligned rectangular nodes with very slightly rounded corners and thin charcoal outlines:
+"AI agent"
+"Language model"
+"Evaluator"
+Vertical arrow AI agent → Language model with short label "Edit weights". Vertical arrow Language model → Evaluator labeled "Test". A thin clearly routed feedback arrow from the evaluator's LEFT edge around the OUTSIDE of the stack back to the AI agent's LEFT edge; label it "Feedback" in readable horizontal text in an intentional space, not overlapping. At bottom directly beneath evaluator, connect via arrow to a small blue-outlined node "Frozen model + evidence".
+CENTER column: a precise rectangular white box outlined in blue with title "OriginTrail DKG" and small subtitle "Model & evidence handoff". Inside, four simple left-aligned text rows separated with subtle fine gray rules, no icons: "Model checkpoint", "Exact weight diff", "Test results", "Agent history". Connect LEFT column's final "Frozen model + evidence" output with a clean orthogonal blue arrow into the CENTER box. Label arrow "Publish"; deliberately reserve whitespace for this route so it does not cross other nodes or lines. A clean blue arrow exits right side of DKG box toward the TOP entry of the RIGHT participant stack, labeled "Retrieve & verify". Route clearly with no overlap. This conveys sharing after tests and inheriting before further edits.
+RIGHT column: small label "Participant B". Three nodes vertically aligned, same design as left:
+"Next AI agent"
+"Inherited model"
+"Evaluator"
+Arrow from Next AI agent → Inherited model labeled "Edit weights". Arrow Inherited model → Evaluator labeled "Test". A thin clearly routed feedback arrow from evaluator's RIGHT edge around OUTSIDE of stack to Next AI agent's RIGHT edge, label "Feedback". Below evaluator, a downward arrow to small blue-outlined node "Next model + evidence".
+
+Bottom, separated from the diagram by a light gray horizontal rule: one bold concise teaching principle, left-aligned: "The next agent inherits the work—and the evidence."
+Small footer on right: "OriginTrail DKG"
+
+Important: preserve a distinction between AI controller and language model being edited. DKG transfers checkpoint artifacts, exact diffs and evaluation evidence; it does NOT do training or testing. Never imply tests always pass or edits always improve performance. No checkmark icons (test result not guaranteed). Never depict individual weight values as graph records. No benchmark numbers. Every arrow must have visually correct origins and destinations. Do not draw any text on top of lines. The overall result must feel sophisticated, calm, purposeful and ready for publication.

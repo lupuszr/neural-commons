@@ -1,0 +1,35 @@
+{
+  "title": "An AI changed the weights. Show the evidence.",
+  "subtitle": "What changed, what passed, what failed—and what the next agent can inherit.",
+  "editor": "https://x.com/compose/articles/edit/2117595581161832448",
+  "status": "saved in existing unpublished X draft; verified after browser reload",
+  "repository": "https://github.com/lupuszr/neural-commons",
+  "mention": "@origin_trail",
+  "evidence": [
+    "docs/validation-agnews",
+    "docs/validation-continuation",
+    "docs/continuation-policy-reassessment.json",
+    "docs/CONTINUATION-UI.md"
+  ],
+  "images": [
+    "11-keynote-cover.png",
+    "12-keynote-results.png",
+    "13-keynote-continuation.png",
+    "14-workspace.png"
+  ],
+  "verified_in_x_preview": true,
+  "published": false,
+  "commit": "0a9411d0d6dd09b386f286b17bc041423b3ad0be",
+  "style_direction": "User clarified Uncle Bob (Robert C. Martin). Original engineering talk structure: concrete review problem, failed experiments, inspectable changes, explicit criteria and reproducible handoff. No quotations or endorsement implied.",
+  "local_validation": {
+    "figures": "rendered and visually inspected",
+    "article": "desktop and mobile layout checked",
+    "x_sync": "External Brave browser: title, complete body, three inline images and new cover saved; unpublished preview read back after reload."
+  },
+  "editorial_reference": "https://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.html",
+  "x_inline_images": [
+    "https://pbs.twimg.com/media/HWO4F7OXcAAhK6r.jpg",
+    "https://pbs.twimg.com/media/HWO6ANzXUAATEii.jpg",
+    "https://pbs.twimg.com/media/HWO6ItiWsAAqKrS.jpg"
+  ]
+}

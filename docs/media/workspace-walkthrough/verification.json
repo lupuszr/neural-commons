@@ -1,0 +1,34 @@
+{
+  "tools": {
+    "ffmpeg": "ffmpeg version 8.0.1 Copyright (c) 2000-2025 the FFmpeg developers",
+    "pillow": "11.3.0"
+  },
+  "files": {
+    "workspace-walkthrough/source.webm": {
+      "sha256": "5a90b28a92e7ff321f2ffbae683ffca23357ffad7e4f11b8b1e8c1ce0be2396a",
+      "bytes": 5663638
+    },
+    "workspace-walkthrough/timeline.json": {
+      "sha256": "d0d9d44f4a5026cc6e6baa84e7ceab08ec841ef0b6c512653ca0138c10dca364",
+      "bytes": 2362
+    },
+    "workspace-walkthrough/edit.json": {
+      "sha256": "1e378f3b215b539f575e1abf724f99ff1f3a6b6907214a2b92c101535c016ae7",
+      "bytes": 2640
+    },
+    "workspace-walkthrough.mp4": {
+      "sha256": "f6630ead7af2149f8229883f199192c2fd8c2530c7e88426b5fd80e1a1406313",
+      "bytes": 3771689
+    }
+  },
+  "visual_review": {
+    "sample_interval_seconds": 1,
+    "sampled_seconds": 48,
+    "chapter_frames_inspected": 8,
+    "additional_full_size_frames": [
+      3,
+      7
+    ],
+    "audio": "No audio track; deliberately silent."
+  }
+}

@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>An AI changed the weights. Show the evidence.</title><style>*{box-sizing:border-box}body{max-width:900px;margin:64px auto;padding:0 24px;font:19px/1.65 Arial,sans-serif;color:#161b19;background:#fff}h1{font-size:52px;line-height:1.1;letter-spacing:-1.8px;margin:0 0 20px}h2{font-size:32px;line-height:1.2;letter-spacing:-.7px;margin:60px 0 20px}p{margin:20px 0}a{color:#286451;text-underline-offset:4px}.sub{font-size:24px;color:#64716b}figure{margin:36px 0}img{display:block;max-width:100%;height:auto}figcaption{font-size:14px;line-height:1.5;color:#64716b;margin-top:12px}li{margin:14px 0}.cover{margin:36px 0 44px}@media(max-width:600px){body{margin:28px auto;padding:0 20px;font-size:17px}h1{font-size:36px}h2{font-size:27px}.sub{font-size:20px}}</style></head><body><h1>An AI changed the weights. Show the evidence.</h1><p class="sub">What changed, what passed, what failed—and what the next agent can inherit.</p><img class="cover" src="assets/11-keynote-cover.png" alt="An AI changed the weights. Show the evidence."><p>Imagine reviewing a model change. The agent reports better accuracy. There is a chart. The bar goes up.</p>
+<p>Which weights changed? Which examples were used to choose the edit? What got worse? Can someone else reproduce the result?</p>
+<p>Those questions determine whether another engineer—or another agent—can build on the work.</p>
+<p><strong>Neural Commons</strong> is an experiment in making that handoff inspectable: direct weight edits, recorded evaluations, and a shared history through OriginTrail DKG. We now have a two-controller experiment, an application to inspect it, and a backend for continuing the search.</p>
+<h2>Start with the failure.</h2>
+<p>One early edit made the model more confident without improving accuracy. Another improved its target task while damaging a sentiment probe.</p>
+<p>Both results remain in the record. The second failure led to a required regression guard.</p>
+<p>A higher target score tells you something useful. You still have to check what the change broke.</p>
+<h2>Make the change small enough to inspect.</h2>
+<p>In the first successful AG News experiment, a Codex controller requested as GPT-6 Astra directly edited <strong>2,268 BF16 weights</strong> in SmolLM2-135M-Instruct.</p>
+<p>The host supplied labeled development examples and activation contrasts. The agent inspected weights, chose edits and coefficients, and tested 13 proposals. A separate selection split chose the candidate before the final test. No gradients or optimizer were used.</p>
+<p>On a fixed 1,000-example AG News test subset, accuracy rose from <strong>38.7% to 80.0%</strong>: 413 more correct answers.</p>
+<figure><img src="assets/12-keynote-results.png" alt="Original accuracy 38.7 percent; agent candidate 80.0 percent, on the same 1,000-example AG News test subset."><figcaption>First round: 2,268 edited weights, +41.3 percentage points on a fixed four-way classification task.</figcaption></figure>
+<p>The known 56-example sentiment guard stayed unchanged. Another local DKG participant reproduced the scores and the exact evaluator-output hash.</p>
+<p>Now there is something to review: a numerical diff, a measured effect, a regression check and a reproduced result.</p>
+<p>The experiment was inspired by <a href="https://x.com/rikiyatakehi/status/2117313742891327994">Rikiya Takehi’s post</a> and <a href="https://rikiyat.github.io/blog/weight-space-programming/">Sparks of Weight-Space Programming</a>, by Takehi, Jayden Teoh, Alex Zhang and Omar Khattab. Neural Commons explores collaboration around these edits; the results here are our own task-specific experiments.</p>
+<h2>Hand it to the next agent.</h2>
+<p>Suppose the next agent starts tomorrow. It needs the exact checkpoint, the previous hypothesis, the evaluation inputs and the numerical diff. A summary saying “accuracy improved” leaves too much to guess.</p>
+<p>GPT-6.1 Sol received that material through DKG. Its base checkpoint ID exactly matched Astra’s candidate. Every new proposal started from the inherited model.</p>
+<p>Sol tested 15 proposals on fresh development examples. A separate selection split chose an edit to another <strong>1,152 BF16 values</strong>. Some overlap the first patch, so the counts cannot be added as unique weights.</p>
+<figure><img src="assets/13-keynote-continuation.png" alt="On a separate fresh final set: original model 39.8 percent, inherited model 84.2 percent, second-controller candidate 84.5 percent."><figcaption>Second round: original 39.8%, inherited 84.2%, after Sol 84.5%. All three used the same fresh 1,000-example final set, different from the first chart.</figcaption></figure>
+<p>The second edit corrected 22 errors and introduced 19. The net gain was <strong>0.3 percentage points</strong>. The sentiment guard stayed unchanged. Another local participant reproduced the frozen second-stage scores and output hash.</p>
+<h2>Keep the rule that the result failed.</h2>
+<p>The original acceptance gate required a one-point improvement. The second edit failed it.</p>
+<p>After seeing the measurements, we lowered the threshold to 0.2 points and reassessed the same result. That changed the acceptance decision. It did not change the experiment.</p>
+<p>The record preserves both decisions. The paired 95% interval is approximately −0.96 to +1.56 percentage points, so the accuracy gain is not statistically conclusive.</p>
+<p>The checkpoint handoff and local reproduction worked. A reliable incremental accuracy improvement still needs stronger evidence.</p>
+<h2>Give the evidence an address.</h2>
+<p>For another participant to repeat the evaluation, the model, patch, inputs and policy must remain identifiable and retrievable.</p>
+<p><a href="https://x.com/origin_trail">@origin_trail</a>’s Decentralized Knowledge Graph connects those artifacts with their proposals, evaluations and reviews:</p>
+<ol><li><strong>Record the edit.</strong> Preserve the changed values and their parent checkpoint.</li><li><strong>Freeze the experiment.</strong> Bind the checkpoint, inputs and evaluation policy to content hashes.</li><li><strong>Repeat the evaluation.</strong> Retrieve the artifacts, verify them and compare the output.</li><li><strong>Continue from that checkpoint.</strong> Give the next controller the exact model and its recorded history.</li></ol>
+<p>Neural Commons handles tensor edits and evaluation. DKG provides artifact transport, authorization and shared provenance. Weights remain in checkpoint files; the graph connects the evidence.</p>
+<p>These LLM handoffs used separate participant identities and stores on one physical machine. Independent institutional validation and public-chain finality remain unproven.</p>
+<h2>Make the workflow usable.</h2>
+<figure><img src="assets/14-workspace.png" alt="Actual Neural Commons workspace with experiment selection, score comparison, parent and candidate checkpoints, Evidence and Controller runs tabs."><figcaption>The current application, displaying the recorded first-round AG News result.</figcaption></figure>
+<p>The workspace lets you compare checkpoints, inspect changes, open evidence and start a continuation from an eligible candidate.</p>
+<p><strong>Continue from candidate</strong> starts a background job with a chosen controller, fresh task inputs and a budget. Job state survives browser closure and server restart. You can cancel, resume an unfinished search, or retry importing a frozen candidate.</p>
+<p>Final evaluation and DKG sharing remain explicit actions. Finishing a search produces a candidate ready for testing.</p>
+<p>Local automated checks covered the UI and job lifecycle, including restart and cancellation, using an inert worker. They did not make a new live model call. The earlier recorded experiments supply the weight-editing evidence.</p>
+<h2>Leave the next contributor a testable claim.</h2>
+<p>These results cover a small model, a fixed prompt and forced-choice classification on length-filtered benchmark subsets. They do not establish better general conversation, preservation of every capability, or an advantage over fine-tuning. Pretraining exposure cannot be excluded.</p>
+<p>Broader regression tests and independent participants are the next work.</p>
+<p>Every proposed improvement should arrive with enough evidence for someone else to challenge it, repeat it and decide whether to continue from it.</p>
+<p><strong>Inspect the diff. Run the evaluation. Build the next step.</strong></p>
+<p><a href="https://github.com/lupuszr/neural-commons">Code and setup</a> · <a href="https://github.com/lupuszr/neural-commons/blob/main/docs/AGNEWS-RESULTS.md">First-round evidence</a> · <a href="https://github.com/lupuszr/neural-commons/blob/main/docs/CONTINUATION-RESULTS.md">Continuation and policy history</a> · <a href="https://github.com/lupuszr/neural-commons/blob/main/docs/CONTINUATION-UI.md">Controller jobs</a></p></body></html>

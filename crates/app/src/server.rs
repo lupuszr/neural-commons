@@ -107,6 +107,24 @@ async fn state(State(app): State<Arc<App>>, headers: HeaderMap) -> Response {
     }
 }
 
+async fn research_list(State(app): State<Arc<App>>, headers: HeaderMap) -> Response {
+    if !authorized(&headers, app.token.as_deref(), app.port) {
+        return StatusCode::UNAUTHORIZED.into_response();
+    }
+    let Ok(permit) = app.permits.clone().try_acquire_owned() else {
+        return StatusCode::SERVICE_UNAVAILABLE.into_response();
+    };
+    match tokio::task::spawn_blocking(move || {
+        let _permit = permit;
+        crate::research::list(&app.home)
+    })
+    .await
+    {
+        Ok(result) => run_response(result),
+        Err(_) => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
+    }
+}
+
 #[derive(serde::Deserialize)]
 #[serde(tag = "action", rename_all = "snake_case", deny_unknown_fields)]
 enum UserAction {
@@ -344,6 +362,24 @@ async fn context_graph_share(State(app): State<Arc<App>>, headers: HeaderMap) ->
         _ => (StatusCode::SERVICE_UNAVAILABLE, Json(serde_json::json!({"error":"Could not read the local DKG configuration."}))).into_response(),
     }
 }
+async fn context_graph_collaborators(State(app): State<Arc<App>>, headers: HeaderMap) -> Response {
+    if !authorized(&headers, app.token.as_deref(), app.port) {
+        return StatusCode::UNAUTHORIZED.into_response();
+    }
+    let Ok(permit) = app.permits.clone().try_acquire_owned() else {
+        return StatusCode::SERVICE_UNAVAILABLE.into_response();
+    };
+    match tokio::task::spawn_blocking(move || -> anyhow::Result<serde_json::Value> {
+        let _permit = permit;
+        let cfg = crate::config(&app.home)?;
+        let mut result = crate::client(&cfg)?.context_graph_collaborators()?;
+        result["dkg_url"] = cfg.dkg_url.into();
+        Ok(result)
+    }).await {
+        Ok(Ok(value)) => Json(value).into_response(),
+        _ => (StatusCode::SERVICE_UNAVAILABLE, Json(serde_json::json!({"error":"Graph membership is unavailable. Check the configured DKG node and graph access. Recorded contributions can still be inspected locally."}))).into_response(),
+    }
+}
 #[derive(serde::Deserialize)]
 struct SharedQuery {
     #[serde(default)]
@@ -505,15 +541,17 @@ pub fn serve(
             .route("/api/folders",get(folder_choices))
             .route("/api/controller-models",get(controller_models))
             .route("/api/context-graph/share",get(context_graph_share))
+            .route("/api/context-graph/collaborators",get(context_graph_collaborators))
             .route("/api/shared-experiments",get(shared_experiments))
             .route("/api/ui-config",get(|State(app): State<Arc<App>>| async move { Json(serde_json::json!({"require_token":app.token.is_some()})) }))
             .route("/api/state",get(state)).route("/api/actions",post(action)).route("/api/artifact-metadata/{id}",get(artifact))
             .route("/api/continuations",get(continuation_list).post(continuation_start))
             .route("/api/experiments",post(experiment_start))
+            .route("/api/research",get(research_list))
             .route("/api/continuations/{id}/{operation}",post(continuation_control)).with_state(app)
             .layer(axum::middleware::from_fn(|req:axum::extract::Request,next:axum::middleware::Next|async move {
                 let mut r=next.run(req).await;
-                r.headers_mut().insert(header::CONTENT_SECURITY_POLICY,"default-src 'self'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'".parse().unwrap());
+                r.headers_mut().insert(header::CONTENT_SECURITY_POLICY,"default-src 'self'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' blob:; frame-ancestors 'none'; base-uri 'none'".parse().unwrap());
                 r.headers_mut().insert(header::CACHE_CONTROL,"no-store".parse().unwrap());r
             }));
         let listener=tokio::net::TcpListener::bind((std::net::Ipv4Addr::LOCALHOST,port)).await?;

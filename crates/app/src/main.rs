@@ -3,6 +3,7 @@ mod continuations;
 mod fixtures;
 mod journal;
 mod model_import;
+mod research;
 mod server;
 mod workspace_choices;
 use anyhow::{Context, Result, ensure};
@@ -104,6 +105,11 @@ enum Action {
         controller_python: PathBuf,
     },
     State,
+    /// Track conversation-led experiments and every numerical round in the app.
+    Research {
+        #[command(subcommand)]
+        command: ResearchAction,
+    },
     /// Read the configured DKG participant identity without publishing.
     Identity,
     Demo,
@@ -112,6 +118,22 @@ enum Action {
         #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
         args: Vec<String>,
     },
+}
+#[derive(Subcommand)]
+enum ResearchAction {
+    /// Append an immutable experiment, round, result, decision, status or note.
+    Record {
+        event: PathBuf,
+    },
+    /// Register a round before running its numerical command; preserve failures.
+    Run {
+        event: PathBuf,
+        #[arg(long)]
+        result: Option<PathBuf>,
+        #[arg(last = true, required = true)]
+        command: Vec<String>,
+    },
+    List,
 }
 #[derive(Subcommand)]
 enum PatchAction {
@@ -421,6 +443,26 @@ fn run() -> Result<()> {
             "{}",
             serde_json::to_string_pretty(&journal::snapshot(&cli.home)?)?
         );
+        return Ok(());
+    }
+    if let Action::Research { command } = cli.command {
+        let output = match command {
+            ResearchAction::Record { event } => {
+                research::record(&cli.home, research::read_event(&event)?)?
+            }
+            ResearchAction::Run {
+                event,
+                result,
+                command,
+            } => research::run(
+                &cli.home,
+                research::read_event(&event)?,
+                &command,
+                result.as_deref(),
+            )?,
+            ResearchAction::List => research::list(&cli.home)?,
+        };
+        println!("{}", serde_json::to_string_pretty(&output)?);
         return Ok(());
     }
     let j = journal::Journal::open(&cli.home)?;

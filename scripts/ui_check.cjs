@@ -57,6 +57,7 @@ const { chromium } = require(require.resolve('@playwright/test', { paths: [path.
     const spec = await artifact(activeSpec);
     // Native DKG sharing, with no network membership mutation in browser QA.
     const graph='fixture/shared-graph', peer='12D3Koo'+'A'.repeat(45);
+    await page.route('**/api/context-graph/collaborators',route=>route.fulfill({json:{context_graph:graph,access_policy:'public',participants:[]}}));
     let shareAvailable=true;
     await page.route('**/api/context-graph/share',route=>route.fulfill({json:shareAvailable?
       {context_graph:graph,dkg_url:'http://127.0.0.1:9999',invite_code:`${graph}\n${peer}`}:
@@ -90,7 +91,7 @@ const { chromium } = require(require.resolve('@playwright/test', { paths: [path.
         const body=route.request().postDataJSON();sharedActions.push(body);downloaded=true;
         return route.fulfill({json:body.action==='fetch'?sharedRecord.data:{evaluation:{status:'passed'}}});
       });
-      await page.getByRole('tab',{name:'Shared experiments',exact:true}).click();
+      await page.getByRole('button',{name:'Shared experiments',exact:true}).click();
       const card=page.locator('#shared-list article');
       await card.getByRole('button',{name:'Download model & evidence',exact:true}).waitFor();
       assert.equal(sharedActions.length,0,'Discovery must not download or evaluate');
@@ -110,6 +111,7 @@ const { chromium } = require(require.resolve('@playwright/test', { paths: [path.
       await page.locator('#shared-status').filter({hasText:'Shared experiments unavailable'}).waitFor();
       assert.equal(await card.count(),0,'Unavailable graph must clear stale actionable cards');
       await page.unroute('**/api/actions'); await page.unroute('**/api/shared-experiments?*');
+      await page.getByRole('button',{name:'My experiments',exact:true}).click();
       await page.getByRole('tab',{name:'Overview',exact:true}).click();
     }
     if (await page.locator('#open-continuation').isEnabled()) {
@@ -326,7 +328,7 @@ const { chromium } = require(require.resolve('@playwright/test', { paths: [path.
       assert.notEqual(await page.locator('#experiment-picker').inputValue(), activeSpec);
       await page.locator('#experiment-picker').selectOption(activeSpec);
     }
-    for (const tab of ['Overview', 'Model versions', 'Evidence', 'Controller runs', 'Shared experiments']) {
+    for (const tab of ['Overview', 'Collaborators', 'Model versions', 'Evidence', 'Controller runs']) {
       await page.getByRole('tab', { name: tab, exact: true }).click();
       const overflow = await page.evaluate(() => ({ bad: document.documentElement.scrollWidth > innerWidth, elements: [...document.querySelectorAll('#workspace *')].filter(e => e.getBoundingClientRect().right > innerWidth + 1).slice(0, 8).map(e => ({ tag: e.tagName, className: e.className, text: e.textContent.slice(0, 120) })) }));
       assert.equal(overflow.bad, false, `${tab} mobile overflow: ${JSON.stringify(overflow.elements)}`);

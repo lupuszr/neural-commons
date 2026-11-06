@@ -1,0 +1,9 @@
+Generated using the built-in image_gen tool, editing neural-commons-architecture-v3.png.
+
+Make ONE precise localized edit to the supplied finished Neural Commons architecture image: replace ONLY the simple five-node diamond graph ABOVE the "OriginTrail DKG" text in the center with a somewhat more detailed, elegant decentralized knowledge graph.
+
+Preserve absolutely everything else: exact canvas size and aspect ratio, near-black background, all text and its spelling, typography, title, positions, two agent weight grids and their exact highlighted squares, arrows, footer, margins, colors, and overall minimalist industrial keynote design. Do not redesign the slide.
+
+New graph: a carefully composed airy network of approximately 18–22 small circular nodes linked by approximately 25–30 fine straight edges, with three subtly interconnected clusters and no single dominant hub. Mostly off-white nodes of slightly varied small sizes, three restrained red nodes using the same red already in the image; fine white and muted-gray connecting lines. A sophisticated balanced asymmetrical topology, not a regular lattice, not a perfect diamond, not a sphere, not a tree. Crisp flat geometry, no glow or gradients, no labels or additional text. Let the graphic occupy a slightly wider footprint than the existing diamond but remain within the open central region between the two horizontal arrows, comfortably above "OriginTrail DKG". Rough bounding region in the source image is x=720–952 and y=367–575 on the 1672×941 canvas. Avoid touching arrows or text. Keep generous negative space within and around the graph so it feels detailed yet quiet and readable.
+
+This is a schematic representation of a decentralized knowledge graph, not an official OriginTrail logo. No other changes.

@@ -1,0 +1,77 @@
+{
+  "duration_seconds": 47.92,
+  "dimensions": [
+    1600,
+    1000
+  ],
+  "audio": "silent",
+  "playback_speed": 1.0,
+  "source_duration_seconds": 48.96,
+  "scenes": [
+    {
+      "title": "One workspace. Every experiment.",
+      "subtitle": "Create a run, inspect its evidence, and collaborate through OriginTrail DKG.",
+      "source_in": 1.016764166,
+      "source_out": 3.426197708,
+      "sequence_start": 0,
+      "sequence_end": 2.4094335420000004
+    },
+    {
+      "title": "01 / Set up a new experiment",
+      "subtitle": "Setup preview: choose an imported model and a prepared task folder.",
+      "source_in": 3.426197708,
+      "source_out": 11.338758125,
+      "sequence_start": 2.4094335420000004,
+      "sequence_end": 10.321993959
+    },
+    {
+      "title": "Your goal. Your editing scope.",
+      "subtitle": "Choose the controller and execution limits before starting the run.",
+      "source_in": 11.338758125,
+      "source_out": 17.932905124999998,
+      "sequence_start": 10.321993959,
+      "sequence_end": 16.916140958999996
+    },
+    {
+      "title": "02 / Browse a recorded experiment",
+      "subtitle": "Review the actual rounds, measurements and acceptance decisions.",
+      "source_in": 17.932905124999998,
+      "source_out": 22.738024875,
+      "sequence_start": 16.916140958999996,
+      "sequence_end": 21.721260709
+    },
+    {
+      "title": "Inspect the evidence behind the result",
+      "subtitle": "Photographs retain their recorded split, label and original file.",
+      "source_in": 22.738024875,
+      "source_out": 32.835980791000004,
+      "sequence_start": 21.721260709,
+      "sequence_end": 31.819216625000003
+    },
+    {
+      "title": "03 / Share through the workspace graph",
+      "subtitle": "Shared experiments has its own catalogue and sidebar list.",
+      "source_in": 32.835980791000004,
+      "source_out": 35.773596000000005,
+      "sequence_start": 31.819216625000003,
+      "sequence_end": 34.756831834
+    },
+    {
+      "title": "Invite collaborators through DKG",
+      "subtitle": "The invite shares this graph; it does not publish an unshared local experiment.",
+      "source_in": 35.773596000000005,
+      "source_out": 42.190095125,
+      "sequence_start": 34.756831834,
+      "sequence_end": 41.17333095899999
+    },
+    {
+      "title": "Browse the experiments shared on this graph",
+      "subtitle": "Open downloaded evidence, or reproduce a proposal on your participant.",
+      "source_in": 42.190095125,
+      "source_out": 49.06726775,
+      "sequence_start": 41.173330959,
+      "sequence_end": 47.943235834000006
+    }
+  ],
+  "full_decode": "passed"
+}

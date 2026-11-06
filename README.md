@@ -8,13 +8,58 @@ V1 supports large and sharded Safetensors checkpoints, bounded-memory file proce
 
 The local workspace organizes evaluations into experiments, with base/candidate
 comparisons, checkpoint details, controller history and inspectable evidence.
+The experiment list scrolls independently, keeping workspace navigation visible
+while you browse long histories. It follows the selected section: **My experiments**
+shows local runs, while **Shared experiments** lists proposals on the current DKG
+catalogue page. Each section keeps its scroll position across navigation and updates.
 **+ New experiment** starts from an imported model and a prepared task folder,
 with a name, optional goal, controller selection and execution limits.
 **Continue from candidate** starts a bounded background controller job from a
 verified parent. Jobs retain their status and evidence across browser closure and
 server restart, with cancellation, search resume and frozen-candidate import retry.
 
-![Neural Commons workspace showing the recorded AG News evaluation](docs/assets/workspace.png)
+Conversation-led research is tracked in the same workspace from its first round,
+before a final evaluation exists. The [research tracker](docs/RESEARCH-TRACKING.md)
+records hypotheses, command progress, measurements, weight identities, decisions
+and evidence in an append-only journal. The UI refreshes these rounds automatically,
+including failed and rejected attempts. Use `nc research run` for numerical work;
+standalone scripts do not register themselves automatically.
+
+Each experiment has a **Description** view for its goal, method, data and limits,
+and an **Assets** library for attached photos and evidence. Filter by data split,
+preview images, download original files and inspect the linked model checkpoints.
+
+![Neural Commons workspace with a separately scrolling experiment list and the recorded 320-photo LLM study](docs/assets/workspace.png)
+
+[Watch the 48-second UI walkthrough](docs/media/workspace-walkthrough.mp4):
+preview new-experiment setup, browse recorded rounds and photographs, and copy
+the workspace graph's native DKG invite. Silent, with chapter labels.
+Screens: [new experiment](docs/assets/workspace-create.png) ·
+[recorded evaluation](docs/assets/workspace-results.png) ·
+[DKG invitation](docs/assets/workspace-share-invite.png).
+
+<details>
+<summary>Browse photo assets, experiment collaborators and shared experiments</summary>
+
+The **Assets** view shows the public print-study photographs with their recorded
+split and source label. These screenshots were captured from the local app on
+November 6, 2026.
+
+![Experiment assets with photo previews, split filters and recorded labels](docs/assets/workspace-assets.png)
+
+**Collaborators** belongs to the selected experiment. This study records two local
+DKG participants, A and B, with the same conversation assistant performing both
+research roles.
+
+![Collaborators and recorded roles for the selected LLM experiment](docs/assets/workspace-collaborators.png)
+
+**Shared experiments** is a separate workspace page for the configured DKG graph.
+The graph's listed participants and recorded contributors appear above its
+catalogue; they are distinct from an individual experiment's collaborators.
+
+![Shared workspace showing graph collaborators and proposals available through DKG](docs/assets/workspace-shared.png)
+
+</details>
 
 The [weight-space agent](docs/WEIGHT-AGENT.md) adds the central experimental loop:
 an LLM controller reads and directly edits another pretrained language model's
@@ -87,7 +132,9 @@ the UI. Final evaluation and DKG sharing remain explicit operations: a completed
 search does not imply an accepted or published model. See the
 [controller setup, API and recovery guide](docs/CONTINUATION-UI.md).
 
-**Shared experiments** discovers proposals from the configured DKG context graph. Download a model and its evidence, inspect it locally, then choose **Reproduce & share result** to evaluate and publish your report. Eligible proposals can be continued from the same view.
+**Shared experiments** is a workspace page in the sidebar (or top navigation on mobile). It discovers proposals from the configured DKG context graph and shows its curator, listed participants and recorded contributors. Public graph access is not an exhaustive membership list. Download a model and its evidence, inspect it locally, then choose **Reproduce & share result** to evaluate and publish your report. Eligible proposals can be continued from the same view.
+
+Each experiment has its own **Collaborators** tab, scoped to its linked proposal, evaluations and reviews, or explicitly recorded research participants. Its graph can differ from the workspace graph. Open the shared catalogue directly at `/#/shared`.
 
 Use **Invite collaborator** to copy the workspace context graph’s native DKG invite code. Collaborators join through their own DKG node; approval and contribution permissions follow the graph’s existing policies.
 
@@ -109,6 +156,24 @@ Licensed under [Apache-2.0](LICENSE).
 
 ## Real-photo weight discovery
 
-The latest [experiment evidence](docs/validation-print-discovery/README.md) covers real 3D-print photographs, internal CLIP weight edits, and seven feedback-driven attempts led by the current Codex assistant. The adaptive candidate was rejected after final evaluation; the earlier checkpoint was retained. These are exploratory four-defect experiments, not a validated printer failure detector.
+Current research uses **SmolVLM-500M-Instruct**, a vision-language model, for a
+binary question about visible 3D-print failure. The 320-photo study tracks the
+original model, inherited A and a further edit at B, including changes to internal
+language-model weights, final evaluation and exact checkpoint replay through two
+local DKG nodes. Every attempt and decision is recorded in the
+[research workspace](docs/RESEARCH-TRACKING.md), including rejected edits and later
+lighting and source-transfer checks.
+
+The recorded gain is preliminary and specific to this task. Source frames are
+correlated, labels have not been independently confirmed by a human, and reliable
+transfer across printers and photography styles is not established. A separate
+diagnostic on the owner's photographs remains inconclusive for failure detection
+and records apparent false alarms. The screenshots show local journal history;
+they are not a substitute for a portable reproduction bundle.
+
+The earlier [public experiment evidence](docs/validation-print-discovery/README.md)
+covers internal **CLIP** weight edits and seven feedback-driven attempts. That
+adaptive candidate was rejected after final evaluation and the earlier checkpoint
+was retained. These exploratory runs remain available alongside the LLM work.
 
 Use the [weight-discovery skill](.agents/skills/neural-commons-weight-discovery/SKILL.md) for agent-led experiments. The assistant makes the experimental decisions; scripts execute edits and measurements.

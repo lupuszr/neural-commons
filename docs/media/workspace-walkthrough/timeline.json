@@ -1,0 +1,62 @@
+{
+  "title": "Neural Commons · create, inspect and share",
+  "date": "2026-11-06",
+  "source": "source.webm",
+  "source_dimensions": [
+    1600,
+    900
+  ],
+  "audio": "silent",
+  "scenes": [
+    {
+      "title": "One workspace. Every experiment.",
+      "subtitle": "Create a run, inspect its evidence, and collaborate through OriginTrail DKG.",
+      "source_in": 1.016764166,
+      "source_out": 3.426197708
+    },
+    {
+      "title": "01 / Set up a new experiment",
+      "subtitle": "Setup preview: choose an imported model and a prepared task folder.",
+      "source_in": 3.426197708,
+      "source_out": 11.338758125
+    },
+    {
+      "title": "Your goal. Your editing scope.",
+      "subtitle": "Choose the controller and execution limits before starting the run.",
+      "source_in": 11.338758125,
+      "source_out": 17.932905124999998
+    },
+    {
+      "title": "02 / Browse a recorded experiment",
+      "subtitle": "Review the actual rounds, measurements and acceptance decisions.",
+      "source_in": 17.932905124999998,
+      "source_out": 22.738024875
+    },
+    {
+      "title": "Inspect the evidence behind the result",
+      "subtitle": "Photographs retain their recorded split, label and original file.",
+      "source_in": 22.738024875,
+      "source_out": 32.835980791000004
+    },
+    {
+      "title": "03 / Share through the workspace graph",
+      "subtitle": "Shared experiments has its own catalogue and sidebar list.",
+      "source_in": 32.835980791000004,
+      "source_out": 35.773596000000005
+    },
+    {
+      "title": "Invite collaborators through DKG",
+      "subtitle": "The invite shares this graph; it does not publish an unshared local experiment.",
+      "source_in": 35.773596000000005,
+      "source_out": 42.190095125
+    },
+    {
+      "title": "Browse the experiments shared on this graph",
+      "subtitle": "Open downloaded evidence, or reproduce a proposal on your participant.",
+      "source_in": 42.190095125,
+      "source_out": 49.06726775
+    }
+  ],
+  "provenance": "Real local Neural Commons UI recording. No API responses or experiment data were mocked.",
+  "scope": "Creation is a setup preview, with no submitted run. Results belong to the existing recorded experiment. Sharing copies the native invite for the configured workspace graph; it does not publish local research or change membership."
+}

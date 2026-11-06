@@ -1,0 +1,9 @@
+UNPUBLISHED X ARTICLE DRAFT
+Editor: https://x.com/compose/articles/edit/2117595581161832448
+Do not publish without author instruction.
+
+One AI agent edited an LLM. A second built on its diff. DKG connected the work.
+
+Retains four original screenshots; adds 10-continuation-results.png.
+Official mention: @origin_trail.
+Second-controller results use a different 1000-example final set. The 0.2-point threshold was adopted after measurement; original verdict retained.

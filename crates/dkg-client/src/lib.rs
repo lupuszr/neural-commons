@@ -27,6 +27,8 @@ pub struct Identity {
     pub address: String,
     #[serde(rename = "peerId")]
     pub peer_id: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
 }
 #[derive(Debug, Serialize)]
 pub struct SharedProposal {
@@ -132,6 +134,26 @@ impl DkgClient {
                 .bearer_auth(&self.token)
                 .send()?,
         )?)?)
+    }
+    /// Read the configured graph's roster. Public access is not a closed member list.
+    pub fn context_graph_collaborators(&self) -> Result<Value> {
+        let mut url = self.base.clone();
+        url.path_segments_mut()
+            .map_err(|_| anyhow::anyhow!("invalid DKG origin"))?
+            .extend(["api", "context-graph", &self.graph, "participants"]);
+        let roster = response(self.client.get(url).bearer_auth(&self.token).send()?)?;
+        let inventory = response(
+            self.client
+                .get(self.base.join("api/context-graph/list")?)
+                .bearer_auth(&self.token)
+                .send()?,
+        )?;
+        let mut result = graph_collaborators(&self.graph, &roster, &inventory)?;
+        // Identity is useful presentation context, but not proof of graph membership.
+        if let Ok(identity) = self.identity() {
+            result["local_identity"] = serde_json::to_value(identity)?;
+        }
+        Ok(result)
     }
     /// Native DKG invite: graph ID followed by the curator's libp2p peer ID.
     /// Checking the curator-only route prevents emitting a member's peer ID as curator.
@@ -256,6 +278,55 @@ impl DkgClient {
         Ok(())
     }
 }
+fn agent_address(raw: &str) -> Result<String> {
+    let value = raw.strip_prefix("did:dkg:agent:").unwrap_or(raw);
+    ensure!(
+        value.len() == 42
+            && value.starts_with("0x")
+            && value[2..].bytes().all(|b| b.is_ascii_hexdigit()),
+        "invalid graph participant identity"
+    );
+    Ok(value.to_lowercase())
+}
+fn graph_collaborators(graph: &str, roster: &Value, inventory: &Value) -> Result<Value> {
+    ensure!(
+        roster["contextGraphId"] == graph,
+        "DKG roster belongs to another graph"
+    );
+    let agents = roster["allowedAgents"]
+        .as_array()
+        .context("missing DKG participant list")?;
+    let graphs = inventory["contextGraphs"]
+        .as_array()
+        .context("missing DKG graph inventory")?;
+    let matches: Vec<_> = graphs.iter().filter(|g| g["id"] == graph).collect();
+    ensure!(
+        matches.len() == 1,
+        "configured graph is absent or ambiguous in DKG inventory"
+    );
+    let metadata = matches[0];
+    let curator = metadata
+        .get("curator")
+        .and_then(Value::as_str)
+        .map(agent_address)
+        .transpose()?;
+    let mut participants = std::collections::BTreeSet::new();
+    for agent in agents {
+        participants.insert(agent_address(
+            agent.as_str().context("invalid DKG participant")?,
+        )?);
+    }
+    if let Some(address) = &curator {
+        participants.insert(address.clone());
+    }
+    Ok(json!({
+        "context_graph":graph,
+        "name":metadata.get("name").and_then(Value::as_str),
+        "access_policy":metadata.get("accessPolicy").and_then(Value::as_str).unwrap_or("unknown"),
+        "curator":curator,
+        "participants":participants,
+    }))
+}
 fn proposal_page(graph: &str, offset: usize, result: &Value) -> Result<SharedProposals> {
     let rows = result
         .pointer("/result/bindings")
@@ -360,6 +431,37 @@ fn verify_placement(context_graph: &str, author: &str, graph: &str) -> Result<()
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn graph_roster_keeps_public_access_distinct_and_includes_the_curator_once() {
+        let a = "0x1111111111111111111111111111111111111111";
+        let b = "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd";
+        let roster = json!({"contextGraphId":"demo","allowedAgents":[b,b.to_uppercase().replacen("0X","0x",1)]});
+        let inventory = json!({"contextGraphs":[{"id":"demo","name":"Team","accessPolicy":"public","curator":format!("did:dkg:agent:{a}")}]});
+        let result = graph_collaborators("demo", &roster, &inventory).unwrap();
+        assert_eq!(result["participants"], json!([a, b]));
+        assert_eq!(result["access_policy"], "public");
+        assert!(graph_collaborators("other", &roster, &inventory).is_err());
+        assert!(
+            graph_collaborators("demo", &json!({"contextGraphId":"demo"}), &inventory).is_err()
+        );
+        assert!(graph_collaborators("demo", &roster, &json!({"contextGraphs":[]})).is_err());
+        assert!(
+            graph_collaborators(
+                "demo",
+                &json!({"contextGraphId":"demo","allowedAgents":["not-an-identity"]}),
+                &inventory
+            )
+            .is_err()
+        );
+        let open = graph_collaborators(
+            "demo",
+            &json!({"contextGraphId":"demo","allowedAgents":[]}),
+            &inventory,
+        )
+        .unwrap();
+        assert_eq!(open["participants"], json!([a]));
+        assert_eq!(open["access_policy"], "public");
+    }
     fn proposal_row(n: usize) -> Value {
         let record = Record {
             schema: "nc/record/v1".into(),

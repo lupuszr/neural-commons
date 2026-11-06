@@ -59,8 +59,12 @@ pub fn compare(
     let a = verify_checkpoint(store, base)?;
     let b = verify_checkpoint(store, candidate)?;
     ensure!(
-        a.tensors == b.tensors,
-        "Checkpoints have different tensor layouts"
+        a.tensors.len() == b.tensors.len()
+            && a.tensors
+                .iter()
+                .zip(&b.tensors)
+                .all(|(x, y)| x.name == y.name && x.shape == y.shape && x.shard == y.shard),
+        "Checkpoints have different tensor names, shapes or shard assignments"
     );
     ensure!(
         filter.is_none_or(|name| a.tensors.iter().any(|t| t.name == name)),
@@ -92,11 +96,19 @@ pub fn compare(
             .iter()
             .filter(|t| t.shard.as_deref().unwrap_or("") == shard)
         {
-            let width = match t.dtype.as_str() {
+            let other = b.tensors.iter().find(|other| other.name == t.name).unwrap();
+            let width_of = |dtype: &str| match dtype {
                 "F32" => 4,
                 "F16" | "BF16" => 2,
                 _ => 0,
             };
+            let width = width_of(&t.dtype);
+            let other_width = width_of(&other.dtype);
+            let mixed = t.dtype != other.dtype;
+            ensure!(
+                !mixed || (width > 0 && other_width > 0),
+                "Precision conversion requires floating-point tensors"
+            );
             lf.seek(SeekFrom::Start(
                 l.header_len + lt[&t.name].data_offsets.0 as u64,
             ))?;
@@ -108,22 +120,31 @@ pub fn compare(
             let mut start = 0usize;
             while start < t.bytes {
                 let n = (t.bytes - start).min(x.len());
+                let other_n = if mixed { n / width * other_width } else { n };
+                if y.len() < other_n {
+                    y.resize(other_n, 0);
+                }
                 lf.read_exact(&mut x[..n])?;
-                rf.read_exact(&mut y[..n])?;
-                if x[..n] != y[..n] {
+                rf.read_exact(&mut y[..other_n])?;
+                if mixed || x[..n] != y[..n] {
                     ensure!(
                         width > 0,
                         "Changed tensor has unsupported dtype: {}",
                         t.dtype
                     );
                     for pos in (0..n).step_by(width) {
-                        if x[pos..pos + width] == y[pos..pos + width] {
+                        let other_pos = pos / width * other_width;
+                        let before = number(&t.dtype, &x[pos..pos + width]);
+                        let after = number(&other.dtype, &y[other_pos..other_pos + other_width]);
+                        if if mixed {
+                            before == after && before.is_sign_negative() == after.is_sign_negative()
+                        } else {
+                            x[pos..pos + width] == y[other_pos..other_pos + other_width]
+                        } {
                             continue;
                         }
                         changed += 1;
                         total += 1;
-                        let before = number(&t.dtype, &x[pos..pos + width]);
-                        let after = number(&t.dtype, &y[pos..pos + width]);
                         let delta = after - before;
                         if delta.is_finite() {
                             max_delta = max_delta.max(delta.abs());
@@ -146,11 +167,11 @@ pub fn compare(
                 }
                 start += n;
             }
-            summaries.push(json!({"name":t.name,"changed":changed,"values":t.shape.iter().product::<usize>(),"max_abs_delta":max_delta}));
+            summaries.push(json!({"name":t.name,"changed":changed,"values":t.shape.iter().product::<usize>(),"max_abs_delta":max_delta,"before_dtype":t.dtype,"after_dtype":other.dtype}));
         }
     }
     Ok(
-        json!({"base":base,"candidate":candidate,"changed":total,"changed_tensors":summaries.iter().filter(|t|t["changed"].as_u64().unwrap_or(0)>0).count(),"tensors":summaries,"changes":changes,"matching_changes":matched,"offset":offset,"limit":limit,"has_more":offset.saturating_add(limit)<matched,"comparison":"stored-value-bits"}),
+        json!({"base":base,"candidate":candidate,"changed":total,"changed_tensors":summaries.iter().filter(|t|t["changed"].as_u64().unwrap_or(0)>0).count(),"tensors":summaries,"changes":changes,"matching_changes":matched,"offset":offset,"limit":limit,"has_more":offset.saturating_add(limit)<matched,"comparison":if a.tensors.iter().zip(&b.tensors).any(|(x,y)|x.dtype!=y.dtype) {"numeric-values-across-precision"} else {"stored-value-bits"}}),
     )
 }
 #[cfg(test)]
@@ -191,6 +212,46 @@ mod tests {
         assert_eq!(
             value(number("F16", &0x7c00u16.to_le_bytes())),
             json!("Infinity")
+        );
+    }
+    #[test]
+    fn changed_precision_does_not_count_exact_casts_as_weight_edits() {
+        let temp = tempfile::tempdir().unwrap();
+        let store = ArtifactStore::open(temp.path()).unwrap();
+        let encode = |dtype: &str, data: Vec<u8>| {
+            let mut header = serde_json::to_vec(
+                &json!({"layer.weight":{"dtype":dtype,"shape":[4],"data_offsets":[0,data.len()]}}),
+            )
+            .unwrap();
+            while header.len() % 8 != 0 {
+                header.push(b' ');
+            }
+            let mut bytes = (header.len() as u64).to_le_bytes().to_vec();
+            bytes.extend(header);
+            bytes.extend(data);
+            register(&store, &bytes).unwrap()
+        };
+        let a = encode(
+            "BF16",
+            [0x3f80u16, 0x4000, 0x8000, 0x7fc0]
+                .into_iter()
+                .flat_map(u16::to_le_bytes)
+                .collect(),
+        );
+        let b = encode(
+            "F32",
+            [1.0f32, 2.5, 0.0, f32::NAN]
+                .into_iter()
+                .flat_map(f32::to_le_bytes)
+                .collect(),
+        );
+        let d = compare(&store, &a, &b, None, 0, 10).unwrap();
+        assert_eq!(d["changed"], 3);
+        assert_eq!(d["changes"][0]["delta"], 0.5);
+        assert_eq!(d["comparison"], "numeric-values-across-precision");
+        assert_eq!(
+            compare(&store, &b, &a, None, 1, 1).unwrap()["changes"][0]["index"],
+            2
         );
     }
 }

@@ -1,0 +1,29 @@
+{
+  "title": "One AI agent improves a model. The next starts there.",
+  "subtitle": "Direct weight edits. Reproducible results. A shared history that another agent can build on.",
+  "editor": "https://x.com/compose/articles/edit/2117595581161832448",
+  "status": "local revised draft; X sync pending authentication",
+  "repository": "https://github.com/lupuszr/neural-commons",
+  "mention": "@origin_trail",
+  "evidence": [
+    "docs/validation-agnews",
+    "docs/validation-continuation",
+    "docs/continuation-policy-reassessment.json",
+    "docs/CONTINUATION-UI.md"
+  ],
+  "images": [
+    "11-keynote-cover.png",
+    "12-keynote-results.png",
+    "13-keynote-continuation.png",
+    "14-workspace.png"
+  ],
+  "verified_in_x_preview": false,
+  "published": false,
+  "commit": "0a9411d0d6dd09b386f286b17bc041423b3ad0be",
+  "style_direction": "Concise presentation rhythm; sparse typography; one claim per visual. Sam Altman interpretation awaiting user confirmation.",
+  "local_validation": {
+    "figures": "rendered and visually inspected",
+    "article": "desktop and mobile layout checked",
+    "x_sync": "blocked by login; existing remote draft unchanged"
+  }
+}

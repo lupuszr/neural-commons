@@ -8,7 +8,7 @@ const {chromium}=require(require.resolve('@playwright/test',{paths:[path.resolve
     const page=await browser.newPage({viewport:{width:1440,height:1000}});
     const errors=[];page.on('pageerror',e=>errors.push(e.message));
     await page.goto(url);
-    await page.getByRole('tab',{name:'Shared experiments',exact:true}).click();
+    await page.getByRole('button',{name:'Shared experiments',exact:true}).click();
     const card=page.locator(`#shared-list article[data-record="${record}"]`);
     await card.getByRole('button',{name:'Download model & evidence',exact:true}).waitFor({timeout:90000});
     await card.getByRole('button',{name:'Download model & evidence',exact:true}).click();
