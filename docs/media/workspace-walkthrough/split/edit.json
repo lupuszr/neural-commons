@@ -1,0 +1,127 @@
+{
+  "duration_seconds": 71.16,
+  "dimensions": [
+    1920,
+    1080
+  ],
+  "fps": 25,
+  "playback_speed": 1.0,
+  "audio": "silent",
+  "split_starts_at": 38.96,
+  "parallel_until_end": true,
+  "scenes": [
+    {
+      "title": "One workspace. Every experiment.",
+      "subtitle": "Create a run, inspect its evidence, and collaborate through OriginTrail DKG.",
+      "layout": "single",
+      "a_source": "source.webm",
+      "a_in": 1.016764166,
+      "a_out": 3.426197708,
+      "sequence_start": 0.0,
+      "sequence_end": 2.4
+    },
+    {
+      "title": "01 / Set up a new experiment",
+      "subtitle": "Setup preview: choose an imported model and a prepared task folder.",
+      "layout": "single",
+      "a_source": "source.webm",
+      "a_in": 3.426197708,
+      "a_out": 11.338758125,
+      "sequence_start": 2.4,
+      "sequence_end": 10.32
+    },
+    {
+      "title": "Your goal. Your editing scope.",
+      "subtitle": "Choose the controller and execution limits before starting the run.",
+      "layout": "single",
+      "a_source": "source.webm",
+      "a_in": 11.338758125,
+      "a_out": 17.932905124999998,
+      "sequence_start": 10.32,
+      "sequence_end": 16.92
+    },
+    {
+      "title": "02 / Browse a recorded experiment",
+      "subtitle": "Review the actual rounds, measurements and acceptance decisions.",
+      "layout": "single",
+      "a_source": "source.webm",
+      "a_in": 17.932905124999998,
+      "a_out": 22.738024875,
+      "sequence_start": 16.92,
+      "sequence_end": 21.72
+    },
+    {
+      "title": "Inspect the evidence behind the result",
+      "subtitle": "Photographs retain their recorded split, label and original file.",
+      "layout": "single",
+      "a_source": "source.webm",
+      "a_in": 22.738024875,
+      "a_out": 32.835980791000004,
+      "sequence_start": 21.72,
+      "sequence_end": 31.8
+    },
+    {
+      "title": "03 / Share through the workspace graph",
+      "subtitle": "Shared experiments has its own catalogue and sidebar list.",
+      "layout": "single",
+      "a_source": "source.webm",
+      "a_in": 32.835980791000004,
+      "a_out": 35.773596000000005,
+      "sequence_start": 31.8,
+      "sequence_end": 34.72
+    },
+    {
+      "title": "Share the workspace graph",
+      "subtitle": "A copies a native DKG invite for the graph containing this SmolLM2 experiment.",
+      "layout": "single",
+      "a_in": 0.4653880839999999,
+      "b_in": 0.4316537919999998,
+      "a_out": 4.72,
+      "b_out": 4.686265708,
+      "a_source": "split/participant-a.webm",
+      "b_source": "split/participant-b.webm",
+      "sequence_start": 34.72,
+      "sequence_end": 38.96
+    },
+    {
+      "title": "A shares. B adds the experiment.",
+      "subtitle": "Two separate workspaces on two local DKG nodes. B starts with no imported models.",
+      "layout": "split",
+      "a_in": 4.72,
+      "b_in": 4.686265708,
+      "a_out": 7.78732925,
+      "b_out": 7.753594958,
+      "a_source": "split/participant-a.webm",
+      "b_source": "split/participant-b.webm",
+      "sequence_start": 38.96,
+      "sequence_end": 42.04
+    },
+    {
+      "title": "A reviews evidence while B imports",
+      "subtitle": "B retrieves the shared model and evidence through DKG; A continues in its own workspace.",
+      "layout": "split",
+      "a_in": 7.78732925,
+      "b_in": 7.753594958,
+      "a_out": 29.482666584000004,
+      "b_out": 29.448932292000002,
+      "a_source": "split/participant-a.webm",
+      "b_source": "split/participant-b.webm",
+      "sequence_start": 42.04,
+      "sequence_end": 63.72
+    },
+    {
+      "title": "The same checkpoint. Independent workspaces.",
+      "subtitle": "A keeps its recorded evaluation. B inspects the exact imported weight changes.",
+      "layout": "split",
+      "a_in": 29.482666584000004,
+      "b_in": 29.448932292000002,
+      "a_out": 36.91028020900001,
+      "b_out": 36.876545917,
+      "a_source": "split/participant-a.webm",
+      "b_source": "split/participant-b.webm",
+      "sequence_start": 63.72,
+      "sequence_end": 71.16
+    }
+  ],
+  "full_decode": "passed"
+}

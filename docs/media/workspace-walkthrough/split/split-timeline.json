@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-06",
+  "scenes": [
+    {
+      "title": "Share the workspace graph",
+      "subtitle": "A copies a native DKG invite for the graph containing this SmolLM2 experiment.",
+      "layout": "single",
+      "a_in": 0.4653880839999999,
+      "b_in": 0.4316537919999998,
+      "a_out": 5.025917584,
+      "b_out": 4.992183292
+    },
+    {
+      "title": "A shares. B adds the experiment.",
+      "subtitle": "Two separate workspaces on two local DKG nodes. B starts with no imported models.",
+      "layout": "split",
+      "a_in": 5.025917584,
+      "b_in": 4.992183292,
+      "a_out": 7.78732925,
+      "b_out": 7.753594958
+    },
+    {
+      "title": "A reviews evidence while B imports",
+      "subtitle": "B retrieves the shared model and evidence through DKG; A continues in its own workspace.",
+      "layout": "split",
+      "a_in": 7.78732925,
+      "b_in": 7.753594958,
+      "a_out": 29.482666584000004,
+      "b_out": 29.448932292000002
+    },
+    {
+      "title": "The same checkpoint. Independent workspaces.",
+      "subtitle": "A keeps its recorded evaluation. B inspects the exact imported weight changes.",
+      "layout": "split",
+      "a_in": 29.482666584000004,
+      "b_in": 29.448932292000002,
+      "a_out": 36.91028020900001,
+      "b_out": 36.876545917
+    }
+  ],
+  "sources": {
+    "a": "participant-a.webm",
+    "b": "participant-b.webm"
+  },
+  "a_canvas": [
+    1600,
+    900
+  ],
+  "split_viewport": [
+    940,
+    900
+  ],
+  "audio": "silent",
+  "actors": {
+    "a": {
+      "agent_address": "0x9CdFc1Ddc59B1598e127500D501CaE8aBB020152"
+    },
+    "b": {
+      "agent_address": "0x6B7190835D52a37748e4D1495D366365ADB63261"
+    }
+  },
+  "context_graph": "0x9cdfc1ddc59b1598e127500d501cae8abb020152/neural-commons-workspace-20261104-223538",
+  "proposal": "4ab3a3d90e1cb8a4bab2c030cfaa73748f598b53728205f84ed11df753f51f1b",
+  "spec": "6386cbe55d4f24e357f0c1a633883b3c72982305f59b31d2ba61edc3211ed40c",
+  "base_checkpoint": "5c60725185f541d029c4e1fb5153bea055119657ec3a799125b21fbe6307a80d",
+  "candidate_checkpoint": "3ff78e37bfa3b07000d497f7673307a6bc435ade58bb0cfc509b37ae191ba91f",
+  "before": {
+    "records": 0,
+    "checkpoints": 0,
+    "jobs": 0
+  },
+  "after": {
+    "records": 1,
+    "checkpoints": 2,
+    "jobs": 0
+  },
+  "actions": [
+    {
+      "actor": "B",
+      "action": "fetch",
+      "record": "4ab3a3d90e1cb8a4bab2c030cfaa73748f598b53728205f84ed11df753f51f1b"
+    }
+  ],
+  "scope": "Two local DKG nodes and separate NC workspaces, controlled by one assistant for a UI demonstration. B was already subscribed to the public graph; the recorded new action is adding the model and evidence to an empty local workspace. No new evaluation or model improvement is claimed. The preceding photo-study tour is separate from this shared SmolLM2 experiment.",
+  "runtime_note": "Uses the existing local DKG deployment. Current canary was fetched for comparison; this recording does not qualify the latest canary."
+}

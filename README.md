@@ -31,12 +31,15 @@ preview images, download original files and inspect the linked model checkpoints
 
 ![Neural Commons workspace with a separately scrolling experiment list and the recorded 320-photo LLM study](docs/assets/workspace.png)
 
-[Watch the 48-second UI walkthrough](docs/media/workspace-walkthrough.mp4):
-preview new-experiment setup, browse recorded rounds and photographs, and copy
-the workspace graph's native DKG invite. Silent, with chapter labels.
+[Watch the 71-second UI walkthrough](docs/media/workspace-walkthrough.mp4):
+preview new-experiment setup, browse recorded rounds and photographs, then share
+the workspace graph. After A copies the DKG invite, the screen splits: B downloads
+a shared model and its evidence while A continues browsing. Both workspaces stay
+visible through the end. Recorded on two local DKG nodes; silent, with chapter labels.
 Screens: [new experiment](docs/assets/workspace-create.png) ·
 [recorded evaluation](docs/assets/workspace-results.png) ·
-[DKG invitation](docs/assets/workspace-share-invite.png).
+[DKG invitation](docs/assets/workspace-share-invite.png) ·
+[two participants](docs/assets/workspace-parallel.png).
 
 <details>
 <summary>Browse photo assets, experiment collaborators and shared experiments</summary>
@@ -58,6 +61,13 @@ The graph's listed participants and recorded contributors appear above its
 catalogue; they are distinct from an individual experiment's collaborators.
 
 ![Shared workspace showing graph collaborators and proposals available through DKG](docs/assets/workspace-shared.png)
+
+After sharing, the walkthrough follows two separate participant workspaces in
+parallel. B imports the shared SmolLM2 model and inspects the same weight changes
+as A. This is a real DKG download into an empty local workspace; B does not run a
+new evaluation in this clip. The earlier photo-study tour is a separate experiment.
+
+![Participants A and B inspecting the identical imported checkpoint in separate workspaces](docs/assets/workspace-parallel.png)
 
 </details>
 

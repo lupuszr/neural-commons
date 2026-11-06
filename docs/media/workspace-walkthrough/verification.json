@@ -3,32 +3,99 @@
     "ffmpeg": "ffmpeg version 8.0.1 Copyright (c) 2000-2025 the FFmpeg developers",
     "pillow": "11.3.0"
   },
+  "output": {
+    "duration_seconds": 71.16,
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "fps": 25,
+    "audio": "silent",
+    "full_decode": "passed",
+    "split_starts_at": 38.96,
+    "parallel_until_end": true
+  },
   "files": {
-    "workspace-walkthrough/source.webm": {
+    "media/workspace-walkthrough.mp4": {
+      "sha256": "caeae4b50bfeccbe56eaabc04cd6fae1f07ca0329fd2b7c1cac3c9b39a79f22c",
+      "bytes": 8241768
+    },
+    "media/workspace-walkthrough/source.webm": {
       "sha256": "5a90b28a92e7ff321f2ffbae683ffca23357ffad7e4f11b8b1e8c1ce0be2396a",
       "bytes": 5663638
     },
-    "workspace-walkthrough/timeline.json": {
+    "media/workspace-walkthrough/timeline.json": {
       "sha256": "d0d9d44f4a5026cc6e6baa84e7ceab08ec841ef0b6c512653ca0138c10dca364",
       "bytes": 2362
     },
-    "workspace-walkthrough/edit.json": {
+    "media/workspace-walkthrough/edit.json": {
       "sha256": "1e378f3b215b539f575e1abf724f99ff1f3a6b6907214a2b92c101535c016ae7",
       "bytes": 2640
     },
-    "workspace-walkthrough.mp4": {
-      "sha256": "f6630ead7af2149f8229883f199192c2fd8c2530c7e88426b5fd80e1a1406313",
-      "bytes": 3771689
+    "media/workspace-walkthrough/split/edit.json": {
+      "sha256": "1455ebc5f944ced0e9b2fd2541793402c8270dfc7563d455cb244df514ac6fd1",
+      "bytes": 4078
+    },
+    "media/workspace-walkthrough/split/participant-a.png": {
+      "sha256": "32eaea35ec31c085c56eb93f15e3874e2a3246cad77979f97fc7030d2934d777",
+      "bytes": 138732
+    },
+    "media/workspace-walkthrough/split/participant-a.webm": {
+      "sha256": "94168d43c3801d32ac7c47f13f9be2a39cf215c702518e7b4745fa0968c8f857",
+      "bytes": 2508363
+    },
+    "media/workspace-walkthrough/split/participant-b.png": {
+      "sha256": "94e57b9eda7a21803c3d662da0a7543addbd01e5f6e22b3a2f658545d7a6d4ad",
+      "bytes": 128173
+    },
+    "media/workspace-walkthrough/split/participant-b.webm": {
+      "sha256": "b581be1a33e23d8fbfbdf88f107b91bf05a19ce357a5b914ea7e42e80e1684f5",
+      "bytes": 2555648
+    },
+    "media/workspace-walkthrough/split/split-timeline.json": {
+      "sha256": "29ba5a4867671385e61a5642f5f970b868e58a61c8b6369651b64a140381995a",
+      "bytes": 2965
+    },
+    "assets/workspace-parallel.png": {
+      "sha256": "cfb094d6b61f1e4f036e557eca8b5bd60231bbfab6d29ebdaeb4840e4738b475",
+      "bytes": 983834
     }
   },
   "visual_review": {
     "sample_interval_seconds": 1,
-    "sampled_seconds": 48,
-    "chapter_frames_inspected": 8,
+    "sampled_seconds": 72,
+    "chapter_frames_inspected": 10,
     "additional_full_size_frames": [
-      3,
-      7
+      38.8,
+      39.56,
+      40.2,
+      49,
+      57,
+      65.5,
+      70.2
+    ],
+    "revised_transition_frames": [
+      38.8,
+      38.92,
+      38.96,
+      39.12,
+      39.28,
+      39.52,
+      40.2
     ],
     "audio": "No audio track; deliberately silent."
+  },
+  "live_import": {
+    "matching_base_and_candidate": true,
+    "records_before": 0,
+    "records_after": 1,
+    "checkpoints_before": 0,
+    "checkpoints_after": 2,
+    "controller_jobs": 0,
+    "browser_errors": 0,
+    "mutating_api_requests": [
+      "B: POST /api/actions action=fetch"
+    ],
+    "two_local_dkg_identities": true
   }
 }
