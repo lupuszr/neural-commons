@@ -147,6 +147,10 @@ the original event and correction remain in Evidence.
 An optional finite, nonnegative `anchor_penalty` plots the measured weighted
 regularization objective at epoch end as a separate series. It is not added to
 the displayed supervised Class/Box averages, whose aggregation remains unchanged.
+Optional `validation_map50_95` and `target_map50_95` values use fractions in
+`[0,1]`. Recorded validation mAP appears on a separate 0–100% plot with an optional
+target line and the best score in that round. Training loss never determines
+whether this validation target is reached; repeated selection is still exploratory.
 
 An optional `assets` array on an event enriches that event's attachments. Match
 each entry's `artifact` SHA-256 to an attachment and supply `label`, `filename`,

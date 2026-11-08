@@ -485,7 +485,8 @@ function researchTrainingEpochs(round) {
     if (!value || !Number.isInteger(value.epoch) || !Number.isInteger(value.epochs)
         || value.epoch < 1 || value.epoch > value.epochs
         || !Number.isFinite(value.class_loss) || value.class_loss<0
-        || ['box_loss','dfl_loss','anchor_penalty'].some(key=>key in value && (!Number.isFinite(value[key]) || value[key]<0))) continue;
+        || ['box_loss','dfl_loss','anchor_penalty'].some(key=>key in value && (!Number.isFinite(value[key]) || value[key]<0))
+        || ['validation_map50_95','target_map50_95'].some(key=>key in value && (!Number.isFinite(value[key]) || value[key]<0 || value[key]>1))) continue;
     epochs.set(value.epoch, value);
   }
   return [...epochs.values()].sort((a,b)=>a.epoch-b.epoch);
@@ -525,6 +526,25 @@ function researchTraining(round) {
   for (const [key,label,color] of series) { const item=node('span',`${label}: ${latest[key].toFixed(4)}`);item.style.color=color;legend.append(item); }
   panel.append(legend,node('p','Recorded completed epochs · refreshes automatically with the participant journal. Final evaluation is separate.','small'));
   if(latest.loss_definition)panel.append(node('p',latest.loss_definition,'small'));
+  const measured=epochs.filter(e=>Number.isFinite(e.validation_map50_95));
+  if(measured.length) {
+    const last=measured.at(-1),best=Math.max(...measured.map(e=>e.validation_map50_95));
+    const target=epochs.findLast(e=>Number.isFinite(e.target_map50_95))?.target_map50_95;
+    panel.append(node('h3','Validation mAP50–95'),node('p',`Latest: ${(last.validation_map50_95*100).toFixed(1)}% · Best in this round: ${(best*100).toFixed(1)}%${target===undefined?'':` · Target: ${(target*100).toFixed(1)}% · ${best>=target?'reached':'not reached'}`}`,'training-summary'));
+    const frame=node('div',undefined,'training-loss'),ticks=node('div',undefined,'training-y');
+    for(const value of ['100%','50%','0%'])ticks.append(node('span',value));
+    const plot=node('div',undefined,'training-plot'),svg=document.createElementNS(ns,'svg');
+    svg.setAttribute('viewBox','0 0 640 220');svg.setAttribute('preserveAspectRatio','none');svg.setAttribute('role','img');
+    svg.setAttribute('aria-label',`Recorded validation mAP50–95: latest ${(last.validation_map50_95*100).toFixed(1)} percent, best ${(best*100).toFixed(1)} percent${target===undefined?'':`, target ${(target*100).toFixed(1)} percent`}. Separate from training loss and final evaluation.`);
+    if(target!==undefined) {
+      const line=document.createElementNS(ns,'line');line.setAttribute('x1','4');line.setAttribute('x2','636');line.setAttribute('y1',String(214-target*208));line.setAttribute('y2',String(214-target*208));line.setAttribute('stroke','var(--warning)');line.setAttribute('stroke-dasharray','6 4');svg.append(line);
+    }
+    const path=document.createElementNS(ns,'path');
+    path.setAttribute('d',measured.map((e,i)=>`${i?'L':'M'}${((e.epoch-first)/range*632+4).toFixed(2)},${(214-e.validation_map50_95*208).toFixed(2)}`).join(' '));
+    path.setAttribute('fill','none');path.setAttribute('stroke','var(--accent)');path.setAttribute('stroke-width','2');path.setAttribute('vector-effect','non-scaling-stroke');svg.append(path);
+    if(measured.length===1) { const dot=document.createElementNS(ns,'circle');dot.setAttribute('cx',String((last.epoch-first)/range*632+4));dot.setAttribute('cy',String(214-last.validation_map50_95*208));dot.setAttribute('r','3');dot.setAttribute('fill','var(--accent)');svg.append(dot); }
+    plot.append(svg);const x=node('div',undefined,'training-x');x.append(node('span',`Epoch ${first}`),node('span',`Epoch ${latest.epoch}`));plot.append(x);frame.append(ticks,plot);panel.append(frame,node('p','Recorded validation scores use their own 0–100% scale. Repeated selection is exploratory; final evaluation remains separate.','small'));
+  }
   return panel;
 }
 function renderResearchExperiment(x) {

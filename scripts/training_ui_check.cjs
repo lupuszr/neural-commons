@@ -82,3 +82,25 @@ test('anchored fine-tuning plots its measured regularizer separately',()=>{
   assert.equal(nodes.filter(n=>n.tag==='path').length,3);
   assert.match(nodes.find(n=>n.tag==='svg').attributes['aria-label'],/Anchor \(epoch end\) 0.1400/);
 });
+
+test('validation mAP uses its own percent scale and never claims a loss decrease meets the target',()=>{
+  const panel=context.researchTraining({status:'running',definition:{label:'Detection training'},events:[
+    event(progress(1,{validation_map50_95:.46,target_map50_95:.8})),
+    event(progress(2,{validation_map50_95:.42,target_map50_95:.8})),
+  ]});
+  assert.match(text(panel),/Latest: 42.0% · Best in this round: 46.0% · Target: 80.0% · not reached/);
+  const svgs=descendants(panel).filter(n=>n.tag==='svg');
+  assert.equal(svgs.length,2);
+  assert.match(svgs[1].attributes['aria-label'],/Separate from training loss and final evaluation/);
+  assert.equal(descendants(svgs[1]).filter(n=>n.tag==='line').length,1);
+  assert.doesNotMatch(JSON.stringify(panel),/NaN|Infinity/);
+});
+
+test('validation target can be reached and invalid percent values cannot overwrite recorded epochs',()=>{
+  const events=[event(progress(1,{validation_map50_95:.81,target_map50_95:.8})),
+    event(progress(1,{validation_map50_95:81})),event(progress(2,{target_map50_95:Infinity})),
+    event(progress(3,{validation_map50_95:-.1}))];
+  const panel=context.researchTraining({status:'awaiting_review',definition:{label:'Detection training'},events});
+  assert.match(text(panel),/Latest: 81.0%.*Target: 80.0% · reached/);
+  assert.equal(context.researchTrainingEpochs({events}).length,1);
+});
