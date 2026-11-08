@@ -133,6 +133,15 @@ It offers search, type/split filters, paginated photo previews and original-file
 downloads. Images and downloads use the authenticated artifact endpoint; the
 browser never reads arbitrary local paths or executes attached HTML.
 
+The overview displays completed training epochs recorded as
+`data.training_progress` on round events. Include integer `epoch` and `epochs`,
+and a finite, nonnegative `class_loss`; `box_loss` and `dfl_loss` are optional.
+Only measured loss series are plotted. For a custom objective, include
+`loss_definition` so a partial dog-head fit is not presented as a full detector
+training loss. A completed or failed round keeps its progress without claiming
+that a training worker is still running. This display does not replace the
+separate selection and final evaluation records.
+
 An optional `assets` array on an event enriches that event's attachments. Match
 each entry's `artifact` SHA-256 to an attachment and supply `label`, `filename`,
 `kind` (`image`), `split`, `caption`, `target_label`, and optionally `source_url`.
@@ -172,3 +181,5 @@ automatic UI updates, split labels, reload/deep links, mobile layout and API ori
 `node scripts/collaboration_ui_check.cjs` and `node scripts/share_api_check.cjs`
 cover workspace navigation, experiment and graph scope, contributor deduplication,
 public graph semantics, access checks and unavailable membership.
+`node scripts/training_ui_check.cjs` checks epoch validation, corrections, measured
+loss series, accessible progress and idle/failed training states without a browser.

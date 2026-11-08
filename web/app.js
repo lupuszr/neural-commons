@@ -477,6 +477,54 @@ function renderExperimentAssets(x) {
   for(const [input,key] of [[search,'search'],[type,'type'],[split,'split']])input.addEventListener(input===search?'input':'change',()=>{assetView[key]=input.value;assetView.page=0;draw();});
   draw();
 }
+function researchTrainingEpochs(round) {
+  const epochs = new Map();
+  for (const record of round.events || []) {
+    const value = record.event?.data?.training_progress;
+    if (!value || !Number.isInteger(value.epoch) || !Number.isInteger(value.epochs)
+        || value.epoch < 1 || value.epoch > value.epochs
+        || !Number.isFinite(value.class_loss) || value.class_loss<0
+        || ['box_loss','dfl_loss'].some(key=>key in value && (!Number.isFinite(value[key]) || value[key]<0))) continue;
+    epochs.set(value.epoch, value);
+  }
+  return [...epochs.values()].sort((a,b)=>a.epoch-b.epoch);
+}
+function researchTraining(round) {
+  const panel=node('section',undefined,'panel training-progress');
+  panel.append(node('h2','Training progress'),node('p',round.definition.label,'small'));
+  const epochs=researchTrainingEpochs(round), latest=epochs.at(-1);
+  if (!latest) { panel.append(node('p',round.status==='running' ? 'Waiting for the first completed epoch.' : 'No completed epochs recorded.','notice'));return panel; }
+  const summary=node('p',`Epoch ${latest.epoch}/${latest.epochs} · ${round.status==='running'?'training worker running':researchStatus(round.status)}`,'training-summary');
+  summary.setAttribute('aria-live','polite');panel.append(summary);
+  const progress=node('progress');progress.max=latest.epochs;progress.value=latest.epoch;
+  progress.setAttribute('aria-label',`${latest.epoch} of ${latest.epochs} epochs completed`);panel.append(progress);
+  const candidates=[['box_loss','Box','var(--accent)'],['class_loss',latest.loss_definition?'Weighted BCE':'Class','var(--warning)'],['dfl_loss','DFL','var(--bad)']];
+  const series=candidates.filter(([key])=>epochs.every(e=>Number.isFinite(e[key])));
+  const frame=node('div',undefined,'training-loss');
+  const maximum=Math.max(1,Math.ceil(Math.max(...epochs.flatMap(e=>series.map(([key])=>e[key])))*2.2)/2);
+  const ticks=node('div',undefined,'training-y');
+  for (const value of [maximum,maximum/2,0])ticks.append(node('span',value.toFixed(1)));
+  const plot=node('div',undefined,'training-plot'), ns='http://www.w3.org/2000/svg';
+  const svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox','0 0 640 220');svg.setAttribute('preserveAspectRatio','none');
+  svg.setAttribute('role','img');svg.setAttribute('aria-label',`Actual training loss from epoch ${epochs[0].epoch} to ${latest.epoch}. ${series.map(([key,label])=>`${label} ${latest[key].toFixed(4)}`).join(', ')}.`);
+  const first=epochs[0].epoch, range=Math.max(1,latest.epoch-first);
+  for (const [key,,color] of series) {
+    const path=document.createElementNS(ns,'path');
+    path.setAttribute('d',epochs.map((e,i)=>`${i?'L':'M'}${((e.epoch-first)/range*632+4).toFixed(2)},${(214-e[key]/maximum*208).toFixed(2)}`).join(' '));
+    path.setAttribute('fill','none');path.setAttribute('stroke',color);path.setAttribute('stroke-width','2');path.setAttribute('vector-effect','non-scaling-stroke');svg.append(path);
+    if (epochs.length===1) {
+      const dot=document.createElementNS(ns,'circle');dot.setAttribute('cx','4');dot.setAttribute('cy',String(214-latest[key]/maximum*208));dot.setAttribute('r','3');dot.setAttribute('fill',color);svg.append(dot);
+    }
+  }
+  plot.append(svg);const x=node('div',undefined,'training-x');
+  x.append(node('span',`Epoch ${first}`),node('span',`Epoch ${latest.epoch}`));plot.append(x);frame.append(ticks,plot);panel.append(frame);
+  const legend=node('div',undefined,'training-legend');
+  for (const [key,label,color] of series) { const item=node('span',`${label}: ${latest[key].toFixed(4)}`);item.style.color=color;legend.append(item); }
+  panel.append(legend,node('p','Recorded completed epochs · refreshes automatically with the participant journal. Final evaluation is separate.','small'));
+  if(latest.loss_definition)panel.append(node('p',latest.loss_definition,'small'));
+  return panel;
+}
 function renderResearchExperiment(x) {
   const research = x.research, definition = research.definition, root = el('overview'), evidence = el('evaluation-evidence');
   el('experiment-title').textContent = definition.name;
@@ -492,6 +540,8 @@ function renderResearchExperiment(x) {
   const latest=research.rounds.at(-1);
   const activity=research.status==='in_progress' && latest ? `${latest.definition.label}: ${latest.status==='running' ? 'Numerical command is running.' : latest.decision?.reason || latest.execution_note || latest.result?.summary || 'Round registered.'}` : research.summary;
   root.append(metrics,node('p',definition.objective,'research-objective'),node('div',activity,'notice'));
+  const training=[...research.rounds].reverse().find(r=>r.definition.kind==='gradient_fine_tuning' || researchTrainingEpochs(r).length);
+  if (training) root.append(researchTraining(training));
   if (definition.scope) root.append(node('p',definition.scope,'small research-scope'));
   if (definition.dataset) exact(root,'Dataset, split roles & label quality',definition.dataset);
   if (definition.parent_sha256) root.append(node('p',`Inherited weights · ${definition.parent_sha256}`,'id'));
