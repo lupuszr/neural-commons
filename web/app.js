@@ -543,7 +543,7 @@ function renderResearchExperiment(x) {
   root.append(metrics,node('p',definition.objective,'research-objective'),node('div',activity,'notice'));
   const training=[...research.rounds].reverse().find(r=>r.definition.kind==='gradient_fine_tuning' || researchTrainingEpochs(r).length);
   if (training) root.append(researchTraining(training));
-  if (definition.scope) root.append(node('p',definition.scope,'small research-scope'));
+  if (definition.scope) root.append(node('p','Initial experiment scope (historical): '+definition.scope,'small research-scope'));
   if (definition.dataset) exact(root,'Dataset, split roles & label quality',definition.dataset);
   if (definition.parent_sha256) root.append(node('p',`Inherited weights · ${definition.parent_sha256}`,'id'));
   const checkpoints = new Map();
