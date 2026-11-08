@@ -559,7 +559,7 @@ function renderResearchExperiment(x) {
   metrics.append(metric('Recorded rounds',String(research.rounds.length),'Includes unsuccessful attempts'),
     metric('Executing now',String(running),running ? 'Worker lease is active' : 'No numerical command executing'),
     metric('Final evaluation',finals.length ? 'Recorded' : 'Not run',finals.length ? `${finals.length} recorded final evaluation${finals.length===1?'':'s'}` : 'Selection results are exploratory',true));
-  const latest=research.rounds.at(-1);
+  const latest=[...research.rounds].reverse().find(r=>r.status==='running') || research.rounds.at(-1);
   const activity=research.status==='in_progress' && latest ? `${latest.definition.label}: ${latest.status==='running' ? 'Numerical command is running.' : latest.decision?.reason || latest.execution_note || latest.result?.summary || 'Round registered.'}` : research.summary;
   root.append(metrics,node('p',definition.objective,'research-objective'),node('div',activity,'notice'));
   const training=[...research.rounds].reverse().find(r=>r.definition.kind==='gradient_fine_tuning' || researchTrainingEpochs(r).length);
