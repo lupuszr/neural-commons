@@ -144,6 +144,9 @@ separate selection and final evaluation records.
 To invalidate a spurious progress event without changing history, append a note
 with `training_progress: {epoch: N, valid: false}`. The plot removes that epoch;
 the original event and correction remain in Evidence.
+An optional finite, nonnegative `anchor_penalty` plots the measured weighted
+regularization objective at epoch end as a separate series. It is not added to
+the displayed supervised Class/Box averages, whose aggregation remains unchanged.
 
 An optional `assets` array on an event enriches that event's attachments. Match
 each entry's `artifact` SHA-256 to an attachment and supply `label`, `filename`,

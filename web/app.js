@@ -485,7 +485,7 @@ function researchTrainingEpochs(round) {
     if (!value || !Number.isInteger(value.epoch) || !Number.isInteger(value.epochs)
         || value.epoch < 1 || value.epoch > value.epochs
         || !Number.isFinite(value.class_loss) || value.class_loss<0
-        || ['box_loss','dfl_loss'].some(key=>key in value && (!Number.isFinite(value[key]) || value[key]<0))) continue;
+        || ['box_loss','dfl_loss','anchor_penalty'].some(key=>key in value && (!Number.isFinite(value[key]) || value[key]<0))) continue;
     epochs.set(value.epoch, value);
   }
   return [...epochs.values()].sort((a,b)=>a.epoch-b.epoch);
@@ -500,7 +500,7 @@ function researchTraining(round) {
   const progress=node('progress');progress.max=latest.epochs;progress.value=latest.epoch;
   progress.setAttribute('aria-label',`${latest.epoch} of ${latest.epochs} epochs completed`);panel.append(progress);
   const classLabel=latest.loss_label || (/^Weighted (?:binary cross-entropy|dog BCE)/.test(latest.loss_definition||'')?'Weighted BCE':'Class');
-  const candidates=[['box_loss','Box','var(--accent)'],['class_loss',classLabel,'var(--warning)'],['dfl_loss','DFL','var(--bad)']];
+  const candidates=[['box_loss','Box','var(--accent)'],['class_loss',classLabel,'var(--warning)'],['dfl_loss','DFL','var(--bad)'],['anchor_penalty','Anchor (epoch end)','var(--info,#8e9bd6)']];
   const series=candidates.filter(([key])=>epochs.every(e=>Number.isFinite(e[key])));
   const frame=node('div',undefined,'training-loss');
   const maximum=Math.max(1,Math.ceil(Math.max(...epochs.flatMap(e=>series.map(([key])=>e[key])))*2.2)/2);

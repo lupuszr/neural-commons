@@ -26,7 +26,7 @@ test('recorded epochs are ordered, corrected by later events and validated',()=>
     event(progress(2)),event(progress(1)),event(progress(2,{class_loss:.2})),
     event(progress(0)),event(progress(21)),event(progress(1.5)),
     event(progress(3,{class_loss:NaN})),event(progress(3,{box_loss:-1})),
-    event(progress(3,{dfl_loss:Infinity})),{},
+    event(progress(3,{dfl_loss:Infinity})),event(progress(3,{anchor_penalty:NaN})),{},
   ]});
   assert.deepEqual(Array.from(epochs,e=>[e.epoch,e.class_loss]),[[1,1],[2,.2]]);
 });
@@ -70,4 +70,15 @@ test('an idle round without completed epochs does not claim training is running'
   const panel=context.researchTraining({status:'failed',definition:{label:'Failed tuning'},events:[]});
   assert.match(text(panel),/No completed epochs recorded/);
   assert.doesNotMatch(text(panel),/training worker running/);
+});
+
+test('anchored fine-tuning plots its measured regularizer separately',()=>{
+  const panel=context.researchTraining({status:'running',definition:{label:'Anchored tuning'},events:[
+    event(progress(1,{box_loss:1.1,anchor_penalty:.2})),
+    event(progress(2,{box_loss:.9,anchor_penalty:.14})),
+  ]});
+  assert.match(text(panel),/Anchor \(epoch end\): 0.1400/);
+  const nodes=descendants(panel);
+  assert.equal(nodes.filter(n=>n.tag==='path').length,3);
+  assert.match(nodes.find(n=>n.tag==='svg').attributes['aria-label'],/Anchor \(epoch end\) 0.1400/);
 });
