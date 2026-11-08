@@ -498,7 +498,8 @@ function researchTraining(round) {
   summary.setAttribute('aria-live','polite');panel.append(summary);
   const progress=node('progress');progress.max=latest.epochs;progress.value=latest.epoch;
   progress.setAttribute('aria-label',`${latest.epoch} of ${latest.epochs} epochs completed`);panel.append(progress);
-  const candidates=[['box_loss','Box','var(--accent)'],['class_loss',latest.loss_definition?'Weighted BCE':'Class','var(--warning)'],['dfl_loss','DFL','var(--bad)']];
+  const classLabel=latest.loss_label || (/^Weighted (?:binary cross-entropy|dog BCE)/.test(latest.loss_definition||'')?'Weighted BCE':'Class');
+  const candidates=[['box_loss','Box','var(--accent)'],['class_loss',classLabel,'var(--warning)'],['dfl_loss','DFL','var(--bad)']];
   const series=candidates.filter(([key])=>epochs.every(e=>Number.isFinite(e[key])));
   const frame=node('div',undefined,'training-loss');
   const maximum=Math.max(1,Math.ceil(Math.max(...epochs.flatMap(e=>series.map(([key])=>e[key])))*2.2)/2);

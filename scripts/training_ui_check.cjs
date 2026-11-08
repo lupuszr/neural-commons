@@ -47,9 +47,12 @@ test('partial fine-tuning plots only the measured loss with its actual definitio
 
 test('active full training displays all recorded losses and epoch progress',()=>{
   const panel=context.researchTraining({status:'running',definition:{label:'Full tuning'},events:[
-    event(progress(1,{box_loss:2,dfl_loss:3})),event(progress(2,{box_loss:1,dfl_loss:2})),
+    event(progress(1,{box_loss:2,dfl_loss:3})),event(progress(2,{box_loss:1,dfl_loss:2,
+      loss_definition:'YOLO26 supervised detection loss on both native heads'})),
   ]});
   assert.match(text(panel),/Epoch 2\/20 · training worker running/);
+  assert.match(text(panel),/Class: 0.5000/);
+  assert.doesNotMatch(text(panel),/Weighted BCE/);
   const nodes=descendants(panel),bar=nodes.find(n=>n.tag==='progress');
   assert.equal(bar.value,2);assert.equal(bar.max,20);
   assert.equal(nodes.filter(n=>n.tag==='path').length,3);
