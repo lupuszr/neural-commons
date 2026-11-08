@@ -481,6 +481,7 @@ function researchTrainingEpochs(round) {
   const epochs = new Map();
   for (const record of round.events || []) {
     const value = record.event?.data?.training_progress;
+    if (value?.valid===false && Number.isInteger(value.epoch)) { epochs.delete(value.epoch);continue; }
     if (!value || !Number.isInteger(value.epoch) || !Number.isInteger(value.epochs)
         || value.epoch < 1 || value.epoch > value.epochs
         || !Number.isFinite(value.class_loss) || value.class_loss<0

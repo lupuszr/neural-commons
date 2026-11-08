@@ -45,6 +45,13 @@ test('partial fine-tuning plots only the measured loss with its actual definitio
   assert.doesNotMatch(JSON.stringify(svg),/NaN|Infinity/);
 });
 
+test('an append-only correction removes a spurious epoch from the plot',()=>{
+  const epochs=context.researchTrainingEpochs({events:[
+    event(progress(1)),event(progress(2)),event({epoch:2,valid:false}),
+  ]});
+  assert.deepEqual(Array.from(epochs,e=>e.epoch),[1]);
+});
+
 test('active full training displays all recorded losses and epoch progress',()=>{
   const panel=context.researchTraining({status:'running',definition:{label:'Full tuning'},events:[
     event(progress(1,{box_loss:2,dfl_loss:3})),event(progress(2,{box_loss:1,dfl_loss:2,

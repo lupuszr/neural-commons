@@ -141,6 +141,9 @@ Only measured loss series are plotted. For a custom objective, include
 training loss. A completed or failed round keeps its progress without claiming
 that a training worker is still running. This display does not replace the
 separate selection and final evaluation records.
+To invalidate a spurious progress event without changing history, append a note
+with `training_progress: {epoch: N, valid: false}`. The plot removes that epoch;
+the original event and correction remain in Evidence.
 
 An optional `assets` array on an event enriches that event's attachments. Match
 each entry's `artifact` SHA-256 to an attachment and supply `label`, `filename`,
